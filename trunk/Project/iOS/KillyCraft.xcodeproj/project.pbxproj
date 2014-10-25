@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		194B80C319FB99D80021CE64 /* Service.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194B80C119FB99D80021CE64 /* Service.cpp */; };
+		194B80C619FB99E80021CE64 /* ServicesManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194B80C419FB99E80021CE64 /* ServicesManager.cpp */; };
+		194B80CB19FBA6750021CE64 /* FilesService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194B80C919FBA6750021CE64 /* FilesService.cpp */; };
 		196AD4C019F9832900D87881 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 196AD4BF19F9832900D87881 /* main.m */; };
 		196AD4C319F9832900D87881 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 196AD4C219F9832900D87881 /* AppController.mm */; };
 		196AD4C919F9832900D87881 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 196AD4C719F9832900D87881 /* Main.storyboard */; };
@@ -352,6 +355,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		194B80BF19FB982C0021CE64 /* Delegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Delegate.h; sourceTree = "<group>"; };
+		194B80C019FB982C0021CE64 /* Signal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Signal.h; sourceTree = "<group>"; };
+		194B80C119FB99D80021CE64 /* Service.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Service.cpp; sourceTree = "<group>"; };
+		194B80C219FB99D80021CE64 /* Service.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Service.h; sourceTree = "<group>"; };
+		194B80C419FB99E80021CE64 /* ServicesManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ServicesManager.cpp; sourceTree = "<group>"; };
+		194B80C519FB99E80021CE64 /* ServicesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServicesManager.h; sourceTree = "<group>"; };
+		194B80C719FB9A350021CE64 /* DeclaredTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeclaredTypes.h; sourceTree = "<group>"; };
+		194B80C919FBA6750021CE64 /* FilesService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FilesService.cpp; sourceTree = "<group>"; };
+		194B80CA19FBA6750021CE64 /* FilesService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilesService.h; sourceTree = "<group>"; };
 		196AD4BA19F9832900D87881 /* KillyCraft.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KillyCraft.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		196AD4BE19F9832900D87881 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		196AD4BF19F9832900D87881 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -1214,9 +1226,6 @@
 		19AB705E19FACAE90041EAB6 /* GameScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScreen.h; sourceTree = "<group>"; };
 		19AB705F19FACAE90041EAB6 /* MenuScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MenuScreen.cpp; sourceTree = "<group>"; };
 		19AB706019FACAE90041EAB6 /* MenuScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScreen.h; sourceTree = "<group>"; };
-		19AB706219FACAE90041EAB6 /* DeclaredTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeclaredTypes.h; sourceTree = "<group>"; };
-		19AB706319FACAE90041EAB6 /* Delegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Delegate.h; sourceTree = "<group>"; };
-		19AB706419FACAE90041EAB6 /* Signal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Signal.h; sourceTree = "<group>"; };
 		19AB707219FACE4F0041EAB6 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		19AB707319FACE4F0041EAB6 /* RootViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RootViewController.mm; sourceTree = "<group>"; };
 		19AB707519FACECB0041EAB6 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
@@ -1265,6 +1274,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		194B80BB19FB982C0021CE64 /* MelonGames */ = {
+			isa = PBXGroup;
+			children = (
+				194B80C719FB9A350021CE64 /* DeclaredTypes.h */,
+				194B80BC19FB982C0021CE64 /* Services */,
+			);
+			name = MelonGames;
+			path = ../../../Source/MelonGames;
+			sourceTree = "<group>";
+		};
+		194B80BC19FB982C0021CE64 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				194B80C119FB99D80021CE64 /* Service.cpp */,
+				194B80C219FB99D80021CE64 /* Service.h */,
+				194B80C419FB99E80021CE64 /* ServicesManager.cpp */,
+				194B80C519FB99E80021CE64 /* ServicesManager.h */,
+				194B80C919FBA6750021CE64 /* FilesService.cpp */,
+				194B80CA19FBA6750021CE64 /* FilesService.h */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		194B80BD19FB982C0021CE64 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				194B80BF19FB982C0021CE64 /* Delegate.h */,
+				194B80C019FB982C0021CE64 /* Signal.h */,
+			);
+			name = Util;
+			path = ../../../Source/Util;
+			sourceTree = "<group>";
+		};
+		194B80C819FBA6540021CE64 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		196AD4B119F9832900D87881 = {
 			isa = PBXGroup;
 			children = (
@@ -1287,6 +1336,8 @@
 			isa = PBXGroup;
 			children = (
 				19AB256919F9845E008D3B13 /* libs */,
+				194B80BB19FB982C0021CE64 /* MelonGames */,
+				194B80BD19FB982C0021CE64 /* Util */,
 				19AB704819FACAE90041EAB6 /* Game */,
 				196AD4C119F9832900D87881 /* AppController.h */,
 				196AD4C219F9832900D87881 /* AppController.mm */,
@@ -3183,11 +3234,11 @@
 		19AB704819FACAE90041EAB6 /* Game */ = {
 			isa = PBXGroup;
 			children = (
-				19AB706119FACAE90041EAB6 /* Util */,
 				19AB707519FACECB0041EAB6 /* AppDelegate.cpp */,
 				19AB707619FACECB0041EAB6 /* AppDelegate.h */,
 				19AB704919FACAE90041EAB6 /* Command */,
 				19AB704C19FACAE90041EAB6 /* Gameplay */,
+				194B80C819FBA6540021CE64 /* Services */,
 				19AB705C19FACAE90041EAB6 /* Screens */,
 			);
 			name = Game;
@@ -3245,16 +3296,6 @@
 				19AB706019FACAE90041EAB6 /* MenuScreen.h */,
 			);
 			path = Screens;
-			sourceTree = "<group>";
-		};
-		19AB706119FACAE90041EAB6 /* Util */ = {
-			isa = PBXGroup;
-			children = (
-				19AB706219FACAE90041EAB6 /* DeclaredTypes.h */,
-				19AB706319FACAE90041EAB6 /* Delegate.h */,
-				19AB706419FACAE90041EAB6 /* Signal.h */,
-			);
-			path = Util;
 			sourceTree = "<group>";
 		};
 		19AB707819FAD55B0041EAB6 /* Resources */ = {
@@ -3448,6 +3489,7 @@
 				19AB271119F984F3008D3B13 /* TransformUtils.cpp in Sources */,
 				19AB2C2719F99913008D3B13 /* CCPhysicsContact.cpp in Sources */,
 				19AB26C119F984E2008D3B13 /* CCEvent.cpp in Sources */,
+				194B80C319FB99D80021CE64 /* Service.cpp in Sources */,
 				19AB260719F984C6008D3B13 /* CCAnimation.cpp in Sources */,
 				19AB27C819F98519008D3B13 /* UIHBox.cpp in Sources */,
 				19AB260D19F984C6008D3B13 /* CCDrawingPrimitives.cpp in Sources */,
@@ -3609,6 +3651,7 @@
 				19AB26BA19F984E2008D3B13 /* CCConsole.cpp in Sources */,
 				19AB29A619F988FF008D3B13 /* CCTableViewCell.cpp in Sources */,
 				19AB26CE19F984E2008D3B13 /* CCEventListenerMouse.cpp in Sources */,
+				194B80C619FB99E80021CE64 /* ServicesManager.cpp in Sources */,
 				19AB706619FACAE90041EAB6 /* Component.cpp in Sources */,
 				19AB706919FACAE90041EAB6 /* Gamepad.cpp in Sources */,
 				19AB26C319F984E2008D3B13 /* CCEventController.cpp in Sources */,
@@ -3670,6 +3713,7 @@
 				19AB26C619F984E2008D3B13 /* CCEventFocus.cpp in Sources */,
 				19AB706E19FACAE90041EAB6 /* MenuScreen.cpp in Sources */,
 				19AB290619F98545008D3B13 /* CCThread.mm in Sources */,
+				194B80CB19FBA6750021CE64 /* FilesService.cpp in Sources */,
 				19AB26C219F984E2008D3B13 /* CCEventAcceleration.cpp in Sources */,
 				19AB26D919F984E2008D3B13 /* CCTouch.cpp in Sources */,
 				19AB706A19FACAE90041EAB6 /* Map.cpp in Sources */,
@@ -3840,7 +3884,7 @@
 					/Users/ricardperez/Desktop/KillyCraft/trunk/Source/libs/cocos2d/external/curl/prebuilt/ios,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "../../Source/libs/cocos2d/ ../../Source/libs/cocos2d/cocos ../../Source/libs/cocos2d/cocos/deprecated ../../Source/libs/cocos2d/external ../../Source/libs/cocos2d/external/edtaa3func ../../Source/libs/cocos2d/external/ConvertUTF ../../Source/libs/cocos2d/external/curl/include/ios/curl ../../Source/libs/cocos2d/external/xxhash ../../Source/libs/cocos2d/external/png/include/ios ../../Source/libs/cocos2d/external/webp/include/ios ../../Source/libs/cocos2d/external/tiff/include/ios ../../Source/libs/cocos2d/external/jpeg/include/ios ../../Source/libs/cocos2d/external/tinyxml2 ../../Source/libs/cocos2d/external/nslog ../../Source/libs/cocos2d/external/chipmunk/include/chipmunk ../../Source/Game";
+				USER_HEADER_SEARCH_PATHS = "../../Source/libs/cocos2d/ ../../Source/libs/cocos2d/cocos ../../Source/libs/cocos2d/cocos/deprecated ../../Source/libs/cocos2d/external ../../Source/libs/cocos2d/external/edtaa3func ../../Source/libs/cocos2d/external/ConvertUTF ../../Source/libs/cocos2d/external/curl/include/ios/curl ../../Source/libs/cocos2d/external/xxhash ../../Source/libs/cocos2d/external/png/include/ios ../../Source/libs/cocos2d/external/webp/include/ios ../../Source/libs/cocos2d/external/tiff/include/ios ../../Source/libs/cocos2d/external/jpeg/include/ios ../../Source/libs/cocos2d/external/tinyxml2 ../../Source/libs/cocos2d/external/nslog ../../Source/libs/cocos2d/external/chipmunk/include/chipmunk ../../Source ../../Source/Game";
 			};
 			name = Debug;
 		};
@@ -3867,7 +3911,7 @@
 					/Users/ricardperez/Desktop/KillyCraft/trunk/Source/libs/cocos2d/external/curl/prebuilt/ios,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "../../Source/libs/cocos2d/ ../../Source/libs/cocos2d/cocos ../../Source/libs/cocos2d/cocos/deprecated ../../Source/libs/cocos2d/external ../../Source/libs/cocos2d/external/edtaa3func ../../Source/libs/cocos2d/external/ConvertUTF ../../Source/libs/cocos2d/external/curl/include/ios/curl ../../Source/libs/cocos2d/external/xxhash ../../Source/libs/cocos2d/external/png/include/ios ../../Source/libs/cocos2d/external/webp/include/ios ../../Source/libs/cocos2d/external/tiff/include/ios ../../Source/libs/cocos2d/external/jpeg/include/ios ../../Source/libs/cocos2d/external/tinyxml2 ../../Source/libs/cocos2d/external/nslog ../../Source/libs/cocos2d/external/chipmunk/include/chipmunk ../../Source/Game";
+				USER_HEADER_SEARCH_PATHS = "../../Source/libs/cocos2d/ ../../Source/libs/cocos2d/cocos ../../Source/libs/cocos2d/cocos/deprecated ../../Source/libs/cocos2d/external ../../Source/libs/cocos2d/external/edtaa3func ../../Source/libs/cocos2d/external/ConvertUTF ../../Source/libs/cocos2d/external/curl/include/ios/curl ../../Source/libs/cocos2d/external/xxhash ../../Source/libs/cocos2d/external/png/include/ios ../../Source/libs/cocos2d/external/webp/include/ios ../../Source/libs/cocos2d/external/tiff/include/ios ../../Source/libs/cocos2d/external/jpeg/include/ios ../../Source/libs/cocos2d/external/tinyxml2 ../../Source/libs/cocos2d/external/nslog ../../Source/libs/cocos2d/external/chipmunk/include/chipmunk ../../Source ../../Source/Game";
 			};
 			name = Release;
 		};

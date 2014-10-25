@@ -28,11 +28,11 @@ namespace MelonGames
 		{
 			if (map)
 			{
-				componentsToAdd.emplace_back(component);
+				componentsToAdd.push_back(component);
 			}
 			else
 			{
-				components.emplace_back(component);
+				components.push_back(component);
 				component->onAttachedToObject(this);
 			}
 		}
@@ -62,7 +62,7 @@ namespace MelonGames
 			
 			for (auto component : componentsToAdd)
 			{
-				components.emplace_back(component);
+				components.push_back(component);
 				component->onAttachedToObject(this);
 				component->onObjectAttachedToMap();
 			}

@@ -58,7 +58,7 @@ namespace MelonGames
 		
 		void Map::addObject(MapObject* o)
 		{
-			objects.emplace_back(o);
+			objects.push_back(o);
 			o->onAttachedToMap(this);
 		}
 		

@@ -9,6 +9,17 @@
 #ifndef __KillyCraft__Service__
 #define __KillyCraft__Service__
 
-#include <stdio.h>
+#include "MelonGames/DeclaredTypes.h"
+
+namespace MelonGames
+{
+	class Service
+	{
+	public:
+		DECLARE_BASE_TYPE(Service);
+		
+		virtual ~Service();
+	};
+}
 
 #endif /* defined(__KillyCraft__Service__) */

@@ -29,7 +29,7 @@ namespace MelonGames
 			void flush();
 			
 			template <typename T>
-			T* get();
+			T* get() const;
 			
 			void onAttachedToMap(Map* map);
 			void onWillDetachFromMap();
@@ -50,7 +50,7 @@ namespace MelonGames
 		};
 		
 		template <typename T>
-		T* MapObject::get()
+		T* MapObject::get() const
 		{
 			for (auto c : components)
 			{

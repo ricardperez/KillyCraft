@@ -9,7 +9,7 @@
 #ifndef __KillyCraft__Component__
 #define __KillyCraft__Component__
 
-#include "Util/DeclaredTypes.h"
+#include "MelonGames/DeclaredTypes.h"
 
 namespace MelonGames
 {

@@ -9,6 +9,23 @@
 #ifndef __KillyCraft__FilesService__
 #define __KillyCraft__FilesService__
 
-#include <stdio.h>
+#include "Service.h"
+#include <vector>
+#include <string>
+
+namespace MelonGames
+{
+	class FilesService : public Service
+	{
+	public:
+		DECLARE_TYPE_WITH_BASE_TYPE(FilesService, Service);
+		
+		void addDirectory(const std::string& directory);
+		std::string getPathForFile(const std::string& fileName) const;
+		
+	private:
+		std::vector<std::string> directories;
+	};
+}
 
 #endif /* defined(__KillyCraft__FilesService__) */

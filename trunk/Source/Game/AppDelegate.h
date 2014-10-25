@@ -36,6 +36,9 @@ namespace MelonGames
 			 @param  the pointer of the application
 			 */
 			virtual void applicationWillEnterForeground();
+			
+		private:
+			void createServices();
 		};
 	}
 }

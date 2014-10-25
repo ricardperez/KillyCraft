@@ -7,3 +7,10 @@
 //
 
 #include "Service.h"
+
+namespace MelonGames
+{
+	Service::~Service()
+	{
+	}
+}

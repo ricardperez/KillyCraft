@@ -7,3 +7,18 @@
 //
 
 #include "ServicesManager.h"
+
+namespace MelonGames
+{
+	ServicesManager& ServicesManager::getInstance()
+	{
+		static ServicesManager instance;
+		return instance;
+	}
+	
+	void ServicesManager::add(Service* service)
+	{
+		services.push_back(service);
+	}
+	
+}

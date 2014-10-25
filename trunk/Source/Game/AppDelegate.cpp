@@ -1,5 +1,7 @@
 #include "AppDelegate.h"
 #include "GameScreen.h"
+#include "MelonGames/Services/ServicesManager.h"
+#include "MelonGames/Services/FilesService.h"
 
 namespace MelonGames
 {
@@ -31,6 +33,8 @@ namespace MelonGames
 			// set FPS. the default value is 1.0/60 if you don't call this
 			director->setAnimationInterval(1.0 / 60);
 			
+			createServices();
+			
 			// create a scene. it's an autorelease object
 			auto scene = Scene::create();
 			scene->addChild(GameScreen::create());
@@ -57,6 +61,15 @@ namespace MelonGames
 			
 			// if you use SimpleAudioEngine, it must resume here
 			// SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+		}
+		
+		void AppDelegate::createServices()
+		{
+			auto& servicesManager = ServicesManager::getInstance();
+			
+			FilesService* filesService = new FilesService();
+			servicesManager.add(filesService);
+			filesService->addDirectory("HiDPI/");
 		}
 	}
 }
