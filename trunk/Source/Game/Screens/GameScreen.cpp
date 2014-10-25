@@ -41,7 +41,9 @@ namespace MelonGames
 		{
 			if (cocos2d::Layer::create())
 			{
-				map = new Map();
+                MapDefinition mapDefinition;
+                mapDefinition.height = 5000.0f;
+				map = new Map(mapDefinition);
 				
 				cocos2d::Node* mapNode = cocos2d::Node::create();
 				mapNode->setPosition(getContentSize()*0.5f);

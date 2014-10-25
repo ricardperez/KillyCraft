@@ -9,6 +9,7 @@
 #include "ViewComponent.h"
 #include "Gameplay/MapObject.h"
 #include "Gameplay/Map.h"
+#include "Gameplay/View/MapView.h"
 #include "PositionComponent.h"
 #include "2d/CCSprite.h"
 #include "2d/CCSpriteFrame.h"
@@ -74,7 +75,7 @@ namespace MelonGames
 			Base::onObjectAttachedToMap();
 			
 			sprite = cocos2d::Sprite::createWithSpriteFrame(CocosUtil::spriteFrameOrDefault(spriteFrameName));
-			object->getMap()->getNode()->addChild(sprite);
+			object->getMap()->getView()->getNode()->addChild(sprite);
 			
 			auto posComponent = object->get<PositionComponent>();
 			posComponent->getPositionChangedSignal().Connect(this, &ViewComponent::onPositionChanged);

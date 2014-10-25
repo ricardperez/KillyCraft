@@ -22,19 +22,28 @@ namespace MelonGames
 	{
 		class MapObject;
 		class Player;
+        class MapView;
+        
+        struct MapDefinition
+        {
+            float height;
+        };
 		
 		class Map
 		{
 		public:
-			Map();
+			Map(const MapDefinition& mapDefinition);
 			virtual ~Map();
+            
+            const MapDefinition& getDefinition() const;
 			
 			void setNode(cocos2d::Node* node);
-			cocos2d::Node* getNode() const;
 			
 			void initialize();
+            
+            MapView* getView() const;
 			
-			Player* getPlayer() const;
+            Player* getPlayer() const;
 			
 			void addObject(MapObject* o);
 			void removeObjectWhenPossible(MapObject* o);
@@ -42,9 +51,11 @@ namespace MelonGames
 			void update(float dt);
 			
 		private:
+            MapDefinition definition;
 			std::vector<MapObject*> objects;
 			
 			cocos2d::Node* node;
+            MapView* view;
 			Player* player;
 		};
 	}

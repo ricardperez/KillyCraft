@@ -33,6 +33,17 @@ namespace MelonGames
 			// set FPS. the default value is 1.0/60 if you don't call this
 			director->setAnimationInterval(1.0 / 60);
 			
+            cocos2d::Size winSize = Director::getInstance()->getWinSizeInPixels();
+            float width = std::max(winSize.width, winSize.height);
+            if (width > 1024.0f)
+            {
+                director->setContentScaleFactor(2.0f);
+            }
+            else
+            {
+                director->setContentScaleFactor(1.0f);
+            }
+            
 			createServices();
 			
 			// create a scene. it's an autorelease object
@@ -68,8 +79,15 @@ namespace MelonGames
 			auto& servicesManager = ServicesManager::getInstance();
 			
 			FilesService* filesService = new FilesService();
+            if (Director::getInstance()->getContentScaleFactor() == 1.0f)
+            {
+                filesService->addDirectory("NormalDPI/");
+            }
+            else
+            {
+                filesService->addDirectory("HiDPI/");
+            }
 			servicesManager.add(filesService);
-			filesService->addDirectory("HiDPI/");
 		}
 	}
 }

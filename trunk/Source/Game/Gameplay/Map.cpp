@@ -11,6 +11,7 @@
 #include "MapObject.h"
 #include "Component.h"
 #include "ViewComponent.h"
+#include "View/MapView.h"
 
 #include "ObjectsFastFactory.h"
 
@@ -20,15 +21,18 @@ namespace MelonGames
 {
 	namespace KillyCraft
 	{
-		Map::Map()
-		: node(nullptr)
+		Map::Map(const MapDefinition& mapDefinition)
+		: definition(mapDefinition)
+        , node(nullptr)
+        , view(nullptr)
 		, player(nullptr)
 		{
 		}
 		
 		Map::~Map()
 		{
-			delete player;
+            delete player;
+            delete view;
 		}
 		
 		void Map::setNode(cocos2d::Node *node)
@@ -36,20 +40,27 @@ namespace MelonGames
 			this->node = node;
 		}
 		
-		cocos2d::Node* Map::getNode() const
+        MapView* Map::getView() const
 		{
-			return node;
+			return view;
 		}
 		
 		void Map::initialize()
 		{
 			assert(node);
+            
+            view = new MapView(this, node);
 			
 			player = new Player();
 			
 			auto player = ObjectsFastFactory::createPlayerObject();
 			addObject(player);
 		}
+        
+        const MapDefinition& Map::getDefinition() const
+        {
+            return definition;
+        }
 		
 		Player* Map::getPlayer() const
 		{
@@ -69,6 +80,10 @@ namespace MelonGames
 		
 		void Map::update(float dt)
 		{
+            assert(view);
+            
+            view->update(dt);
+            
 			auto it = objects.begin();
 			while (it != objects.end())
 			{

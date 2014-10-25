@@ -12,7 +12,6 @@
 		194B80CB19FBA6750021CE64 /* FilesService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194B80C919FBA6750021CE64 /* FilesService.cpp */; };
 		196AD4C019F9832900D87881 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 196AD4BF19F9832900D87881 /* main.m */; };
 		196AD4C319F9832900D87881 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 196AD4C219F9832900D87881 /* AppController.mm */; };
-		196AD4C919F9832900D87881 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 196AD4C719F9832900D87881 /* Main.storyboard */; };
 		196AD4CB19F9832900D87881 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 196AD4CA19F9832900D87881 /* Images.xcassets */; };
 		196AD4CE19F9832900D87881 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 196AD4CC19F9832900D87881 /* LaunchScreen.xib */; };
 		196AD4DA19F9832A00D87881 /* KillyCraftTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 196AD4D919F9832A00D87881 /* KillyCraftTests.m */; };
@@ -339,9 +338,10 @@
 		19AB707C19FAD5B70041EAB6 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 19AB707919FAD5B70041EAB6 /* fonts */; };
 		19AB707D19FAD5B70041EAB6 /* HiDPI in Resources */ = {isa = PBXBuildFile; fileRef = 19AB707A19FAD5B70041EAB6 /* HiDPI */; };
 		19AB707E19FAD5B70041EAB6 /* NormalDPI in Resources */ = {isa = PBXBuildFile; fileRef = 19AB707B19FAD5B70041EAB6 /* NormalDPI */; };
-		19AB708019FAD6850041EAB6 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 19AB707F19FAD6850041EAB6 /* placeholder.png */; };
 		19AB708319FADA230041EAB6 /* GamepadMoveComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AB708119FADA230041EAB6 /* GamepadMoveComponent.cpp */; };
 		19AB708619FADD2B0041EAB6 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AB708419FADD2B0041EAB6 /* Player.cpp */; };
+		19F4AFD719FBC6EB00C73F6E /* MapView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19F4AFD519FBC6EB00C73F6E /* MapView.cpp */; };
+		19F4AFDA19FBD05400C73F6E /* StarsView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19F4AFD819FBD05400C73F6E /* StarsView.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -369,7 +369,6 @@
 		196AD4BF19F9832900D87881 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		196AD4C119F9832900D87881 /* AppController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		196AD4C219F9832900D87881 /* AppController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppController.mm; sourceTree = "<group>"; };
-		196AD4C819F9832900D87881 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		196AD4CA19F9832900D87881 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		196AD4CD19F9832900D87881 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		196AD4D319F9832A00D87881 /* KillyCraftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KillyCraftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1233,11 +1232,14 @@
 		19AB707919FAD5B70041EAB6 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fonts; path = ../../../Resources/fonts; sourceTree = "<group>"; };
 		19AB707A19FAD5B70041EAB6 /* HiDPI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HiDPI; path = ../../../Resources/HiDPI; sourceTree = "<group>"; };
 		19AB707B19FAD5B70041EAB6 /* NormalDPI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = NormalDPI; path = ../../../Resources/NormalDPI; sourceTree = "<group>"; };
-		19AB707F19FAD6850041EAB6 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		19AB708119FADA230041EAB6 /* GamepadMoveComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GamepadMoveComponent.cpp; sourceTree = "<group>"; };
 		19AB708219FADA230041EAB6 /* GamepadMoveComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamepadMoveComponent.h; sourceTree = "<group>"; };
 		19AB708419FADD2B0041EAB6 /* Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
 		19AB708519FADD2B0041EAB6 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		19F4AFD519FBC6EB00C73F6E /* MapView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MapView.cpp; sourceTree = "<group>"; };
+		19F4AFD619FBC6EB00C73F6E /* MapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapView.h; sourceTree = "<group>"; };
+		19F4AFD819FBD05400C73F6E /* StarsView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StarsView.cpp; sourceTree = "<group>"; };
+		19F4AFD919FBD05400C73F6E /* StarsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarsView.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1343,7 +1345,6 @@
 				196AD4C219F9832900D87881 /* AppController.mm */,
 				19AB707219FACE4F0041EAB6 /* RootViewController.h */,
 				19AB707319FACE4F0041EAB6 /* RootViewController.mm */,
-				196AD4C719F9832900D87881 /* Main.storyboard */,
 				196AD4CA19F9832900D87881 /* Images.xcassets */,
 				196AD4CC19F9832900D87881 /* LaunchScreen.xib */,
 				19AB707819FAD55B0041EAB6 /* Resources */,
@@ -3257,6 +3258,7 @@
 		19AB704C19FACAE90041EAB6 /* Gameplay */ = {
 			isa = PBXGroup;
 			children = (
+				19F4AFD419FBC64B00C73F6E /* View */,
 				19AB704D19FACAE90041EAB6 /* Component */,
 				19AB705419FACAE90041EAB6 /* Gamepad.cpp */,
 				19AB705519FACAE90041EAB6 /* Gamepad.h */,
@@ -3301,12 +3303,22 @@
 		19AB707819FAD55B0041EAB6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				19AB707F19FAD6850041EAB6 /* placeholder.png */,
 				19AB707919FAD5B70041EAB6 /* fonts */,
 				19AB707A19FAD5B70041EAB6 /* HiDPI */,
 				19AB707B19FAD5B70041EAB6 /* NormalDPI */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		19F4AFD419FBC64B00C73F6E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				19F4AFD519FBC6EB00C73F6E /* MapView.cpp */,
+				19F4AFD619FBC6EB00C73F6E /* MapView.h */,
+				19F4AFD819FBD05400C73F6E /* StarsView.cpp */,
+				19F4AFD919FBD05400C73F6E /* StarsView.h */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -3395,7 +3407,6 @@
 				19AB2BE919F9910A008D3B13 /* CMakeLists.txt in Resources */,
 				19AB276F19F98509008D3B13 /* ccShader_PositionTexture.vert in Resources */,
 				19AB276A19F98509008D3B13 /* ccShader_PositionColor.frag in Resources */,
-				196AD4C919F9832900D87881 /* Main.storyboard in Resources */,
 				19AB270B19F984F3008D3B13 /* Mat4.inl in Resources */,
 				19AB276919F98509008D3B13 /* ccShader_Position_uColor.vert in Resources */,
 				19AB264219F984C7008D3B13 /* cocos2d_winrt_headers.props in Resources */,
@@ -3406,7 +3417,6 @@
 				19AB707C19FAD5B70041EAB6 /* fonts in Resources */,
 				19AB277319F98509008D3B13 /* ccShader_PositionTextureA8Color.vert in Resources */,
 				19AB271719F984F3008D3B13 /* Vec4.inl in Resources */,
-				19AB708019FAD6850041EAB6 /* placeholder.png in Resources */,
 				19AB276419F98509008D3B13 /* ccShader_Label_df.frag in Resources */,
 				19AB277819F98509008D3B13 /* ccShader_PositionTextureColorAlphaTest.frag in Resources */,
 				19AB277019F98509008D3B13 /* ccShader_PositionTexture_uColor.frag in Resources */,
@@ -3466,6 +3476,7 @@
 				19AB299119F988FF008D3B13 /* CCControl.cpp in Sources */,
 				19AB26E619F984E2008D3B13 /* ZipUtils.cpp in Sources */,
 				19AB261319F984C6008D3B13 /* CCFontAtlasCache.cpp in Sources */,
+				19F4AFDA19FBD05400C73F6E /* StarsView.cpp in Sources */,
 				19AB261719F984C6008D3B13 /* CCGLBufferedNode.cpp in Sources */,
 				19AB26B619F984E2008D3B13 /* base64.cpp in Sources */,
 				19AB277919F98509008D3B13 /* ccShaders.cpp in Sources */,
@@ -3710,6 +3721,7 @@
 				19AB26C519F984E2008D3B13 /* CCEventDispatcher.cpp in Sources */,
 				19AB2C6619F999C1008D3B13 /* cpPolyShape.c in Sources */,
 				19AB26D519F984E2008D3B13 /* CCProfiling.cpp in Sources */,
+				19F4AFD719FBC6EB00C73F6E /* MapView.cpp in Sources */,
 				19AB26C619F984E2008D3B13 /* CCEventFocus.cpp in Sources */,
 				19AB706E19FACAE90041EAB6 /* MenuScreen.cpp in Sources */,
 				19AB290619F98545008D3B13 /* CCThread.mm in Sources */,
@@ -3746,14 +3758,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		196AD4C719F9832900D87881 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				196AD4C819F9832900D87881 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		196AD4CC19F9832900D87881 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
