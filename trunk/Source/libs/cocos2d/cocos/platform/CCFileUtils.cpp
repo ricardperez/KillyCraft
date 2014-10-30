@@ -35,9 +35,21 @@ THE SOFTWARE.
 
 #include "tinyxml2.h"
 #include "unzip.h"
+#include <sys/stat.h>
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+#include <regex>
+#endif
 
-using namespace std;
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+#include <ftw.h>
+#endif
+
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32) && (CC_TARGET_PLATFORM != CC_PLATFORM_WP8) && (CC_TARGET_PLATFORM != CC_PLATFORM_WINRT)
+#include <sys/types.h>
+#include <errno.h>
+#include <dirent.h>
+#endif
 
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_IOS) && (CC_TARGET_PLATFORM != CC_PLATFORM_MAC)
 
@@ -100,6 +112,18 @@ public:
         parser.parse(fileName);
 		return _rootDict;
     }
+
+	ValueMap dictionaryWithDataOfFile(const char* filedata, int filesize)
+	{
+		_resultType = SAX_RESULT_DICT;
+		SAXParser parser;
+
+		CCASSERT(parser.init("UTF-8"), "The file format isn't UTF-8");
+		parser.setDelegator(this);
+
+		parser.parse(filedata, filesize);
+		return _rootDict;
+	}
 
     ValueVector arrayWithContentsOfFile(const std::string& fileName)
     {
@@ -317,6 +341,12 @@ ValueMap FileUtils::getValueMapFromFile(const std::string& filename)
     return tMaker.dictionaryWithContentsOfFile(fullPath.c_str());
 }
 
+ValueMap FileUtils::getValueMapFromData(const char* filedata, int filesize)
+{
+    DictMaker tMaker;
+    return tMaker.dictionaryWithDataOfFile(filedata, filesize);
+}
+
 ValueVector FileUtils::getValueVectorFromFile(const std::string& filename)
 {
     const std::string fullPath = fullPathForFilename(filename.c_str());
@@ -468,6 +498,7 @@ NS_CC_BEGIN
 
 /* The subclass FileUtilsApple should override these two method. */
 ValueMap FileUtils::getValueMapFromFile(const std::string& filename) {return ValueMap();}
+ValueMap FileUtils::getValueMapFromData(const char* filedata, int filesize) {return ValueMap();}
 ValueVector FileUtils::getValueVectorFromFile(const std::string& filename) {return ValueVector();}
 bool FileUtils::writeToFile(ValueMap& dict, const std::string &fullPath) {return false;}
 
@@ -475,7 +506,6 @@ bool FileUtils::writeToFile(ValueMap& dict, const std::string &fullPath) {return
 
 
 FileUtils* FileUtils::s_sharedFileUtils = nullptr;
-
 
 void FileUtils::destroyInstance()
 {
@@ -621,7 +651,12 @@ unsigned char* FileUtils::getFileDataFromZip(const std::string& zipFilePath, con
         file = unzOpen(zipFilePath.c_str());
         CC_BREAK_IF(!file);
 
+        // FIXME: Other platforms should use upstream minizip like mingw-w64  
+        #ifdef __MINGW32__
+        int ret = unzLocateFile(file, filename.c_str(), NULL);
+        #else
         int ret = unzLocateFile(file, filename.c_str(), 1);
+        #endif
         CC_BREAK_IF(UNZ_OK != ret);
 
         char filePathA[260];
@@ -728,9 +763,11 @@ std::string FileUtils::fullPathForFilename(const std::string &filename)
         }
     }
     
-    CCLOG("cocos2d: fullPathForFilename: No file found at %s. Possible missing file.", filename.c_str());
+    if(isPopupNotify()){
+        CCLOG("cocos2d: fullPathForFilename: No file found at %s. Possible missing file.", filename.c_str());
+    }
 
-    // XXX: Should it return nullptr ? or an empty string ?
+    // FIXME: Should it return nullptr ? or an empty string ?
     // The file wasn't found, return the file name passed in.
     return filename;
 }
@@ -882,46 +919,380 @@ std::string FileUtils::getFullPathForDirectoryAndFilename(const std::string& dir
     return ret;
 }
 
+std::string FileUtils::searchFullPathForFilename(const std::string& filename) const
+{
+    if (isAbsolutePath(filename))
+    {
+        return filename;
+    }
+    std::string path = const_cast<FileUtils*>(this)->fullPathForFilename(filename);
+    if (0 == path.compare(filename))
+    {
+        return "";
+    }
+    else
+    {
+        return path;
+    }
+}
+
 bool FileUtils::isFileExist(const std::string& filename) const
 {
-    // If filename is absolute path, we don't need to consider 'search paths' and 'resolution orders'.
     if (isAbsolutePath(filename))
     {
         return isFileExistInternal(filename);
     }
-    
-    // Already Cached ?
-    auto cacheIter = _fullPathCache.find(filename);
-    if( cacheIter != _fullPathCache.end() )
+    else
     {
-        return true;
+        std::string fullpath = searchFullPathForFilename(filename);
+        if (fullpath.empty())
+            return false;
+        else
+            return true;
     }
-    
-    // Get the new file name.
-    const std::string newFilename( getNewFilename(filename) );
-    
-	std::string fullpath;
-    
-    for (auto searchIt = _searchPathArray.cbegin(); searchIt != _searchPathArray.cend(); ++searchIt)
-    {
-        for (auto resolutionIt = _searchResolutionsOrderArray.cbegin(); resolutionIt != _searchResolutionsOrderArray.cend(); ++resolutionIt)
-        {
-            fullpath = const_cast<FileUtils*>(this)->getPathForFilename(newFilename, *resolutionIt, *searchIt);
-            
-            if (!fullpath.empty())
-            {
-                // Using the filename passed in as key.
-                const_cast<FileUtils*>(this)->_fullPathCache.insert(std::make_pair(filename, fullpath));
-                return true;
-            }
-        }
-    }
-    return false;
 }
 
 bool FileUtils::isAbsolutePath(const std::string& path) const
 {
     return (path[0] == '/');
+}
+
+bool FileUtils::isDirectoryExistInternal(const std::string& dirPath) const
+{
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) ||  (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
+    WIN32_FILE_ATTRIBUTE_DATA wfad;
+    std::wstring wdirPath(dirPath.begin(), dirPath.end());
+    if (GetFileAttributesEx(wdirPath.c_str(), GetFileExInfoStandard, &wfad))
+	{
+		return true;
+	}
+	return false;
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	unsigned long fAttrib = GetFileAttributesA(dirPath.c_str());
+    if (fAttrib != INVALID_FILE_ATTRIBUTES &&
+        (fAttrib & FILE_ATTRIBUTE_DIRECTORY))
+    {
+		return true;
+    }
+    return false;
+#else
+    struct stat st;
+    if (stat(dirPath.c_str(), &st) == 0)
+    {
+        return S_ISDIR(st.st_mode);
+    }
+    return false;
+#endif
+
+
+}
+
+bool FileUtils::isDirectoryExist(const std::string& dirPath)
+{
+    CCASSERT(!dirPath.empty(), "Invalid path");
+    
+    if (isAbsolutePath(dirPath))
+    {
+        return isDirectoryExistInternal(dirPath);
+    }
+    
+    // Already Cached ?
+    auto cacheIter = _fullPathCache.find(dirPath);
+    if( cacheIter != _fullPathCache.end() )
+    {
+        return isDirectoryExistInternal(cacheIter->second);
+    }
+    
+	std::string fullpath;
+    for (auto searchIt = _searchPathArray.cbegin(); searchIt != _searchPathArray.cend(); ++searchIt)
+    {
+        for (auto resolutionIt = _searchResolutionsOrderArray.cbegin(); resolutionIt != _searchResolutionsOrderArray.cend(); ++resolutionIt)
+        {
+            // searchPath + file_path + resourceDirectory
+            fullpath = *searchIt + dirPath + *resolutionIt;
+            if (isDirectoryExistInternal(fullpath))
+            {
+                const_cast<FileUtils*>(this)->_fullPathCache.insert(std::make_pair(dirPath, fullpath));
+                return true;
+            }
+        }
+    }
+    
+    return false;
+}
+
+bool FileUtils::createDirectory(const std::string& path)
+{
+    CCASSERT(!path.empty(), "Invalid path");
+    
+    if (isDirectoryExist(path))
+        return true;
+    
+    // Split the path
+    size_t start = 0;
+    size_t found = path.find_first_of("/\\", start);
+    std::string subpath;
+    std::vector<std::string> dirs;
+    
+    if (found != std::string::npos)
+    {
+        while (true)
+        {
+            subpath = path.substr(start, found - start + 1);
+            if (!subpath.empty())
+                dirs.push_back(subpath);
+            start = found+1;
+            found = path.find_first_of("/\\", start);
+            if (found == std::string::npos)
+            {
+                if (start < path.length())
+                {
+                    dirs.push_back(path.substr(start));
+                }
+                break;
+            }
+        }
+    }
+
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
+	WIN32_FILE_ATTRIBUTE_DATA wfad;
+    std::wstring wpath(path.begin(), path.end());
+    if (!(GetFileAttributesEx(wpath.c_str(), GetFileExInfoStandard, &wfad)))
+	{
+		subpath = "";
+		for(int i = 0 ; i < dirs.size() ; ++i)
+		{
+			subpath += dirs[i];
+			if (i > 0 && !isDirectoryExist(subpath))
+			{
+                std::wstring wsubpath(subpath.begin(), subpath.end());
+                BOOL ret = CreateDirectory(wsubpath.c_str(), NULL);
+				if (!ret && ERROR_ALREADY_EXISTS != GetLastError())
+				{
+					return false;
+				}
+			}
+		}
+	}
+	return true;
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+    if ((GetFileAttributesA(path.c_str())) == INVALID_FILE_ATTRIBUTES)
+    {
+		subpath = "";
+		for (int i = 0; i < dirs.size(); ++i)
+		{
+			subpath += dirs[i];
+			if (!isDirectoryExist(subpath))
+			{
+				BOOL ret = CreateDirectoryA(subpath.c_str(), NULL);
+				if (!ret && ERROR_ALREADY_EXISTS != GetLastError())
+				{
+					return false;
+				}
+			}
+		}
+    }
+    return true;
+#else
+    DIR *dir = NULL;
+
+    // Create path recursively
+    subpath = "";
+    for (int i = 0; i < dirs.size(); ++i) {
+        subpath += dirs[i];
+        dir = opendir(subpath.c_str());
+        if (!dir)
+        {
+            int ret = mkdir(subpath.c_str(), S_IRWXU | S_IRWXG | S_IRWXO);
+            if (ret != 0 && (errno != EEXIST))
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+#endif
+}
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+static int unlink_cb(const char *fpath, const struct stat *sb, int typeflag, struct FTW *ftwbuf)
+{
+    auto ret = remove(fpath);
+    if (ret) {
+        log("Fail to remove:%s ",fpath);
+    }
+    
+    return ret;
+}
+#endif
+
+bool FileUtils::removeDirectory(const std::string& path)
+{
+    if (path.size() > 0 && path[path.size() - 1] != '/')
+    {
+        CCLOGERROR("Fail to remove directory, path must termniate with '/': %s", path.c_str());
+        return false;
+    }
+    
+    // Remove downloaded files
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
+    std::wstring wpath = std::wstring(path.begin(), path.end());
+    std::wstring files = wpath +  L"*.*";
+	WIN32_FIND_DATA wfd;
+	HANDLE  search = FindFirstFileEx(files.c_str(), FindExInfoStandard, &wfd, FindExSearchNameMatch, NULL, 0);
+	bool ret=true;   
+	if (search!=INVALID_HANDLE_VALUE)   
+	{   
+		bool find=true;   
+		while (find)
+		{ 
+			//. ..
+			if(wfd.cFileName[0]!='.')  
+			{   
+                std::wstring temp = wpath + wfd.cFileName;
+				if (wfd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+				{
+                    temp += '/';
+                    ret = ret && this->removeDirectory(std::string(temp.begin(), temp.end()));
+				}
+				else
+				{   
+                    SetFileAttributes(temp.c_str(), FILE_ATTRIBUTE_NORMAL);
+                    ret = ret && DeleteFile(temp.c_str());
+				}
+			}
+			find = FindNextFile(search, &wfd);
+		}
+		FindClose(search);
+	}
+	if (ret)
+		return RemoveDirectory(wpath.c_str());
+	return false;
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	std::string command = "cmd /c rd /s /q ";
+	// Path may include space.
+	command += "\"" + path + "\"";
+
+	if (WinExec(command.c_str(), SW_HIDE) > 31)
+		return true;
+	else
+		return false;
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+    if (nftw(path.c_str(),unlink_cb, 64, FTW_DEPTH | FTW_PHYS))
+        return false;
+    else
+        return true;
+#else
+    std::string command = "rm -r ";
+    // Path may include space.
+    command += "\"" + path + "\"";
+    if (system(command.c_str()) >= 0)
+        return true;
+    else
+        return false;
+#endif
+}
+
+bool FileUtils::removeFile(const std::string &path)
+{
+    // Remove downloaded file
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
+    std::wstring wpath(path.begin(), path.end());
+    if (DeleteFile(wpath.c_str()))
+	{
+		return true;
+	}
+	return false;
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	std::string command = "cmd /c del /q ";
+	std::string win32path = path;
+	int len = win32path.length();
+	for (int i = 0; i < len; ++i)
+	{
+		if (win32path[i] == '/')
+		{
+			win32path[i] = '\\';
+		}
+	}
+	command += win32path;
+
+	if (WinExec(command.c_str(), SW_HIDE) > 31)
+		return true;
+	else
+		return false;
+#else
+    if (remove(path.c_str())) {
+        return false;
+    } else {
+        return true;
+    }
+#endif
+}
+
+bool FileUtils::renameFile(const std::string &path, const std::string &oldname, const std::string &name)
+{
+    CCASSERT(!path.empty(), "Invalid path");
+    std::string oldPath = path + oldname;
+    std::string newPath = path + name;
+    
+    // Rename a file
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)
+    int errorCode = rename(oldPath.c_str(), newPath.c_str());
+    
+    if (0 != errorCode)
+    {
+        CCLOGERROR("Fail to rename file %s to %s !Error code is %d", oldPath.c_str(), newPath.c_str(), errorCode);
+        return false;
+    }
+    return true;
+#else
+    std::regex pat("\/");
+    std::string _old = std::regex_replace(oldPath, pat, "\\");
+    std::string _new = std::regex_replace(newPath, pat, "\\");
+    
+    if(FileUtils::getInstance()->isFileExist(_new))
+    {
+        DeleteFileA(_new.c_str());
+    }
+    
+    MoveFileA(_old.c_str(), _new.c_str());
+    
+    if(0 == GetLastError())
+        return true;
+    else
+        return false;
+#endif
+}
+
+long FileUtils::getFileSize(const std::string &filepath)
+{
+    CCASSERT(!filepath.empty(), "Invalid path");
+    
+    std::string fullpath = filepath;
+    if (!isAbsolutePath(filepath))
+    {
+        fullpath = searchFullPathForFilename(filepath);
+        if (fullpath.empty())
+            return 0;
+    }
+    
+    struct stat info;
+    // Get data associated with "crt_stat.c":
+    int result = stat( fullpath.c_str(), &info );
+    
+    // Check if statistics are valid:
+    if( result != 0 )
+    {
+        // Failed
+        return -1;
+    }
+    else
+    {
+        return (long)(info.st_size);
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////

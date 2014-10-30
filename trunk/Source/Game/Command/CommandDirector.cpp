@@ -7,8 +7,8 @@
 //
 
 #include "CommandDirector.h"
-#include "CCPlatformMacros.h"
-#include "CCConsole.h"
+#include "platform/CCPlatformMacros.h"
+#include "base/CCConsole.h"
 
 namespace MelonGames
 {

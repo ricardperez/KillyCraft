@@ -1,5 +1,5 @@
 #include "AppDelegate.h"
-#include "GameScreen.h"
+#include "Screens/GameScreen.h"
 #include "MelonGames/Services/ServicesManager.h"
 #include "MelonGames/Services/FilesService.h"
 
@@ -23,7 +23,7 @@ namespace MelonGames
 			auto director = Director::getInstance();
 			auto glview = director->getOpenGLView();
 			if(!glview) {
-				glview = GLView::create("KillyCraft");
+				glview = GLViewImpl::create("KillyCraft");
 				director->setOpenGLView(glview);
 			}
 			

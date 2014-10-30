@@ -49,6 +49,8 @@ namespace MelonGames
 			void removeObjectWhenPossible(MapObject* o);
 			
 			void update(float dt);
+            
+            float getElapsedTime() const;
 			
 		private:
             MapDefinition definition;
@@ -57,6 +59,8 @@ namespace MelonGames
 			cocos2d::Node* node;
             MapView* view;
 			Player* player;
+            
+            float elapsedTime;
 		};
 	}
 }

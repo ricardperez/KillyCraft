@@ -21,6 +21,10 @@ namespace MelonGames
 		
 		MapObject::~MapObject()
 		{
+            for (auto it = components.begin(); it != components.end(); ++it)
+            {
+                delete *it;
+            }
 			components.clear();
 		}
 		
@@ -39,11 +43,8 @@ namespace MelonGames
 		
 		void MapObject::removeComponent(Component *component)
 		{
-			if (component)
-			{
-				component->onWillDetachFromObject();
-				componentsToRemove.push_back(component);
-			}
+            component->onWillDetachFromObject();
+            componentsToRemove.push_back(component);
 		}
 		
 		void MapObject::flush()
@@ -53,10 +54,9 @@ namespace MelonGames
 			for (auto component : componentsToRemove)
 			{
 				auto it = std::find(components.begin(), components.end(), component);
-				if (it != components.end())
-				{
-					components.erase(it);
-				}
+                assert (it != components.end());
+                components.erase(it);
+                delete component;
 			}
 			componentsToRemove.clear();
 			

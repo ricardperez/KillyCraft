@@ -11,6 +11,7 @@
 #include "base/CCEventListenerTouch.h"
 #include "base/CCDirector.h"
 #include "base/CCScheduler.h"
+#include "base/CCEventDispatcher.h"
 
 namespace MelonGames
 {

@@ -15,7 +15,7 @@
 #include "2d/CCSpriteFrame.h"
 #include "2d/CCSpriteFrameCache.h"
 #include "renderer/CCTextureCache.h"
-#include "CCDirector.h"
+#include "base/CCDirector.h"
 
 namespace MelonGames
 {

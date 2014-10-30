@@ -9,8 +9,8 @@
 #include "Map.h"
 #include "Player.h"
 #include "MapObject.h"
-#include "Component.h"
-#include "ViewComponent.h"
+#include "Component/Component.h"
+#include "Component/ViewComponent.h"
 #include "View/MapView.h"
 
 #include "ObjectsFastFactory.h"
@@ -26,11 +26,17 @@ namespace MelonGames
         , node(nullptr)
         , view(nullptr)
 		, player(nullptr)
+        , elapsedTime(0.0f)
 		{
 		}
 		
 		Map::~Map()
 		{
+            for (auto object : objects)
+            {
+                delete object;
+            }
+            
             delete player;
             delete view;
 		}
@@ -82,6 +88,8 @@ namespace MelonGames
 		{
             assert(view);
             
+            elapsedTime += dt;
+            
             view->update(dt);
             
 			auto it = objects.begin();
@@ -95,7 +103,9 @@ namespace MelonGames
 				}
 				else
 				{
+                    MapObject* obj = *it;
 					it = objects.erase(it);
+                    delete obj;
 				}
 			}
 			
@@ -104,5 +114,10 @@ namespace MelonGames
 				object->update(dt);
 			}
 		}
+        
+        float Map::getElapsedTime() const
+        {
+            return elapsedTime;
+        }
 	}
 }
