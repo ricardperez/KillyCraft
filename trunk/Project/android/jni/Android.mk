@@ -2,9 +2,9 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-$(call import-add-path,$(LOCAL_PATH)/../../cocos2d)
-$(call import-add-path,$(LOCAL_PATH)/../../cocos2d/external)
-$(call import-add-path,$(LOCAL_PATH)/../../cocos2d/cocos)
+$(call import-add-path,$(LOCAL_PATH)/../../../Source/libs/cocos2d)
+$(call import-add-path,$(LOCAL_PATH)/../../../Source/libs/cocos2d/external)
+$(call import-add-path,$(LOCAL_PATH)/../../../Source/libs/cocos2d/cocos)
 
 LOCAL_MODULE := cocos2dcpp_shared
 
@@ -31,7 +31,8 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../../Source/MelonGames/Services/Service.cpp \
                    ../../../Source/MelonGames/Services/ServicesManager.cpp
 
-LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../Source
+LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../Source \
+                    $(LOCAL_PATH)/../../../Source/Game \
 
 LOCAL_STATIC_LIBRARIES := cocos2dx_static
 
