@@ -13,10 +13,19 @@ LOCAL_MODULE_FILENAME := libcocos2dcpp
 LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../../Source/Game/AppDelegate.cpp \
                    ../../../Source/Game/Command/CommandDirector.cpp \
+                   ../../../Source/Game/Gameplay/Behaviour/Behaviour.cpp \
+                   ../../../Source/Game/Gameplay/Behaviour/DestroyBehaviour.cpp \
+                   ../../../Source/Game/Gameplay/Behaviour/DestroyBehaviourFunctions.cpp \
+                   ../../../Source/Game/Gameplay/Behaviour/MovementBehaviours.cpp \
+                   ../../../Source/Game/Gameplay/Component/BehaviourComponent.cpp \
                    ../../../Source/Game/Gameplay/Component/Component.cpp \
+                   ../../../Source/Game/Gameplay/Component/ComponentModifiers.cpp \
                    ../../../Source/Game/Gameplay/Component/GamepadComponent.cpp \
+                   ../../../Source/Game/Gameplay/Component/MovementStateComponents.cpp \
                    ../../../Source/Game/Gameplay/Component/PositionComponent.cpp \
+                   ../../../Source/Game/Gameplay/Component/TimeComponent.cpp \
                    ../../../Source/Game/Gameplay/Component/ViewComponent.cpp \
+                   ../../../Source/Game/Gameplay/Component/ViewOpacityMaskComponent.cpp \
                    ../../../Source/Game/Gameplay/Component/WeaponComponent.cpp \
                    ../../../Source/Game/Gameplay/Gamepad.cpp \
                    ../../../Source/Game/Gameplay/Map.cpp \

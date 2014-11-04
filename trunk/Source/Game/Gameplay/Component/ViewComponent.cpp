@@ -28,28 +28,42 @@ namespace MelonGames
 				cocos2d::SpriteFrame* frame = cocos2d::SpriteFrameCache::getInstance()->getSpriteFrameByName(name);
 				if (frame == nullptr)
 				{
-					cocos2d::Texture2D* texture = cocos2d::Director::getInstance()->getTextureCache()->addImage(name);
-					if (texture)
-					{
-						cocos2d::Rect rect;
-						rect.size = texture->getContentSize();
-						frame = cocos2d::SpriteFrame::createWithTexture(texture, rect);
-					}
-					else
-					{
-						frame = cocos2d::SpriteFrameCache::getInstance()->getSpriteFrameByName("placeholder.png");
-						if (frame == nullptr)
-						{
-							cocos2d::Texture2D* texture = cocos2d::Director::getInstance()->getTextureCache()->addImage("placeholder.png");
-							if (texture)
-							{
-								cocos2d::Rect rect;
-								rect.size = texture->getContentSize();
-								frame = cocos2d::SpriteFrame::createWithTexture(texture, rect);
-							}
-						}
-					}
+                    if (cocos2d::Texture2D* texture = cocos2d::Director::getInstance()->getTextureCache()->addImage(name))
+                    {
+                        cocos2d::Rect rect;
+                        rect.size = texture->getContentSize();
+                        frame = cocos2d::SpriteFrame::createWithTexture(texture, rect);
+                    }
+                    else
+                    {
+                        CCLOG("Can't create a texture with file %s", name.c_str());
+                    }
 				}
+                
+                if (frame == nullptr && name != "placeholder.png")
+                {
+                    frame = spriteFrameOrDefault("placeholder.png");
+                }
+                
+                if (frame == nullptr)
+                {
+                    static cocos2d::Texture2D* texture = nullptr;
+                    if (texture == nullptr)
+                    {
+                        texture = new cocos2d::Texture2D();
+                        const int size = 64;
+                        int nElements = size*size*4;
+                        GLubyte buffer[nElements];
+                        memset(buffer, 255, nElements);
+                        texture->initWithData(buffer, 4, cocos2d::Texture2D::PixelFormat::RGBA8888, size, size, cocos2d::Size(size, size));
+                    }
+                    
+                    cocos2d::Rect rect;
+                    rect.size = texture->getContentSize();
+                    frame = cocos2d::SpriteFrame::createWithTexture(texture, rect);
+                    
+                    //[[CCTexture2D alloc] initWithData:buffer pixelFormat:kCCTexture2DPixelFormat_RGB5A1 pixelsWide:1 pixelsHigh:1 contentSize:size];
+                }
 				
 				return frame;
 			}

@@ -31,7 +31,7 @@ namespace MelonGames
 				MapObject* result = new MapObject();
 				
 				PositionComponent* posComponent = new PositionComponent();
-				posComponent->setPosition(cocos2d::Vec3(150.0f, 60.0f, 0.0f));
+				posComponent->setPosition(cocos2d::Vec3(150.0f, 100.0f, 0.0f));
 				result->addComponent(posComponent);
 				
 				ViewComponent* viewComponent = new ViewComponent();
@@ -43,7 +43,7 @@ namespace MelonGames
                 result->addComponent(weaponComponent);
 				
 				GamepadMoveComponent* gamepadMoveComponent = new GamepadMoveComponent();
-				gamepadMoveComponent->setSpeed(100.0f, 100.0f);
+				gamepadMoveComponent->setSpeed(500.0f, 500.0f);
 				result->addComponent(gamepadMoveComponent);
                 
                 GamepadShootComponent* gamepadShootComponent = new GamepadShootComponent();
@@ -109,7 +109,7 @@ namespace MelonGames
                 result->addComponent(viewComponent);
                 
                 auto linearMoveState = new LinearMoveStateComponent();
-                linearMoveState->setMovementPerSecond(cocos2d::Vec3(0.0f, 100.0f, 0.0f));
+                linearMoveState->setMovementPerSecond(cocos2d::Vec3(0.0f, 600.0f, 0.0f));
                 result->addComponent(linearMoveState);
                 
                 //Behaviour
