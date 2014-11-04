@@ -32,8 +32,11 @@ namespace MelonGames
 			virtual ~ViewComponent();
 			
 			virtual void onObjectAttachedToMap() override;
+            virtual void onWillDetachFromObject() override;
 			
 			void setSpriteFrameName(const std::string& name);
+            
+            cocos2d::Sprite* getSprite() const;
 			
 		protected:
 			void onPositionChanged(PositionComponent* posComponent);

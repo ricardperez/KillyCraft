@@ -12,7 +12,7 @@
 #include "Component.h"
 #include "math/Vec2.h"
 #include "math/Vec3.h"
-#include "Util/Signal.h"
+#include "libs/Signal/Signal.h"
 
 namespace MelonGames
 {
@@ -27,6 +27,8 @@ namespace MelonGames
 			
 			void setPosition(const cocos2d::Vec3& p);
 			const cocos2d::Vec3& getPosition() const;
+            cocos2d::Vec2 getGroundPosition() const;
+            
 			
 			bool isPositionSet() const;
 			

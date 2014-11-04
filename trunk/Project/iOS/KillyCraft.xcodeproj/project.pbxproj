@@ -7,11 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		190913681A0383F400840DCB /* Behaviour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 190913661A0383F400840DCB /* Behaviour.cpp */; };
+		1909136B1A03849700840DCB /* MovementBehaviours.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 190913691A03849700840DCB /* MovementBehaviours.cpp */; };
+		1909136E1A03851300840DCB /* DestroyBehaviour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1909136C1A03851300840DCB /* DestroyBehaviour.cpp */; };
+		190913701A03882F00840DCB /* DestroyBehaviourFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1909136F1A03882F00840DCB /* DestroyBehaviourFunctions.cpp */; };
+		190913731A03898200840DCB /* BehaviourComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 190913711A03898200840DCB /* BehaviourComponent.cpp */; };
 		19202CBB19FBEA8500AFAB33 /* GamepadComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19202CB919FBEA8500AFAB33 /* GamepadComponent.cpp */; };
 		19202CBE19FBEC8300AFAB33 /* WeaponComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19202CBC19FBEC8300AFAB33 /* WeaponComponent.cpp */; };
 		194B80C319FB99D80021CE64 /* Service.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194B80C119FB99D80021CE64 /* Service.cpp */; };
 		194B80C619FB99E80021CE64 /* ServicesManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194B80C419FB99E80021CE64 /* ServicesManager.cpp */; };
 		194B80CB19FBA6750021CE64 /* FilesService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194B80C919FBA6750021CE64 /* FilesService.cpp */; };
+		194EFC981A039999007C5014 /* TimeComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194EFC961A039999007C5014 /* TimeComponent.cpp */; };
+		194EFC9B1A039E58007C5014 /* MovementStateComponents.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194EFC991A039E58007C5014 /* MovementStateComponents.cpp */; };
+		194EFC9E1A03A612007C5014 /* ComponentModifiers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194EFC9C1A03A612007C5014 /* ComponentModifiers.cpp */; };
 		196AD4C019F9832900D87881 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 196AD4BF19F9832900D87881 /* main.m */; };
 		196AD4C319F9832900D87881 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 196AD4C219F9832900D87881 /* AppController.mm */; };
 		196AD4CB19F9832900D87881 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 196AD4CA19F9832900D87881 /* Images.xcassets */; };
@@ -92,6 +100,7 @@
 		19AB707D19FAD5B70041EAB6 /* HiDPI in Resources */ = {isa = PBXBuildFile; fileRef = 19AB707A19FAD5B70041EAB6 /* HiDPI */; };
 		19AB707E19FAD5B70041EAB6 /* NormalDPI in Resources */ = {isa = PBXBuildFile; fileRef = 19AB707B19FAD5B70041EAB6 /* NormalDPI */; };
 		19AB708619FADD2B0041EAB6 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AB708419FADD2B0041EAB6 /* Player.cpp */; };
+		19C61FA71A06C168001674E0 /* ViewOpacityMaskComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19C61FA51A06C168001674E0 /* ViewOpacityMaskComponent.cpp */; };
 		19CCD38D1A02CBDD00986A8E /* CCFileUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD37D1A02CBDD00986A8E /* CCFileUtils.cpp */; };
 		19CCD38E1A02CBDD00986A8E /* CCGLView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD3801A02CBDD00986A8E /* CCGLView.cpp */; };
 		19CCD38F1A02CBDD00986A8E /* CCImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD3821A02CBDD00986A8E /* CCImage.cpp */; };
@@ -366,12 +375,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		190913661A0383F400840DCB /* Behaviour.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Behaviour.cpp; sourceTree = "<group>"; };
+		190913671A0383F400840DCB /* Behaviour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Behaviour.h; sourceTree = "<group>"; };
+		190913691A03849700840DCB /* MovementBehaviours.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MovementBehaviours.cpp; sourceTree = "<group>"; };
+		1909136A1A03849700840DCB /* MovementBehaviours.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovementBehaviours.h; sourceTree = "<group>"; };
+		1909136C1A03851300840DCB /* DestroyBehaviour.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DestroyBehaviour.cpp; sourceTree = "<group>"; };
+		1909136D1A03851300840DCB /* DestroyBehaviour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestroyBehaviour.h; sourceTree = "<group>"; };
+		1909136F1A03882F00840DCB /* DestroyBehaviourFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DestroyBehaviourFunctions.cpp; sourceTree = "<group>"; };
+		190913711A03898200840DCB /* BehaviourComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BehaviourComponent.cpp; sourceTree = "<group>"; };
+		190913721A03898200840DCB /* BehaviourComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BehaviourComponent.h; sourceTree = "<group>"; };
 		19202CB919FBEA8500AFAB33 /* GamepadComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GamepadComponent.cpp; sourceTree = "<group>"; };
 		19202CBA19FBEA8500AFAB33 /* GamepadComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamepadComponent.h; sourceTree = "<group>"; };
 		19202CBC19FBEC8300AFAB33 /* WeaponComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WeaponComponent.cpp; sourceTree = "<group>"; };
 		19202CBD19FBEC8300AFAB33 /* WeaponComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeaponComponent.h; sourceTree = "<group>"; };
-		194B80BF19FB982C0021CE64 /* Delegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Delegate.h; sourceTree = "<group>"; };
-		194B80C019FB982C0021CE64 /* Signal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Signal.h; sourceTree = "<group>"; };
 		194B80C119FB99D80021CE64 /* Service.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Service.cpp; sourceTree = "<group>"; };
 		194B80C219FB99D80021CE64 /* Service.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Service.h; sourceTree = "<group>"; };
 		194B80C419FB99E80021CE64 /* ServicesManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ServicesManager.cpp; sourceTree = "<group>"; };
@@ -379,6 +395,12 @@
 		194B80C719FB9A350021CE64 /* DeclaredTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeclaredTypes.h; sourceTree = "<group>"; };
 		194B80C919FBA6750021CE64 /* FilesService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FilesService.cpp; sourceTree = "<group>"; };
 		194B80CA19FBA6750021CE64 /* FilesService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilesService.h; sourceTree = "<group>"; };
+		194EFC961A039999007C5014 /* TimeComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TimeComponent.cpp; sourceTree = "<group>"; };
+		194EFC971A039999007C5014 /* TimeComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeComponent.h; sourceTree = "<group>"; };
+		194EFC991A039E58007C5014 /* MovementStateComponents.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MovementStateComponents.cpp; sourceTree = "<group>"; };
+		194EFC9A1A039E58007C5014 /* MovementStateComponents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovementStateComponents.h; sourceTree = "<group>"; };
+		194EFC9C1A03A612007C5014 /* ComponentModifiers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ComponentModifiers.cpp; sourceTree = "<group>"; };
+		194EFC9D1A03A612007C5014 /* ComponentModifiers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComponentModifiers.h; sourceTree = "<group>"; };
 		196AD4BA19F9832900D87881 /* KillyCraft.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KillyCraft.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		196AD4BE19F9832900D87881 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		196AD4BF19F9832900D87881 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -742,6 +764,10 @@
 		19AB707B19FAD5B70041EAB6 /* NormalDPI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = NormalDPI; path = ../../../Resources/NormalDPI; sourceTree = "<group>"; };
 		19AB708419FADD2B0041EAB6 /* Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
 		19AB708519FADD2B0041EAB6 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		19C61FA01A056CCB001674E0 /* Delegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Delegate.h; sourceTree = "<group>"; };
+		19C61FA11A056CCB001674E0 /* Signal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Signal.h; sourceTree = "<group>"; };
+		19C61FA51A06C168001674E0 /* ViewOpacityMaskComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ViewOpacityMaskComponent.cpp; sourceTree = "<group>"; };
+		19C61FA61A06C168001674E0 /* ViewOpacityMaskComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewOpacityMaskComponent.h; sourceTree = "<group>"; };
 		19CCD3791A02CBDD00986A8E /* CCApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCApplication.h; sourceTree = "<group>"; };
 		19CCD37A1A02CBDD00986A8E /* CCApplicationProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCApplicationProtocol.h; sourceTree = "<group>"; };
 		19CCD37B1A02CBDD00986A8E /* CCCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCommon.h; sourceTree = "<group>"; };
@@ -1298,6 +1324,13 @@
 		19202CBF19FBFCB800AFAB33 /* Behaviour */ = {
 			isa = PBXGroup;
 			children = (
+				190913661A0383F400840DCB /* Behaviour.cpp */,
+				190913671A0383F400840DCB /* Behaviour.h */,
+				190913691A03849700840DCB /* MovementBehaviours.cpp */,
+				1909136A1A03849700840DCB /* MovementBehaviours.h */,
+				1909136C1A03851300840DCB /* DestroyBehaviour.cpp */,
+				1909136D1A03851300840DCB /* DestroyBehaviour.h */,
+				1909136F1A03882F00840DCB /* DestroyBehaviourFunctions.cpp */,
 			);
 			path = Behaviour;
 			sourceTree = "<group>";
@@ -1323,16 +1356,6 @@
 				194B80CA19FBA6750021CE64 /* FilesService.h */,
 			);
 			path = Services;
-			sourceTree = "<group>";
-		};
-		194B80BD19FB982C0021CE64 /* Util */ = {
-			isa = PBXGroup;
-			children = (
-				194B80BF19FB982C0021CE64 /* Delegate.h */,
-				194B80C019FB982C0021CE64 /* Signal.h */,
-			);
-			name = Util;
-			path = ../../../Source/Util;
 			sourceTree = "<group>";
 		};
 		194B80C819FBA6540021CE64 /* Services */ = {
@@ -1365,7 +1388,6 @@
 			children = (
 				19AB256919F9845E008D3B13 /* libs */,
 				194B80BB19FB982C0021CE64 /* MelonGames */,
-				194B80BD19FB982C0021CE64 /* Util */,
 				19AB704819FACAE90041EAB6 /* Game */,
 				196AD4C119F9832900D87881 /* AppController.h */,
 				196AD4C219F9832900D87881 /* AppController.mm */,
@@ -1418,6 +1440,7 @@
 				19AB2BF619F99621008D3B13 /* CoreGraphics.framework */,
 				19AB2BF719F99621008D3B13 /* OpenAL.framework */,
 				19AB2BF819F99621008D3B13 /* QuartzCore.framework */,
+				19C61F9F1A056CCB001674E0 /* Signal */,
 				19AB29B019F98A8F008D3B13 /* external */,
 				19AB294519F988FF008D3B13 /* extensions */,
 				19AB256A19F98467008D3B13 /* cocos2d */,
@@ -3042,6 +3065,8 @@
 			children = (
 				19AB704E19FACAE90041EAB6 /* Component.cpp */,
 				19AB704F19FACAE90041EAB6 /* Component.h */,
+				194EFC9C1A03A612007C5014 /* ComponentModifiers.cpp */,
+				194EFC9D1A03A612007C5014 /* ComponentModifiers.h */,
 				19AB705019FACAE90041EAB6 /* PositionComponent.cpp */,
 				19AB705119FACAE90041EAB6 /* PositionComponent.h */,
 				19AB705219FACAE90041EAB6 /* ViewComponent.cpp */,
@@ -3050,6 +3075,14 @@
 				19202CBA19FBEA8500AFAB33 /* GamepadComponent.h */,
 				19202CBC19FBEC8300AFAB33 /* WeaponComponent.cpp */,
 				19202CBD19FBEC8300AFAB33 /* WeaponComponent.h */,
+				190913711A03898200840DCB /* BehaviourComponent.cpp */,
+				190913721A03898200840DCB /* BehaviourComponent.h */,
+				194EFC961A039999007C5014 /* TimeComponent.cpp */,
+				194EFC971A039999007C5014 /* TimeComponent.h */,
+				194EFC991A039E58007C5014 /* MovementStateComponents.cpp */,
+				194EFC9A1A039E58007C5014 /* MovementStateComponents.h */,
+				19C61FA51A06C168001674E0 /* ViewOpacityMaskComponent.cpp */,
+				19C61FA61A06C168001674E0 /* ViewOpacityMaskComponent.h */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -3073,6 +3106,16 @@
 				19AB707B19FAD5B70041EAB6 /* NormalDPI */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		19C61F9F1A056CCB001674E0 /* Signal */ = {
+			isa = PBXGroup;
+			children = (
+				19C61FA01A056CCB001674E0 /* Delegate.h */,
+				19C61FA11A056CCB001674E0 /* Signal.h */,
+			);
+			name = Signal;
+			path = ../../../Source/libs/Signal;
 			sourceTree = "<group>";
 		};
 		19CCD3931A02CBE600986A8E /* ios */ = {
@@ -3516,6 +3559,7 @@
 				19CCD3EF1A02CCEA00986A8E /* CCControlButton.cpp in Sources */,
 				19CCD69F1A02D7BF00986A8E /* CCFileUtils-apple.mm in Sources */,
 				19CCD4FB1A02CE2B00986A8E /* UILayoutManager.cpp in Sources */,
+				194EFC9B1A039E58007C5014 /* MovementStateComponents.cpp in Sources */,
 				19CCD4911A02CDE800986A8E /* CCUserDefault-android.cpp in Sources */,
 				19CCD3911A02CBDD00986A8E /* CCThread.cpp in Sources */,
 				19CCD5C21A02D30200986A8E /* CCActionGrid.cpp in Sources */,
@@ -3542,6 +3586,7 @@
 				19AB2C2719F99913008D3B13 /* CCPhysicsContact.cpp in Sources */,
 				194B80C319FB99D80021CE64 /* Service.cpp in Sources */,
 				19CCD6911A02D41000986A8E /* CCTextureCache.cpp in Sources */,
+				194EFC981A039999007C5014 /* TimeComponent.cpp in Sources */,
 				19CCD5D61A02D30200986A8E /* CCFastTMXTiledMap.cpp in Sources */,
 				19CCD46E1A02CDE800986A8E /* CCConfiguration.cpp in Sources */,
 				19CCD5FF1A02D30200986A8E /* CCTransition.cpp in Sources */,
@@ -3562,10 +3607,12 @@
 				19CCD3F61A02CCEA00986A8E /* CCControlSwitch.cpp in Sources */,
 				19AB2BE519F9910A008D3B13 /* CCDictionary.cpp in Sources */,
 				19CCD3AD1A02CBE600986A8E /* CCGLViewImpl-ios.mm in Sources */,
+				1909136E1A03851300840DCB /* DestroyBehaviour.cpp in Sources */,
 				19CCD6701A02D41000986A8E /* CCRenderCommand.cpp in Sources */,
 				19CCD5FC1A02D30200986A8E /* CCTMXObjectGroup.cpp in Sources */,
 				19CCD4811A02CDE800986A8E /* CCEventListenerFocus.cpp in Sources */,
 				19AB270C19F984F3008D3B13 /* MathUtil.cpp in Sources */,
+				1909136B1A03849700840DCB /* MovementBehaviours.cpp in Sources */,
 				19CCD3F01A02CCEA00986A8E /* CCControlColourPicker.cpp in Sources */,
 				19CCD4951A02CDE800986A8E /* ccUtils.cpp in Sources */,
 				19CCD4741A02CDE800986A8E /* CCDataVisitor.cpp in Sources */,
@@ -3617,6 +3664,7 @@
 				19CCD6021A02D30200986A8E /* CCTweenFunction.cpp in Sources */,
 				19CCD6661A02D41000986A8E /* CCGLProgram.cpp in Sources */,
 				19AB29B819F98AAD008D3B13 /* ioapi.cpp in Sources */,
+				19C61FA71A06C168001674E0 /* ViewOpacityMaskComponent.cpp in Sources */,
 				19CCD5E81A02D30200986A8E /* CCMenuItem.cpp in Sources */,
 				19CCD4781A02CDE800986A8E /* CCEventController.cpp in Sources */,
 				19CCD5001A02CE2B00986A8E /* UIRelativeBox.cpp in Sources */,
@@ -3633,11 +3681,13 @@
 				19AB270819F984F3008D3B13 /* CCVertex.cpp in Sources */,
 				19CCD5FE1A02D30200986A8E /* CCTMXXMLParser.cpp in Sources */,
 				19CCD6671A02D41000986A8E /* CCGLProgramCache.cpp in Sources */,
+				190913681A0383F400840DCB /* Behaviour.cpp in Sources */,
 				19CCD6941A02D41000986A8E /* CCVertexIndexData.cpp in Sources */,
 				19CCD5041A02CE2B00986A8E /* UISlider.cpp in Sources */,
 				19CCD4931A02CDE800986A8E /* CCUserDefault.cpp in Sources */,
 				19CCD5C61A02D30200986A8E /* CCActionManager.cpp in Sources */,
 				19AB707719FACECB0041EAB6 /* AppDelegate.cpp in Sources */,
+				194EFC9E1A03A612007C5014 /* ComponentModifiers.cpp in Sources */,
 				196AD4C319F9832900D87881 /* AppController.mm in Sources */,
 				19CCD5021A02CE2B00986A8E /* UIScale9Sprite.cpp in Sources */,
 				19CCD4ED1A02CE2B00986A8E /* UICheckBox.cpp in Sources */,
@@ -3707,6 +3757,7 @@
 				19CCD4F21A02CE2B00986A8E /* UIEditBoxImpl-mac.mm in Sources */,
 				19CCD5E21A02D30200986A8E /* CCLabelBMFont.cpp in Sources */,
 				19CCD6A11A02D7BF00986A8E /* CCThread-apple.mm in Sources */,
+				190913701A03882F00840DCB /* DestroyBehaviourFunctions.cpp in Sources */,
 				19AB2A8F19F98DFD008D3B13 /* xxhash.c in Sources */,
 				19CCD6711A02D41000986A8E /* CCRenderer.cpp in Sources */,
 				19CCD5D21A02D30200986A8E /* CCComponentContainer.cpp in Sources */,
@@ -3745,6 +3796,7 @@
 				19CCD4881A02CDE800986A8E /* CCIMEDispatcher.cpp in Sources */,
 				19CCD5F11A02D30200986A8E /* CCProgressTimer.cpp in Sources */,
 				19CCD5EE1A02D30200986A8E /* CCParticleExamples.cpp in Sources */,
+				190913731A03898200840DCB /* BehaviourComponent.cpp in Sources */,
 				19CCD48C1A02CDE800986A8E /* CCRef.cpp in Sources */,
 				19CCD6901A02D41000986A8E /* CCTextureAtlas.cpp in Sources */,
 				19AB706A19FACAE90041EAB6 /* Map.cpp in Sources */,

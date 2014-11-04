@@ -65,5 +65,10 @@ namespace MelonGames
             }
             
         }
+        
+        const cocos2d::Vec3& WeaponComponent::getRelativePosition() const
+        {
+            return relativePosition;
+        }
     }
 }

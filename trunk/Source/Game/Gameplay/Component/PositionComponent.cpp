@@ -51,6 +51,11 @@ namespace MelonGames
 		{
 			return position;
 		}
+        
+        cocos2d::Vec2 PositionComponent::getGroundPosition() const
+        {
+            return Vec2(position.x, position.y);
+        }
 		
 		bool PositionComponent::isPositionSet() const
 		{

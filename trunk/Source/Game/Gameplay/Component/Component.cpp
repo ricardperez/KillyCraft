@@ -44,7 +44,11 @@ namespace MelonGames
 		
 		void Component::update(float dt)
 		{
-			
 		}
+        
+        MapObject* Component::getObject() const
+        {
+            return object;
+        }
 	}
 }

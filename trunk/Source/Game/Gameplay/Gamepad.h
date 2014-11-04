@@ -10,7 +10,7 @@
 #define __KillyCraft__Gamepad__
 
 #include <set>
-#include "Util/Signal.h"
+#include "libs/Signal/Signal.h"
 
 namespace cocos2d
 {

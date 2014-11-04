@@ -10,6 +10,7 @@
 #define __KillyCraft__WeaponComponent__
 
 #include "Component.h"
+#include "math/Vec3.h"
 
 namespace MelonGames
 {
@@ -33,12 +34,16 @@ namespace MelonGames
             bool canShoot() const;
             void shoot();
             
+            const cocos2d::Vec3& getRelativePosition() const;
+            
         private:
             WeaponType weapon;
             
             int nShots;
             float shotDelay;
             float lastShotTime;
+            
+            cocos2d::Vec3 relativePosition;
         };
     }
 }

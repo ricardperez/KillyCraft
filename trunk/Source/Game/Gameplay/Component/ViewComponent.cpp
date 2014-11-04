@@ -65,11 +65,6 @@ namespace MelonGames
 			
 		}
 		
-		void ViewComponent::setSpriteFrameName(const std::string &name)
-		{
-			spriteFrameName = name;
-		}
-		
 		void ViewComponent::onObjectAttachedToMap()
 		{
 			Base::onObjectAttachedToMap();
@@ -85,6 +80,26 @@ namespace MelonGames
 			}
 			
 		}
+        
+        void ViewComponent::onWillDetachFromObject()
+        {
+            if (sprite)
+            {
+                sprite->removeFromParent();
+                sprite = nullptr;
+            }
+            Base::onWillDetachFromObject();
+        }
+        
+        void ViewComponent::setSpriteFrameName(const std::string &name)
+        {
+            spriteFrameName = name;
+        }
+        
+        cocos2d::Sprite* ViewComponent::getSprite() const
+        {
+            return sprite;
+        }
 		
 		void ViewComponent::onPositionChanged(PositionComponent* posComponent)
 		{

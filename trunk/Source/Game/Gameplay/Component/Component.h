@@ -16,8 +16,8 @@ namespace MelonGames
 	namespace KillyCraft
 	{
 		class MapObject;
-		
-		class Component
+        
+        class Component
 		{
 		public:
 			DECLARE_BASE_TYPE(Component);
@@ -30,6 +30,8 @@ namespace MelonGames
 			virtual void onWillDetachFromObject();
 			
 			virtual void update(float dt);
+            
+            MapObject* getObject() const;
 			
 		protected:
 			MapObject* object;

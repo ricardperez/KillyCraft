@@ -61,6 +61,10 @@ namespace MelonGames
 			
 			auto player = ObjectsFastFactory::createPlayerObject();
 			addObject(player);
+            
+            auto enemy = ObjectsFastFactory::createEnemyObject();
+            addObject(enemy);
+            
 		}
         
         const MapDefinition& Map::getDefinition() const
