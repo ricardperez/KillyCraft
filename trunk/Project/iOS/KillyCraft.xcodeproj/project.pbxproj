@@ -100,7 +100,7 @@
 		19AB707D19FAD5B70041EAB6 /* HiDPI in Resources */ = {isa = PBXBuildFile; fileRef = 19AB707A19FAD5B70041EAB6 /* HiDPI */; };
 		19AB707E19FAD5B70041EAB6 /* NormalDPI in Resources */ = {isa = PBXBuildFile; fileRef = 19AB707B19FAD5B70041EAB6 /* NormalDPI */; };
 		19AB708619FADD2B0041EAB6 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AB708419FADD2B0041EAB6 /* Player.cpp */; };
-		19C61FA71A06C168001674E0 /* ViewOpacityMaskComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19C61FA51A06C168001674E0 /* ViewOpacityMaskComponent.cpp */; };
+		19C61FA71A06C168001674E0 /* CollisionDetectionComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19C61FA51A06C168001674E0 /* CollisionDetectionComponent.cpp */; };
 		19CCD38D1A02CBDD00986A8E /* CCFileUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD37D1A02CBDD00986A8E /* CCFileUtils.cpp */; };
 		19CCD38E1A02CBDD00986A8E /* CCGLView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD3801A02CBDD00986A8E /* CCGLView.cpp */; };
 		19CCD38F1A02CBDD00986A8E /* CCImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD3821A02CBDD00986A8E /* CCImage.cpp */; };
@@ -766,8 +766,8 @@
 		19AB708519FADD2B0041EAB6 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		19C61FA01A056CCB001674E0 /* Delegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Delegate.h; sourceTree = "<group>"; };
 		19C61FA11A056CCB001674E0 /* Signal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Signal.h; sourceTree = "<group>"; };
-		19C61FA51A06C168001674E0 /* ViewOpacityMaskComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ViewOpacityMaskComponent.cpp; sourceTree = "<group>"; };
-		19C61FA61A06C168001674E0 /* ViewOpacityMaskComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewOpacityMaskComponent.h; sourceTree = "<group>"; };
+		19C61FA51A06C168001674E0 /* CollisionDetectionComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CollisionDetectionComponent.cpp; sourceTree = "<group>"; };
+		19C61FA61A06C168001674E0 /* CollisionDetectionComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollisionDetectionComponent.h; sourceTree = "<group>"; };
 		19CCD3791A02CBDD00986A8E /* CCApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCApplication.h; sourceTree = "<group>"; };
 		19CCD37A1A02CBDD00986A8E /* CCApplicationProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCApplicationProtocol.h; sourceTree = "<group>"; };
 		19CCD37B1A02CBDD00986A8E /* CCCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCommon.h; sourceTree = "<group>"; };
@@ -3081,8 +3081,8 @@
 				194EFC971A039999007C5014 /* TimeComponent.h */,
 				194EFC991A039E58007C5014 /* MovementStateComponents.cpp */,
 				194EFC9A1A039E58007C5014 /* MovementStateComponents.h */,
-				19C61FA51A06C168001674E0 /* ViewOpacityMaskComponent.cpp */,
-				19C61FA61A06C168001674E0 /* ViewOpacityMaskComponent.h */,
+				19C61FA51A06C168001674E0 /* CollisionDetectionComponent.cpp */,
+				19C61FA61A06C168001674E0 /* CollisionDetectionComponent.h */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -3664,7 +3664,7 @@
 				19CCD6021A02D30200986A8E /* CCTweenFunction.cpp in Sources */,
 				19CCD6661A02D41000986A8E /* CCGLProgram.cpp in Sources */,
 				19AB29B819F98AAD008D3B13 /* ioapi.cpp in Sources */,
-				19C61FA71A06C168001674E0 /* ViewOpacityMaskComponent.cpp in Sources */,
+				19C61FA71A06C168001674E0 /* CollisionDetectionComponent.cpp in Sources */,
 				19CCD5E81A02D30200986A8E /* CCMenuItem.cpp in Sources */,
 				19CCD4781A02CDE800986A8E /* CCEventController.cpp in Sources */,
 				19CCD5001A02CE2B00986A8E /* UIRelativeBox.cpp in Sources */,
