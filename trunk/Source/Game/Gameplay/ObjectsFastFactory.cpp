@@ -17,6 +17,7 @@
 
 #include "Behaviour/MovementBehaviours.h"
 #include "Behaviour/DestroyBehaviour.h"
+#include "Behaviour/DestroyBehaviourFunctions.h"
 
 #include "base/ccMacros.h"
 
@@ -67,13 +68,13 @@ namespace MelonGames
                 //Behaviour
                 {
                     BehaviourComponent* behaviourComponent = new BehaviourComponent();
-                    auto linearMove = new LinearMoveBehaviour();
+                    auto linearMove = new MoveLinearBehaviour();
                     behaviourComponent->addBehaviour(linearMove);
                     
-                    behaviourComponent->addBehaviour(new CircularMoveBehaviour());
+                    behaviourComponent->addBehaviour(new MoveCircularBehaviour());
                     
                     DestroyBehaviour* destroyBehaviour = new DestroyBehaviour();
-                    destroyBehaviour->addCheckFunctionWithName(DestroyBehaviourFunctions::isOutOfScreen, "OutOfScreen");
+                    destroyBehaviour->addCheckFunctionWithName(DestroyBehaviourFunctions::makeIsOutOfScreenFunction(), "OutOfScreen");
                     behaviourComponent->addBehaviour(destroyBehaviour);
                     
                     result->addComponent(behaviourComponent);
@@ -81,13 +82,6 @@ namespace MelonGames
                     CircularMoveStateComponent* circularState = new CircularMoveStateComponent();
                     circularState->setRadiansPerSecond(CC_DEGREES_TO_RADIANS(360.0f));
                     result->addComponent(circularState);
-                }
-                
-                //Modifiers
-                {
-//                    result->addComponentModifier(ComponentModifiers::makeAccelerateLinearMovement(cocos2d::Vec3(0.0f, -10.0f, 0.0f), 3.0f));
-//                    result->addComponentModifier(ComponentModifiers::makeAccelerateCircularMovement(CC_DEGREES_TO_RADIANS(45.0f), 5.0f));
-                    result->addComponentModifier(ComponentModifiers::makeChangeRadiusForCircularMovement(150.0f, 50.0f, 30.0f));
                 }
                 
                 return result;
@@ -115,10 +109,10 @@ namespace MelonGames
                 //Behaviour
                 {
                     BehaviourComponent* behaviourComponent = new BehaviourComponent();
-                    behaviourComponent->addBehaviour(new LinearMoveBehaviour());
+                    behaviourComponent->addBehaviour(new MoveLinearBehaviour());
                     
                     DestroyBehaviour* destroyBehaviour = new DestroyBehaviour();
-                    destroyBehaviour->addCheckFunctionWithName(DestroyBehaviourFunctions::isOutOfScreen, "OutOfScreen");
+                    destroyBehaviour->addCheckFunctionWithName(DestroyBehaviourFunctions::makeIsOutOfScreenFunction(), "OutOfScreen");
                     behaviourComponent->addBehaviour(destroyBehaviour);
                     
                     result->addComponent(behaviourComponent);

@@ -11,7 +11,6 @@
 
 #include <vector>
 #include "Component/Component.h"
-#include "Component/ComponentModifiers.h"
 #include <vector>
 
 namespace MelonGames
@@ -29,8 +28,6 @@ namespace MelonGames
 			void addComponent(Component* component);
 			void removeComponent(Component* component);
 			void flush();
-            
-            void addComponentModifier(const ComponentModifier& modifier);
 			
 			template <typename T>
 			T* get() const;
@@ -54,9 +51,6 @@ namespace MelonGames
 			
 			std::vector<Component*> componentsToAdd;
 			std::vector<Component*> componentsToRemove;
-            
-            
-            std::vector<ComponentModifier> componentModifiers;
 		};
 		
 		template <typename T>

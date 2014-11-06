@@ -23,6 +23,8 @@ namespace MelonGames
 		class MapObject;
 		class Player;
         class MapView;
+        class SpawnObjectsManager;
+        class MapObjectsFactory;
         
         struct MapDefinition
         {
@@ -59,6 +61,8 @@ namespace MelonGames
 			cocos2d::Node* node;
             MapView* view;
 			Player* player;
+            SpawnObjectsManager* spawnObjectsManager;
+            MapObjectsFactory* factory;
             
             float elapsedTime;
 		};

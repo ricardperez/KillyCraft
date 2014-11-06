@@ -14,7 +14,7 @@ namespace MelonGames
 	namespace KillyCraft
 	{
 		class MapObject;
-		
+        
 		namespace ObjectsFastFactory
 		{
 			MapObject* createPlayerObject();

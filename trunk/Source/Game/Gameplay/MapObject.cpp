@@ -107,21 +107,11 @@ namespace MelonGames
 		void MapObject::update(float dt)
 		{
 			assert(valid);
-            
-            for (auto& modifier : componentModifiers)
-            {
-                modifier(this, dt);
-            }
 			
 			for (auto component : components)
 			{
 				component->update(dt);
 			}
 		}
-        
-        void MapObject::addComponentModifier(const ComponentModifier& modifier)
-        {
-            componentModifiers.push_back(modifier);
-        }
 	}
 }

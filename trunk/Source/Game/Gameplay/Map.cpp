@@ -8,6 +8,8 @@
 
 #include "Map.h"
 #include "Player.h"
+#include "SpawnObjectsManager.h"
+#include "MapObjectsFactory.h"
 #include "MapObject.h"
 #include "Component/Component.h"
 #include "Component/ViewComponent.h"
@@ -26,6 +28,8 @@ namespace MelonGames
         , node(nullptr)
         , view(nullptr)
 		, player(nullptr)
+        , spawnObjectsManager(nullptr)
+        , factory(nullptr)
         , elapsedTime(0.0f)
 		{
 		}
@@ -39,6 +43,8 @@ namespace MelonGames
             
             delete player;
             delete view;
+            delete spawnObjectsManager;
+            delete factory;
 		}
 		
 		void Map::setNode(cocos2d::Node *node)
@@ -61,6 +67,11 @@ namespace MelonGames
 			
 			auto player = ObjectsFastFactory::createPlayerObject();
 			addObject(player);
+            
+            spawnObjectsManager = new SpawnObjectsManager();
+            spawnObjectsManager->setMap(this);
+            
+            factory = new MapObjectsFactory();
             
             auto enemy = ObjectsFastFactory::createEnemyObject();
             addObject(enemy);
@@ -117,6 +128,8 @@ namespace MelonGames
 			{
 				object->update(dt);
 			}
+            
+            spawnObjectsManager->update(dt);
 		}
         
         float Map::getElapsedTime() const

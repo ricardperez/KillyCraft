@@ -17,8 +17,8 @@ namespace MelonGames
 {
     namespace KillyCraft
     {
-#pragma mark - LinearMoveBehaviour
-        void LinearMoveBehaviour::update(MapObject* object, float dt)
+#pragma mark - MoveLinearBehaviour
+        void MoveLinearBehaviour::update(MapObject* object, float dt)
         {
             Base::update(object, dt);
             
@@ -28,8 +28,8 @@ namespace MelonGames
         }
         
         
-#pragma mark - CircularMoveBehaviour
-        void CircularMoveBehaviour::update(MapObject *object, float dt)
+#pragma mark - MoveCircularBehaviour
+        void MoveCircularBehaviour::update(MapObject *object, float dt)
         {
             Base::update(object, dt);
             

@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 MelonGames. All rights reserved.
 //
 
+#include "DestroyBehaviourFunctions.h"
 #include "DestroyBehaviour.h"
 #include "Gameplay/MapObject.h"
 
@@ -15,14 +16,27 @@ namespace MelonGames
     {
         namespace DestroyBehaviourFunctions
         {
-            bool isDead(MapObject* object)
+            DestroyCheckFunction makeIsDeadFunction()
             {
-                return false;
+                return [](MapObject* object) -> bool
+                {
+                    return false;
+                };
+            }
+            DestroyCheckFunction makeIsOutOfScreenFunction()
+            {
+                return [](MapObject* object) -> bool
+                {
+                    return false;
+                };
             }
             
-            bool isOutOfScreen(MapObject* object)
+            DestroyCheckFunction makeIsCollisionFunction()
             {
-                return false;
+                return [](MapObject* object) -> bool
+                {
+                    return false;
+                };
             }
         }
     }

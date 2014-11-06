@@ -15,18 +15,18 @@ namespace MelonGames
 {
     namespace KillyCraft
     {
-        class LinearMoveBehaviour : public Behaviour
+        class MoveLinearBehaviour : public Behaviour
         {
         public:
-            DECLARE_TYPE_WITH_BASE_TYPE(LinearMoveBehaviour, Behaviour);
+            DECLARE_TYPE_WITH_BASE_TYPE(MoveLinearBehaviour, Behaviour);
             
             virtual void update(MapObject* object, float dt) override;
         };
         
-        class CircularMoveBehaviour : public Behaviour
+        class MoveCircularBehaviour : public Behaviour
         {
         public:
-            DECLARE_TYPE_WITH_BASE_TYPE(CircularMoveBehaviour, Behaviour);
+            DECLARE_TYPE_WITH_BASE_TYPE(MoveCircularBehaviour, Behaviour);
             
             virtual void update(MapObject* object, float dt) override;
         };

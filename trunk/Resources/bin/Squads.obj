@@ -1,0 +1,57 @@
+{
+	"obj":
+	[
+		{
+			"name":"SquadBasic-Row:4:50",
+			"enemies":
+			[
+				[
+					"EnemyBasic",
+					[0, 0]
+				],
+				[
+					"EnemyBasic",
+					[50, 0]
+				],
+				[
+					"EnemyBasic",
+					[-50, 0]
+				],
+				[
+					"EnemyBasic",
+					[100, 0]
+				],
+				[
+					"EnemyBasic",
+					[100, 0]
+				]
+			]
+		},
+		{
+			"name":"SquadBasic-Square:4:50",
+			"squads":
+			[
+				[
+					"SquadBasic-Row:4:50",
+					[0, 0]
+				],
+				[
+					"SquadBasic-Row:4:50",
+					[0, -50]
+				],
+				[
+					"SquadBasic-Row:4:50",
+					[0, -100]
+				],
+				[
+					"SquadBasic-Row:4:50",
+					[0, -150]
+				],
+				[
+					"SquadBasic-Row:4:50",
+					[0, -200]
+				]
+			]
+		}
+	]
+}

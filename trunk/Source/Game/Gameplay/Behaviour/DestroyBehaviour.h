@@ -36,12 +36,6 @@ namespace MelonGames
             };
             std::vector<NamedCheckFunction> checkFunctions;
         };
-        
-        namespace DestroyBehaviourFunctions
-        {
-            bool isDead(MapObject* object);
-            bool isOutOfScreen(MapObject* object);
-        }
     }
 }
 
