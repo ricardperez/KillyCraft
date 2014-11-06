@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 MelonGames. All rights reserved.
 //
 
-#include "ViewOpacityMaskComponent.h"
+#include "CollisionDetectionComponent.h"
 #include "Gameplay/MapObject.h"
 #include "ViewComponent.h"
 #include "PositionComponent.h"
@@ -49,14 +49,6 @@ namespace MelonGames
                 return result;
             }
             
-            void destroyTextureMask(TextureMask& textureMask)
-            {
-                delete[] textureMask.mask;
-                textureMask.mask = nullptr;
-                textureMask.width = 0;
-                textureMask.height = 0;
-            }
-            
             bool isMaskedValue(const TextureMask& textureMask, int x, int y)
             {
                 if (textureMask.mask && x >= 0 && x < textureMask.width && y >= 0 && y < textureMask.height)
@@ -88,13 +80,18 @@ namespace MelonGames
             }
         }
         
-        ViewOpacityMaskComponent::ViewOpacityMaskComponent()
+        TextureMask::~TextureMask()
+        {
+            delete[] mask;
+        }
+        
+        CollisionDetectionComponent::CollisionDetectionComponent()
+        : pixelPerfect(false)
         {
         }
         
-        ViewOpacityMaskComponent::~ViewOpacityMaskComponent()
+        CollisionDetectionComponent::~CollisionDetectionComponent()
         {
-            TextureMaskHelper::destroyTextureMask(textureMask);
         }
         
         
@@ -122,7 +119,7 @@ namespace MelonGames
             return false;
         }
         
-        bool ViewOpacityMaskComponent::collidesAgainst(ViewOpacityMaskComponent* other)
+        bool CollisionDetectionComponent::collidesAgainst(CollisionDetectionComponent* other)
         {
             if (!ensureHasMask())
             {
@@ -158,7 +155,7 @@ namespace MelonGames
             return false;
         }
         
-        bool ViewOpacityMaskComponent::ensureHasMask()
+        bool CollisionDetectionComponent::ensureHasMask()
         {
             if (!textureMask.mask)
             {
@@ -169,7 +166,7 @@ namespace MelonGames
             return true;
         }
         
-        void ViewOpacityMaskComponent::buildMask()
+        void CollisionDetectionComponent::buildMask()
         {
             assert(!textureMask.mask);
             

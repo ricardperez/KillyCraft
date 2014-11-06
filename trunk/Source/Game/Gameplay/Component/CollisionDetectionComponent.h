@@ -20,17 +20,19 @@ namespace MelonGames
             bool* mask = nullptr;
             int width = 0;
             int height = 0;
+            
+            ~TextureMask();
         };
         
-        class ViewOpacityMaskComponent : public Component
+        class CollisionDetectionComponent : public Component
         {
         public:
-            DECLARE_TYPE_WITH_BASE_TYPE(ViewOpacityMaskComponent, Component);
+            DECLARE_TYPE_WITH_BASE_TYPE(CollisionDetectionComponent, Component);
             
-            ViewOpacityMaskComponent();
-            virtual ~ViewOpacityMaskComponent();
+            CollisionDetectionComponent();
+            virtual ~CollisionDetectionComponent();
             
-            bool collidesAgainst(ViewOpacityMaskComponent* other);
+            bool collidesAgainst(CollisionDetectionComponent* other);
             
         protected:
             bool ensureHasMask();
@@ -38,6 +40,7 @@ namespace MelonGames
             
         private:
             TextureMask textureMask;
+            bool pixelPerfect;
         };
     }
 }
