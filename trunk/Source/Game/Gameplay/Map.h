@@ -9,6 +9,7 @@
 #ifndef __KillyCraft__Map__
 #define __KillyCraft__Map__
 
+#include "math/CCGeometry.h"
 #include <vector>
 
 namespace cocos2d
@@ -29,6 +30,7 @@ namespace MelonGames
         struct MapDefinition
         {
             float height;
+            cocos2d::Size screenSize;
         };
 		
 		class Map
@@ -53,6 +55,8 @@ namespace MelonGames
 			void update(float dt);
             
             float getElapsedTime() const;
+            
+            MapObjectsFactory* getFactory() const;
 			
 		private:
             MapDefinition definition;

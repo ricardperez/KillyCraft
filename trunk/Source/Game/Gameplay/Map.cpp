@@ -68,14 +68,12 @@ namespace MelonGames
 			auto player = ObjectsFastFactory::createPlayerObject();
 			addObject(player);
             
+            factory = new MapObjectsFactory();
+            factory->addTemplatesFromFile("Objects.obj");
+            
             spawnObjectsManager = new SpawnObjectsManager();
             spawnObjectsManager->setMap(this);
-            
-            factory = new MapObjectsFactory();
-            
-            auto enemy = ObjectsFastFactory::createEnemyObject();
-            addObject(enemy);
-            
+            spawnObjectsManager->loadEnemySquadsFromFile("Squads.obj");
 		}
         
         const MapDefinition& Map::getDefinition() const
@@ -135,6 +133,11 @@ namespace MelonGames
         float Map::getElapsedTime() const
         {
             return elapsedTime;
+        }
+        
+        MapObjectsFactory* Map::getFactory() const
+        {
+            return factory;
         }
 	}
 }

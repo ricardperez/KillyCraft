@@ -10,7 +10,9 @@
 #include "MelonGames/Crypto.h"
 #include "MapObject.h"
 
+#include "base/ccMacros.h"
 #include "platform/CCFileUtils.h"
+#include "json/json.h"
 
 namespace MelonGames
 {
@@ -28,23 +30,22 @@ namespace MelonGames
         
         void MapObjectsFactory::addTemplatesFromFile(const std::string& filename)
         {
+            Json::Value json;
             std::string contents = cocos2d::FileUtils::getInstance()->getStringFromFile(filename);
-            rapidjson::Document jsonDoc;
-            jsonDoc.Parse<0>(contents.c_str());
+            Json::Reader reader;
+            reader.parse(contents, json);
             
-            const rapidjson::Value& objectsJson = jsonDoc["obj"];
-            for (auto it = objectsJson.MemberonBegin(); it != objectsJson.MemberonEnd(); ++it)
+            const Json::Value& objectsJson = json["obj"];
+            
+            for (const auto& objectJson : objectsJson)
             {
-                const rapidjson::Value& objectJson = it->value;
-                std::string name = objectJson["name"].GetString();
+                std::string name = objectJson["name"].asString();
                 unsigned int nameHash = Crypto::stringHash(name);
                 ObjectTemplate t;
                 t.name = name;
-                t.json = &objectJson;
+                t.json = objectJson;
                 templates[nameHash] = t;
             }
-            
-            jsonDocs.emplace_back(jsonDoc);
         }
         
         MapObject* MapObjectsFactory::createObject(const std::string& name) const
@@ -63,28 +64,22 @@ namespace MelonGames
         {
             MapObject* result = new MapObject();
             
-            const rapidjson::Value& components = t.getJson()["components"];
-            for (auto it = components.MemberonBegin(); it != components.MemberonEnd(); ++it)
+            for (const auto& componentJson : t.json["components"])
             {
                 Component* component = nullptr;
                 
-                const rapidjson::Value& componentJson = it->value;
-                std::string type = componentJson["type"].GetString();
+                std::string type = componentJson["type"].asString();
                 auto functionIt = componentFactoryFunctions.find(type);
                 if (functionIt != componentFactoryFunctions.end())
                 {
                     component = functionIt->second(componentJson);
                 }
                 
+                CCASSERT(component, ("Could not create a component of type " + type).c_str());
+                
                 if (component)
                 {
                     result->addComponent(component);
-                }
-                else
-                {
-                    printf("Could not create a component of type %s\n", type.c_str());
-                    delete result;
-                    return nullptr;
                 }
             }
             

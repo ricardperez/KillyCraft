@@ -36,7 +36,7 @@ namespace MelonGames
 				result->addComponent(posComponent);
 				
 				ViewComponent* viewComponent = new ViewComponent();
-				viewComponent->setSpriteFrameName("Killy.png");
+				viewComponent->setSpriteFrameName("Melon.png");
 				result->addComponent(viewComponent);
                 
                 WeaponComponent* weaponComponent = new WeaponComponent();
@@ -62,7 +62,7 @@ namespace MelonGames
                 result->addComponent(posComponent);
                 
                 ViewComponent* viewComponent = new ViewComponent();
-                viewComponent->setSpriteFrameName("Enemy1.png");
+                viewComponent->setSpriteFrameName("Killy.png");
                 result->addComponent(viewComponent);
                 
                 //Behaviour

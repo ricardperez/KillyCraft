@@ -98,7 +98,11 @@
 		19AB707D19FAD5B70041EAB6 /* HiDPI in Resources */ = {isa = PBXBuildFile; fileRef = 19AB707A19FAD5B70041EAB6 /* HiDPI */; };
 		19AB707E19FAD5B70041EAB6 /* NormalDPI in Resources */ = {isa = PBXBuildFile; fileRef = 19AB707B19FAD5B70041EAB6 /* NormalDPI */; };
 		19AB708619FADD2B0041EAB6 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AB708419FADD2B0041EAB6 /* Player.cpp */; };
+		19AD18EC1A0E0CDC00200802 /* json_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AD18D71A0E0CDC00200802 /* json_reader.cpp */; };
+		19AD18ED1A0E0CDC00200802 /* json_value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AD18D91A0E0CDC00200802 /* json_value.cpp */; };
+		19AD18EF1A0E0CDC00200802 /* json_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AD18DB1A0E0CDC00200802 /* json_writer.cpp */; };
 		19C61FA71A06C168001674E0 /* CollisionDetectionComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19C61FA51A06C168001674E0 /* CollisionDetectionComponent.cpp */; };
+		19C72D0D1A0D5AD600EA9CB5 /* bin in Resources */ = {isa = PBXBuildFile; fileRef = 19C72D0C1A0D5AD600EA9CB5 /* bin */; };
 		19CA80C91A0BFD9500C6BF2C /* SpawnObjectsManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CA80C71A0BFD9500C6BF2C /* SpawnObjectsManager.cpp */; };
 		19CA80CC1A0C004100C6BF2C /* Random.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CA80CA1A0C004100C6BF2C /* Random.cpp */; };
 		19CA80CF1A0C042E00C6BF2C /* MapObjectsFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CA80CD1A0C042E00C6BF2C /* MapObjectsFactory.cpp */; };
@@ -285,7 +289,6 @@
 		19CCD6001A02D30200986A8E /* CCTransitionPageTurn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD5951A02D30200986A8E /* CCTransitionPageTurn.cpp */; };
 		19CCD6011A02D30200986A8E /* CCTransitionProgress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD5971A02D30200986A8E /* CCTransitionProgress.cpp */; };
 		19CCD6021A02D30200986A8E /* CCTweenFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD5991A02D30200986A8E /* CCTweenFunction.cpp */; };
-		19CCD6031A02D30200986A8E /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = 19CCD59B1A02D30200986A8E /* CMakeLists.txt */; };
 		19CCD6041A02D30200986A8E /* cocos2d_headers.props in Resources */ = {isa = PBXBuildFile; fileRef = 19CCD59C1A02D30200986A8E /* cocos2d_headers.props */; };
 		19CCD6051A02D30200986A8E /* cocos2d.def in Resources */ = {isa = PBXBuildFile; fileRef = 19CCD59D1A02D30200986A8E /* cocos2d.def */; };
 		19CCD6061A02D30200986A8E /* cocos2dx.props in Resources */ = {isa = PBXBuildFile; fileRef = 19CCD59E1A02D30200986A8E /* cocos2dx.props */; };
@@ -359,7 +362,6 @@
 		19CCD6921A02D41000986A8E /* CCTrianglesCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD65D1A02D41000986A8E /* CCTrianglesCommand.cpp */; };
 		19CCD6931A02D41000986A8E /* CCVertexIndexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD65F1A02D41000986A8E /* CCVertexIndexBuffer.cpp */; };
 		19CCD6941A02D41000986A8E /* CCVertexIndexData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD6611A02D41000986A8E /* CCVertexIndexData.cpp */; };
-		19CCD6951A02D41000986A8E /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = 19CCD6631A02D41000986A8E /* CMakeLists.txt */; };
 		19CCD6981A02D47500986A8E /* ioapi_mem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD6961A02D47500986A8E /* ioapi_mem.cpp */; };
 		19CCD69F1A02D7BF00986A8E /* CCFileUtils-apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD69B1A02D7BF00986A8E /* CCFileUtils-apple.mm */; };
 		19CCD6A01A02D7BF00986A8E /* CCLock-apple.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD69C1A02D7BF00986A8E /* CCLock-apple.cpp */; };
@@ -665,10 +667,26 @@
 		19AB707B19FAD5B70041EAB6 /* NormalDPI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = NormalDPI; path = ../../../Resources/NormalDPI; sourceTree = "<group>"; };
 		19AB708419FADD2B0041EAB6 /* Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
 		19AB708519FADD2B0041EAB6 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		19AD18C21A0E0CDC00200802 /* assertions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = assertions.h; sourceTree = "<group>"; };
+		19AD18C31A0E0CDC00200802 /* autolink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = autolink.h; sourceTree = "<group>"; };
+		19AD18C41A0E0CDC00200802 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		19AD18C51A0E0CDC00200802 /* features.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = features.h; sourceTree = "<group>"; };
+		19AD18C61A0E0CDC00200802 /* forwards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = forwards.h; sourceTree = "<group>"; };
+		19AD18C71A0E0CDC00200802 /* json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = json.h; sourceTree = "<group>"; };
+		19AD18C81A0E0CDC00200802 /* reader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = reader.h; sourceTree = "<group>"; };
+		19AD18C91A0E0CDC00200802 /* value.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = value.h; sourceTree = "<group>"; };
+		19AD18CA1A0E0CDC00200802 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
+		19AD18CB1A0E0CDC00200802 /* writer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = writer.h; sourceTree = "<group>"; };
+		19AD18D41A0E0CDC00200802 /* json_batchallocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = json_batchallocator.h; sourceTree = "<group>"; };
+		19AD18D71A0E0CDC00200802 /* json_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_reader.cpp; sourceTree = "<group>"; };
+		19AD18D81A0E0CDC00200802 /* json_tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = json_tool.h; sourceTree = "<group>"; };
+		19AD18D91A0E0CDC00200802 /* json_value.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_value.cpp; sourceTree = "<group>"; };
+		19AD18DB1A0E0CDC00200802 /* json_writer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_writer.cpp; sourceTree = "<group>"; };
 		19C61FA01A056CCB001674E0 /* Delegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Delegate.h; sourceTree = "<group>"; };
 		19C61FA11A056CCB001674E0 /* Signal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Signal.h; sourceTree = "<group>"; };
 		19C61FA51A06C168001674E0 /* CollisionDetectionComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CollisionDetectionComponent.cpp; sourceTree = "<group>"; };
 		19C61FA61A06C168001674E0 /* CollisionDetectionComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollisionDetectionComponent.h; sourceTree = "<group>"; };
+		19C72D0C1A0D5AD600EA9CB5 /* bin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = bin; path = ../../../Resources/bin; sourceTree = "<group>"; };
 		19CA80C71A0BFD9500C6BF2C /* SpawnObjectsManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpawnObjectsManager.cpp; sourceTree = "<group>"; };
 		19CA80C81A0BFD9500C6BF2C /* SpawnObjectsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpawnObjectsManager.h; sourceTree = "<group>"; };
 		19CA80CA1A0C004100C6BF2C /* Random.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Random.cpp; sourceTree = "<group>"; };
@@ -1347,6 +1365,9 @@
 		19AB256919F9845E008D3B13 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				19AD18BE1A0E0CDC00200802 /* jsoncpp */,
+				19AD18BD1A0E0C9A00200802 /* cocos2d */,
+				19C61F9F1A056CCB001674E0 /* Signal */,
 				19AB702019FAC72C0041EAB6 /* libz.dylib */,
 				19AB2C0C19F998CE008D3B13 /* CoreMotion.framework */,
 				19AB2C0919F998AD008D3B13 /* MediaPlayer.framework */,
@@ -1357,15 +1378,11 @@
 				19AB2BF619F99621008D3B13 /* CoreGraphics.framework */,
 				19AB2BF719F99621008D3B13 /* OpenAL.framework */,
 				19AB2BF819F99621008D3B13 /* QuartzCore.framework */,
-				19C61F9F1A056CCB001674E0 /* Signal */,
-				19AB29B019F98A8F008D3B13 /* external */,
-				19AB294519F988FF008D3B13 /* extensions */,
-				19AB256A19F98467008D3B13 /* cocos2d */,
 			);
 			name = libs;
 			sourceTree = "<group>";
 		};
-		19AB256A19F98467008D3B13 /* cocos2d */ = {
+		19AB256A19F98467008D3B13 /* cocos */ = {
 			isa = PBXGroup;
 			children = (
 				19AB2C8C19F99AC6008D3B13 /* cocos2d.cpp */,
@@ -1379,7 +1396,7 @@
 				19AB271819F98509008D3B13 /* renderer */,
 				19AB277E19F98519008D3B13 /* ui */,
 			);
-			name = cocos2d;
+			name = cocos;
 			sourceTree = "<group>";
 		};
 		19AB256B19F984C6008D3B13 /* 2d */ = {
@@ -2553,11 +2570,77 @@
 		19AB707819FAD55B0041EAB6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				19C72D0C1A0D5AD600EA9CB5 /* bin */,
 				19AB707919FAD5B70041EAB6 /* fonts */,
 				19AB707A19FAD5B70041EAB6 /* HiDPI */,
 				19AB707B19FAD5B70041EAB6 /* NormalDPI */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		19AD18BD1A0E0C9A00200802 /* cocos2d */ = {
+			isa = PBXGroup;
+			children = (
+				19AB29B019F98A8F008D3B13 /* external */,
+				19AB294519F988FF008D3B13 /* extensions */,
+				19AB256A19F98467008D3B13 /* cocos */,
+			);
+			name = cocos2d;
+			sourceTree = "<group>";
+		};
+		19AD18BE1A0E0CDC00200802 /* jsoncpp */ = {
+			isa = PBXGroup;
+			children = (
+				19AD18BF1A0E0CDC00200802 /* include */,
+				19AD18CC1A0E0CDC00200802 /* src */,
+			);
+			name = jsoncpp;
+			path = ../../../Source/libs/jsoncpp;
+			sourceTree = "<group>";
+		};
+		19AD18BF1A0E0CDC00200802 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				19AD18C11A0E0CDC00200802 /* json */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		19AD18C11A0E0CDC00200802 /* json */ = {
+			isa = PBXGroup;
+			children = (
+				19AD18C21A0E0CDC00200802 /* assertions.h */,
+				19AD18C31A0E0CDC00200802 /* autolink.h */,
+				19AD18C41A0E0CDC00200802 /* config.h */,
+				19AD18C51A0E0CDC00200802 /* features.h */,
+				19AD18C61A0E0CDC00200802 /* forwards.h */,
+				19AD18C71A0E0CDC00200802 /* json.h */,
+				19AD18C81A0E0CDC00200802 /* reader.h */,
+				19AD18C91A0E0CDC00200802 /* value.h */,
+				19AD18CA1A0E0CDC00200802 /* version.h */,
+				19AD18CB1A0E0CDC00200802 /* writer.h */,
+			);
+			path = json;
+			sourceTree = "<group>";
+		};
+		19AD18CC1A0E0CDC00200802 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				19AD18D21A0E0CDC00200802 /* lib_json */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		19AD18D21A0E0CDC00200802 /* lib_json */ = {
+			isa = PBXGroup;
+			children = (
+				19AD18D41A0E0CDC00200802 /* json_batchallocator.h */,
+				19AD18D71A0E0CDC00200802 /* json_reader.cpp */,
+				19AD18D81A0E0CDC00200802 /* json_tool.h */,
+				19AD18D91A0E0CDC00200802 /* json_value.cpp */,
+				19AD18DB1A0E0CDC00200802 /* json_writer.cpp */,
+			);
+			path = lib_json;
 			sourceTree = "<group>";
 		};
 		19C61F9F1A056CCB001674E0 /* Signal */ = {
@@ -2917,10 +3000,10 @@
 				19CCD67B1A02D41000986A8E /* ccShader_Label_outline.frag in Resources */,
 				19CCD6181A02D30200986A8E /* cocos2d_wp_8.1_platform.props in Resources */,
 				19CCD67F1A02D41000986A8E /* ccShader_PositionColor.frag in Resources */,
-				19CCD6031A02D30200986A8E /* CMakeLists.txt in Resources */,
 				19CCD6861A02D41000986A8E /* ccShader_PositionTexture.vert in Resources */,
 				19CCD68A1A02D41000986A8E /* ccShader_PositionTextureColor_noMVP.vert in Resources */,
 				19CCD68C1A02D41000986A8E /* ccShader_PositionTextureColor.vert in Resources */,
+				19C72D0D1A0D5AD600EA9CB5 /* bin in Resources */,
 				19CCD6741A02D41000986A8E /* ccShader_3D_ColorNormalTex.frag in Resources */,
 				19CCD6151A02D30200986A8E /* cocos2d_winrt.props in Resources */,
 				19CCD6721A02D41000986A8E /* ccShader_3D_Color.frag in Resources */,
@@ -2964,7 +3047,6 @@
 				19CCD6881A02D41000986A8E /* ccShader_PositionTextureA8Color.vert in Resources */,
 				19AB271019F984F3008D3B13 /* Quaternion.inl in Resources */,
 				19CCD6051A02D30200986A8E /* cocos2d.def in Resources */,
-				19CCD6951A02D41000986A8E /* CMakeLists.txt in Resources */,
 				19CCD60E1A02D30200986A8E /* libcocos2d_wp8.vcxproj in Resources */,
 				19AB271519F984F3008D3B13 /* Vec3.inl in Resources */,
 				19CCD67C1A02D41000986A8E /* ccShader_Label.vert in Resources */,
@@ -3049,6 +3131,7 @@
 				19CCD5DC1A02D30200986A8E /* CCFontFreeType.cpp in Sources */,
 				19CCD38E1A02CBDD00986A8E /* CCGLView.cpp in Sources */,
 				19CCD4F41A02CE2B00986A8E /* UIEditBoxImpl-win32.cpp in Sources */,
+				19AD18EC1A0E0CDC00200802 /* json_reader.cpp in Sources */,
 				19AB271619F984F3008D3B13 /* Vec4.cpp in Sources */,
 				19CCD3F81A02CCEA00986A8E /* CCInvocation.cpp in Sources */,
 				19CCD4F01A02CE2B00986A8E /* UIEditBoxImpl-android.cpp in Sources */,
@@ -3077,6 +3160,7 @@
 				19AB2C2619F99913008D3B13 /* CCPhysicsBody.cpp in Sources */,
 				19CCD3A91A02CBE600986A8E /* CCDevice-ios.mm in Sources */,
 				19CCD5EA1A02D30200986A8E /* CCNode.cpp in Sources */,
+				19AD18EF1A0E0CDC00200802 /* json_writer.cpp in Sources */,
 				19CCD4821A02CDE800986A8E /* CCEventListenerKeyboard.cpp in Sources */,
 				19CCD5D81A02D30200986A8E /* CCFontAtlas.cpp in Sources */,
 				19CCD3F91A02CCEA00986A8E /* CCScrollView.cpp in Sources */,
@@ -3193,6 +3277,7 @@
 				19CCD48F1A02CDE800986A8E /* CCTouch.cpp in Sources */,
 				19AB706919FACAE90041EAB6 /* Gamepad.cpp in Sources */,
 				19AB2A8819F98DA8008D3B13 /* ConvertUTF.c in Sources */,
+				19AD18ED1A0E0CDC00200802 /* json_value.cpp in Sources */,
 				19AB270A19F984F3008D3B13 /* Mat4.cpp in Sources */,
 				19CCD3FA1A02CCEA00986A8E /* CCTableView.cpp in Sources */,
 				19CCD3FB1A02CCEA00986A8E /* CCTableViewCell.cpp in Sources */,
@@ -3409,6 +3494,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					../../Source/libs/cocos2d/external/freetype2/include/ios,
 					../../Source/libs/cocos2d/external/curl/include/ios,
+					../../Source/libs/jsoncpp/include,
 				);
 				INFOPLIST_FILE = KillyCraft/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -3423,7 +3509,7 @@
 					../../Source/libs/cocos2d/external/chipmunk/prebuilt/ios,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "../../Source/libs/cocos2d/ ../../Source/libs/cocos2d/cocos ../../Source/libs/cocos2d/cocos/deprecated ../../Source/libs/cocos2d/external ../../Source/libs/cocos2d/external/edtaa3func ../../Source/libs/cocos2d/external/ConvertUTF ../../Source/libs/cocos2d/external/curl/include/ios/curl ../../Source/libs/cocos2d/external/xxhash ../../Source/libs/cocos2d/external/png/include/ios ../../Source/libs/cocos2d/external/webp/include/ios ../../Source/libs/cocos2d/external/tiff/include/ios ../../Source/libs/cocos2d/external/jpeg/include/ios ../../Source/libs/cocos2d/external/tinyxml2 ../../Source/libs/cocos2d/external/nslog ../../Source/libs/cocos2d/external/chipmunk/include/chipmunk ../../Source ../../Source/Game";
+				USER_HEADER_SEARCH_PATHS = "../../Source/libs/cocos2d/ ../../Source/libs/cocos2d/cocos ../../Source/libs/cocos2d/cocos/deprecated ../../Source/libs/cocos2d/external/edtaa3func ../../Source/libs/cocos2d/external/ConvertUTF ../../Source/libs/cocos2d/external/curl/include/ios/curl ../../Source/libs/cocos2d/external/xxhash ../../Source/libs/cocos2d/external/png/include/ios ../../Source/libs/cocos2d/external/webp/include/ios ../../Source/libs/cocos2d/external/tiff/include/ios ../../Source/libs/cocos2d/external/jpeg/include/ios ../../Source/libs/cocos2d/external/tinyxml2 ../../Source/libs/cocos2d/external/nslog ../../Source/libs/cocos2d/external/chipmunk/include/chipmunk ../../Source ../../Source/Game ../../Source/libs/jsoncpp/include";
 			};
 			name = Debug;
 		};
@@ -3436,6 +3522,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					../../Source/libs/cocos2d/external/freetype2/include/ios,
 					../../Source/libs/cocos2d/external/curl/include/ios,
+					../../Source/libs/jsoncpp/include,
 				);
 				INFOPLIST_FILE = KillyCraft/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -3450,7 +3537,7 @@
 					../../Source/libs/cocos2d/external/chipmunk/prebuilt/ios,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "../../Source/libs/cocos2d/ ../../Source/libs/cocos2d/cocos ../../Source/libs/cocos2d/cocos/deprecated ../../Source/libs/cocos2d/external ../../Source/libs/cocos2d/external/edtaa3func ../../Source/libs/cocos2d/external/ConvertUTF ../../Source/libs/cocos2d/external/curl/include/ios/curl ../../Source/libs/cocos2d/external/xxhash ../../Source/libs/cocos2d/external/png/include/ios ../../Source/libs/cocos2d/external/webp/include/ios ../../Source/libs/cocos2d/external/tiff/include/ios ../../Source/libs/cocos2d/external/jpeg/include/ios ../../Source/libs/cocos2d/external/tinyxml2 ../../Source/libs/cocos2d/external/nslog ../../Source/libs/cocos2d/external/chipmunk/include/chipmunk ../../Source ../../Source/Game";
+				USER_HEADER_SEARCH_PATHS = "../../Source/libs/cocos2d/ ../../Source/libs/cocos2d/cocos ../../Source/libs/cocos2d/cocos/deprecated ../../Source/libs/cocos2d/external/edtaa3func ../../Source/libs/cocos2d/external/ConvertUTF ../../Source/libs/cocos2d/external/curl/include/ios/curl ../../Source/libs/cocos2d/external/xxhash ../../Source/libs/cocos2d/external/png/include/ios ../../Source/libs/cocos2d/external/webp/include/ios ../../Source/libs/cocos2d/external/tiff/include/ios ../../Source/libs/cocos2d/external/jpeg/include/ios ../../Source/libs/cocos2d/external/tinyxml2 ../../Source/libs/cocos2d/external/nslog ../../Source/libs/cocos2d/external/chipmunk/include/chipmunk ../../Source ../../Source/Game ../../Source/libs/jsoncpp/include";
 			};
 			name = Release;
 		};

@@ -15,20 +15,28 @@
 #include "Component/MovementStateComponents.h"
 #include "Component/CollisionDetectionComponent.h"
 
+#include "base/ccMacros.h"
+
 namespace MelonGames
 {
     namespace KillyCraft
     {
         namespace BehavioursFactory
         {
-            Behaviour* createBehaviour(const rapidjson::Value& json);
+            Behaviour* createBehaviour(const Json::Value& json);
         }
         
         namespace ComponentsFactoryFunctions
         {
+            cocos2d::Vec3 vec3FromJson(const Json::Value& json)
+            {
+                cocos2d::Vec3 result(json[0].asFloat(), json[1].asFloat(), json[2].asFloat());
+                return result;
+            }
+            
             ComponentFactoryFunction createPositionComponent()
             {
-                return [](const rapidjson::Value& json) -> Component*
+                return [](const Json::Value& json) -> Component*
                 {
                     return new PositionComponent();
                 };
@@ -36,33 +44,50 @@ namespace MelonGames
             
             ComponentFactoryFunction createViewComponent()
             {
-                return [](const rapidjson::Value& json) -> Component*
+                return [](const Json::Value& json) -> Component*
                 {
                     auto result = new ViewComponent();
-                    result->setSpriteFrameName(json["sprite"].GetString());
+                    result->setSpriteFrameName(json["sprite"].asString());
                     return result;
                 };
             }
             
             ComponentFactoryFunction createBehaviourComponent()
             {
-                return [](const rapidjson::Value& json) -> Component*
+                return [](const Json::Value& json) -> Component*
                 {
                     auto result = new BehaviourComponent();
-                    const rapidjson::Value& behaviours = json["behaviours"];
-                    for (auto it = behaviours.MemberonBegin(); it != behaviours.MemberonEnd(); ++it)
+                    for (const auto& behaviourJson : json["behaviours"])
                     {
-                        Behaviour* behaviour = BehavioursFactory::createBehaviour(it->value);
+                        Behaviour* behaviour = BehavioursFactory::createBehaviour(behaviourJson);
+                        CCASSERT(behaviour, "Failed creating a behaviour");
+                        
                         if (behaviour)
                         {
                             result->addBehaviour(behaviour);
                         }
-                        else
-                        {
-                            delete result;
-                            return nullptr;
-                        }
                     }
+                    return result;
+                };
+            }
+            
+            ComponentFactoryFunction createMoveCircularComponent()
+            {
+                return [](const Json::Value& json) -> Component*
+                {
+                    auto result = new CircularMoveStateComponent();
+                    result->setRadiansPerSecond(json["rps"].asFloat());
+                    result->setRadius(json["r"].asFloat());
+                    return result;
+                };
+            }
+            
+            ComponentFactoryFunction createMoveLinearComponent()
+            {
+                return [](const Json::Value& json) -> Component*
+                {
+                    auto result = new LinearMoveStateComponent();
+                    result->setMovementPerSecond(vec3FromJson(json["move"]));
                     return result;
                 };
             }
@@ -72,6 +97,8 @@ namespace MelonGames
                 functions["Position"] = createPositionComponent();
                 functions["View"] = createViewComponent();
                 functions["Behaviour"] = createBehaviourComponent();
+                functions["MoveCircular"] = createMoveCircularComponent();
+                functions["MoveLinear"] = createMoveLinearComponent();
             }
         }
     }

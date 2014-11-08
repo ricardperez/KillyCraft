@@ -6,24 +6,24 @@
 			"enemies":
 			[
 				[
-					"EnemyBasic",
+					"EnemyGordy",
 					[0, 0]
 				],
 				[
-					"EnemyBasic",
-					[50, 0]
+					"EnemyFrighty",
+					[200, 0]
 				],
 				[
-					"EnemyBasic",
-					[-50, 0]
+					"EnemyFrighty",
+					[-200, 0]
 				],
 				[
-					"EnemyBasic",
-					[100, 0]
+					"EnemyKilly",
+					[400, 0]
 				],
 				[
-					"EnemyBasic",
-					[100, 0]
+					"EnemyKilly",
+					[-400, 0]
 				]
 			]
 		},
@@ -37,19 +37,19 @@
 				],
 				[
 					"SquadBasic-Row:4:50",
-					[0, -50]
+					[0, 200]
 				],
 				[
 					"SquadBasic-Row:4:50",
-					[0, -100]
+					[0, 400]
 				],
 				[
 					"SquadBasic-Row:4:50",
-					[0, -150]
+					[0, 600]
 				],
 				[
 					"SquadBasic-Row:4:50",
-					[0, -200]
+					[0, 800]
 				]
 			]
 		}

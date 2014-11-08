@@ -10,7 +10,9 @@
 #include "Behaviour/MovementBehaviours.h"
 #include "Behaviour/DestroyBehaviour.h"
 #include "Behaviour/DestroyBehaviourFunctions.h"
-#include "json/document.h"
+
+#include "json/value.h"
+#include "base/ccMacros.h"
 
 namespace MelonGames
 {
@@ -18,14 +20,12 @@ namespace MelonGames
     {
         namespace BehavioursFactory
         {
-            Behaviour* createDestroyBehaviour(const rapidjson::Value& json)
+            Behaviour* createDestroyBehaviour(const Json::Value& json)
             {
                 auto result = new DestroyBehaviour();
-                const rapidjson::Value& checks = json["checks"];
-                for (auto it = checks.MemberonBegin(); it != checks.MemberonEnd(); ++it)
+                for (const auto& check : json["checks"])
                 {
-                    const rapidjson::Value& check = it->value;
-                    std::string type = check["type"].GetString();
+                    std::string type = check["type"].asString();
                     if (type == "OutOfScreen")
                     {
                         result->addCheckFunctionWithName(DestroyBehaviourFunctions::makeIsOutOfScreenFunction(), type);
@@ -40,6 +40,7 @@ namespace MelonGames
                     }
                     else
                     {
+                        CCASSERT(false, ("Could not create a DestroyBehaviour function of type " + type).c_str());
                         delete result;
                         return nullptr;
                     }
@@ -48,9 +49,9 @@ namespace MelonGames
                 return result;
             }
             
-            Behaviour* createBehaviour(const rapidjson::Value& json)
+            Behaviour* createBehaviour(const Json::Value& json)
             {
-                std::string type = json["type"].GetString();
+                std::string type = json["type"].asString();
                 if (type == "Destroy")
                 {
                     return createDestroyBehaviour(json);
@@ -62,6 +63,10 @@ namespace MelonGames
                 else if (type == "MoveLinear")
                 {
                     return new MoveLinearBehaviour();
+                }
+                else
+                {
+                    CCASSERT(false, ("Could not create a behaviour of type " + type).c_str());
                 }
                 
                 return nullptr;

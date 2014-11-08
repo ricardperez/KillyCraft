@@ -24,9 +24,10 @@ namespace MelonGames
             mainNode->addChild(mainView);
             
             starsView = new StarsView();
-            starsView->addLayerWithTexture(mainView, std::numeric_limits<int>::min(), "stars1.png", 5.0f, -100.0f);
-            starsView->addLayerWithTexture(mainView, std::numeric_limits<int>::min(), "stars2.png", 0.0f, -140.0f);
-            starsView->addLayerWithTexture(mainView, std::numeric_limits<int>::min(), "stars3.png", -4.0f, -120.0f);
+//            starsView->addLayerWithTexture(mainView, std::numeric_limits<int>::min(), "stars1.png", 5.0f, -100.0f);
+//            starsView->addLayerWithTexture(mainView, std::numeric_limits<int>::min(), "stars2.png", 0.0f, -140.0f);
+//            starsView->addLayerWithTexture(mainView, std::numeric_limits<int>::min(), "stars3.png", -4.0f, -120.0f);
+            starsView->addLayerWithTexture(mainView, std::numeric_limits<int>::min(), "background.png", 0.0f, -100.0f);
             
         }
         

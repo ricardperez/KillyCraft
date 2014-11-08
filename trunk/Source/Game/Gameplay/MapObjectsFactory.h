@@ -12,7 +12,7 @@
 #include <string>
 #include <map>
 #include <vector>
-#include "json/document.h"
+#include "json/value.h"
 
 namespace MelonGames
 {
@@ -21,14 +21,12 @@ namespace MelonGames
         class MapObject;
         class Component;
         
-        typedef std::function<Component*(const rapidjson::Value& json)> ComponentFactoryFunction;
+        typedef std::function<Component*(const Json::Value& json)> ComponentFactoryFunction;
         
         struct ObjectTemplate
         {
             std::string name;
-            const rapidjson::Value* json;
-            
-            const rapidjson::Value& getJson() const { return *json; }
+            Json::Value json;
         };
         
         class MapObjectsFactory
@@ -46,7 +44,6 @@ namespace MelonGames
             
         private:
             std::map<unsigned int, ObjectTemplate> templates;
-            std::vector<rapidjson::Document> jsonDocs;
             
             std::map<std::string, ComponentFactoryFunction> componentFactoryFunctions;
         };

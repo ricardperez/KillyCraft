@@ -39,6 +39,9 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../../Source/Game/Gameplay/View/StarsView.cpp \
                    ../../../Source/Game/Screens/GameScreen.cpp \
                    ../../../Source/Game/Screens/MenuScreen.cpp \
+                   ../../../Source/libs/jsoncpp/src/lib_json/json_reader.cpp \
+                   ../../../Source/libs/jsoncpp/src/lib_json/json_value.cpp \
+                   ../../../Source/libs/jsoncpp/src/lib_json/json_writer.cpp \
                    ../../../Source/MelonGames/Services/FilesService.cpp \
                    ../../../Source/MelonGames/Crypto.cpp \
                    ../../../Source/MelonGames/Random.cpp \
@@ -47,6 +50,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../Source \
                     $(LOCAL_PATH)/../../../Source/Game \
+                    $(LOCAL_PATH)/../../../Source/libs/jsoncpp/include \
 
 LOCAL_STATIC_LIBRARIES := cocos2dx_static
 

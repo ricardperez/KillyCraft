@@ -87,6 +87,7 @@ namespace MelonGames
             {
                 filesService->addDirectory("HiDPI/");
             }
+            filesService->addDirectory("bin/");
 			servicesManager.add(filesService);
 		}
 	}

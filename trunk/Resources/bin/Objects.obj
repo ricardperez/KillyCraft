@@ -7,7 +7,7 @@
 			[
 				{
 					"type":"View",
-					"sprite":"Enemy1.png"
+					"sprite":"Placeholder.png"
 				},
 				{
 					"type":"Behaviour",
@@ -33,6 +33,127 @@
 							"type":"MoveLinear"
 						}
 					]
+				},
+				{
+					"type":"MoveLinear",
+					"move":[0.0, -250.0, 0.0]
+				}
+			]
+		},
+		{
+			"name":"EnemyGordy",
+			"components":
+			[
+				{
+					"type":"View",
+					"sprite":"Gordy.png"
+				},
+				{
+					"type":"Behaviour",
+					"behaviours":
+					[
+						{
+							"type":"Destroy",
+							"checks":
+							[
+								{
+									"type":"OutOfScreen"
+								},
+								{
+									"type":"Collision",
+									"against":0
+								}
+							]
+						},
+						{
+							"type":"MoveCircular"
+						},
+						{
+							"type":"MoveLinear"
+						}
+					]
+				},
+				{
+					"type":"MoveLinear",
+					"move":[0.0, -250.0, 0.0]
+				}
+			]
+		},
+		{
+			"name":"EnemyKilly",
+			"components":
+			[
+				{
+					"type":"View",
+					"sprite":"Killy.png"
+				},
+				{
+					"type":"Behaviour",
+					"behaviours":
+					[
+						{
+							"type":"Destroy",
+							"checks":
+							[
+								{
+									"type":"OutOfScreen"
+								},
+								{
+									"type":"Collision",
+									"against":0
+								}
+							]
+						},
+						{
+							"type":"MoveCircular"
+						},
+						{
+							"type":"MoveLinear"
+						}
+					]
+				},
+				{
+					"type":"MoveLinear",
+					"move":[0.0, -250.0, 0.0]
+				}
+			]
+		},
+		{
+			"name":"EnemyFrighty",
+			"components":
+			[
+				{
+					"type":"View",
+					"sprite":"Frighty.png"
+				},
+				{
+					"type":"Behaviour",
+					"behaviours":
+					[
+						{
+							"type":"Destroy",
+							"checks":
+							[
+								{
+									"type":"OutOfScreen"
+								},
+								{
+									"type":"Collision",
+									"against":0
+								}
+							]
+						},
+						{
+							"type":"MoveCircular"
+						},
+						{
+							"type":"MoveLinear"
+						}
+					]
+				},
+				{
+					"type":"MoveLinear",
+					"move":[0.0, -250.0, 0.0]
 				}
 			]
 		}

@@ -9,6 +9,7 @@
 #include "GameScreen.h"
 #include "Gameplay/Map.h"
 #include "Gameplay/MapObject.h"
+#include "base/CCDirector.h"
 
 namespace MelonGames
 {
@@ -43,6 +44,7 @@ namespace MelonGames
 			{
                 MapDefinition mapDefinition;
                 mapDefinition.height = 5000.0f;
+                mapDefinition.screenSize = cocos2d::Director::getInstance()->getWinSize();
 				map = new Map(mapDefinition);
 				
 				cocos2d::Node* mapNode = cocos2d::Node::create();
