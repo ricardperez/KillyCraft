@@ -16,6 +16,8 @@ namespace MelonGames
 		MapObject::MapObject()
 		: map(nullptr)
 		, valid(false)
+        , updating(false)
+        , callWillDetachAfterUpdate(false)
 		{
 		}
 		
@@ -86,12 +88,19 @@ namespace MelonGames
 		{
 			valid = false;
 			
-			for (auto& component : components)
-			{
-				component->onWillDetachFromObject();
-			}
-			
-			this->map = nullptr;
+            if (updating)
+            {
+                callWillDetachAfterUpdate = true;
+            }
+            else
+            {
+                for (auto& component : components)
+                {
+                    component->onWillDetachFromObject();
+                }
+                
+                this->map = nullptr;
+            }
 		}
 		
 		bool MapObject::isValid() const
@@ -107,11 +116,20 @@ namespace MelonGames
 		void MapObject::update(float dt)
 		{
 			assert(valid);
+            
+            updating = true;
 			
 			for (auto component : components)
 			{
 				component->update(dt);
 			}
+            
+            updating = false;
+            
+            if (callWillDetachAfterUpdate)
+            {
+                onWillDetachFromMap();
+            }
 		}
 	}
 }

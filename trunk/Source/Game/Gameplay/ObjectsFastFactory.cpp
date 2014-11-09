@@ -74,7 +74,7 @@ namespace MelonGames
                     behaviourComponent->addBehaviour(new MoveCircularBehaviour());
                     
                     DestroyBehaviour* destroyBehaviour = new DestroyBehaviour();
-                    destroyBehaviour->addCheckFunctionWithName(DestroyBehaviourFunctions::makeIsOutOfScreenFunction(), "OutOfScreen");
+                    destroyBehaviour->addCheckFunctionWithName(DestroyBehaviourFunctions::makeIsOutOfScreenDownFunction(), "OutOfScreen");
                     behaviourComponent->addBehaviour(destroyBehaviour);
                     
                     result->addComponent(behaviourComponent);
@@ -112,7 +112,7 @@ namespace MelonGames
                     behaviourComponent->addBehaviour(new MoveLinearBehaviour());
                     
                     DestroyBehaviour* destroyBehaviour = new DestroyBehaviour();
-                    destroyBehaviour->addCheckFunctionWithName(DestroyBehaviourFunctions::makeIsOutOfScreenFunction(), "OutOfScreen");
+                    destroyBehaviour->addCheckFunctionWithName(DestroyBehaviourFunctions::makeIsOutOfScreenUpFunction(), "OutOfScreen");
                     behaviourComponent->addBehaviour(destroyBehaviour);
                     
                     result->addComponent(behaviourComponent);

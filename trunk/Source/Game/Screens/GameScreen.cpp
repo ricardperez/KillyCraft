@@ -40,16 +40,22 @@ namespace MelonGames
 		
 		bool GameScreen::init()
 		{
-			if (cocos2d::Layer::create())
+			if (cocos2d::Layer::init())
 			{
+                const auto& winSize = cocos2d::Director::getInstance()->getWinSize();
+                
+                float forcedWidth = 768.0f;
+                float scale = winSize.width / forcedWidth;
+                float forcedHeight = winSize.height / scale;
+                
                 MapDefinition mapDefinition;
                 mapDefinition.height = 5000.0f;
-                mapDefinition.screenSize = cocos2d::Director::getInstance()->getWinSize();
+                mapDefinition.screenSize = cocos2d::Size(forcedWidth, forcedHeight);
+                mapDefinition.screenScale = scale;
 				map = new Map(mapDefinition);
 				
 				cocos2d::Node* mapNode = cocos2d::Node::create();
-				mapNode->setPosition(getContentSize()*0.5f);
-				mapNode->setContentSize(getContentSize());
+				mapNode->setContentSize(winSize);
 				addChild(mapNode);
 				
 				map->setNode(mapNode);

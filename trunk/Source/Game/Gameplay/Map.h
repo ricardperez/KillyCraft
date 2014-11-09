@@ -31,6 +31,7 @@ namespace MelonGames
         {
             float height;
             cocos2d::Size screenSize;
+            float screenScale;
         };
 		
 		class Map

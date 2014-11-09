@@ -26,9 +26,13 @@ namespace MelonGames
                 for (const auto& check : json["checks"])
                 {
                     std::string type = check["type"].asString();
-                    if (type == "OutOfScreen")
+                    if (type == "OutOfScreenDown")
                     {
-                        result->addCheckFunctionWithName(DestroyBehaviourFunctions::makeIsOutOfScreenFunction(), type);
+                        result->addCheckFunctionWithName(DestroyBehaviourFunctions::makeIsOutOfScreenDownFunction(), type);
+                    }
+                    else if (type == "OutOfScreenUp")
+                    {
+                        result->addCheckFunctionWithName(DestroyBehaviourFunctions::makeIsOutOfScreenUpFunction(), type);
                     }
                     else if (type == "Collision")
                     {

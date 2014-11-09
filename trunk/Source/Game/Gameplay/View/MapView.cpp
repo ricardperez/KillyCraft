@@ -8,6 +8,9 @@
 
 #include "MapView.h"
 #include "StarsView.h"
+
+#include "Gameplay/Map.h"
+
 #include "base/CCDirector.h"
 
 namespace MelonGames
@@ -19,7 +22,8 @@ namespace MelonGames
         , starsView(nullptr)
         {
             mainView = cocos2d::Node::create();
-            mainView->setContentSize(cocos2d::Director::getInstance()->getWinSize());
+            mainView->setContentSize(map->getDefinition().screenSize);
+            mainView->setScale(map->getDefinition().screenScale);
             
             mainNode->addChild(mainView);
             

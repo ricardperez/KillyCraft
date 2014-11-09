@@ -18,7 +18,7 @@
 							"checks":
 							[
 								{
-									"type":"OutOfScreen"
+									"type":"OutOfScreenDown"
 								},
 								{
 									"type":"Collision",
@@ -57,7 +57,7 @@
 							"checks":
 							[
 								{
-									"type":"OutOfScreen"
+									"type":"OutOfScreenDown"
 								},
 								{
 									"type":"Collision",
@@ -96,7 +96,7 @@
 							"checks":
 							[
 								{
-									"type":"OutOfScreen"
+									"type":"OutOfScreenDown"
 								},
 								{
 									"type":"Collision",
@@ -135,7 +135,7 @@
 							"checks":
 							[
 								{
-									"type":"OutOfScreen"
+									"type":"OutOfScreenDown"
 								},
 								{
 									"type":"Collision",

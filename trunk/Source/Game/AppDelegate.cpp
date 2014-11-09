@@ -48,7 +48,8 @@ namespace MelonGames
 			
 			// create a scene. it's an autorelease object
 			auto scene = Scene::create();
-			scene->addChild(GameScreen::create());
+            auto gameScreen = GameScreen::create();
+			scene->addChild(gameScreen);
 			
 			// run
 			director->runWithScene(scene);

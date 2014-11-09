@@ -20,7 +20,8 @@ namespace MelonGames
         namespace DestroyBehaviourFunctions
         {
             DestroyCheckFunction makeIsDeadFunction();
-            DestroyCheckFunction makeIsOutOfScreenFunction();
+            DestroyCheckFunction makeIsOutOfScreenDownFunction();
+            DestroyCheckFunction makeIsOutOfScreenUpFunction();
             DestroyCheckFunction makeIsCollisionFunction();
         }
     }

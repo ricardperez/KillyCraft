@@ -51,6 +51,9 @@ namespace MelonGames
 			
 			std::vector<Component*> componentsToAdd;
 			std::vector<Component*> componentsToRemove;
+            
+            bool updating;
+            bool callWillDetachAfterUpdate;
 		};
 		
 		template <typename T>
