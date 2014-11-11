@@ -17,9 +17,8 @@ namespace MelonGames
 {
 	namespace KillyCraft
 	{
+#pragma mark - Gamepad
 		Gamepad::Gamepad()
-		: leftTouch(nullptr)
-		, rightTouch(nullptr)
 		{
 			auto eventsListener = cocos2d::EventListenerTouchAllAtOnce::create();
 			
@@ -57,17 +56,27 @@ namespace MelonGames
 		
 		bool Gamepad::isTouchingLeft() const
 		{
-			return ((leftTouch != nullptr) && (rightTouch == nullptr));
+            if (leftTouch.touch && rightTouch.touch)
+            {
+                return (leftTouch.timestamp <= rightTouch.timestamp);
+            }
+			
+            return (leftTouch.touch != nullptr);
 		}
 		
 		bool Gamepad::isTouchingRight() const
 		{
-			return ((rightTouch != nullptr) && (leftTouch == nullptr));
+            if (leftTouch.touch && rightTouch.touch)
+            {
+                return (leftTouch.timestamp > rightTouch.timestamp);
+            }
+            
+            return (rightTouch.touch != nullptr);
 		}
 		
 		bool Gamepad::isFiring() const
 		{
-			return ((leftTouch != nullptr) && (rightTouch != nullptr));
+			return ((leftTouch.touch != nullptr) && (rightTouch.touch != nullptr));
 		}
 		
 		void Gamepad::onTouchBegan(const cocos2d::Touch *touch)
@@ -75,34 +84,35 @@ namespace MelonGames
 			auto position = touch->getLocationInView();
 			if (position.x < cocos2d::Director::getInstance()->getWinSize().width * 0.5f)
 			{
-				if (leftTouch == nullptr)
+				if (leftTouch.touch == nullptr)
 				{
-					leftTouch = touch;
-				}
+					leftTouch.touch = touch;
+                    leftTouch.timestamp = time(nullptr);
+                }
 			}
 			else
 			{
-				if (rightTouch == nullptr)
+				if (rightTouch.touch == nullptr)
 				{
-					rightTouch = touch;
+					rightTouch.touch = touch;
+                    rightTouch.timestamp = time(nullptr);
 				}
 			}
 		}
 		
 		void Gamepad::onTouchEnded(const cocos2d::Touch *touch)
 		{
-			if (touch == leftTouch)
+			if (touch == leftTouch.touch)
 			{
-				leftTouch = nullptr;
+				leftTouch.touch = nullptr;
 			}
-			if (touch == rightTouch)
+			if (touch == rightTouch.touch)
 			{
-				rightTouch = nullptr;
+				rightTouch.touch = nullptr;
 			}
 		}
 		
-		
-		
+#pragma mark - GamepadController
 		GamepadController* GamepadController::create()
 		{
 			return new GamepadController();
@@ -112,28 +122,24 @@ namespace MelonGames
 		: timer(nullptr)
 		{
 			auto update = [this](float dt){
-				GamepadAction action = GamepadAction::eNone;
-				
-				bool touching = true;
+				int action = GamepadAction::eNone;
 				
 				if (gamepad.isTouchingLeft())
 				{
-					action = GamepadAction::eMoveLeft;
+					action |= GamepadAction::eMoveLeft;
 				}
-				else if (gamepad.isTouchingRight())
+                
+				if (gamepad.isTouchingRight())
 				{
-					action = GamepadAction::eMoveRight;
-				}
-				else if (gamepad.isFiring())
-				{
-					action = GamepadAction::eFire;
-				}
-				else
-				{
-					touching = false;
+					action |= GamepadAction::eMoveRight;
 				}
 				
-				if (touching)
+                if (gamepad.isFiring())
+				{
+					action |= GamepadAction::eFire;
+				}
+                
+                if (action != GamepadAction::eNone)
 				{
 					gamepadActionSignal.Emit(&gamepad, action, dt);
 				}
@@ -157,7 +163,7 @@ namespace MelonGames
 			delete timer;
 		}
 		
-		Gallant::Signal3<Gamepad*, GamepadAction, float>& GamepadController::getGamepadActionSignal()
+		Gallant::Signal3<Gamepad*, int, float>& GamepadController::getGamepadActionSignal()
 		{
 			return gamepadActionSignal;
 		}

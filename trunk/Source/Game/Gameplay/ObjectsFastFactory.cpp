@@ -14,6 +14,7 @@
 #include "Component/WeaponComponent.h"
 #include "Component/BehaviourComponent.h"
 #include "Component/MovementStateComponents.h"
+#include "Component/CollisionDetectionComponent.h"
 
 #include "Behaviour/MovementBehaviours.h"
 #include "Behaviour/DestroyBehaviour.h"
@@ -49,6 +50,9 @@ namespace MelonGames
                 
                 GamepadShootComponent* gamepadShootComponent = new GamepadShootComponent();
                 result->addComponent(gamepadShootComponent);
+                
+                auto collisionDetection = new CollisionDetectionComponent();
+                result->addComponent(collisionDetection);
 				
 				return result;
 			}
@@ -64,6 +68,9 @@ namespace MelonGames
                 ViewComponent* viewComponent = new ViewComponent();
                 viewComponent->setSpriteFrameName("Killy.png");
                 result->addComponent(viewComponent);
+                
+                auto collisionDetection = new CollisionDetectionComponent();
+                result->addComponent(collisionDetection);
                 
                 //Behaviour
                 {
@@ -105,6 +112,9 @@ namespace MelonGames
                 auto linearMoveState = new LinearMoveStateComponent();
                 linearMoveState->setMovementPerSecond(cocos2d::Vec3(0.0f, 600.0f, 0.0f));
                 result->addComponent(linearMoveState);
+                
+                auto collisionDetection = new CollisionDetectionComponent();
+                result->addComponent(collisionDetection);
                 
                 //Behaviour
                 {

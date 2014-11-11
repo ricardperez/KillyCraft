@@ -2,6 +2,16 @@
 	"obj":
 	[
 		{
+			"name":"SquadBasic-1",
+			"enemies":
+			[
+				[
+					"EnemyGordy",
+					[0, 0]
+				]
+			]
+		},
+		{
 			"name":"SquadBasic-Row:4:50",
 			"enemies":
 			[

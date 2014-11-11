@@ -7,6 +7,7 @@
 //
 
 #include "SpawnObjectsManager.h"
+#include "GameConfig.h"
 #include "MelonGames/Random.h"
 #include "ObjectsFastFactory.h"
 #include "Map.h"
@@ -66,14 +67,27 @@ namespace MelonGames
         
         void SpawnObjectsManager::spawnNextEnemySquad()
         {
+            const cocos2d::Size& screenSize = map->getDefinition().screenSize;
+            cocos2d::Vec2 offset(screenSize.width * 0.5f, screenSize.height);
+            
             int nSquads = squadTemplates.size();
             assert(nSquads > 0);
             
             int squadIndex = std::floorf((nSquads-1) * Random::getInstance().next() + 0.5f);
-            const SquadTemplate& squadTemplate = *(squadTemplates.begin() + squadIndex);
             
-            const cocos2d::Size& screenSize = map->getDefinition().screenSize;
-            cocos2d::Vec2 offset(screenSize.width * 0.5f, screenSize.height);
+#ifdef FORCED_SQUAD
+            squadIndex = 0;
+            for (const auto& squadTemplate : squadTemplates)
+            {
+                if (squadTemplate.name == FORCED_SQUAD)
+                {
+                    break;
+                }
+                ++squadIndex;
+            }
+#endif
+            
+            const SquadTemplate& squadTemplate = *(squadTemplates.begin() + squadIndex);
             
             std::vector<MapObject*> enemies;
             createSquad(squadTemplate, offset, enemies);

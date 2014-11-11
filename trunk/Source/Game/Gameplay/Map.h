@@ -58,6 +58,8 @@ namespace MelonGames
             float getElapsedTime() const;
             
             MapObjectsFactory* getFactory() const;
+            
+            const std::vector<MapObject*>& getObjects() const;
 			
 		private:
             MapDefinition definition;

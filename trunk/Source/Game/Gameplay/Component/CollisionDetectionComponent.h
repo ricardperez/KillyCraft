@@ -17,6 +17,7 @@ namespace MelonGames
     {
         struct TextureMask
         {
+            bool built = false;
             bool* mask = nullptr;
             int width = 0;
             int height = 0;

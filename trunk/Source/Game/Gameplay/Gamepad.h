@@ -23,12 +23,12 @@ namespace MelonGames
 {
 	namespace KillyCraft
 	{
-		enum class GamepadAction
+		enum GamepadAction
 		{
 			eNone = 0,
-			eMoveLeft,
-			eMoveRight,
-			eFire
+			eMoveLeft = 1,
+			eMoveRight = 2,
+			eFire = 4
 		};
 		
 		class Gamepad
@@ -50,8 +50,16 @@ namespace MelonGames
 		private:
 			cocos2d::EventListener* eventsListener;
 			
-			const cocos2d::Touch* leftTouch;
-			const cocos2d::Touch* rightTouch;
+            struct TouchInfo
+            {
+                const cocos2d::Touch* touch;
+                time_t timestamp;
+                
+                TouchInfo() : touch(nullptr), timestamp(0) {}
+            };
+            
+			TouchInfo leftTouch;
+			TouchInfo rightTouch;
 		};
 		
 		//This class will schedule an update method and call the CommandDirector
@@ -61,7 +69,7 @@ namespace MelonGames
 			static GamepadController* create();
 			virtual ~GamepadController();
 			
-			Gallant::Signal3<Gamepad*, GamepadAction, float>& getGamepadActionSignal();
+			Gallant::Signal3<Gamepad*, int /*GamepadAction bitmask*/, float>& getGamepadActionSignal();
 			
 		private:
 			GamepadController();
@@ -70,7 +78,7 @@ namespace MelonGames
 			Gamepad gamepad;
 			cocos2d::Timer* timer;
 			
-			Gallant::Signal3<Gamepad*, GamepadAction, float> gamepadActionSignal;
+			Gallant::Signal3<Gamepad*, int, float> gamepadActionSignal;
 		};
 	}
 }

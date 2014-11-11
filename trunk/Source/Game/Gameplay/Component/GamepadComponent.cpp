@@ -51,23 +51,20 @@ namespace MelonGames
             this->speedRight = speedRight;
         }
         
-        void GamepadMoveComponent::onGamepadAction(Gamepad* gamepad, GamepadAction action, float dt)
+        void GamepadMoveComponent::onGamepadAction(Gamepad* gamepad, int action, float dt)
         {
             PositionComponent* posComponent = object->get<PositionComponent>();
             cocos2d::Vec3 position = posComponent->getPosition();
             
             float movement = 0.0f;
             
-            switch (action)
+            if (action & GamepadAction::eMoveLeft)
             {
-                case GamepadAction::eMoveLeft:
-                    movement = -speedLeft * dt;
-                    break;
-                case GamepadAction::eMoveRight:
-                    movement = speedRight * dt;
-                    break;
-                default:
-                    break;
+                movement = -speedLeft * dt;
+            }
+            else if (action & GamepadAction::eMoveRight)
+            {
+                movement = speedRight * dt;
             }
             
             position.x += movement;
@@ -77,11 +74,19 @@ namespace MelonGames
             posComponent->setPosition(position);
         }
         
-        void GamepadShootComponent::onGamepadAction(Gamepad* gamepad, GamepadAction action, float dt)
+        void GamepadShootComponent::onGamepadAction(Gamepad* gamepad, int action, float dt)
         {
-            if (action == GamepadAction::eFire)
+            if (action & GamepadAction::eFire)
             {
-                object->get<WeaponComponent>()->shoot();
+                auto weaponComponent = object->get<WeaponComponent>();
+                assert(weaponComponent);
+                if (weaponComponent)
+                {
+                    if (weaponComponent->canShoot())
+                    {
+                        weaponComponent->shoot();
+                    }
+                }
             }
         }
     }

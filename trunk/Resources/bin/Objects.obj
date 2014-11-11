@@ -37,6 +37,9 @@
 				{
 					"type":"MoveLinear",
 					"move":[0.0, -250.0, 0.0]
+				},
+				{
+					"type":"CollisionDetection"
 				}
 			]
 		},
@@ -76,6 +79,9 @@
 				{
 					"type":"MoveLinear",
 					"move":[0.0, -250.0, 0.0]
+				},
+				{
+					"type":"CollisionDetection"
 				}
 			]
 		},
@@ -115,6 +121,9 @@
 				{
 					"type":"MoveLinear",
 					"move":[0.0, -250.0, 0.0]
+				},
+				{
+					"type":"CollisionDetection"
 				}
 			]
 		},
@@ -154,6 +163,9 @@
 				{
 					"type":"MoveLinear",
 					"move":[0.0, -250.0, 0.0]
+				},
+				{
+					"type":"CollisionDetection"
 				}
 			]
 		}

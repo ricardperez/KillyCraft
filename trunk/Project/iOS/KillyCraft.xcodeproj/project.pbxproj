@@ -193,12 +193,7 @@
 		19CCD4ED1A02CE2B00986A8E /* UICheckBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD4A31A02CE2B00986A8E /* UICheckBox.cpp */; };
 		19CCD4EE1A02CE2B00986A8E /* UIDeprecated.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD4A51A02CE2B00986A8E /* UIDeprecated.cpp */; };
 		19CCD4EF1A02CE2B00986A8E /* UIEditBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD4A81A02CE2B00986A8E /* UIEditBox.cpp */; };
-		19CCD4F01A02CE2B00986A8E /* UIEditBoxImpl-android.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD4AA1A02CE2B00986A8E /* UIEditBoxImpl-android.cpp */; };
 		19CCD4F11A02CE2B00986A8E /* UIEditBoxImpl-ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD4AD1A02CE2B00986A8E /* UIEditBoxImpl-ios.mm */; };
-		19CCD4F21A02CE2B00986A8E /* UIEditBoxImpl-mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD4AF1A02CE2B00986A8E /* UIEditBoxImpl-mac.mm */; };
-		19CCD4F31A02CE2B00986A8E /* UIEditBoxImpl-stub.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD4B01A02CE2B00986A8E /* UIEditBoxImpl-stub.cpp */; };
-		19CCD4F41A02CE2B00986A8E /* UIEditBoxImpl-win32.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD4B11A02CE2B00986A8E /* UIEditBoxImpl-win32.cpp */; };
-		19CCD4F51A02CE2B00986A8E /* UIEditBoxImpl-wp8.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD4B31A02CE2B00986A8E /* UIEditBoxImpl-wp8.cpp */; };
 		19CCD4F61A02CE2B00986A8E /* UIHBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD4B61A02CE2B00986A8E /* UIHBox.cpp */; };
 		19CCD4F71A02CE2B00986A8E /* UIHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD4B81A02CE2B00986A8E /* UIHelper.cpp */; };
 		19CCD4F81A02CE2B00986A8E /* UIImageView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD4BA1A02CE2B00986A8E /* UIImageView.cpp */; };
@@ -289,30 +284,6 @@
 		19CCD6001A02D30200986A8E /* CCTransitionPageTurn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD5951A02D30200986A8E /* CCTransitionPageTurn.cpp */; };
 		19CCD6011A02D30200986A8E /* CCTransitionProgress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD5971A02D30200986A8E /* CCTransitionProgress.cpp */; };
 		19CCD6021A02D30200986A8E /* CCTweenFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD5991A02D30200986A8E /* CCTweenFunction.cpp */; };
-		19CCD6041A02D30200986A8E /* cocos2d_headers.props in Resources */ = {isa = PBXBuildFile; fileRef = 19CCD59C1A02D30200986A8E /* cocos2d_headers.props */; };
-		19CCD6051A02D30200986A8E /* cocos2d.def in Resources */ = {isa = PBXBuildFile; fileRef = 19CCD59D1A02D30200986A8E /* cocos2d.def */; };
-		19CCD6061A02D30200986A8E /* cocos2dx.props in Resources */ = {isa = PBXBuildFile; fileRef = 19CCD59E1A02D30200986A8E /* cocos2dx.props */; };
-		19CCD6071A02D30200986A8E /* libcocos2d_8_1.Shared.vcxitems in Resources */ = {isa = PBXBuildFile; fileRef = 19CCD5A21A02D30200986A8E /* libcocos2d_8_1.Shared.vcxitems */; };
-		19CCD6081A02D30200986A8E /* libcocos2d_8_1.Shared.vcxitems.filters in Resources */ = {isa = PBXBuildFile; fileRef = 19CCD5A31A02D30200986A8E /* libcocos2d_8_1.Shared.vcxitems.filters */; };
-		19CCD6091A02D30200986A8E /* libcocos2d_8_1.Windows.vcxproj in Resources */ = {isa = PBXBuildFile; fileRef = 19CCD5A61A02D30200986A8E /* libcocos2d_8_1.Windows.vcxproj */; };
-		19CCD60A1A02D30200986A8E /* libcocos2d_8_1.Windows.vcxproj.filters in Resources */ = {isa = PBXBuildFile; fileRef = 19CCD5A71A02D30200986A8E /* libcocos2d_8_1.Windows.vcxproj.filters */; };
-		19CCD60B1A02D30200986A8E /* libcocos2d_8_1.WindowsPhone.vcxproj in Resources */ = {isa = PBXBuildFile; fileRef = 19CCD5A91A02D30200986A8E /* libcocos2d_8_1.WindowsPhone.vcxproj */; };
-		19CCD60C1A02D30200986A8E /* libcocos2d_8_1.WindowsPhone.vcxproj.filters in Resources */ = {isa = PBXBuildFile; fileRef = 19CCD5AA1A02D30200986A8E /* libcocos2d_8_1.WindowsPhone.vcxproj.filters */; };
-		19CCD60D1A02D30200986A8E /* libcocos2d_8_1.sln in Resources */ = {isa = PBXBuildFile; fileRef = 19CCD5AB1A02D30200986A8E /* libcocos2d_8_1.sln */; };
-		19CCD60E1A02D30200986A8E /* libcocos2d_wp8.vcxproj in Resources */ = {isa = PBXBuildFile; fileRef = 19CCD5AC1A02D30200986A8E /* libcocos2d_wp8.vcxproj */; };
-		19CCD60F1A02D30200986A8E /* libcocos2d_wp8.vcxproj.filters in Resources */ = {isa = PBXBuildFile; fileRef = 19CCD5AD1A02D30200986A8E /* libcocos2d_wp8.vcxproj.filters */; };
-		19CCD6101A02D30200986A8E /* libcocos2d.vcxproj in Resources */ = {isa = PBXBuildFile; fileRef = 19CCD5AE1A02D30200986A8E /* libcocos2d.vcxproj */; };
-		19CCD6111A02D30200986A8E /* libcocos2d.vcxproj.filters in Resources */ = {isa = PBXBuildFile; fileRef = 19CCD5AF1A02D30200986A8E /* libcocos2d.vcxproj.filters */; };
-		19CCD6121A02D30200986A8E /* cocos2d_winrt_8.1.props in Resources */ = {isa = PBXBuildFile; fileRef = 19CCD5B11A02D30200986A8E /* cocos2d_winrt_8.1.props */; };
-		19CCD6131A02D30200986A8E /* cocos2d_winrt_8.1_app.props in Resources */ = {isa = PBXBuildFile; fileRef = 19CCD5B21A02D30200986A8E /* cocos2d_winrt_8.1_app.props */; };
-		19CCD6141A02D30200986A8E /* cocos2d_winrt_8.1_platform.props in Resources */ = {isa = PBXBuildFile; fileRef = 19CCD5B31A02D30200986A8E /* cocos2d_winrt_8.1_platform.props */; };
-		19CCD6151A02D30200986A8E /* cocos2d_winrt.props in Resources */ = {isa = PBXBuildFile; fileRef = 19CCD5B51A02D30200986A8E /* cocos2d_winrt.props */; };
-		19CCD6161A02D30200986A8E /* cocos2d_winrt_app.props in Resources */ = {isa = PBXBuildFile; fileRef = 19CCD5B61A02D30200986A8E /* cocos2d_winrt_app.props */; };
-		19CCD6171A02D30200986A8E /* cocos2d_winrt_platform.props in Resources */ = {isa = PBXBuildFile; fileRef = 19CCD5B71A02D30200986A8E /* cocos2d_winrt_platform.props */; };
-		19CCD6181A02D30200986A8E /* cocos2d_wp_8.1_platform.props in Resources */ = {isa = PBXBuildFile; fileRef = 19CCD5B91A02D30200986A8E /* cocos2d_wp_8.1_platform.props */; };
-		19CCD6191A02D30200986A8E /* cocos2d_wp8.props in Resources */ = {isa = PBXBuildFile; fileRef = 19CCD5BB1A02D30200986A8E /* cocos2d_wp8.props */; };
-		19CCD61A1A02D30200986A8E /* cocos2d_wp8_app.props in Resources */ = {isa = PBXBuildFile; fileRef = 19CCD5BC1A02D30200986A8E /* cocos2d_wp8_app.props */; };
-		19CCD61B1A02D30200986A8E /* cocos2d_wp8_component.props in Resources */ = {isa = PBXBuildFile; fileRef = 19CCD5BD1A02D30200986A8E /* cocos2d_wp8_component.props */; };
 		19CCD6641A02D41000986A8E /* CCBatchCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD61C1A02D41000986A8E /* CCBatchCommand.cpp */; };
 		19CCD6651A02D41000986A8E /* CCCustomCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD61E1A02D41000986A8E /* CCCustomCommand.cpp */; };
 		19CCD6661A02D41000986A8E /* CCGLProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD6201A02D41000986A8E /* CCGLProgram.cpp */; };
@@ -415,6 +386,7 @@
 		196AD4D319F9832A00D87881 /* KillyCraftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KillyCraftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		196AD4D819F9832A00D87881 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		196AD4D919F9832A00D87881 /* KillyCraftTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KillyCraftTests.m; sourceTree = "<group>"; };
+		199248B81A12AB0A0001D4B4 /* GameConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameConfig.h; sourceTree = "<group>"; };
 		19AB26E819F984F3008D3B13 /* CCAffineTransform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCAffineTransform.cpp; sourceTree = "<group>"; };
 		19AB26E919F984F3008D3B13 /* CCAffineTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAffineTransform.h; sourceTree = "<group>"; };
 		19AB26EA19F984F3008D3B13 /* CCGeometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCGeometry.cpp; sourceTree = "<group>"; };
@@ -913,17 +885,8 @@
 		19CCD4A61A02CE2B00986A8E /* UIDeprecated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDeprecated.h; sourceTree = "<group>"; };
 		19CCD4A81A02CE2B00986A8E /* UIEditBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIEditBox.cpp; sourceTree = "<group>"; };
 		19CCD4A91A02CE2B00986A8E /* UIEditBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIEditBox.h; sourceTree = "<group>"; };
-		19CCD4AA1A02CE2B00986A8E /* UIEditBoxImpl-android.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "UIEditBoxImpl-android.cpp"; sourceTree = "<group>"; };
-		19CCD4AB1A02CE2B00986A8E /* UIEditBoxImpl-android.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIEditBoxImpl-android.h"; sourceTree = "<group>"; };
 		19CCD4AC1A02CE2B00986A8E /* UIEditBoxImpl-ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIEditBoxImpl-ios.h"; sourceTree = "<group>"; };
 		19CCD4AD1A02CE2B00986A8E /* UIEditBoxImpl-ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIEditBoxImpl-ios.mm"; sourceTree = "<group>"; };
-		19CCD4AE1A02CE2B00986A8E /* UIEditBoxImpl-mac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIEditBoxImpl-mac.h"; sourceTree = "<group>"; };
-		19CCD4AF1A02CE2B00986A8E /* UIEditBoxImpl-mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIEditBoxImpl-mac.mm"; sourceTree = "<group>"; };
-		19CCD4B01A02CE2B00986A8E /* UIEditBoxImpl-stub.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "UIEditBoxImpl-stub.cpp"; sourceTree = "<group>"; };
-		19CCD4B11A02CE2B00986A8E /* UIEditBoxImpl-win32.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "UIEditBoxImpl-win32.cpp"; sourceTree = "<group>"; };
-		19CCD4B21A02CE2B00986A8E /* UIEditBoxImpl-win32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIEditBoxImpl-win32.h"; sourceTree = "<group>"; };
-		19CCD4B31A02CE2B00986A8E /* UIEditBoxImpl-wp8.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "UIEditBoxImpl-wp8.cpp"; sourceTree = "<group>"; };
-		19CCD4B41A02CE2B00986A8E /* UIEditBoxImpl-wp8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIEditBoxImpl-wp8.h"; sourceTree = "<group>"; };
 		19CCD4B51A02CE2B00986A8E /* UIEditBoxImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIEditBoxImpl.h; sourceTree = "<group>"; };
 		19CCD4B61A02CE2B00986A8E /* UIHBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIHBox.cpp; sourceTree = "<group>"; };
 		19CCD4B71A02CE2B00986A8E /* UIHBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIHBox.h; sourceTree = "<group>"; };
@@ -1105,32 +1068,6 @@
 		19CCD5981A02D30200986A8E /* CCTransitionProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTransitionProgress.h; sourceTree = "<group>"; };
 		19CCD5991A02D30200986A8E /* CCTweenFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCTweenFunction.cpp; sourceTree = "<group>"; };
 		19CCD59A1A02D30200986A8E /* CCTweenFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTweenFunction.h; sourceTree = "<group>"; };
-		19CCD59B1A02D30200986A8E /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
-		19CCD59C1A02D30200986A8E /* cocos2d_headers.props */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = cocos2d_headers.props; sourceTree = "<group>"; };
-		19CCD59D1A02D30200986A8E /* cocos2d.def */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cocos2d.def; sourceTree = "<group>"; };
-		19CCD59E1A02D30200986A8E /* cocos2dx.props */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = cocos2dx.props; sourceTree = "<group>"; };
-		19CCD5A21A02D30200986A8E /* libcocos2d_8_1.Shared.vcxitems */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = libcocos2d_8_1.Shared.vcxitems; sourceTree = "<group>"; };
-		19CCD5A31A02D30200986A8E /* libcocos2d_8_1.Shared.vcxitems.filters */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = libcocos2d_8_1.Shared.vcxitems.filters; sourceTree = "<group>"; };
-		19CCD5A41A02D30200986A8E /* targetver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = targetver.h; sourceTree = "<group>"; };
-		19CCD5A61A02D30200986A8E /* libcocos2d_8_1.Windows.vcxproj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = libcocos2d_8_1.Windows.vcxproj; sourceTree = "<group>"; };
-		19CCD5A71A02D30200986A8E /* libcocos2d_8_1.Windows.vcxproj.filters */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = libcocos2d_8_1.Windows.vcxproj.filters; sourceTree = "<group>"; };
-		19CCD5A91A02D30200986A8E /* libcocos2d_8_1.WindowsPhone.vcxproj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = libcocos2d_8_1.WindowsPhone.vcxproj; sourceTree = "<group>"; };
-		19CCD5AA1A02D30200986A8E /* libcocos2d_8_1.WindowsPhone.vcxproj.filters */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = libcocos2d_8_1.WindowsPhone.vcxproj.filters; sourceTree = "<group>"; };
-		19CCD5AB1A02D30200986A8E /* libcocos2d_8_1.sln */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = libcocos2d_8_1.sln; sourceTree = "<group>"; };
-		19CCD5AC1A02D30200986A8E /* libcocos2d_wp8.vcxproj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = libcocos2d_wp8.vcxproj; sourceTree = "<group>"; };
-		19CCD5AD1A02D30200986A8E /* libcocos2d_wp8.vcxproj.filters */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = libcocos2d_wp8.vcxproj.filters; sourceTree = "<group>"; };
-		19CCD5AE1A02D30200986A8E /* libcocos2d.vcxproj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = libcocos2d.vcxproj; sourceTree = "<group>"; };
-		19CCD5AF1A02D30200986A8E /* libcocos2d.vcxproj.filters */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = libcocos2d.vcxproj.filters; sourceTree = "<group>"; };
-		19CCD5B11A02D30200986A8E /* cocos2d_winrt_8.1.props */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = cocos2d_winrt_8.1.props; sourceTree = "<group>"; };
-		19CCD5B21A02D30200986A8E /* cocos2d_winrt_8.1_app.props */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = cocos2d_winrt_8.1_app.props; sourceTree = "<group>"; };
-		19CCD5B31A02D30200986A8E /* cocos2d_winrt_8.1_platform.props */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = cocos2d_winrt_8.1_platform.props; sourceTree = "<group>"; };
-		19CCD5B51A02D30200986A8E /* cocos2d_winrt.props */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = cocos2d_winrt.props; sourceTree = "<group>"; };
-		19CCD5B61A02D30200986A8E /* cocos2d_winrt_app.props */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = cocos2d_winrt_app.props; sourceTree = "<group>"; };
-		19CCD5B71A02D30200986A8E /* cocos2d_winrt_platform.props */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = cocos2d_winrt_platform.props; sourceTree = "<group>"; };
-		19CCD5B91A02D30200986A8E /* cocos2d_wp_8.1_platform.props */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = cocos2d_wp_8.1_platform.props; sourceTree = "<group>"; };
-		19CCD5BB1A02D30200986A8E /* cocos2d_wp8.props */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = cocos2d_wp8.props; sourceTree = "<group>"; };
-		19CCD5BC1A02D30200986A8E /* cocos2d_wp8_app.props */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = cocos2d_wp8_app.props; sourceTree = "<group>"; };
-		19CCD5BD1A02D30200986A8E /* cocos2d_wp8_component.props */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = cocos2d_wp8_component.props; sourceTree = "<group>"; };
 		19CCD61C1A02D41000986A8E /* CCBatchCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCBatchCommand.cpp; sourceTree = "<group>"; };
 		19CCD61D1A02D41000986A8E /* CCBatchCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCBatchCommand.h; sourceTree = "<group>"; };
 		19CCD61E1A02D41000986A8E /* CCCustomCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCCustomCommand.cpp; sourceTree = "<group>"; };
@@ -1540,19 +1477,6 @@
 				19CCD5981A02D30200986A8E /* CCTransitionProgress.h */,
 				19CCD5991A02D30200986A8E /* CCTweenFunction.cpp */,
 				19CCD59A1A02D30200986A8E /* CCTweenFunction.h */,
-				19CCD59B1A02D30200986A8E /* CMakeLists.txt */,
-				19CCD59C1A02D30200986A8E /* cocos2d_headers.props */,
-				19CCD59D1A02D30200986A8E /* cocos2d.def */,
-				19CCD59E1A02D30200986A8E /* cocos2dx.props */,
-				19CCD59F1A02D30200986A8E /* libcocos2d_8_1 */,
-				19CCD5AC1A02D30200986A8E /* libcocos2d_wp8.vcxproj */,
-				19CCD5AD1A02D30200986A8E /* libcocos2d_wp8.vcxproj.filters */,
-				19CCD5AE1A02D30200986A8E /* libcocos2d.vcxproj */,
-				19CCD5AF1A02D30200986A8E /* libcocos2d.vcxproj.filters */,
-				19CCD5B01A02D30200986A8E /* winrt_8.1_props */,
-				19CCD5B41A02D30200986A8E /* winrt_props */,
-				19CCD5B81A02D30200986A8E /* wp_8.1_props */,
-				19CCD5BA1A02D30200986A8E /* wp8_props */,
 			);
 			name = 2d;
 			path = ../../../Source/libs/cocos2d/cocos/2d;
@@ -2485,6 +2409,7 @@
 		19AB704819FACAE90041EAB6 /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				199248B81A12AB0A0001D4B4 /* GameConfig.h */,
 				19AB707519FACECB0041EAB6 /* AppDelegate.cpp */,
 				19AB707619FACECB0041EAB6 /* AppDelegate.h */,
 				19AB704919FACAE90041EAB6 /* Command */,
@@ -2540,12 +2465,12 @@
 				19AB705119FACAE90041EAB6 /* PositionComponent.h */,
 				19AB705219FACAE90041EAB6 /* ViewComponent.cpp */,
 				19AB705319FACAE90041EAB6 /* ViewComponent.h */,
-				19202CB919FBEA8500AFAB33 /* GamepadComponent.cpp */,
 				19202CBA19FBEA8500AFAB33 /* GamepadComponent.h */,
 				19202CBC19FBEC8300AFAB33 /* WeaponComponent.cpp */,
 				19202CBD19FBEC8300AFAB33 /* WeaponComponent.h */,
 				190913711A03898200840DCB /* BehaviourComponent.cpp */,
 				190913721A03898200840DCB /* BehaviourComponent.h */,
+				19202CB919FBEA8500AFAB33 /* GamepadComponent.cpp */,
 				194EFC961A039999007C5014 /* TimeComponent.cpp */,
 				194EFC971A039999007C5014 /* TimeComponent.h */,
 				194EFC991A039E58007C5014 /* MovementStateComponents.cpp */,
@@ -2792,105 +2717,11 @@
 			children = (
 				19CCD4A81A02CE2B00986A8E /* UIEditBox.cpp */,
 				19CCD4A91A02CE2B00986A8E /* UIEditBox.h */,
-				19CCD4AA1A02CE2B00986A8E /* UIEditBoxImpl-android.cpp */,
-				19CCD4AB1A02CE2B00986A8E /* UIEditBoxImpl-android.h */,
 				19CCD4AC1A02CE2B00986A8E /* UIEditBoxImpl-ios.h */,
 				19CCD4AD1A02CE2B00986A8E /* UIEditBoxImpl-ios.mm */,
-				19CCD4AE1A02CE2B00986A8E /* UIEditBoxImpl-mac.h */,
-				19CCD4AF1A02CE2B00986A8E /* UIEditBoxImpl-mac.mm */,
-				19CCD4B01A02CE2B00986A8E /* UIEditBoxImpl-stub.cpp */,
-				19CCD4B11A02CE2B00986A8E /* UIEditBoxImpl-win32.cpp */,
-				19CCD4B21A02CE2B00986A8E /* UIEditBoxImpl-win32.h */,
-				19CCD4B31A02CE2B00986A8E /* UIEditBoxImpl-wp8.cpp */,
-				19CCD4B41A02CE2B00986A8E /* UIEditBoxImpl-wp8.h */,
 				19CCD4B51A02CE2B00986A8E /* UIEditBoxImpl.h */,
 			);
 			path = UIEditBox;
-			sourceTree = "<group>";
-		};
-		19CCD59F1A02D30200986A8E /* libcocos2d_8_1 */ = {
-			isa = PBXGroup;
-			children = (
-				19CCD5A01A02D30200986A8E /* libcocos2d_8_1 */,
-				19CCD5AB1A02D30200986A8E /* libcocos2d_8_1.sln */,
-			);
-			path = libcocos2d_8_1;
-			sourceTree = "<group>";
-		};
-		19CCD5A01A02D30200986A8E /* libcocos2d_8_1 */ = {
-			isa = PBXGroup;
-			children = (
-				19CCD5A11A02D30200986A8E /* libcocos2d_8_1.Shared */,
-				19CCD5A51A02D30200986A8E /* libcocos2d_8_1.Windows */,
-				19CCD5A81A02D30200986A8E /* libcocos2d_8_1.WindowsPhone */,
-			);
-			path = libcocos2d_8_1;
-			sourceTree = "<group>";
-		};
-		19CCD5A11A02D30200986A8E /* libcocos2d_8_1.Shared */ = {
-			isa = PBXGroup;
-			children = (
-				19CCD5A21A02D30200986A8E /* libcocos2d_8_1.Shared.vcxitems */,
-				19CCD5A31A02D30200986A8E /* libcocos2d_8_1.Shared.vcxitems.filters */,
-				19CCD5A41A02D30200986A8E /* targetver.h */,
-			);
-			path = libcocos2d_8_1.Shared;
-			sourceTree = "<group>";
-		};
-		19CCD5A51A02D30200986A8E /* libcocos2d_8_1.Windows */ = {
-			isa = PBXGroup;
-			children = (
-				19CCD5A61A02D30200986A8E /* libcocos2d_8_1.Windows.vcxproj */,
-				19CCD5A71A02D30200986A8E /* libcocos2d_8_1.Windows.vcxproj.filters */,
-			);
-			path = libcocos2d_8_1.Windows;
-			sourceTree = "<group>";
-		};
-		19CCD5A81A02D30200986A8E /* libcocos2d_8_1.WindowsPhone */ = {
-			isa = PBXGroup;
-			children = (
-				19CCD5A91A02D30200986A8E /* libcocos2d_8_1.WindowsPhone.vcxproj */,
-				19CCD5AA1A02D30200986A8E /* libcocos2d_8_1.WindowsPhone.vcxproj.filters */,
-			);
-			path = libcocos2d_8_1.WindowsPhone;
-			sourceTree = "<group>";
-		};
-		19CCD5B01A02D30200986A8E /* winrt_8.1_props */ = {
-			isa = PBXGroup;
-			children = (
-				19CCD5B11A02D30200986A8E /* cocos2d_winrt_8.1.props */,
-				19CCD5B21A02D30200986A8E /* cocos2d_winrt_8.1_app.props */,
-				19CCD5B31A02D30200986A8E /* cocos2d_winrt_8.1_platform.props */,
-			);
-			path = winrt_8.1_props;
-			sourceTree = "<group>";
-		};
-		19CCD5B41A02D30200986A8E /* winrt_props */ = {
-			isa = PBXGroup;
-			children = (
-				19CCD5B51A02D30200986A8E /* cocos2d_winrt.props */,
-				19CCD5B61A02D30200986A8E /* cocos2d_winrt_app.props */,
-				19CCD5B71A02D30200986A8E /* cocos2d_winrt_platform.props */,
-			);
-			path = winrt_props;
-			sourceTree = "<group>";
-		};
-		19CCD5B81A02D30200986A8E /* wp_8.1_props */ = {
-			isa = PBXGroup;
-			children = (
-				19CCD5B91A02D30200986A8E /* cocos2d_wp_8.1_platform.props */,
-			);
-			path = wp_8.1_props;
-			sourceTree = "<group>";
-		};
-		19CCD5BA1A02D30200986A8E /* wp8_props */ = {
-			isa = PBXGroup;
-			children = (
-				19CCD5BB1A02D30200986A8E /* cocos2d_wp8.props */,
-				19CCD5BC1A02D30200986A8E /* cocos2d_wp8_app.props */,
-				19CCD5BD1A02D30200986A8E /* cocos2d_wp8_component.props */,
-			);
-			path = wp8_props;
 			sourceTree = "<group>";
 		};
 		19CCD6991A02D7BF00986A8E /* apple */ = {
@@ -2998,22 +2829,16 @@
 			files = (
 				19AB270E19F984F3008D3B13 /* MathUtilNeon.inl in Resources */,
 				19CCD67B1A02D41000986A8E /* ccShader_Label_outline.frag in Resources */,
-				19CCD6181A02D30200986A8E /* cocos2d_wp_8.1_platform.props in Resources */,
 				19CCD67F1A02D41000986A8E /* ccShader_PositionColor.frag in Resources */,
 				19CCD6861A02D41000986A8E /* ccShader_PositionTexture.vert in Resources */,
 				19CCD68A1A02D41000986A8E /* ccShader_PositionTextureColor_noMVP.vert in Resources */,
 				19CCD68C1A02D41000986A8E /* ccShader_PositionTextureColor.vert in Resources */,
 				19C72D0D1A0D5AD600EA9CB5 /* bin in Resources */,
 				19CCD6741A02D41000986A8E /* ccShader_3D_ColorNormalTex.frag in Resources */,
-				19CCD6151A02D30200986A8E /* cocos2d_winrt.props in Resources */,
 				19CCD6721A02D41000986A8E /* ccShader_3D_Color.frag in Resources */,
-				19CCD60F1A02D30200986A8E /* libcocos2d_wp8.vcxproj.filters in Resources */,
 				19CCD6771A02D41000986A8E /* ccShader_3D_PositionTex.vert in Resources */,
-				19CCD6101A02D30200986A8E /* libcocos2d.vcxproj in Resources */,
-				19CCD6081A02D30200986A8E /* libcocos2d_8_1.Shared.vcxitems.filters in Resources */,
 				19CCD6761A02D41000986A8E /* ccShader_3D_PositionNormalTex.vert in Resources */,
 				19CCD68D1A02D41000986A8E /* ccShader_PositionTextureColorAlphaTest.frag in Resources */,
-				19CCD60A1A02D30200986A8E /* libcocos2d_8_1.Windows.vcxproj.filters in Resources */,
 				19AB270B19F984F3008D3B13 /* Mat4.inl in Resources */,
 				19AB270D19F984F3008D3B13 /* MathUtil.inl in Resources */,
 				19CCD68B1A02D41000986A8E /* ccShader_PositionTextureColor.frag in Resources */,
@@ -3021,46 +2846,28 @@
 				19CCD6841A02D41000986A8E /* ccShader_PositionTexture_uColor.vert in Resources */,
 				19CCD6801A02D41000986A8E /* ccShader_PositionColor.vert in Resources */,
 				19CCD6781A02D41000986A8E /* ccShader_Label_df_glow.frag in Resources */,
-				19CCD6111A02D30200986A8E /* libcocos2d.vcxproj.filters in Resources */,
-				19CCD60C1A02D30200986A8E /* libcocos2d_8_1.WindowsPhone.vcxproj.filters in Resources */,
 				196AD4CE19F9832900D87881 /* LaunchScreen.xib in Resources */,
-				19CCD6091A02D30200986A8E /* libcocos2d_8_1.Windows.vcxproj in Resources */,
 				19AB707C19FAD5B70041EAB6 /* fonts in Resources */,
 				19CCD6871A02D41000986A8E /* ccShader_PositionTextureA8Color.frag in Resources */,
-				19CCD6061A02D30200986A8E /* cocos2dx.props in Resources */,
 				19CCD6821A02D41000986A8E /* ccShader_PositionColorLengthTexture.vert in Resources */,
 				19CCD6811A02D41000986A8E /* ccShader_PositionColorLengthTexture.frag in Resources */,
 				19CCD67E1A02D41000986A8E /* ccShader_Position_uColor.vert in Resources */,
 				19CCD6731A02D41000986A8E /* ccShader_3D_ColorNormal.frag in Resources */,
-				19CCD60B1A02D30200986A8E /* libcocos2d_8_1.WindowsPhone.vcxproj in Resources */,
-				19CCD61B1A02D30200986A8E /* cocos2d_wp8_component.props in Resources */,
 				19CCD6831A02D41000986A8E /* ccShader_PositionTexture_uColor.frag in Resources */,
-				19CCD6161A02D30200986A8E /* cocos2d_winrt_app.props in Resources */,
-				19CCD6171A02D30200986A8E /* cocos2d_winrt_platform.props in Resources */,
 				19CCD67A1A02D41000986A8E /* ccShader_Label_normal.frag in Resources */,
 				19AB271719F984F3008D3B13 /* Vec4.inl in Resources */,
-				19CCD6041A02D30200986A8E /* cocos2d_headers.props in Resources */,
-				19CCD6071A02D30200986A8E /* libcocos2d_8_1.Shared.vcxitems in Resources */,
 				196AD4CB19F9832900D87881 /* Images.xcassets in Resources */,
-				19CCD6121A02D30200986A8E /* cocos2d_winrt_8.1.props in Resources */,
-				19CCD6131A02D30200986A8E /* cocos2d_winrt_8.1_app.props in Resources */,
 				19CCD6881A02D41000986A8E /* ccShader_PositionTextureA8Color.vert in Resources */,
 				19AB271019F984F3008D3B13 /* Quaternion.inl in Resources */,
-				19CCD6051A02D30200986A8E /* cocos2d.def in Resources */,
-				19CCD60E1A02D30200986A8E /* libcocos2d_wp8.vcxproj in Resources */,
 				19AB271519F984F3008D3B13 /* Vec3.inl in Resources */,
 				19CCD67C1A02D41000986A8E /* ccShader_Label.vert in Resources */,
 				19AB271319F984F3008D3B13 /* Vec2.inl in Resources */,
-				19CCD60D1A02D30200986A8E /* libcocos2d_8_1.sln in Resources */,
 				19CCD6751A02D41000986A8E /* ccShader_3D_ColorTex.frag in Resources */,
 				19CCD6791A02D41000986A8E /* ccShader_Label_df.frag in Resources */,
-				19CCD6191A02D30200986A8E /* cocos2d_wp8.props in Resources */,
 				19CCD6891A02D41000986A8E /* ccShader_PositionTextureColor_noMVP.frag in Resources */,
 				19CCD67D1A02D41000986A8E /* ccShader_Position_uColor.frag in Resources */,
-				19CCD6141A02D30200986A8E /* cocos2d_winrt_8.1_platform.props in Resources */,
 				19AB707E19FAD5B70041EAB6 /* NormalDPI in Resources */,
 				19CCD6851A02D41000986A8E /* ccShader_PositionTexture.frag in Resources */,
-				19CCD61A1A02D30200986A8E /* cocos2d_wp8_app.props in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3111,7 +2918,6 @@
 				19CCD4FF1A02CE2B00986A8E /* UIPageView.cpp in Sources */,
 				19CCD5F61A02D30200986A8E /* CCSpriteBatchNode.cpp in Sources */,
 				19CCD5E61A02D30200986A8E /* CCLight.cpp in Sources */,
-				19CCD4F31A02CE2B00986A8E /* UIEditBoxImpl-stub.cpp in Sources */,
 				19CCD5E51A02D30200986A8E /* CCLayer.cpp in Sources */,
 				19CCD4F91A02CE2B00986A8E /* UILayout.cpp in Sources */,
 				19AB2C2C19F99913008D3B13 /* CCPhysicsContactInfo_chipmunk.cpp in Sources */,
@@ -3130,11 +2936,9 @@
 				19AB2C8E19F99AC6008D3B13 /* cocos2d.cpp in Sources */,
 				19CCD5DC1A02D30200986A8E /* CCFontFreeType.cpp in Sources */,
 				19CCD38E1A02CBDD00986A8E /* CCGLView.cpp in Sources */,
-				19CCD4F41A02CE2B00986A8E /* UIEditBoxImpl-win32.cpp in Sources */,
 				19AD18EC1A0E0CDC00200802 /* json_reader.cpp in Sources */,
 				19AB271619F984F3008D3B13 /* Vec4.cpp in Sources */,
 				19CCD3F81A02CCEA00986A8E /* CCInvocation.cpp in Sources */,
-				19CCD4F01A02CE2B00986A8E /* UIEditBoxImpl-android.cpp in Sources */,
 				19CCD5D71A02D30200986A8E /* CCFont.cpp in Sources */,
 				19CCD5DA1A02D30200986A8E /* CCFontCharMap.cpp in Sources */,
 				19CCD3A71A02CBE600986A8E /* CCApplication-ios.mm in Sources */,
@@ -3261,7 +3065,6 @@
 				19CCD3EE1A02CCEA00986A8E /* CCControl.cpp in Sources */,
 				19CCD5F51A02D30200986A8E /* CCSprite.cpp in Sources */,
 				19AB2BD019F98FB9008D3B13 /* tinyxml2.cpp in Sources */,
-				19CCD4F51A02CE2B00986A8E /* UIEditBoxImpl-wp8.cpp in Sources */,
 				19CCD4711A02CDE800986A8E /* CCController-iOS.mm in Sources */,
 				19CCD4701A02CDE800986A8E /* CCController-android.cpp in Sources */,
 				19CCD4961A02CDE800986A8E /* CCValue.cpp in Sources */,
@@ -3293,7 +3096,6 @@
 				19CCD6681A02D41000986A8E /* CCGLProgramState.cpp in Sources */,
 				19AB706819FACAE90041EAB6 /* ViewComponent.cpp in Sources */,
 				19AB708619FADD2B0041EAB6 /* Player.cpp in Sources */,
-				19CCD4F21A02CE2B00986A8E /* UIEditBoxImpl-mac.mm in Sources */,
 				19CCD5E21A02D30200986A8E /* CCLabelBMFont.cpp in Sources */,
 				19CCD6A11A02D7BF00986A8E /* CCThread-apple.mm in Sources */,
 				190913701A03882F00840DCB /* DestroyBehaviourFunctions.cpp in Sources */,

@@ -139,5 +139,10 @@ namespace MelonGames
         {
             return factory;
         }
+        
+        const std::vector<MapObject*>& Map::getObjects() const
+        {
+            return objects;
+        }
 	}
 }

@@ -16,7 +16,6 @@ namespace MelonGames
     namespace KillyCraft
     {
         class Gamepad;
-        enum class GamepadAction;
         
         class GamepadComponent : public Component
         {
@@ -27,7 +26,7 @@ namespace MelonGames
             virtual void onWillDetachFromObject() override;
             
         protected:
-            virtual void onGamepadAction(Gamepad* gamepad, GamepadAction action, float dt) = 0;
+            virtual void onGamepadAction(Gamepad* gamepad, int action, float dt) = 0;
             
         };
         
@@ -42,7 +41,7 @@ namespace MelonGames
             void setSpeed(float speedLeft, float speedRight);
             
         protected:
-            void onGamepadAction(Gamepad* gamepad, GamepadAction action, float dt);
+            void onGamepadAction(Gamepad* gamepad, int action, float dt);
             
         private:
             float speedLeft;
@@ -55,7 +54,7 @@ namespace MelonGames
             DECLARE_TYPE_WITH_BASE_TYPE(GamepadShootComponent, GamepadComponent);
             
         protected:
-            void onGamepadAction(Gamepad* gamepad, GamepadAction action, float dt);
+            void onGamepadAction(Gamepad* gamepad, int action, float dt);
         };
     }
 }

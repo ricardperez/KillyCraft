@@ -92,6 +92,15 @@ namespace MelonGames
                 };
             }
             
+            ComponentFactoryFunction createCollisionDetectionComponent()
+            {
+                return [](const Json::Value& json) -> Component*
+                {
+                    auto result = new CollisionDetectionComponent();
+                    return result;
+                };
+            }
+            
             void registerFunctions(std::map<std::string, ComponentFactoryFunction>& functions)
             {
                 functions["Position"] = createPositionComponent();
@@ -99,6 +108,7 @@ namespace MelonGames
                 functions["Behaviour"] = createBehaviourComponent();
                 functions["MoveCircular"] = createMoveCircularComponent();
                 functions["MoveLinear"] = createMoveLinearComponent();
+                functions["CollisionDetection"] = createCollisionDetectionComponent();
             }
         }
     }

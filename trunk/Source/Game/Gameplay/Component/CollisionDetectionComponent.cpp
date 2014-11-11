@@ -27,24 +27,27 @@ namespace MelonGames
                 
                 result.width = rect.size.width;
                 result.height = rect.size.height;
-                int maskSize = result.width * result.height;
-                result.mask = new bool[maskSize];
-                memset(result.mask, 0, maskSize);
                 
-                int next = 0;
-                for (int i=0; i<result.width; ++i)
-                {
-                    for (int j=0; j<result.height; ++j)
-                    {
-                        /*
-                         int x = rect.origin.x + i;
-                         int y = rect.origin.y + j;
-                         GLubyte pixelOpaity = pixelAt(texture, x, y).alpha();
-                         result.mask[next] = (pixelOpacity > 0);
-                         */
-                        ++next;
-                    }
-                }
+//                int maskSize = result.width * result.height;
+//                result.mask = new bool[maskSize];
+//                memset(result.mask, 0, maskSize);
+//                
+//                int next = 0;
+//                for (int i=0; i<result.width; ++i)
+//                {
+//                    for (int j=0; j<result.height; ++j)
+//                    {
+//                        /*
+//                         int x = rect.origin.x + i;
+//                         int y = rect.origin.y + j;
+//                         GLubyte pixelOpaity = pixelAt(texture, x, y).alpha();
+//                         result.mask[next] = (pixelOpacity > 0);
+//                         */
+//                        ++next;
+//                    }
+//                }
+                
+                result.built = true;
                 
                 return result;
             }
@@ -94,25 +97,60 @@ namespace MelonGames
         {
         }
         
-        
-        bool rectsIntersection(const cocos2d::Rect& r1, const cocos2d::Rect& r2, cocos2d::Vec2& r1OriginOut, cocos2d::Vec2& r2OriginOut, cocos2d::Size& sizeOut)
+        bool rectIntersectsWithRect(const cocos2d::Rect& r1, const cocos2d::Rect& r2)
         {
-            auto lambda = [](const cocos2d::Rect& outterRect, const cocos2d::Rect& innerRect, cocos2d::Vec2& outterOriginOut, cocos2d::Vec2& innerOriginOut, cocos2d::Size& intersectionSizeOut)
-            {
-                innerOriginOut = cocos2d::Vec2(0.0f, 0.0f);
-                outterOriginOut = innerRect.origin - outterRect.origin;
-                intersectionSizeOut.width = std::min(innerRect.size.width, outterRect.size.width - outterOriginOut.x);
-                intersectionSizeOut.height = std::min(innerRect.size.height, outterRect.size.height - outterOriginOut.y);
-            };
+            cocos2d::Vec2 bl = r2.origin;
+            cocos2d::Vec2 br(bl.x + r2.size.width, bl.y);
+            cocos2d::Vec2 tl(bl.x, bl.y + r2.size.height);
+            cocos2d::Vec2 tr(br.x, tl.y);
             
-            if (r1.containsPoint(r2.origin))
+            return (r1.containsPoint(bl) || r1.containsPoint(br) || r1.containsPoint(tl) || r1.containsPoint(tr));
+        }
+        
+        bool rectsIntersection(const cocos2d::Rect& r1, const cocos2d::Rect& r2, cocos2d::Vec2& r1StartOut, cocos2d::Vec2& r2StartOut, cocos2d::Size& intersectionSizeOut)
+        {
+            if (rectIntersectsWithRect(r1, r2))
             {
-                lambda(r1, r2, r1OriginOut, r2OriginOut, sizeOut);
-                return true;
-            }
-            else if (r2.containsPoint(r1.origin))
-            {
-                lambda(r2, r1, r2OriginOut, r1OriginOut, sizeOut);
+                float r1StartX;
+                float r2StartX;
+                
+                float r1StartY;
+                float r2StartY;
+                
+                float sizeWidth;
+                float sizeHeight;
+                
+                if (r2.origin.x > r1.origin.x)
+                {
+                    r1StartX = r2.origin.x - r1.origin.x;
+                    r2StartX = 0.0f;
+                    sizeWidth = r1.origin.x + r1.size.width - r2.origin.x;
+                }
+                else
+                {
+                    r2StartX = r1.origin.x - r2.origin.x;
+                    r1StartX = 0.0f;
+                    sizeWidth = r2.origin.x + r2.size.width - r1.origin.x;
+                }
+                
+                
+                if (r2.origin.y > r1.origin.y)
+                {
+                    r1StartY = r2.origin.y - r1.origin.y;
+                    r2StartY = 0.0f;
+                    sizeHeight = r1.origin.y + r1.size.height - r2.origin.y;
+                }
+                else
+                {
+                    r2StartY = r1.origin.y - r2.origin.y;
+                    r1StartY = 0.0f;
+                    sizeHeight = r2.origin.y + r2.size.height - r1.origin.y;
+                }
+                
+                r1StartOut = cocos2d::Vec2(r1StartX, r1StartY);
+                r2StartOut = cocos2d::Vec2(r2StartX, r2StartY);
+                intersectionSizeOut = cocos2d::Size(sizeWidth, sizeHeight);
+                
                 return true;
             }
             
@@ -131,8 +169,6 @@ namespace MelonGames
                 return false;
             }
             
-            const TextureMask& otherTextureMask = other->textureMask;
-            
             cocos2d::Vec2 selfPosition = object->get<PositionComponent>()->getGroundPosition();
             cocos2d::Vec2 otherPosition = other->getObject()->get<PositionComponent>()->getGroundPosition();
             
@@ -141,15 +177,26 @@ namespace MelonGames
             selfRect.origin = selfPosition - selfRect.size*0.5f;
             
             cocos2d::Rect otherRect;
-            otherRect.size = cocos2d::Vec2(otherTextureMask.width, otherTextureMask.height);
+            otherRect.size = cocos2d::Vec2(other->textureMask.width, other->textureMask.height);
             otherRect.origin = otherPosition - otherRect.size*0.5f;
             
-            cocos2d::Vec2 selfOrigin;
-            cocos2d::Vec2 otherOrigin;
-            cocos2d::Size intersectionSize;
-            if (rectsIntersection(selfRect, otherRect, selfOrigin, otherOrigin, intersectionSize))
+            if (pixelPerfect && other->pixelPerfect)
             {
-                return TextureMaskHelper::textureMaskCollision(textureMask, otherTextureMask, selfOrigin, otherOrigin, intersectionSize);
+                cocos2d::Vec2 selfOrigin;
+                cocos2d::Vec2 otherOrigin;
+                cocos2d::Size intersectionSize;
+                if (rectsIntersection(selfRect, otherRect, selfOrigin, otherOrigin, intersectionSize))
+                {
+                    if (pixelPerfect && other->pixelPerfect)
+                    {
+                        return TextureMaskHelper::textureMaskCollision(textureMask, other->textureMask, selfOrigin, otherOrigin, intersectionSize);
+                    }
+                    return true;
+                }
+            }
+            else
+            {
+                return rectIntersectsWithRect(selfRect, otherRect);
             }
             
             return false;
@@ -157,10 +204,10 @@ namespace MelonGames
         
         bool CollisionDetectionComponent::ensureHasMask()
         {
-            if (!textureMask.mask)
+            if (!textureMask.built)
             {
                 buildMask();
-                return (textureMask.mask != nullptr);
+                return (textureMask.built);
             }
             
             return true;
@@ -168,7 +215,7 @@ namespace MelonGames
         
         void CollisionDetectionComponent::buildMask()
         {
-            assert(!textureMask.mask);
+            assert(!textureMask.built);
             
             ViewComponent* viewComponent = object->get<ViewComponent>();
             if (cocos2d::Sprite* sprite = viewComponent->getSprite())
@@ -184,6 +231,8 @@ namespace MelonGames
                     rect.size = sprite->getTexture()->getContentSizeInPixels();
                     textureMask = TextureMaskHelper::buildTextureMask(sprite->getTexture(), rect);
                 }
+                
+                pixelPerfect = (textureMask.mask != nullptr);
             }
         }
         
