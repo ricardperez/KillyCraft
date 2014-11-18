@@ -1,5 +1,6 @@
 import os, sys
 from PIL import Image
+import argparse
 
 def toBinaryArray(number, nBits):
     bits = [0] * nBits
@@ -10,15 +11,7 @@ def toBinaryArray(number, nBits):
     	n = n / 2
     return bits
 
-def toInteger(bits):
-	number = 0
-	base = 1
-	for b in reversed(bits):
-		number += base if b == 1 else 0
-		base *= 2
-	return number
-
-def buildImageMask(imageName, byteSize, bitsForWidth, bitsForHeight):
+def buildImageMask(imageName, alphaThreshold, bitsForSize):
 	image = Image.open(imageName)
 	imageData = image.load()
 
@@ -27,11 +20,11 @@ def buildImageMask(imageName, byteSize, bitsForWidth, bitsForHeight):
 
 	mask = []
 
-	mask.extend(toBinaryArray(imageWidth, bitsForWidth))
-	mask.extend(toBinaryArray(imageHeight, bitsForHeight))
+	mask.extend(toBinaryArray(imageWidth, bitsForSize))
+	mask.extend(toBinaryArray(imageHeight, bitsForSize))
 
 	bitWeight = [1]
-	for x in xrange(1,byteSize):
+	for x in xrange(1,8):
 		bitWeight.append(bitWeight[x-1]*2)
 
 	nextChunkSize = 0
@@ -40,10 +33,10 @@ def buildImageMask(imageName, byteSize, bitsForWidth, bitsForHeight):
 	for j in xrange(0,image.size[1]):
 		for i in xrange(0, image.size[0]):
 			alpha = imageData[i,j][3]
-			bit = (0 if (alpha == 0) else 1)
+			bit = (0 if (alpha <= alphaThreshold) else 1)
 			nextByte += (bit * bitWeight[nextChunkSize])
 			nextChunkSize += 1
-			if (nextChunkSize == byteSize):
+			if (nextChunkSize == 8):
 				mask.append(nextByte)
 				nextChunkSize = 0
 				nextByte = 0
@@ -53,45 +46,43 @@ def buildImageMask(imageName, byteSize, bitsForWidth, bitsForHeight):
 
 	return mask
 
-def buildTextFromBytes(bytes):
+def bytesToChars(bytes):
 	characters = []
 	for b in bytes:
 		characters.append(chr(b))
-	print characters
-	result = ""
-	result.join(characters)
-	return result
+
+	return characters
+
+def writeCharsToFile(chars, fileName):
+	f = open(fileName, "wb")
+	for c in chars:
+		f.write(c)
+	f.close()
+
 
 if __name__ == "__main__":
-	byteSize = 8
-	bitsForWidth = 10
-	bitsForHeight = 10
-	mask = buildImageMask("/Users/ricardperez/Desktop/Bullet.png", byteSize, bitsForWidth, bitsForHeight)
 
-	print "Mask calculated..."
-	print mask
+	parser = argparse.ArgumentParser()
+	parser.add_argument("-s", "--size-bits", help="The number of bits used for specifying the mask size. 10 by default.", default=10, type=int)
+	parser.add_argument("image", help="The path of the image to build the mask from.")
+	parser.add_argument("-o", "--output", help="The path of the file to write the mask to. If not provided or empty, the std::out will be used.", default="")
+	parser.add_argument("-t", "--threshold", help="The alpha threshold to consider a pixel transparent. The default value is 0.", default=0, type=int)
 
-	imageWidth = toInteger(mask[0:bitsForWidth])
-	imageHeight = toInteger(mask[bitsForWidth:bitsForWidth+bitsForHeight])
+	args = parser.parse_args()
+	imageName = args.image
+	outFile = args.output
+	bitsForSize = args.size_bits
+	alphaThreshold = args.threshold
 
-	text = buildTextFromBytes(mask)
-	print "Mask text..."
-	print text
+	mask = buildImageMask(imageName, alphaThreshold, bitsForSize)
 
-	print("Image size is {},{}").format(imageWidth, imageHeight)
+	chars = bytesToChars(mask)
 
-	dataOffset = bitsForWidth+bitsForHeight
-
-	data = []
-	for x in xrange(dataOffset, len(mask)):
-		byte = mask[x]
-		bits = toBinaryArray(byte, byteSize)
-		for i in reversed(bits):
-			data.append(i)
-	n = 0
-	for i in xrange(0, imageWidth):
+	if len(outFile) > 0:
+		writeCharsToFile(chars, outFile)
+	else:
 		s = ""
-		for j in xrange(0, imageHeight):
-			s += "-" if data[n] == 0 else "*"
-			n += 1
+		for c in chars:
+			s += c
 		print s
+
