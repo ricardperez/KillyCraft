@@ -2,6 +2,8 @@ import os, sys
 from PIL import Image
 import argparse
 
+debug = 0
+
 def toBinaryArray(number, nBits):
     bits = [0] * nBits
     n = number
@@ -23,6 +25,10 @@ def buildImageMask(imageName, alphaThreshold, bitsForSize):
 	mask.extend(toBinaryArray(imageWidth, bitsForSize))
 	mask.extend(toBinaryArray(imageHeight, bitsForSize))
 
+	if debug:
+		print("After adding the image size: ({}, {})".format(imageWidth,imageHeight));
+		print mask
+
 	bitWeight = [1]
 	for x in xrange(1,8):
 		bitWeight.append(bitWeight[x-1]*2)
@@ -33,7 +39,9 @@ def buildImageMask(imageName, alphaThreshold, bitsForSize):
 	for j in xrange(0,image.size[1]):
 		for i in xrange(0, image.size[0]):
 			alpha = imageData[i,j][3]
-			bit = (0 if (alpha <= alphaThreshold) else 1)
+			bit = (1 if (alpha >= alphaThreshold) else 0)
+			if debug:
+				print("({}, {}) -> {} ({})".format(i,j,bit,alpha))
 			nextByte += (bit * bitWeight[nextChunkSize])
 			nextChunkSize += 1
 			if (nextChunkSize == 8):
@@ -66,15 +74,19 @@ if __name__ == "__main__":
 	parser.add_argument("-s", "--size-bits", help="The number of bits used for specifying the mask size. 10 by default.", default=10, type=int)
 	parser.add_argument("image", help="The path of the image to build the mask from.")
 	parser.add_argument("-o", "--output", help="The path of the file to write the mask to. If not provided or empty, the std::out will be used.", default="")
-	parser.add_argument("-t", "--threshold", help="The alpha threshold to consider a pixel transparent. The default value is 0.", default=0, type=int)
+	parser.add_argument("-t", "--threshold", help="The alpha threshold to consider a pixel transparent. The default value is 150.", default=150, type=int)
+	parser.add_argument("-d", "--debug", help="If set to true, some debugging messages will be displayed. 0 by default", default=0, type=int)
 
 	args = parser.parse_args()
 	imageName = args.image
 	outFile = args.output
 	bitsForSize = args.size_bits
 	alphaThreshold = args.threshold
+	debug = args.debug
 
 	mask = buildImageMask(imageName, alphaThreshold, bitsForSize)
+	if debug:
+		print mask
 
 	chars = bytesToChars(mask)
 
