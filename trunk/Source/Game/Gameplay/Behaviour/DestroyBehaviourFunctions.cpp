@@ -88,26 +88,7 @@ namespace MelonGames
                 return [](MapObject* object) -> bool
                 {
                     auto collisionComponent = object->get<CollisionDetectionComponent>();
-                    if (collisionComponent && collisionComponent->getObject())
-                    {
-                        const auto& objects = object->getMap()->getObjects();
-                        for (auto other : objects)
-                        {
-                            if (other != object)
-                            {
-                                auto otherCollisionComponent = other->get<CollisionDetectionComponent>();
-                                if (otherCollisionComponent && otherCollisionComponent->getObject())
-                                {
-                                    if (collisionComponent->collidesAgainst(otherCollisionComponent))
-                                    {
-                                        return true;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    
-                    return false;
+                    return (collisionComponent && collisionComponent->getObject() && collisionComponent->hasCollision());
                 };
             }
         }

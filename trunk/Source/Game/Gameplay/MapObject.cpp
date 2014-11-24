@@ -18,6 +18,7 @@ namespace MelonGames
 		, valid(false)
         , updating(false)
         , callWillDetachAfterUpdate(false)
+        , identifier(0)
 		{
 		}
 		
@@ -131,5 +132,15 @@ namespace MelonGames
                 onWillDetachFromMap();
             }
 		}
+        
+        int MapObject::getIdentifier() const
+        {
+            return identifier;
+        }
+        
+        void MapObject::setIdentifier(int identifier)
+        {
+            this->identifier = identifier;
+        }
 	}
 }

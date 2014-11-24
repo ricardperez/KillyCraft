@@ -10,6 +10,8 @@
 #define __KillyCraft__ViewOpacityMaskComponent__
 
 #include "Component.h"
+#include <vector>
+#include "Signal/Signal.h"
 
 namespace MelonGames
 {
@@ -25,6 +27,16 @@ namespace MelonGames
             ~TextureMask();
         };
         
+        enum class CollisionDetectionType
+        {
+            ePlayer = 0,
+            eEnemy,
+            eBullet,
+            ePowerup,
+            
+            nTypes
+        };
+        
         class CollisionDetectionComponent : public Component
         {
         public:
@@ -33,15 +45,32 @@ namespace MelonGames
             CollisionDetectionComponent();
             virtual ~CollisionDetectionComponent();
             
-            bool collidesAgainst(CollisionDetectionComponent* other);
+            void setType(CollisionDetectionType t);
+            CollisionDetectionType getType() const;
+            
+            void addCollisionType(CollisionDetectionType type, bool collides=true);
+            
+            virtual void update(float dt) override;
+            
+            bool hasCollision() const;
+            
+            Gallant::Signal2<CollisionDetectionComponent*, CollisionDetectionComponent*>& getCollisionSignal();
             
         protected:
             bool ensureHasMask();
             void buildMask();
             
+            bool collidesAgainst(CollisionDetectionComponent* other);
+            
         private:
             TextureMask textureMask;
             bool pixelPerfect;
+            CollisionDetectionType type;
+            bool collisionTypes[(int)CollisionDetectionType::nTypes];
+            
+            std::vector<int> collisions;
+            
+            Gallant::Signal2<CollisionDetectionComponent*, CollisionDetectionComponent*> collisionSignal;
         };
     }
 }

@@ -43,6 +43,9 @@ namespace MelonGames
 			Map* getMap() const;
 			
 			void update(float dt);
+            
+            int getIdentifier() const;
+            void setIdentifier(int identifier);
 			
 		private:
 			Map* map;
@@ -54,6 +57,8 @@ namespace MelonGames
             
             bool updating;
             bool callWillDetachAfterUpdate;
+            
+            int identifier;
 		};
 		
 		template <typename T>

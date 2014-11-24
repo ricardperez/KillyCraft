@@ -31,6 +31,7 @@ namespace MelonGames
         , spawnObjectsManager(nullptr)
         , factory(nullptr)
         , elapsedTime(0.0f)
+        , nextIdentifier(0)
 		{
 		}
 		
@@ -88,6 +89,7 @@ namespace MelonGames
 		
 		void Map::addObject(MapObject* o)
 		{
+            o->setIdentifier(nextIdentifier++);
 			objects.push_back(o);
 			o->onAttachedToMap(this);
 		}

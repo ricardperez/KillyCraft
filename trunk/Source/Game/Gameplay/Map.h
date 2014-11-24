@@ -72,6 +72,8 @@ namespace MelonGames
             MapObjectsFactory* factory;
             
             float elapsedTime;
+            
+            int nextIdentifier;
 		};
 	}
 }

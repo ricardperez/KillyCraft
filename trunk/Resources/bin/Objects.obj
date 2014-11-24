@@ -21,8 +21,7 @@
 									"type":"OutOfScreenDown"
 								},
 								{
-									"type":"Collision",
-									"against":0
+									"type":"Collision"
 								}
 							]
 						},
@@ -39,7 +38,8 @@
 					"move":[0.0, -250.0, 0.0]
 				},
 				{
-					"type":"CollisionDetection"
+					"type":"CollisionDetection",
+					"t":0
 				}
 			]
 		},
@@ -63,8 +63,7 @@
 									"type":"OutOfScreenDown"
 								},
 								{
-									"type":"Collision",
-									"against":0
+									"type":"Collision"
 								}
 							]
 						},
@@ -81,7 +80,8 @@
 					"move":[0.0, -250.0, 0.0]
 				},
 				{
-					"type":"CollisionDetection"
+					"type":"CollisionDetection",
+					"t":0
 				}
 			]
 		},
@@ -105,8 +105,7 @@
 									"type":"OutOfScreenDown"
 								},
 								{
-									"type":"Collision",
-									"against":0
+									"type":"Collision"
 								}
 							]
 						},
@@ -123,7 +122,8 @@
 					"move":[0.0, -250.0, 0.0]
 				},
 				{
-					"type":"CollisionDetection"
+					"type":"CollisionDetection",
+					"t":0
 				}
 			]
 		},
@@ -147,8 +147,7 @@
 									"type":"OutOfScreenDown"
 								},
 								{
-									"type":"Collision",
-									"against":0
+									"type":"Collision"
 								}
 							]
 						},
@@ -165,7 +164,8 @@
 					"move":[0.0, -250.0, 0.0]
 				},
 				{
-					"type":"CollisionDetection"
+					"type":"CollisionDetection",
+					"t":0
 				}
 			]
 		}

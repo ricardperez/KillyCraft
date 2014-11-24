@@ -52,6 +52,9 @@ namespace MelonGames
                 result->addComponent(gamepadShootComponent);
                 
                 auto collisionDetection = new CollisionDetectionComponent();
+                collisionDetection->setType(CollisionDetectionType::ePlayer);
+                collisionDetection->addCollisionType(CollisionDetectionType::eEnemy);
+                collisionDetection->addCollisionType(CollisionDetectionType::ePowerup);
                 result->addComponent(collisionDetection);
 				
 				return result;
@@ -70,6 +73,7 @@ namespace MelonGames
                 result->addComponent(viewComponent);
                 
                 auto collisionDetection = new CollisionDetectionComponent();
+                collisionDetection->setType(CollisionDetectionType::eEnemy);
                 result->addComponent(collisionDetection);
                 
                 //Behaviour
@@ -114,6 +118,8 @@ namespace MelonGames
                 result->addComponent(linearMoveState);
                 
                 auto collisionDetection = new CollisionDetectionComponent();
+                collisionDetection->setType(CollisionDetectionType::eBullet);
+                collisionDetection->addCollisionType(CollisionDetectionType::eEnemy);
                 result->addComponent(collisionDetection);
                 
                 //Behaviour

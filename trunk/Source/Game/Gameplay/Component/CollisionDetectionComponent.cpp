@@ -8,6 +8,7 @@
 
 #include "CollisionDetectionComponent.h"
 #include "Gameplay/MapObject.h"
+#include "Gameplay/Map.h"
 #include "ViewComponent.h"
 #include "PositionComponent.h"
 #include "2d/CCSprite.h"
@@ -90,11 +91,67 @@ namespace MelonGames
         
         CollisionDetectionComponent::CollisionDetectionComponent()
         : pixelPerfect(false)
+        , type(CollisionDetectionType::eEnemy)
         {
+            for (int i=0; i<(int)CollisionDetectionType::nTypes; ++i)
+            {
+                collisionTypes[i] = false;
+            }
         }
         
         CollisionDetectionComponent::~CollisionDetectionComponent()
         {
+        }
+        
+        void CollisionDetectionComponent::setType(CollisionDetectionType t)
+        {
+            type = t;
+        }
+        
+        CollisionDetectionType CollisionDetectionComponent::getType() const
+        {
+            return type;
+        }
+        
+        void CollisionDetectionComponent::addCollisionType(CollisionDetectionType type, bool collides)
+        {
+            collisionTypes[(int)type] = collides;
+        }
+        
+        void CollisionDetectionComponent::update(float dt)
+        {
+            Base::update(dt);
+            
+            collisions.clear();
+            const auto& objects = object->getMap()->getObjects();
+            for (auto object : objects)
+            {
+                if (object != this->object)
+                {
+                    int oid = object->getIdentifier();
+                    if (std::find(collisions.begin(), collisions.end(), oid) == collisions.end())
+                    {
+                        if (auto other = object->get<CollisionDetectionComponent>())
+                        {
+                            if (collidesAgainst(other))
+                            {
+                                collisions.push_back(oid);
+                                other->collisions.push_back(this->object->getIdentifier());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        bool CollisionDetectionComponent::hasCollision() const
+        {
+            return (!collisions.empty());
+        }
+        
+        Gallant::Signal2<CollisionDetectionComponent*, CollisionDetectionComponent*>& CollisionDetectionComponent::getCollisionSignal()
+        {
+            return collisionSignal;
         }
         
         bool rectIntersectsWithRect(const cocos2d::Rect& r1, const cocos2d::Rect& r2)
@@ -159,6 +216,11 @@ namespace MelonGames
         
         bool CollisionDetectionComponent::collidesAgainst(CollisionDetectionComponent* other)
         {
+            if (!collisionTypes[(int)other->type])
+            {
+                return false;
+            }
+            
             if (!ensureHasMask())
             {
                 return false;
