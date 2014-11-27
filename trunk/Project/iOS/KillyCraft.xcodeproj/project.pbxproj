@@ -339,6 +339,7 @@
 		19CCD6A11A02D7BF00986A8E /* CCThread-apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD69E1A02D7BF00986A8E /* CCThread-apple.mm */; };
 		19F4AFD719FBC6EB00C73F6E /* MapView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19F4AFD519FBC6EB00C73F6E /* MapView.cpp */; };
 		19F4AFDA19FBD05400C73F6E /* StarsView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19F4AFD819FBD05400C73F6E /* StarsView.cpp */; };
+		19F6C50A1A27DE4500F7BFD1 /* MapGridView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19F6C5081A27DE4500F7BFD1 /* MapGridView.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1151,6 +1152,8 @@
 		19F4AFD619FBC6EB00C73F6E /* MapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapView.h; sourceTree = "<group>"; };
 		19F4AFD819FBD05400C73F6E /* StarsView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StarsView.cpp; sourceTree = "<group>"; };
 		19F4AFD919FBD05400C73F6E /* StarsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarsView.h; sourceTree = "<group>"; };
+		19F6C5081A27DE4500F7BFD1 /* MapGridView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MapGridView.cpp; sourceTree = "<group>"; };
+		19F6C5091A27DE4500F7BFD1 /* MapGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapGridView.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2743,6 +2746,8 @@
 				19F4AFD619FBC6EB00C73F6E /* MapView.h */,
 				19F4AFD819FBD05400C73F6E /* StarsView.cpp */,
 				19F4AFD919FBD05400C73F6E /* StarsView.h */,
+				19F6C5081A27DE4500F7BFD1 /* MapGridView.cpp */,
+				19F6C5091A27DE4500F7BFD1 /* MapGridView.h */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2990,6 +2995,7 @@
 				19CCD4861A02CDE800986A8E /* CCEventTouch.cpp in Sources */,
 				19CCD66B1A02D41000986A8E /* CCGroupCommand.cpp in Sources */,
 				19AB706719FACAE90041EAB6 /* PositionComponent.cpp in Sources */,
+				19F6C50A1A27DE4500F7BFD1 /* MapGridView.cpp in Sources */,
 				19AB270F19F984F3008D3B13 /* Quaternion.cpp in Sources */,
 				19CCD3F51A02CCEA00986A8E /* CCControlStepper.cpp in Sources */,
 				19CCD6641A02D41000986A8E /* CCBatchCommand.cpp in Sources */,

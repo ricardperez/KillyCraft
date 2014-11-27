@@ -9,6 +9,7 @@
 #ifndef KillyCraft_GameConfig_h
 #define KillyCraft_GameConfig_h
 
-//#define FORCED_SQUAD "SquadBasic-1"
+#define FORCED_SQUAD "SquadBasic-1"
+#define DRAW_MAP_GRID
 
 #endif

@@ -20,6 +20,9 @@ namespace MelonGames
         MapView::MapView(const Map* map, cocos2d::Node* mainNode)
         : map(map)
         , starsView(nullptr)
+#ifdef DRAW_MAP_GRID
+        , gridView(nullptr)
+#endif
         {
             mainView = cocos2d::Node::create();
             mainView->setContentSize(map->getDefinition().screenSize);
@@ -28,11 +31,12 @@ namespace MelonGames
             mainNode->addChild(mainView);
             
             starsView = new StarsView();
-//            starsView->addLayerWithTexture(mainView, std::numeric_limits<int>::min(), "stars1.png", 5.0f, -100.0f);
-//            starsView->addLayerWithTexture(mainView, std::numeric_limits<int>::min(), "stars2.png", 0.0f, -140.0f);
-//            starsView->addLayerWithTexture(mainView, std::numeric_limits<int>::min(), "stars3.png", -4.0f, -120.0f);
             starsView->addLayerWithTexture(mainView, std::numeric_limits<int>::min(), "background.png", 0.0f, -100.0f);
             
+#ifdef DRAW_MAP_GRID
+            gridView = MapGridView::create();
+            mainNode->addChild(gridView);
+#endif
         }
         
         MapView::~MapView()

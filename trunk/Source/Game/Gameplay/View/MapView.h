@@ -10,6 +10,8 @@
 #define __KillyCraft__MapView__
 
 #include "2d/CCNode.h"
+#include "Game/GameConfig.h"
+#include "Gameplay/View/MapGridView.h"
 
 namespace MelonGames
 {
@@ -32,6 +34,10 @@ namespace MelonGames
             const Map* map;
             cocos2d::Node* mainView;
             StarsView* starsView;
+            
+#ifdef DRAW_MAP_GRID
+            MapGridView* gridView;
+#endif
         };
     }
 }
