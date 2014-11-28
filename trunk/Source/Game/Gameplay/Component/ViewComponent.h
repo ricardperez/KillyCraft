@@ -37,6 +37,8 @@ namespace MelonGames
 			void setSpriteFrameName(const std::string& name);
             
             cocos2d::Sprite* getSprite() const;
+            
+            float getScale() const;
 			
 		protected:
 			void onPositionChanged(PositionComponent* posComponent);

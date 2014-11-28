@@ -231,16 +231,24 @@ namespace MelonGames
                 return false;
             }
             
-            cocos2d::Vec2 selfPosition = object->get<PositionComponent>()->getGroundPosition();
-            cocos2d::Vec2 otherPosition = other->getObject()->get<PositionComponent>()->getGroundPosition();
+            auto getRect = [](CollisionDetectionComponent* component) -> cocos2d::Rect
+            {
+                auto object = component->getObject();
+                auto position = object->get<PositionComponent>()->getGroundPosition();
+                float scale = 1.0f;
+                if (auto view = object->get<ViewComponent>())
+                {
+                    scale = view->getScale();
+                }
+                cocos2d::Rect rect;
+                rect.size = cocos2d::Vec2(component->textureMask.width * scale, component->textureMask.height * scale);
+                rect.origin = position - rect.size*0.5f;
+                
+                return rect;
+            };
             
-            cocos2d::Rect selfRect;
-            selfRect.size = cocos2d::Vec2(textureMask.width, textureMask.height);
-            selfRect.origin = selfPosition - selfRect.size*0.5f;
-            
-            cocos2d::Rect otherRect;
-            otherRect.size = cocos2d::Vec2(other->textureMask.width, other->textureMask.height);
-            otherRect.origin = otherPosition - otherRect.size*0.5f;
+            auto selfRect = getRect(this);
+            auto otherRect = getRect(other);
             
             if (pixelPerfect && other->pixelPerfect)
             {

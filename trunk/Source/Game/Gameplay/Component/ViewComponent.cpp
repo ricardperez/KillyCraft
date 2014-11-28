@@ -114,6 +114,15 @@ namespace MelonGames
         {
             return sprite;
         }
+        
+        float ViewComponent::getScale() const
+        {
+            if (sprite)
+            {
+                return sprite->getScale();
+            }
+            return 0.0f;
+        }
 		
 		void ViewComponent::onPositionChanged(PositionComponent* posComponent)
 		{
