@@ -17,7 +17,7 @@ namespace MelonGames
 	{
 		class Map;
 		
-		class GameScreen : public cocos2d::Layer
+		class GameScreen : public cocos2d::LayerColor
 		{
 		public:
 			static GameScreen* create();

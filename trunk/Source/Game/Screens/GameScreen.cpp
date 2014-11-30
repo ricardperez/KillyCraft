@@ -40,8 +40,9 @@ namespace MelonGames
 		
 		bool GameScreen::init()
 		{
-			if (cocos2d::Layer::init())
+            if (cocos2d::LayerColor::initWithColor(cocos2d::Color4B::WHITE))
 			{
+                
                 const auto& winSize = cocos2d::Director::getInstance()->getWinSize();
                 
                 float forcedWidth = 768.0f;

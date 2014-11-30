@@ -9,11 +9,14 @@
 #include "CollisionDetectionComponent.h"
 #include "Gameplay/MapObject.h"
 #include "Gameplay/Map.h"
+#include "Gameplay/View/MapView.h"
 #include "ViewComponent.h"
 #include "PositionComponent.h"
 #include "2d/CCSprite.h"
 #include "2d/CCSpriteFrame.h"
 #include "2d/CCRenderTexture.h"
+#include "2d/CCDrawNode.h"
+#include "CCDirector.h"
 #include <limits>
 
 namespace MelonGames
@@ -103,6 +106,17 @@ namespace MelonGames
         {
         }
         
+        void CollisionDetectionComponent::onWillDetachFromObject()
+        {
+#ifdef DRAW_COLLISION_BOXES
+            if (boxDrawer)
+            {
+                boxDrawer->removeFromParent();
+            }
+#endif
+            Base::onWillDetachFromObject();
+        }
+        
         void CollisionDetectionComponent::setType(CollisionDetectionType t)
         {
             type = t;
@@ -122,6 +136,10 @@ namespace MelonGames
         {
             Base::update(dt);
             
+#ifdef DRAW_COLLISION_BOXES
+            drawBox();
+#endif
+        
             collisions.clear();
             const auto& objects = object->getMap()->getObjects();
             for (auto object : objects)
@@ -133,6 +151,9 @@ namespace MelonGames
                     {
                         if (auto other = object->get<CollisionDetectionComponent>())
                         {
+#ifdef DRAW_COLLISION_BOXES
+                            other->drawBox();
+#endif
                             if (collidesAgainst(other))
                             {
                                 collisions.push_back(oid);
@@ -156,12 +177,17 @@ namespace MelonGames
         
         bool rectIntersectsWithRect(const cocos2d::Rect& r1, const cocos2d::Rect& r2)
         {
-            cocos2d::Vec2 bl = r2.origin;
-            cocos2d::Vec2 br(bl.x + r2.size.width, bl.y);
-            cocos2d::Vec2 tl(bl.x, bl.y + r2.size.height);
-            cocos2d::Vec2 tr(br.x, tl.y);
+            auto aContainsB = [](const cocos2d::Rect& r1, const cocos2d::Rect& r2)->bool
+            {
+                cocos2d::Vec2 bl = r2.origin;
+                cocos2d::Vec2 br(bl.x + r2.size.width, bl.y);
+                cocos2d::Vec2 tl(bl.x, bl.y + r2.size.height);
+                cocos2d::Vec2 tr(br.x, tl.y);
+                
+                return (r1.containsPoint(bl) || r1.containsPoint(br) || r1.containsPoint(tl) || r1.containsPoint(tr));
+            };
             
-            return (r1.containsPoint(bl) || r1.containsPoint(br) || r1.containsPoint(tl) || r1.containsPoint(tr));
+            return (aContainsB(r1, r2) || aContainsB(r2, r1));
         }
         
         bool rectsIntersection(const cocos2d::Rect& r1, const cocos2d::Rect& r2, cocos2d::Vec2& r1StartOut, cocos2d::Vec2& r2StartOut, cocos2d::Size& intersectionSizeOut)
@@ -231,24 +257,8 @@ namespace MelonGames
                 return false;
             }
             
-            auto getRect = [](CollisionDetectionComponent* component) -> cocos2d::Rect
-            {
-                auto object = component->getObject();
-                auto position = object->get<PositionComponent>()->getGroundPosition();
-                float scale = 1.0f;
-                if (auto view = object->get<ViewComponent>())
-                {
-                    scale = view->getScale();
-                }
-                cocos2d::Rect rect;
-                rect.size = cocos2d::Vec2(component->textureMask.width * scale, component->textureMask.height * scale);
-                rect.origin = position - rect.size*0.5f;
-                
-                return rect;
-            };
-            
-            auto selfRect = getRect(this);
-            auto otherRect = getRect(other);
+            auto selfRect = getCurrentRect();
+            auto otherRect = other->getCurrentRect();
             
             if (pixelPerfect && other->pixelPerfect)
             {
@@ -270,6 +280,21 @@ namespace MelonGames
             }
             
             return false;
+        }
+        
+        cocos2d::Rect CollisionDetectionComponent::getCurrentRect() const
+        {
+            auto position = object->get<PositionComponent>()->getGroundPosition();
+            float scale = 1.0f;
+            if (auto view = object->get<ViewComponent>())
+            {
+                scale = view->getScale();
+            }
+            cocos2d::Rect rect;
+            rect.size = cocos2d::Vec2(textureMask.width * scale, textureMask.height * scale);
+            rect.origin = position - rect.size*0.5f;
+            
+            return rect;
         }
         
         bool CollisionDetectionComponent::ensureHasMask()
@@ -306,6 +331,46 @@ namespace MelonGames
             }
         }
         
+#ifdef DRAW_COLLISION_BOXES
+        void CollisionDetectionComponent::drawBox()
+        {
+            unsigned int currFrameIndex = cocos2d::Director::getInstance()->getTotalFrames();
+            if (currFrameIndex != boxDrawerFrame)
+            {
+                boxDrawerFrame = currFrameIndex;
+                if (boxDrawer)
+                {
+                    boxDrawer->removeFromParent();
+                }
+                
+                boxDrawer = cocos2d::DrawNode::create();
+                object->getMap()->getView()->getNode()->addChild(boxDrawer);
+                
+                auto rect = getCurrentRect();
+                
+                cocos2d::Color4F color;
+                switch (type)
+                {
+                    case CollisionDetectionType::ePlayer:
+                        color = cocos2d::Color4F::RED;
+                        break;
+                    case CollisionDetectionType::eEnemy:
+                        color = cocos2d::Color4F::BLUE;
+                        break;
+                    case CollisionDetectionType::eBullet:
+                        color = cocos2d::Color4F::ORANGE;
+                        break;
+                    case CollisionDetectionType::ePowerup:
+                        color = cocos2d::Color4F::GREEN;
+                        break;
+                    default:
+                        color = cocos2d::Color4F::MAGENTA;
+                }
+                
+                boxDrawer->drawRect(rect.origin, rect.origin + cocos2d::Vec2(rect.size.width, rect.size.height), color);
+            }
+        }
+#endif
         
     }
 }

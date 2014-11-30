@@ -8,9 +8,7 @@
 
 #include "MapView.h"
 #include "StarsView.h"
-
 #include "Gameplay/Map.h"
-
 #include "base/CCDirector.h"
 
 namespace MelonGames
@@ -29,9 +27,11 @@ namespace MelonGames
             mainView->setScale(map->getDefinition().screenScale);
             
             mainNode->addChild(mainView);
-            
+
             starsView = new StarsView();
+#ifndef DRAW_MAP_GRID
             starsView->addLayerWithTexture(mainView, std::numeric_limits<int>::min(), "background.png", 0.0f, -100.0f);
+#endif
             
 #ifdef DRAW_MAP_GRID
             gridView = MapGridView::create();
@@ -51,7 +51,10 @@ namespace MelonGames
         
         void MapView::update(float dt)
         {
-            starsView->update(dt);
+            if (starsView)
+            {
+                starsView->update(dt);
+            }
         }
     }
 }

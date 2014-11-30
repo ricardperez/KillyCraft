@@ -8,6 +8,7 @@
 
 #include "MapGridView.h"
 #include "2d/CCDrawingPrimitives.h"
+#include "CCDirector.h"
 
 #ifdef DRAW_MAP_GRID
 
@@ -34,7 +35,31 @@ namespace MelonGames
         {
             if (DrawNode::init())
             {
-                drawLine(Vec2(100.0f, 0.0f), Vec2(100.0f, 500.0f), Color4F(0.0f, 0.0f, 0.0f, 1.0f));
+                const float gridSize = 20.0f;
+                const auto color1 = Color4F(0.4f, 0.4f, 0.4f, 0.5f);
+                const auto color2 = Color4F(0.8f, 0.8f, 0.8f, 0.5f);
+                
+                const float width = Director::getInstance()->getWinSize().width;
+                const float height = Director::getInstance()->getWinSize().height;
+                
+                int counter = 0;
+                float x = 0.0f;
+                while (x <= width)
+                {
+                    drawLine(Vec2(x, 0.0f), Vec2(x, height), (counter % 5 ? color2 : color1));
+                    x += gridSize;
+                    ++counter;
+                }
+                
+                counter = 0;
+                float y = 0.0f;
+                while (y <= height)
+                {
+                    drawLine(Vec2(0.0f, y), Vec2(width, y), (counter % 5 ? color2 : color1));
+                    y += gridSize;
+                    ++counter;
+                }
+                
                 return true;
             }
             

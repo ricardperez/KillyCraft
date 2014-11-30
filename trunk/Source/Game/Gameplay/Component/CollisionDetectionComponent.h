@@ -10,8 +10,15 @@
 #define __KillyCraft__ViewOpacityMaskComponent__
 
 #include "Component.h"
-#include <vector>
+#include "math/CCGeometry.h"
 #include "Signal/Signal.h"
+#include "GameConfig.h"
+#include <vector>
+
+namespace cocos2d
+{
+    class DrawNode;
+}
 
 namespace MelonGames
 {
@@ -45,6 +52,8 @@ namespace MelonGames
             CollisionDetectionComponent();
             virtual ~CollisionDetectionComponent();
             
+            virtual void onWillDetachFromObject() override;
+            
             void setType(CollisionDetectionType t);
             CollisionDetectionType getType() const;
             
@@ -62,6 +71,8 @@ namespace MelonGames
             
             bool collidesAgainst(CollisionDetectionComponent* other);
             
+            cocos2d::Rect getCurrentRect() const;
+            
         private:
             TextureMask textureMask;
             bool pixelPerfect;
@@ -71,6 +82,12 @@ namespace MelonGames
             std::vector<int> collisions;
             
             Gallant::Signal2<CollisionDetectionComponent*, CollisionDetectionComponent*> collisionSignal;
+            
+#ifdef DRAW_COLLISION_BOXES
+            cocos2d::DrawNode* boxDrawer = nullptr;
+            unsigned int boxDrawerFrame = 0;
+            void drawBox();
+#endif
         };
     }
 }
