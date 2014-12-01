@@ -8,6 +8,7 @@
 
 #include "TextureMask.h"
 #include "math/CCGeometry.h"
+#include "platform/CCFileUtils.h"
 
 namespace MelonGames
 {
@@ -25,10 +26,10 @@ namespace MelonGames
             delete[] mask;
         }
         
-        TextureMask* TextureMask::create(const std::string &maskFile)
+        TextureMask* TextureMask::create(const std::string &maskFile, int nBitsForSize)
         {
             TextureMask* result = new TextureMask();
-            if (result && result->init(maskFile))
+            if (result && result->init(maskFile, nBitsForSize))
             {
                 return result;
             }
@@ -49,8 +50,27 @@ namespace MelonGames
             return nullptr;
         }
         
-        bool TextureMask::init(const std::string &maskFile)
+        bool TextureMask::init(const std::string &maskFile, int nBitsForSize)
         {
+            auto byteToBits = [](unsigned char byte, bool* bits) -> void
+            {
+                bits[0] = byte & 1;
+                bits[1] = byte & 2;
+                bits[2] = byte & 4;
+                bits[3] = byte & 8;
+                bits[4] = byte & 16;
+                bits[5] = byte & 32;
+                bits[6] = byte & 64;
+                bits[7] = byte & 128;
+            };
+            
+            cocos2d::Data data = cocos2d::FileUtils::getInstance()->getDataFromFile(maskFile);
+            if (data.getSize() > 0)
+            {
+                unsigned char* bytes = data.getBytes();
+                int sizeBytes = ((nBitsForSize * 2) / 8.0f + 0.5f);
+                
+            }
             return false;
         }
         

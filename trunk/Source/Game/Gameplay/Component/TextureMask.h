@@ -26,7 +26,7 @@ namespace MelonGames
         class TextureMask
         {
         public:
-            static TextureMask* create(const std::string& maskFile);
+            static TextureMask* create(const std::string& maskFile, int nBitsForSize = 10);
             static TextureMask* create(const cocos2d::Size& size);
             
             virtual ~TextureMask();
@@ -40,7 +40,7 @@ namespace MelonGames
             
         private:
             TextureMask();
-            bool init(const std::string& maskFile);
+            bool init(const std::string& maskFile, int nBitsForSize);
             bool init(const cocos2d::Size& size);
             
         private:
