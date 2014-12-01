@@ -12,6 +12,7 @@
 #include "base/CCDirector.h"
 #include "base/CCScheduler.h"
 #include "base/CCEventDispatcher.h"
+#include <chrono>
 
 namespace MelonGames
 {
@@ -87,7 +88,7 @@ namespace MelonGames
 				if (leftTouch.touch == nullptr)
 				{
 					leftTouch.touch = touch;
-                    leftTouch.timestamp = time(nullptr);
+                    leftTouch.timestamp = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now().time_since_epoch());
                 }
 			}
 			else
@@ -95,7 +96,7 @@ namespace MelonGames
 				if (rightTouch.touch == nullptr)
 				{
 					rightTouch.touch = touch;
-                    rightTouch.timestamp = time(nullptr);
+                    rightTouch.timestamp = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now().time_since_epoch());
 				}
 			}
 		}
@@ -167,6 +168,5 @@ namespace MelonGames
 		{
 			return gamepadActionSignal;
 		}
-		
 	}
 }

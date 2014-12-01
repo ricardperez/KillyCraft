@@ -97,6 +97,8 @@ namespace MelonGames
                 return [](const Json::Value& json) -> Component*
                 {
                     auto result = new CollisionDetectionComponent();
+                    result->setCollisionMaskFileName(json["mask"].asString());
+                    result->setType((CollisionDetectionType)json["t"].asInt());
                     return result;
                 };
             }

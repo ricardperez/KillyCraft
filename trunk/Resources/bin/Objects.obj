@@ -39,7 +39,8 @@
 				},
 				{
 					"type":"CollisionDetection",
-					"t":0
+					"mask":"",
+					"t":1
 				}
 			]
 		},
@@ -81,7 +82,8 @@
 				},
 				{
 					"type":"CollisionDetection",
-					"t":0
+					"mask":"",
+					"t":1
 				}
 			]
 		},
@@ -123,7 +125,7 @@
 				},
 				{
 					"type":"CollisionDetection",
-					"t":0
+					"t":1
 				}
 			]
 		},
@@ -165,7 +167,7 @@
 				},
 				{
 					"type":"CollisionDetection",
-					"t":0
+					"t":1
 				}
 			]
 		}

@@ -36,7 +36,6 @@ namespace MelonGames
         : speedLeft(100)
         , speedRight(100)
         {
-            
         }
         
         void GamepadMoveComponent::setSpeed(float speed)
@@ -70,6 +69,8 @@ namespace MelonGames
             position.x += movement;
             
             //clamp it
+            float maxX = object->getMap()->getDefinition().screenSize.width;
+            position.x = std::max(0.0f, std::min(maxX, position.x));
             
             posComponent->setPosition(position);
         }

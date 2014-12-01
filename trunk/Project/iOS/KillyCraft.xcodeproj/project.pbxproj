@@ -24,6 +24,7 @@
 		196AD4CB19F9832900D87881 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 196AD4CA19F9832900D87881 /* Images.xcassets */; };
 		196AD4CE19F9832900D87881 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 196AD4CC19F9832900D87881 /* LaunchScreen.xib */; };
 		196AD4DA19F9832A00D87881 /* KillyCraftTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 196AD4D919F9832A00D87881 /* KillyCraftTests.m */; };
+		1998E2D51A2D212E00FED614 /* TextureMask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1998E2D31A2D212E00FED614 /* TextureMask.cpp */; };
 		19AB270619F984F3008D3B13 /* CCAffineTransform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AB26E819F984F3008D3B13 /* CCAffineTransform.cpp */; };
 		19AB270719F984F3008D3B13 /* CCGeometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AB26EA19F984F3008D3B13 /* CCGeometry.cpp */; };
 		19AB270819F984F3008D3B13 /* CCVertex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AB26EE19F984F3008D3B13 /* CCVertex.cpp */; };
@@ -388,6 +389,8 @@
 		196AD4D819F9832A00D87881 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		196AD4D919F9832A00D87881 /* KillyCraftTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KillyCraftTests.m; sourceTree = "<group>"; };
 		199248B81A12AB0A0001D4B4 /* GameConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameConfig.h; sourceTree = "<group>"; };
+		1998E2D31A2D212E00FED614 /* TextureMask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureMask.cpp; sourceTree = "<group>"; };
+		1998E2D41A2D212E00FED614 /* TextureMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureMask.h; sourceTree = "<group>"; };
 		19AB26E819F984F3008D3B13 /* CCAffineTransform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCAffineTransform.cpp; sourceTree = "<group>"; };
 		19AB26E919F984F3008D3B13 /* CCAffineTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAffineTransform.h; sourceTree = "<group>"; };
 		19AB26EA19F984F3008D3B13 /* CCGeometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCGeometry.cpp; sourceTree = "<group>"; };
@@ -2480,6 +2483,8 @@
 				194EFC9A1A039E58007C5014 /* MovementStateComponents.h */,
 				19C61FA51A06C168001674E0 /* CollisionDetectionComponent.cpp */,
 				19C61FA61A06C168001674E0 /* CollisionDetectionComponent.h */,
+				1998E2D31A2D212E00FED614 /* TextureMask.cpp */,
+				1998E2D41A2D212E00FED614 /* TextureMask.h */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -2995,6 +3000,7 @@
 				19CCD4861A02CDE800986A8E /* CCEventTouch.cpp in Sources */,
 				19CCD66B1A02D41000986A8E /* CCGroupCommand.cpp in Sources */,
 				19AB706719FACAE90041EAB6 /* PositionComponent.cpp in Sources */,
+				1998E2D51A2D212E00FED614 /* TextureMask.cpp in Sources */,
 				19F6C50A1A27DE4500F7BFD1 /* MapGridView.cpp in Sources */,
 				19AB270F19F984F3008D3B13 /* Quaternion.cpp in Sources */,
 				19CCD3F51A02CCEA00986A8E /* CCControlStepper.cpp in Sources */,

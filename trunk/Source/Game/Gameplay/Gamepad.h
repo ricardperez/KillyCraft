@@ -9,8 +9,9 @@
 #ifndef __KillyCraft__Gamepad__
 #define __KillyCraft__Gamepad__
 
-#include <set>
 #include "libs/Signal/Signal.h"
+#include <set>
+#include <chrono>
 
 namespace cocos2d
 {
@@ -53,7 +54,7 @@ namespace MelonGames
             struct TouchInfo
             {
                 const cocos2d::Touch* touch;
-                time_t timestamp;
+                std::chrono::milliseconds timestamp;
                 
                 TouchInfo() : touch(nullptr), timestamp(0) {}
             };

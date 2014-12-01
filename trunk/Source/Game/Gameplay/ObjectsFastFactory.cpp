@@ -55,6 +55,7 @@ namespace MelonGames
                 collisionDetection->setType(CollisionDetectionType::ePlayer);
                 collisionDetection->addCollisionType(CollisionDetectionType::eEnemy);
                 collisionDetection->addCollisionType(CollisionDetectionType::ePowerup);
+                collisionDetection->setCollisionMaskFileName("Melon.png.mask");
                 result->addComponent(collisionDetection);
 				
 				return result;

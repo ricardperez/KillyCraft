@@ -7,6 +7,7 @@
 //
 
 #include "CollisionDetectionComponent.h"
+#include "TextureMask.h"
 #include "Gameplay/MapObject.h"
 #include "Gameplay/Map.h"
 #include "Gameplay/View/MapView.h"
@@ -23,78 +24,10 @@ namespace MelonGames
 {
     namespace KillyCraft
     {
-        namespace TextureMaskHelper
-        {
-            TextureMask buildTextureMask(cocos2d::Texture2D* texture, const cocos2d::Rect& rect)
-            {
-                TextureMask result;
-                
-                result.width = rect.size.width;
-                result.height = rect.size.height;
-                
-//                int maskSize = result.width * result.height;
-//                result.mask = new bool[maskSize];
-//                memset(result.mask, 0, maskSize);
-//                
-//                int next = 0;
-//                for (int i=0; i<result.width; ++i)
-//                {
-//                    for (int j=0; j<result.height; ++j)
-//                    {
-//                        /*
-//                         int x = rect.origin.x + i;
-//                         int y = rect.origin.y + j;
-//                         GLubyte pixelOpaity = pixelAt(texture, x, y).alpha();
-//                         result.mask[next] = (pixelOpacity > 0);
-//                         */
-//                        ++next;
-//                    }
-//                }
-                
-                result.built = true;
-                
-                return result;
-            }
-            
-            bool isMaskedValue(const TextureMask& textureMask, int x, int y)
-            {
-                if (textureMask.mask && x >= 0 && x < textureMask.width && y >= 0 && y < textureMask.height)
-                {
-                    return textureMask.mask[textureMask.width * y + x];
-                }
-                
-                return false;
-            }
-            
-            bool textureMaskCollision(const TextureMask& tm1, const TextureMask& tm2, const cocos2d::Vec2& origin1, const cocos2d::Vec2& origin2, const cocos2d::Size& size)
-            {
-                for (int i=0; i<size.width; ++i)
-                {
-                    for (int j=0; j<size.height; ++j)
-                    {
-                        bool masked1 = TextureMaskHelper::isMaskedValue(tm1, origin1.x + i, origin1.y + j);
-                        if (masked1)
-                        {
-                            bool masked2 = TextureMaskHelper::isMaskedValue(tm2, origin2.x + i, origin2.y + j);
-                            if (masked2)
-                            {
-                                return true;
-                            }
-                        }
-                    }
-                }
-                return false;
-            }
-        }
-        
-        TextureMask::~TextureMask()
-        {
-            delete[] mask;
-        }
-        
         CollisionDetectionComponent::CollisionDetectionComponent()
-        : pixelPerfect(false)
+        : maskBuilt(false)
         , type(CollisionDetectionType::eEnemy)
+        , textureMask(nullptr)
         {
             for (int i=0; i<(int)CollisionDetectionType::nTypes; ++i)
             {
@@ -125,6 +58,11 @@ namespace MelonGames
         CollisionDetectionType CollisionDetectionComponent::getType() const
         {
             return type;
+        }
+        
+        void CollisionDetectionComponent::setCollisionMaskFileName(const std::string& fileName)
+        {
+            maskFileName = fileName;
         }
         
         void CollisionDetectionComponent::addCollisionType(CollisionDetectionType type, bool collides)
@@ -190,7 +128,7 @@ namespace MelonGames
             return (aContainsB(r1, r2) || aContainsB(r2, r1));
         }
         
-        bool rectsIntersection(const cocos2d::Rect& r1, const cocos2d::Rect& r2, cocos2d::Vec2& r1StartOut, cocos2d::Vec2& r2StartOut, cocos2d::Size& intersectionSizeOut)
+        bool getRectsIntersection(const cocos2d::Rect& r1, const cocos2d::Rect& r2, cocos2d::Vec2& r1StartOut, cocos2d::Vec2& r2StartOut, cocos2d::Size& intersectionSizeOut)
         {
             if (rectIntersectsWithRect(r1, r2))
             {
@@ -260,23 +198,27 @@ namespace MelonGames
             auto selfRect = getCurrentRect();
             auto otherRect = other->getCurrentRect();
             
-            if (pixelPerfect && other->pixelPerfect)
+            cocos2d::Vec2 selfOrigin;
+            cocos2d::Vec2 otherOrigin;
+            cocos2d::Size intersectionSize;
+            if (getRectsIntersection(selfRect, otherRect, selfOrigin, otherOrigin, intersectionSize))
             {
-                cocos2d::Vec2 selfOrigin;
-                cocos2d::Vec2 otherOrigin;
-                cocos2d::Size intersectionSize;
-                if (rectsIntersection(selfRect, otherRect, selfOrigin, otherOrigin, intersectionSize))
+                if (textureMask->isPixelPerfect() && other->textureMask->isPixelPerfect())
                 {
-                    if (pixelPerfect && other->pixelPerfect)
-                    {
-                        return TextureMaskHelper::textureMaskCollision(textureMask, other->textureMask, selfOrigin, otherOrigin, intersectionSize);
-                    }
-                    return true;
+                    return TextureMaskHelper::textureMaskCollision(*textureMask, *other->textureMask, selfOrigin, otherOrigin, intersectionSize);
                 }
-            }
-            else
-            {
-                return rectIntersectsWithRect(selfRect, otherRect);
+                
+                if (textureMask->isPixelPerfect())
+                {
+                    return TextureMaskHelper::textureMaskCollision(*textureMask, selfOrigin, otherOrigin, intersectionSize);
+                }
+                
+                if (other->textureMask->isPixelPerfect())
+                {
+                    return TextureMaskHelper::textureMaskCollision(*other->textureMask, otherOrigin, selfOrigin, intersectionSize);
+                }
+                
+                return true;
             }
             
             return false;
@@ -291,7 +233,10 @@ namespace MelonGames
                 scale = view->getScale();
             }
             cocos2d::Rect rect;
-            rect.size = cocos2d::Vec2(textureMask.width * scale, textureMask.height * scale);
+            if (textureMask)
+            {
+                rect.size = cocos2d::Vec2(textureMask->getWidth() * scale, textureMask->getHeight() * scale);
+            }
             rect.origin = position - rect.size*0.5f;
             
             return rect;
@@ -299,10 +244,9 @@ namespace MelonGames
         
         bool CollisionDetectionComponent::ensureHasMask()
         {
-            if (!textureMask.built)
+            if (!maskBuilt)
             {
                 buildMask();
-                return (textureMask.built);
             }
             
             return true;
@@ -310,25 +254,29 @@ namespace MelonGames
         
         void CollisionDetectionComponent::buildMask()
         {
-            assert(!textureMask.built);
+            assert(!maskBuilt);
             
-            ViewComponent* viewComponent = object->get<ViewComponent>();
-            if (cocos2d::Sprite* sprite = viewComponent->getSprite())
+            textureMask = TextureMask::create(maskFileName);
+            if (!textureMask)
             {
-                if (auto spriteFrame = sprite->getSpriteFrame())
+                ViewComponent* viewComponent = object->get<ViewComponent>();
+                if (cocos2d::Sprite* sprite = viewComponent->getSprite())
                 {
-                    const cocos2d::Rect& rect = spriteFrame->getRectInPixels();
-                    textureMask = TextureMaskHelper::buildTextureMask(sprite->getTexture(), rect);
+                    cocos2d::Size size;
+                    if (auto spriteFrame = sprite->getSpriteFrame())
+                    {
+                        size = spriteFrame->getRectInPixels().size;
+                    }
+                    else
+                    {
+                        size = sprite->getTexture()->getContentSizeInPixels();
+                    }
+                    
+                    textureMask = TextureMask::create(size);
                 }
-                else
-                {
-                    cocos2d::Rect rect;
-                    rect.size = sprite->getTexture()->getContentSizeInPixels();
-                    textureMask = TextureMaskHelper::buildTextureMask(sprite->getTexture(), rect);
-                }
-                
-                pixelPerfect = (textureMask.mask != nullptr);
             }
+            
+            maskBuilt = (textureMask != nullptr);
         }
         
 #ifdef DRAW_COLLISION_BOXES

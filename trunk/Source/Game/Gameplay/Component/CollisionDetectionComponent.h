@@ -10,9 +10,9 @@
 #define __KillyCraft__ViewOpacityMaskComponent__
 
 #include "Component.h"
-#include "math/CCGeometry.h"
-#include "Signal/Signal.h"
 #include "GameConfig.h"
+#include "Signal/Signal.h"
+#include "math/CCGeometry.h"
 #include <vector>
 
 namespace cocos2d
@@ -24,16 +24,7 @@ namespace MelonGames
 {
     namespace KillyCraft
     {
-        struct TextureMask
-        {
-            bool built = false;
-            bool* mask = nullptr;
-            int width = 0;
-            int height = 0;
-            
-            ~TextureMask();
-        };
-        
+        class TextureMask;
         enum class CollisionDetectionType
         {
             ePlayer = 0,
@@ -57,6 +48,8 @@ namespace MelonGames
             void setType(CollisionDetectionType t);
             CollisionDetectionType getType() const;
             
+            void setCollisionMaskFileName(const std::string& fileName);
+            
             void addCollisionType(CollisionDetectionType type, bool collides=true);
             
             virtual void update(float dt) override;
@@ -74,8 +67,9 @@ namespace MelonGames
             cocos2d::Rect getCurrentRect() const;
             
         private:
-            TextureMask textureMask;
-            bool pixelPerfect;
+            bool maskBuilt;
+            std::string maskFileName;
+            TextureMask* textureMask;
             CollisionDetectionType type;
             bool collisionTypes[(int)CollisionDetectionType::nTypes];
             
