@@ -69,48 +69,51 @@ namespace MelonGames
                 return result;
             };
             
-            cocos2d::Data data = cocos2d::FileUtils::getInstance()->getDataFromFile(maskFile);
+            cocos2d::Data data = cocos2d::FileUtils::getInstance()->getDataFromFile("cross.png.mask");
             if (data.getSize() > 0)
             {
                 unsigned char* bytes = data.getBytes();
                 
-                for (int i=0; i<data.getSize(); ++i)
-                {
-                    if (i % 8 == 0)
-                    {
-                        printf("\n");
-                    }
-                    printf("%i ", byteToInt(bytes[i]));
-                }
-                printf("\n");
-                
                 //32 bits for specifying the width and height (2+2 bytes)
-                int width = byteToInt(bytes[0])*128 + byteToInt(bytes[1]);
-                int height = byteToInt(bytes[2])*128 + byteToInt(bytes[3]);
+                width = byteToInt(bytes[0])*128 + byteToInt(bytes[1]);
+                height = byteToInt(bytes[2])*128 + byteToInt(bytes[3]);
                 
                 int byteIndex = 4;
                 int bitIndex = 0;
-                int bitWeight = 128;
+                int bitWeight = 1;
                 mask = new bool[width*height];
+                
                 for (int y = 0; y < height; ++y)
                 {
                     for (int x = 0; x<width; ++x)
                     {
-                        mask[y*height + x] = (*(bytes+byteIndex)) & bitWeight;
+                        mask[y*height + x] = ((*(bytes+byteIndex)) & bitWeight);
                         
-                        bitWeight /= 2;
+                        bitWeight *= 2;
                         bitIndex++;
                         
-                        if (bitIndex == 7)
+                        if (bitIndex == 8)
                         {
-                            bitWeight = 128;
+                            bitWeight = 1;
                             bitIndex = 0;
                             ++byteIndex;
                         }
                     }
                 }
                 
+//                for (int y = 0; y < height; ++y)
+//                {
+//                    for (int x = 0; x < width; ++x)
+//                    {
+//                        printf("%c ", (isOpaqueAt(x, y) ? 'x' : '-'));
+//                    }
+//                    printf("\n");
+//                }
+//                printf("\n");
+                
+                return true;
             }
+            
             return false;
         }
         
