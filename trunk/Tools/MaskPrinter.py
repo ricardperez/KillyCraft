@@ -1,6 +1,7 @@
 import argparse
 import sys
 from MaskBuilder import toBinaryArray
+from MaskBuilder import toInteger
 
 debug = 0
 
@@ -16,14 +17,6 @@ def readFileBytes(filename):
 		f.close()
 	return characters
 
-def toInteger(bits):
-	number = 0
-	base = 1
-	for b in reversed(bits):
-		number += base if b == 1 else 0
-		base *= 2
-	return number
-
 if __name__ == "__main__":
 
 	parser = argparse.ArgumentParser()
@@ -36,15 +29,27 @@ if __name__ == "__main__":
 
 	mask = readFileBytes(maskFile)
 
-	bitsForSize = 16
-	imageWidth = toInteger(mask[0:bitsForSize])
-	imageHeight = toInteger(mask[bitsForSize:bitsForSize+bitsForSize])
+	if debug:
+		print("Width bits:");
+		bits = []
+		for i in xrange(0, 2):
+			bits.append(mask[i])
+		print bits
+		
+		print("Height bits:");
+		bits = []
+		for i in xrange(2, 4):
+			bits.append(mask[i])
+		print bits
+
+	imageWidth = mask[0]*128 + mask[1]
+	imageHeight = mask[2]*128 + mask[3]
 
 	if debug:
 		print("Image size is {},{}").format(imageWidth, imageHeight)
 		print mask
 
-	dataOffset = bitsForSize+bitsForSize
+	dataOffset = 4
 
 	data = []
 	for x in xrange(dataOffset, len(mask)):

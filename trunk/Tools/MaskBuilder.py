@@ -13,6 +13,14 @@ def toBinaryArray(number, nBits):
     	n = n / 2
     return bits
 
+def toInteger(bits):
+	number = 0
+	base = 1
+	for b in reversed(bits):
+		number += base if b == 1 else 0
+		base *= 2
+	return number
+
 def buildImageMask(imageName, alphaThreshold):
 	image = Image.open(imageName)
 	imageData = image.load()
@@ -22,8 +30,12 @@ def buildImageMask(imageName, alphaThreshold):
 
 	mask = []
 
-	mask.extend(toBinaryArray(imageWidth, 16))
-	mask.extend(toBinaryArray(imageHeight, 16))
+	bitsWidth = toBinaryArray(imageWidth, 16)
+	bitsHeight = toBinaryArray(imageHeight, 16)
+	mask.append(toInteger(bitsWidth[0:8]))
+	mask.append(toInteger(bitsWidth[8:16]))
+	mask.append(toInteger(bitsHeight[0:8]))
+	mask.append(toInteger(bitsHeight[8:16]))
 
 	if debug:
 		print("After adding the image size: ({}, {})".format(imageWidth,imageHeight));

@@ -26,10 +26,10 @@ namespace MelonGames
             delete[] mask;
         }
         
-        TextureMask* TextureMask::create(const std::string &maskFile, int nBitsForSize)
+        TextureMask* TextureMask::create(const std::string &maskFile)
         {
             TextureMask* result = new TextureMask();
-            if (result && result->init(maskFile, nBitsForSize))
+            if (result && result->init(maskFile))
             {
                 return result;
             }
@@ -50,25 +50,65 @@ namespace MelonGames
             return nullptr;
         }
         
-        bool TextureMask::init(const std::string &maskFile, int nBitsForSize)
+        bool TextureMask::init(const std::string &maskFile)
         {
-            auto byteToBits = [](unsigned char byte, bool* bits) -> void
+            auto byteToInt = [](unsigned char byte) -> int
             {
-                bits[0] = byte & 1;
-                bits[1] = byte & 2;
-                bits[2] = byte & 4;
-                bits[3] = byte & 8;
-                bits[4] = byte & 16;
-                bits[5] = byte & 32;
-                bits[6] = byte & 64;
-                bits[7] = byte & 128;
+                int result = 0;
+                
+                int nextP2 = 1;
+                for (int i=0; i<8; ++i)
+                {
+                    if (byte & nextP2)
+                    {
+                        result += nextP2;
+                    }
+                    nextP2 <<= 1;
+                }
+                
+                return result;
             };
             
             cocos2d::Data data = cocos2d::FileUtils::getInstance()->getDataFromFile(maskFile);
             if (data.getSize() > 0)
             {
                 unsigned char* bytes = data.getBytes();
-                int sizeBytes = ((nBitsForSize * 2) / 8.0f + 0.5f);
+                
+                for (int i=0; i<data.getSize(); ++i)
+                {
+                    if (i % 8 == 0)
+                    {
+                        printf("\n");
+                    }
+                    printf("%i ", byteToInt(bytes[i]));
+                }
+                printf("\n");
+                
+                //32 bits for specifying the width and height (2+2 bytes)
+                int width = byteToInt(bytes[0])*128 + byteToInt(bytes[1]);
+                int height = byteToInt(bytes[2])*128 + byteToInt(bytes[3]);
+                
+                int byteIndex = 4;
+                int bitIndex = 0;
+                int bitWeight = 128;
+                mask = new bool[width*height];
+                for (int y = 0; y < height; ++y)
+                {
+                    for (int x = 0; x<width; ++x)
+                    {
+                        mask[y*height + x] = (*(bytes+byteIndex)) & bitWeight;
+                        
+                        bitWeight /= 2;
+                        bitIndex++;
+                        
+                        if (bitIndex == 7)
+                        {
+                            bitWeight = 128;
+                            bitIndex = 0;
+                            ++byteIndex;
+                        }
+                    }
+                }
                 
             }
             return false;
