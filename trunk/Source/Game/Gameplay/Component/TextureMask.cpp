@@ -52,6 +52,17 @@ namespace MelonGames
         
         bool TextureMask::init(const std::string &maskFile)
         {
+            if (maskFile.empty())
+            {
+                return false;
+            }
+            
+            auto fileUtils = cocos2d::FileUtils::getInstance();
+            if (!fileUtils->isFileExist(maskFile))
+            {
+                return false;
+            }
+            
             auto byteToInt = [](unsigned char byte) -> int
             {
                 int result = 0;
@@ -69,7 +80,7 @@ namespace MelonGames
                 return result;
             };
             
-            cocos2d::Data data = cocos2d::FileUtils::getInstance()->getDataFromFile("cross.png.mask");
+            cocos2d::Data data = fileUtils->getDataFromFile(maskFile);
             if (data.getSize() > 0)
             {
                 unsigned char* bytes = data.getBytes();
@@ -87,9 +98,10 @@ namespace MelonGames
                 {
                     for (int x = 0; x<width; ++x)
                     {
-                        mask[y*height + x] = ((*(bytes+byteIndex)) & bitWeight);
+                        bool masked = ((*(bytes+byteIndex)) & bitWeight);
+                        mask[y*width + x] = masked;
                         
-                        bitWeight *= 2;
+                        bitWeight <<= 1;
                         bitIndex++;
                         
                         if (bitIndex == 8)
@@ -100,16 +112,6 @@ namespace MelonGames
                         }
                     }
                 }
-                
-//                for (int y = 0; y < height; ++y)
-//                {
-//                    for (int x = 0; x < width; ++x)
-//                    {
-//                        printf("%c ", (isOpaqueAt(x, y) ? 'x' : '-'));
-//                    }
-//                    printf("\n");
-//                }
-//                printf("\n");
                 
                 return true;
             }
@@ -126,17 +128,14 @@ namespace MelonGames
         
         bool TextureMask::isOpaqueAt(int x, int y) const
         {
-            if (x >= 0 && x < width && y >= 0 && y < height)
+            assert((x >= 0 && x < width && y >= 0 && y < height));
+            
+            if (!mask)
             {
-                if (!mask)
-                {
-                    return true;
-                }
-                
-                return mask[width * y + x];
+                return true;
             }
             
-            return false;
+            return mask[width * y + x];
         }
         
         namespace TextureMaskHelper
