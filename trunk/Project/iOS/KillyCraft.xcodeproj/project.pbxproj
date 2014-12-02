@@ -19,6 +19,7 @@
 		194B80CB19FBA6750021CE64 /* FilesService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194B80C919FBA6750021CE64 /* FilesService.cpp */; };
 		194EFC981A039999007C5014 /* TimeComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194EFC961A039999007C5014 /* TimeComponent.cpp */; };
 		194EFC9B1A039E58007C5014 /* MovementStateComponents.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194EFC991A039E58007C5014 /* MovementStateComponents.cpp */; };
+		1968960E1A2E82D900435129 /* GameHUDView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1968960C1A2E82D900435129 /* GameHUDView.cpp */; };
 		196AD4C019F9832900D87881 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 196AD4BF19F9832900D87881 /* main.m */; };
 		196AD4C319F9832900D87881 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 196AD4C219F9832900D87881 /* AppController.mm */; };
 		196AD4CB19F9832900D87881 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 196AD4CA19F9832900D87881 /* Images.xcassets */; };
@@ -378,6 +379,8 @@
 		194EFC971A039999007C5014 /* TimeComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeComponent.h; sourceTree = "<group>"; };
 		194EFC991A039E58007C5014 /* MovementStateComponents.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MovementStateComponents.cpp; sourceTree = "<group>"; };
 		194EFC9A1A039E58007C5014 /* MovementStateComponents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovementStateComponents.h; sourceTree = "<group>"; };
+		1968960C1A2E82D900435129 /* GameHUDView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameHUDView.cpp; sourceTree = "<group>"; };
+		1968960D1A2E82D900435129 /* GameHUDView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameHUDView.h; sourceTree = "<group>"; };
 		196AD4BA19F9832900D87881 /* KillyCraft.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KillyCraft.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		196AD4BE19F9832900D87881 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		196AD4BF19F9832900D87881 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -2753,6 +2756,8 @@
 				19F4AFD919FBD05400C73F6E /* StarsView.h */,
 				19F6C5081A27DE4500F7BFD1 /* MapGridView.cpp */,
 				19F6C5091A27DE4500F7BFD1 /* MapGridView.h */,
+				1968960C1A2E82D900435129 /* GameHUDView.cpp */,
+				1968960D1A2E82D900435129 /* GameHUDView.h */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2945,6 +2950,7 @@
 				19CCD5081A02CE2B00986A8E /* UITextField.cpp in Sources */,
 				19AB2C8E19F99AC6008D3B13 /* cocos2d.cpp in Sources */,
 				19CCD5DC1A02D30200986A8E /* CCFontFreeType.cpp in Sources */,
+				1968960E1A2E82D900435129 /* GameHUDView.cpp in Sources */,
 				19CCD38E1A02CBDD00986A8E /* CCGLView.cpp in Sources */,
 				19AD18EC1A0E0CDC00200802 /* json_reader.cpp in Sources */,
 				19AB271619F984F3008D3B13 /* Vec4.cpp in Sources */,

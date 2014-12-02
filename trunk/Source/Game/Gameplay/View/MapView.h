@@ -19,6 +19,7 @@ namespace MelonGames
     {
         class Map;
         class StarsView;
+        class GameHUDView;
         
         class MapView
         {
@@ -34,6 +35,7 @@ namespace MelonGames
             const Map* map;
             cocos2d::Node* mainView;
             StarsView* starsView;
+            GameHUDView* hudView;
             
 #ifdef DRAW_MAP_GRID
             MapGridView* gridView;

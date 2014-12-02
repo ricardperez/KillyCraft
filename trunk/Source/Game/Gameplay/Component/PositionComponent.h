@@ -29,7 +29,10 @@ namespace MelonGames
 			const cocos2d::Vec3& getPosition() const;
             cocos2d::Vec2 getGroundPosition() const;
             
-			
+            void movePositionX(float x);
+            void movePositionY(float y);
+            void movePositionZ(float z);
+            
 			bool isPositionSet() const;
 			
 			Gallant::Signal1<PositionComponent*>& getPositionChangedSignal();

@@ -56,6 +56,21 @@ namespace MelonGames
         {
             return Vec2(position.x, position.y);
         }
+        
+        void PositionComponent::movePositionX(float x)
+        {
+            setPosition(position + Vec3(x, 0.0f, 0.0f));
+        }
+        
+        void PositionComponent::movePositionY(float y)
+        {
+            setPosition(position + Vec3(0.0f, y, 0.0f));
+        }
+        
+        void PositionComponent::movePositionZ(float z)
+        {
+            setPosition(position + Vec3(0.0f, 0.0f, z));
+        }
 		
 		bool PositionComponent::isPositionSet() const
 		{

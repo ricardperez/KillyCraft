@@ -8,6 +8,7 @@
 
 #include "MapView.h"
 #include "StarsView.h"
+#include "GameHUDView.h"
 #include "Gameplay/Map.h"
 #include "base/CCDirector.h"
 
@@ -18,6 +19,7 @@ namespace MelonGames
         MapView::MapView(const Map* map, cocos2d::Node* mainNode)
         : map(map)
         , starsView(nullptr)
+        , hudView(nullptr)
 #ifdef DRAW_MAP_GRID
         , gridView(nullptr)
 #endif
@@ -37,6 +39,9 @@ namespace MelonGames
             gridView = MapGridView::create();
             mainNode->addChild(gridView);
 #endif
+            
+            hudView = GameHUDView::create(map);
+            mainNode->addChild(hudView);
         }
         
         MapView::~MapView()

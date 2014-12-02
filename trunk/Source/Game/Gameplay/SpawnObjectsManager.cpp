@@ -14,7 +14,10 @@
 #include "MapObject.h"
 #include "MapObjectsFactory.h"
 #include "Component/PositionComponent.h"
+#include "Component/MovementStateComponents.h"
+#include "Component/ViewComponent.h"
 
+#include "2d/CCSprite.h"
 #include "base/ccMacros.h"
 #include "platform/CCFileUtils.h"
 #include "json/json.h"
@@ -60,7 +63,7 @@ namespace MelonGames
             
             if (timeout <= 0)
             {
-                timeout = 7.0f + Random::getInstance().next() * 5.0f;
+                timeout = 2.0f + Random::getInstance().next() * 3.5f;
                 spawnNextEnemySquad();
             }
         }
@@ -92,10 +95,45 @@ namespace MelonGames
             std::vector<MapObject*> enemies;
             createSquad(squadTemplate, offset, enemies);
             
+            float maxDelay = 0.0f;
+            
+            float minY = std::numeric_limits<float>::max();
+            float offsetToHideFirst = 0.0f;
             for (auto enemy : enemies)
             {
                 map->addObject(enemy);
+                
+                float posY = enemy->get<PositionComponent>()->getPosition().y;
+                if (auto view = enemy->get<ViewComponent>())
+                {
+                    if (auto sprite = view->getSprite())
+                    {
+                        posY -= (sprite->getContentSize().height * 0.5f);
+                        if (posY < minY)
+                        {
+                            offsetToHideFirst = (sprite->getContentSize().height * 0.5f);
+                        }
+                    }
+                }
             }
+            
+            for (auto enemy : enemies)
+            {
+                auto posComponent = enemy->get<PositionComponent>();
+                posComponent->movePositionY(offsetToHideFirst);
+                float posY = posComponent->getPosition().y;
+                
+                if (posY > offset.y)
+                {
+                    if (auto moveState = enemy->get<LinearMoveStateComponent>())
+                    {
+                        float timeToReachTop = std::abs(((posY - offset.y) / moveState->getMovementPerSecond().y));
+                        maxDelay = std::max(maxDelay, timeToReachTop);
+                    }
+                }
+            }
+            
+            timeout += maxDelay;
         }
         
         void SpawnObjectsManager::createSquad(const SquadTemplate& squadTemplate, const cocos2d::Vec2& offset, std::vector<MapObject*>& enemies)
