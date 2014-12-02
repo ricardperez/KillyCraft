@@ -27,17 +27,16 @@ def toInteger(bits):
 if __name__ == "__main__":
 
 	parser = argparse.ArgumentParser()
-	parser.add_argument("-s", "--size-bits", help="The number of bits used for specifying the mask size. 10 by default. It must match the value used for encoding the mask file.", default=10, type=int)
 	parser.add_argument("mask", help="The path of the mask file to print. The file has to have been generated with the MaskBuilder.py tool.")
 	parser.add_argument("-d", "--debug", help="If set to true, some debugging messages will be displayed. 0 by default", default=0, type=int)
 
 	args = parser.parse_args()
 	maskFile = args.mask
-	bitsForSize = args.size_bits
 	debug = args.debug
 
 	mask = readFileBytes(maskFile)
 
+	bitsForSize = 16
 	imageWidth = toInteger(mask[0:bitsForSize])
 	imageHeight = toInteger(mask[bitsForSize:bitsForSize+bitsForSize])
 

@@ -13,7 +13,7 @@ def toBinaryArray(number, nBits):
     	n = n / 2
     return bits
 
-def buildImageMask(imageName, alphaThreshold, bitsForSize):
+def buildImageMask(imageName, alphaThreshold):
 	image = Image.open(imageName)
 	imageData = image.load()
 
@@ -22,8 +22,8 @@ def buildImageMask(imageName, alphaThreshold, bitsForSize):
 
 	mask = []
 
-	mask.extend(toBinaryArray(imageWidth, bitsForSize))
-	mask.extend(toBinaryArray(imageHeight, bitsForSize))
+	mask.extend(toBinaryArray(imageWidth, 16))
+	mask.extend(toBinaryArray(imageHeight, 16))
 
 	if debug:
 		print("After adding the image size: ({}, {})".format(imageWidth,imageHeight));
@@ -71,7 +71,6 @@ def writeCharsToFile(chars, fileName):
 if __name__ == "__main__":
 
 	parser = argparse.ArgumentParser()
-	parser.add_argument("-s", "--size-bits", help="The number of bits used for specifying the mask size. 10 by default.", default=10, type=int)
 	parser.add_argument("image", help="The path of the image to build the mask from.")
 	parser.add_argument("-o", "--output", help="The path of the file to write the mask to. If not provided or empty, the std::out will be used.", default="")
 	parser.add_argument("-t", "--threshold", help="The alpha threshold to consider a pixel transparent. The default value is 150.", default=150, type=int)
@@ -80,11 +79,10 @@ if __name__ == "__main__":
 	args = parser.parse_args()
 	imageName = args.image
 	outFile = args.output
-	bitsForSize = args.size_bits
 	alphaThreshold = args.threshold
 	debug = args.debug
 
-	mask = buildImageMask(imageName, alphaThreshold, bitsForSize)
+	mask = buildImageMask(imageName, alphaThreshold)
 	if debug:
 		print mask
 
