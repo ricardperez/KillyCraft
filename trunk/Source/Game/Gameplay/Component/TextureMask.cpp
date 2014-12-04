@@ -57,6 +57,8 @@ namespace MelonGames
                 return false;
             }
             
+            name = maskFile;
+            
             auto fileUtils = cocos2d::FileUtils::getInstance();
             if (!fileUtils->isFileExist(maskFile))
             {
@@ -86,8 +88,8 @@ namespace MelonGames
                 unsigned char* bytes = data.getBytes();
                 
                 //32 bits for specifying the width and height (2+2 bytes)
-                width = byteToInt(bytes[0])*128 + byteToInt(bytes[1]);
-                height = byteToInt(bytes[2])*128 + byteToInt(bytes[3]);
+                width = byteToInt(bytes[0])*256 + byteToInt(bytes[1]);
+                height = byteToInt(bytes[2])*256 + byteToInt(bytes[3]);
                 
                 int byteIndex = 4;
                 int bitIndex = 0;

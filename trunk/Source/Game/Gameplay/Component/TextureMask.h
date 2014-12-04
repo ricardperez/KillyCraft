@@ -47,6 +47,7 @@ namespace MelonGames
             bool* mask;
             int width;
             int height;
+            std::string name;
         };
         
         namespace TextureMaskHelper

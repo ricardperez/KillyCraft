@@ -113,64 +113,76 @@ namespace MelonGames
             return collisionSignal;
         }
         
-        bool rectIntersectsWithRect(const cocos2d::Rect& r1, const cocos2d::Rect& r2)
-        {
-            auto aContainsB = [](const cocos2d::Rect& r1, const cocos2d::Rect& r2)->bool
-            {
-                cocos2d::Vec2 bl = r2.origin;
-                cocos2d::Vec2 br(bl.x + r2.size.width, bl.y);
-                cocos2d::Vec2 tl(bl.x, bl.y + r2.size.height);
-                cocos2d::Vec2 tr(br.x, tl.y);
-                
-                return (r1.containsPoint(bl) || r1.containsPoint(br) || r1.containsPoint(tl) || r1.containsPoint(tr));
-            };
-            
-            return (aContainsB(r1, r2) || aContainsB(r2, r1));
-        }
-        
         bool getRectsIntersection(const cocos2d::Rect& r1, const cocos2d::Rect& r2, cocos2d::Vec2& r1StartOut, cocos2d::Vec2& r2StartOut, cocos2d::Size& intersectionSizeOut)
         {
-            if (rectIntersectsWithRect(r1, r2))
+            if (r1.intersectsRect(r2))
             {
-                float r1StartX;
-                float r2StartX;
+                cocos2d::Vec2 r1Start;
+                cocos2d::Vec2 r1End;
                 
-                float r1StartY;
-                float r2StartY;
+                cocos2d::Vec2 r2Start;
+                cocos2d::Vec2 r2End;
                 
-                float sizeWidth;
-                float sizeHeight;
+                float r1Left = r1.origin.x;
+                float r1Right = r1.origin.x + r1.size.width;
+                float r1Bottom = r1.origin.y;
+                float r1Top = r1.origin.y + r1.size.height;
                 
-                if (r2.origin.x > r1.origin.x)
+                float r2Left = r2.origin.x;
+                float r2Right = r2.origin.x + r2.size.width;
+                float r2Bottom = r2.origin.y;
+                float r2Top = r2.origin.y + r2.size.height;
+                
+                if (r1Left < r2Left)
                 {
-                    r1StartX = r2.origin.x - r1.origin.x;
-                    r2StartX = 0.0f;
-                    sizeWidth = r1.origin.x + r1.size.width - r2.origin.x;
+                    r2Start.x = 0.0f;
+                    r1Start.x = r2Left - r1Left;
                 }
                 else
                 {
-                    r2StartX = r1.origin.x - r2.origin.x;
-                    r1StartX = 0.0f;
-                    sizeWidth = r2.origin.x + r2.size.width - r1.origin.x;
+                    r1Start.x = 0.0f;
+                    r2Start.x = r1Left - r2Left;
                 }
                 
-                
-                if (r2.origin.y > r1.origin.y)
+                if (r1Bottom < r2Bottom)
                 {
-                    r1StartY = r2.origin.y - r1.origin.y;
-                    r2StartY = 0.0f;
-                    sizeHeight = r1.origin.y + r1.size.height - r2.origin.y;
+                    r2Start.y = 0.0f;
+                    r1Start.y = r2Bottom - r1Bottom;
                 }
                 else
                 {
-                    r2StartY = r1.origin.y - r2.origin.y;
-                    r1StartY = 0.0f;
-                    sizeHeight = r2.origin.y + r2.size.height - r1.origin.y;
+                    r1Start.y = 0.0f;
+                    r2Start.y = r1Bottom - r2Bottom;
                 }
                 
-                r1StartOut = cocos2d::Vec2(r1StartX, r1StartY);
-                r2StartOut = cocos2d::Vec2(r2StartX, r2StartY);
-                intersectionSizeOut = cocos2d::Size(sizeWidth, sizeHeight);
+                if (r1Right > r2Right)
+                {
+                    r2End.x = r2.size.width;
+                    r1End.x = r2Right - r1Left;
+                }
+                else
+                {
+                    r1End.x = r1.size.width;
+                    r2End.x = r1Right - r2Left;
+                }
+                
+                if (r1Top > r2Top)
+                {
+                    r2End.y = r2.size.height;
+                    r1End.y = r2Top - r1Bottom;
+                }
+                else
+                {
+                    r1End.y = r1.size.height;
+                    r2End.y = r1Top - r2Bottom;
+                }
+                
+                r1StartOut = r1Start;
+                r2StartOut = r2Start;
+                
+                float intersectionWidth = (r1End.x - r1Start.x);
+                float intersectionHeight = (r1End.y - r1Start.y);
+                intersectionSizeOut = cocos2d::Size(intersectionWidth, intersectionHeight);
                 
                 return true;
             }

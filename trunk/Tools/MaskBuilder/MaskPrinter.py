@@ -42,8 +42,8 @@ if __name__ == "__main__":
 			bits.append(mask[i])
 		print bits
 
-	imageWidth = mask[0]*128 + mask[1]
-	imageHeight = mask[2]*128 + mask[3]
+	imageWidth = mask[0]*256 + mask[1]
+	imageHeight = mask[2]*256 + mask[3]
 
 	if debug:
 		print("Image size is {},{}").format(imageWidth, imageHeight)

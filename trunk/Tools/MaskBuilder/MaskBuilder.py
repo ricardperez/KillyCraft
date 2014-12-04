@@ -52,7 +52,7 @@ def buildImageMask(imageName, alphaThreshold):
 		for i in xrange(0, image.size[0]):
 			alpha = imageData[i,j][3]
 			bit = (1 if (alpha >= alphaThreshold) else 0)
-			if debug:
+			if debug > 1:
 				print("({}, {}) -> {} ({})".format(i,j,bit,alpha))
 			nextByte += (bit * bitWeight[nextChunkSize])
 			nextChunkSize += 1

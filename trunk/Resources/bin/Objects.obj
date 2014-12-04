@@ -82,7 +82,7 @@
 				},
 				{
 					"type":"CollisionDetection",
-					"mask":"",
+					"mask":"Gordy.png.mask",
 					"t":1
 				}
 			]
@@ -125,6 +125,7 @@
 				},
 				{
 					"type":"CollisionDetection",
+					"mask": "Killy.png.mask",
 					"t":1
 				}
 			]
@@ -167,6 +168,7 @@
 				},
 				{
 					"type":"CollisionDetection",
+					"mask": "Frighty.png.mask",
 					"t":1
 				}
 			]
