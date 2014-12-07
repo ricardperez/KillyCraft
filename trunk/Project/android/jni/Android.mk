@@ -24,6 +24,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../../Source/Game/Gameplay/Component/GamepadComponent.cpp \
                    ../../../Source/Game/Gameplay/Component/MovementStateComponents.cpp \
                    ../../../Source/Game/Gameplay/Component/PositionComponent.cpp \
+                   ../../../Source/Game/Gameplay/Component/TextureMask.cpp \
                    ../../../Source/Game/Gameplay/Component/TimeComponent.cpp \
                    ../../../Source/Game/Gameplay/Component/ViewComponent.cpp \
                    ../../../Source/Game/Gameplay/Component/WeaponComponent.cpp \
@@ -51,6 +52,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../Source \
                     $(LOCAL_PATH)/../../../Source/Game \
                     $(LOCAL_PATH)/../../../Source/libs/jsoncpp/include \
+                    $(LOCAL_PATH)/../../../Source/libs/Signal
 
 LOCAL_STATIC_LIBRARIES := cocos2dx_static
 
