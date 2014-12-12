@@ -137,6 +137,11 @@ namespace MelonGames
                 
                 return result;
             }
+            
+            MapObject* ObjectsFastFactory::createPowerUp()
+            {
+                return nullptr;
+            }
 		}
 	}
 }

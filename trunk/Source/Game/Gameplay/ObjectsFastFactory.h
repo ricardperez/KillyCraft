@@ -21,6 +21,8 @@ namespace MelonGames
 			MapObject* createEnemyObject();
             
             MapObject* createProjectile(MapObject* owner);
+            
+            MapObject* createPowerUp();
 		}
 	}
 }

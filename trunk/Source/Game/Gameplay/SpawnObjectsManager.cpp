@@ -27,48 +27,52 @@ namespace MelonGames
     namespace KillyCraft
     {
         SpawnObjectsManager::SpawnObjectsManager()
-        : timeout(0.0f)
-        , map(nullptr)
+        : spawnSquadsManager(2.0f, 3.5f)
+        , spawnPowerUpsManager(5.0f, 10.0f)
         {
+            allManagers = {
+                &spawnSquadsManager,
+                &spawnPowerUpsManager
+            };
         }
         
         void SpawnObjectsManager::loadEnemySquadsFromFile(const std::string& filename)
         {
-            std::string fileContents = cocos2d::FileUtils::getInstance()->getStringFromFile(filename);
-            
-            Json::Reader reader;
-            Json::Value json;
-            reader.parse(fileContents, json);
-            
-            const auto& squadsJson = json["obj"];
-            for (const auto& squadJson : squadsJson)
-            {
-                std::string name = squadJson["name"].asString();
-                SquadTemplate squadTemplate;
-                squadTemplate.name = name;
-                squadTemplate.json = squadJson;
-                squadTemplates.push_back(squadTemplate);
-            }
+            spawnSquadsManager.loadEnemySquadsFromFile(filename);
         }
         
         void SpawnObjectsManager::setMap(Map *map)
         {
-            this->map = map;
+            for (auto manager : allManagers)
+            {
+                manager->setMap(map);
+            }
         }
         
         void SpawnObjectsManager::update(float dt)
+        {
+            for (auto manager : allManagers)
+            {
+                manager->update(dt);
+            }
+        }
+        
+#pragma mark - SpawnManager
+        void SpawnObjectsManager::SpawnManager::update(float dt)
         {
             assert(map && "Map must be set before update is called");
             timeout -= dt;
             
             if (timeout <= 0)
             {
-                timeout = 2.0f + Random::getInstance().next() * 3.5f;
-                spawnNextEnemySquad();
+                timeout = minTime + Random::getInstance().next() * varTime;
+                spawnNextItem();
             }
         }
         
-        void SpawnObjectsManager::spawnNextEnemySquad()
+#pragma mark - SpawnSquadsManager
+        
+        void SpawnObjectsManager::SpawnSquadsManager::spawnNextItem()
         {
             const cocos2d::Size& screenSize = map->getDefinition().screenSize;
             cocos2d::Vec2 offset(screenSize.width * 0.5f, screenSize.height);
@@ -136,7 +140,7 @@ namespace MelonGames
             timeout += maxDelay;
         }
         
-        void SpawnObjectsManager::createSquad(const SquadTemplate& squadTemplate, const cocos2d::Vec2& offset, std::vector<MapObject*>& enemies)
+        void SpawnObjectsManager::SpawnSquadsManager::createSquad(const SquadTemplate& squadTemplate, const cocos2d::Vec2& offset, std::vector<MapObject*>& enemies)
         {
             for (const auto& enemyJson : squadTemplate.json["enemies"])
             {
@@ -170,7 +174,7 @@ namespace MelonGames
             }
         }
         
-        const SpawnObjectsManager::SquadTemplate* SpawnObjectsManager::getSquadTemplateWithName(const std::string& name) const
+        const SpawnObjectsManager::SpawnSquadsManager::SquadTemplate* SpawnObjectsManager::SpawnSquadsManager::getSquadTemplateWithName(const std::string& name) const
         {
             for (const auto& squadTemplate : squadTemplates)
             {
@@ -181,6 +185,34 @@ namespace MelonGames
             }
             
             return nullptr;
+        }
+        
+        void SpawnObjectsManager::SpawnSquadsManager::loadEnemySquadsFromFile(const std::string& filename)
+        {
+            std::string fileContents = cocos2d::FileUtils::getInstance()->getStringFromFile(filename);
+            
+            Json::Reader reader;
+            Json::Value json;
+            reader.parse(fileContents, json);
+            
+            const auto& squadsJson = json["obj"];
+            for (const auto& squadJson : squadsJson)
+            {
+                std::string name = squadJson["name"].asString();
+                SquadTemplate squadTemplate;
+                squadTemplate.name = name;
+                squadTemplate.json = squadJson;
+                squadTemplates.push_back(squadTemplate);
+            }
+        }
+        
+#pragma mark - SpawnPowerUpsManager
+        void SpawnObjectsManager::SpawnPowerUpsManager::spawnNextItem()
+        {
+            if (auto powerup = ObjectsFastFactory::createPowerUp())
+            {
+                map->addObject(powerup);
+            }
         }
     }
 }
