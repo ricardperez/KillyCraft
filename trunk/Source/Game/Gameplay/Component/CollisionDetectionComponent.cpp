@@ -96,6 +96,8 @@ namespace MelonGames
                             {
                                 collisions.push_back(oid);
                                 other->collisions.push_back(this->object->getIdentifier());
+                                
+                                collisionSignal.Emit(this, other);
                             }
                         }
                     }
@@ -311,7 +313,7 @@ namespace MelonGames
                     case CollisionDetectionType::eBullet:
                         color = cocos2d::Color4F::ORANGE;
                         break;
-                    case CollisionDetectionType::ePowerup:
+                    case CollisionDetectionType::ePowerUp:
                         color = cocos2d::Color4F::GREEN;
                         break;
                     default:

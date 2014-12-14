@@ -30,7 +30,7 @@ namespace MelonGames
             ePlayer = 0,
             eEnemy,
             eBullet,
-            ePowerup,
+            ePowerUp,
             
             nTypes
         };

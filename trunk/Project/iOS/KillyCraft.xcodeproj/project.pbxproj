@@ -14,6 +14,9 @@
 		190913731A03898200840DCB /* BehaviourComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 190913711A03898200840DCB /* BehaviourComponent.cpp */; };
 		19202CBB19FBEA8500AFAB33 /* GamepadComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19202CB919FBEA8500AFAB33 /* GamepadComponent.cpp */; };
 		19202CBE19FBEC8300AFAB33 /* WeaponComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19202CBC19FBEC8300AFAB33 /* WeaponComponent.cpp */; };
+		19389AA21A3E0B5500E6C985 /* PowerUpComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19389AA01A3E0B5500E6C985 /* PowerUpComponent.cpp */; };
+		19389AA61A3E0CA400E6C985 /* PowerUp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19389AA41A3E0CA400E6C985 /* PowerUp.cpp */; };
+		19389AA91A3E0CD800E6C985 /* PowerUpFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19389AA71A3E0CD800E6C985 /* PowerUpFactory.cpp */; };
 		194B80C319FB99D80021CE64 /* Service.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194B80C119FB99D80021CE64 /* Service.cpp */; };
 		194B80C619FB99E80021CE64 /* ServicesManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194B80C419FB99E80021CE64 /* ServicesManager.cpp */; };
 		194B80CB19FBA6750021CE64 /* FilesService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194B80C919FBA6750021CE64 /* FilesService.cpp */; };
@@ -368,6 +371,12 @@
 		19202CBA19FBEA8500AFAB33 /* GamepadComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamepadComponent.h; sourceTree = "<group>"; };
 		19202CBC19FBEC8300AFAB33 /* WeaponComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WeaponComponent.cpp; sourceTree = "<group>"; };
 		19202CBD19FBEC8300AFAB33 /* WeaponComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeaponComponent.h; sourceTree = "<group>"; };
+		19389AA01A3E0B5500E6C985 /* PowerUpComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PowerUpComponent.cpp; sourceTree = "<group>"; };
+		19389AA11A3E0B5500E6C985 /* PowerUpComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerUpComponent.h; sourceTree = "<group>"; };
+		19389AA41A3E0CA400E6C985 /* PowerUp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PowerUp.cpp; sourceTree = "<group>"; };
+		19389AA51A3E0CA400E6C985 /* PowerUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerUp.h; sourceTree = "<group>"; };
+		19389AA71A3E0CD800E6C985 /* PowerUpFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PowerUpFactory.cpp; sourceTree = "<group>"; };
+		19389AA81A3E0CD800E6C985 /* PowerUpFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerUpFactory.h; sourceTree = "<group>"; };
 		194B80C119FB99D80021CE64 /* Service.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Service.cpp; sourceTree = "<group>"; };
 		194B80C219FB99D80021CE64 /* Service.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Service.h; sourceTree = "<group>"; };
 		194B80C419FB99E80021CE64 /* ServicesManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ServicesManager.cpp; sourceTree = "<group>"; };
@@ -1210,6 +1219,17 @@
 				19CA80D71A0C152800C6BF2C /* DestroyBehaviourFunctions.h */,
 			);
 			path = Behaviour;
+			sourceTree = "<group>";
+		};
+		19389AA31A3E0C9600E6C985 /* PowerUp */ = {
+			isa = PBXGroup;
+			children = (
+				19389AA41A3E0CA400E6C985 /* PowerUp.cpp */,
+				19389AA51A3E0CA400E6C985 /* PowerUp.h */,
+				19389AA71A3E0CD800E6C985 /* PowerUpFactory.cpp */,
+				19389AA81A3E0CD800E6C985 /* PowerUpFactory.h */,
+			);
+			path = PowerUp;
 			sourceTree = "<group>";
 		};
 		194B80BB19FB982C0021CE64 /* MelonGames */ = {
@@ -2445,6 +2465,7 @@
 				19202CBF19FBFCB800AFAB33 /* Behaviour */,
 				19AB704D19FACAE90041EAB6 /* Component */,
 				19F4AFD419FBC64B00C73F6E /* View */,
+				19389AA31A3E0C9600E6C985 /* PowerUp */,
 				19AB705419FACAE90041EAB6 /* Gamepad.cpp */,
 				19AB705519FACAE90041EAB6 /* Gamepad.h */,
 				19AB705619FACAE90041EAB6 /* Map.cpp */,
@@ -2488,6 +2509,8 @@
 				19C61FA61A06C168001674E0 /* CollisionDetectionComponent.h */,
 				1998E2D31A2D212E00FED614 /* TextureMask.cpp */,
 				1998E2D41A2D212E00FED614 /* TextureMask.h */,
+				19389AA01A3E0B5500E6C985 /* PowerUpComponent.cpp */,
+				19389AA11A3E0B5500E6C985 /* PowerUpComponent.h */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -3053,6 +3076,7 @@
 				19CCD3F41A02CCEA00986A8E /* CCControlSlider.cpp in Sources */,
 				19CCD47D1A02CDE800986A8E /* CCEventListener.cpp in Sources */,
 				19CCD5E31A02D30200986A8E /* CCLabelTextFormatter.cpp in Sources */,
+				19389AA61A3E0CA400E6C985 /* PowerUp.cpp in Sources */,
 				19AB2BE619F9910A008D3B13 /* CCNotificationCenter.cpp in Sources */,
 				19CCD4941A02CDE800986A8E /* ccUTF8.cpp in Sources */,
 				19CCD46F1A02CDE800986A8E /* CCConsole.cpp in Sources */,
@@ -3069,6 +3093,7 @@
 				19CCD46D1A02CDE800986A8E /* ccCArray.cpp in Sources */,
 				19AB706D19FACAE90041EAB6 /* GameScreen.cpp in Sources */,
 				19CCD5DF1A02D30200986A8E /* CCGrid.cpp in Sources */,
+				19389AA21A3E0B5500E6C985 /* PowerUpComponent.cpp in Sources */,
 				19CCD4991A02CDE800986A8E /* pvr.cpp in Sources */,
 				19AB2A8919F98DA8008D3B13 /* ConvertUTFWrapper.cpp in Sources */,
 				19CCD5FB1A02D30200986A8E /* CCTMXLayer.cpp in Sources */,
@@ -3090,6 +3115,7 @@
 				19CCD5DD1A02D30200986A8E /* CCGLBufferedNode.cpp in Sources */,
 				19CCD4891A02CDE800986A8E /* CCNS.cpp in Sources */,
 				19CCD3AE1A02CBE600986A8E /* CCImage-ios.mm in Sources */,
+				19389AA91A3E0CD800E6C985 /* PowerUpFactory.cpp in Sources */,
 				19CCD5E41A02D30200986A8E /* CCLabelTTF.cpp in Sources */,
 				194B80C619FB99E80021CE64 /* ServicesManager.cpp in Sources */,
 				19AB706619FACAE90041EAB6 /* Component.cpp in Sources */,

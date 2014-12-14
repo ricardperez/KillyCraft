@@ -15,10 +15,14 @@
 #include "Component/BehaviourComponent.h"
 #include "Component/MovementStateComponents.h"
 #include "Component/CollisionDetectionComponent.h"
+#include "Component/PowerUpComponent.h"
 
 #include "Behaviour/MovementBehaviours.h"
 #include "Behaviour/DestroyBehaviour.h"
 #include "Behaviour/DestroyBehaviourFunctions.h"
+
+#include "PowerUp/PowerUp.h"
+#include "PowerUp/PowerUpFactory.h"
 
 #include "base/ccMacros.h"
 
@@ -54,7 +58,7 @@ namespace MelonGames
                 auto collisionDetection = new CollisionDetectionComponent();
                 collisionDetection->setType(CollisionDetectionType::ePlayer);
                 collisionDetection->addCollisionType(CollisionDetectionType::eEnemy);
-                collisionDetection->addCollisionType(CollisionDetectionType::ePowerup);
+                collisionDetection->addCollisionType(CollisionDetectionType::ePowerUp);
                 collisionDetection->setCollisionMaskFileName("Melon.png.mask");
                 result->addComponent(collisionDetection);
 				
@@ -140,7 +144,39 @@ namespace MelonGames
             
             MapObject* ObjectsFastFactory::createPowerUp()
             {
-                return nullptr;
+                MapObject* result = new MapObject();
+                
+                PowerUpComponent* powerUpComponent = new PowerUpComponent();
+                powerUpComponent->addPowerUp(PowerUpFactory::createPowerUp(Json::nullValue));
+                result->addComponent(powerUpComponent);
+                
+                auto collisionDetection = new CollisionDetectionComponent();
+                collisionDetection->setType(CollisionDetectionType::ePowerUp);
+                collisionDetection->addCollisionType(CollisionDetectionType::ePlayer);
+                result->addComponent(collisionDetection);
+                
+                BehaviourComponent* behaviourComponent = new BehaviourComponent();
+                behaviourComponent->addBehaviour(new MoveLinearBehaviour());
+                behaviourComponent->addBehaviour(new MoveCircularBehaviour());
+                DestroyBehaviour* destroyBehaviour = new DestroyBehaviour();
+                destroyBehaviour->addCheckFunctionWithName(DestroyBehaviourFunctions::makeIsCollisionFunction(), "Collision");
+                behaviourComponent->addBehaviour(destroyBehaviour);
+                result->addComponent(behaviourComponent);
+                
+                auto viewComponent = new ViewComponent();
+                viewComponent->setSpriteFrameName("PowerUp.png");
+                result->addComponent(viewComponent);
+                
+                auto moveLinearState = new LinearMoveStateComponent();
+                moveLinearState->setMovementPerSecond(cocos2d::Vec3(0.0f, -50.0f, 0.0f));
+                result->addComponent(moveLinearState);
+                
+                auto moveCircularState = new CircularMoveStateComponent();
+                moveCircularState->setRadiansPerSecond(M_PI_2);
+                moveCircularState->setRadius(45.0f);
+                result->addComponent(moveCircularState);
+                
+                return result;
             }
 		}
 	}
