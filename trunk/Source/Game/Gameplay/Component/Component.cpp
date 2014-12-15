@@ -41,6 +41,10 @@ namespace MelonGames
 		{
 			object = nullptr;
 		}
+        
+        void Component::preupdate()
+        {
+        }
 		
 		void Component::update(float dt)
 		{

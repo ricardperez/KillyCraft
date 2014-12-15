@@ -23,7 +23,7 @@ namespace MelonGames
             Base::update(object, dt);
             
             auto posComponent = object->getOrCreate<PositionComponent>();
-            auto moveState = object->getOrCreate<LinearMoveStateComponent>();
+            auto moveState = object->getOrCreate<MoveLinearStateComponent>();
             posComponent->setPosition(posComponent->getPosition() + moveState->getMovementPerSecond()*dt);
         }
         
@@ -33,7 +33,7 @@ namespace MelonGames
         {
             Base::update(object, dt);
             
-            auto moveState = object->getOrCreate<CircularMoveStateComponent>();
+            auto moveState = object->getOrCreate<MoveCircularStateComponent>();
             
             float time = object->getOrCreate<TimeComponent>()->getTime();
             float lastTime = std::max(0.0f, time-dt);
@@ -43,12 +43,24 @@ namespace MelonGames
             
             float moveX = radius * (std::cos(radiansPerSecond*time) - std::cos(radiansPerSecond*(lastTime)));
             float moveY = radius * (std::sin(radiansPerSecond*time) - std::sin(radiansPerSecond*(lastTime)));
+            object->get<PositionComponent>()->movePosition(cocos2d::Vec2(moveX, moveY));
+        }
+        
+#pragma mark - MoveCircularProjectedBehaviour
+        void MoveCircularProjectedBehaviour::update(MapObject* object, float dt)
+        {
+            Base::update(object, dt);
             
-            auto posComp = object->get<PositionComponent>();
-            cocos2d::Vec3 position = posComp->getPosition();
-            position.x += moveX;
-            position.y += moveY;
-            posComp->setPosition(position);
+            auto moveState = object->getOrCreate<MoveCircularStateComponent>();
+            
+            float time = object->getOrCreate<TimeComponent>()->getTime();
+            float lastTime = std::max(0.0f, time-dt);
+            
+            float radius = moveState->getRadius();
+            float radiansPerSecond = moveState->getRadiansPerSecond();
+            
+            float moveX = radius * (std::cos(radiansPerSecond*time) - std::cos(radiansPerSecond*(lastTime)));
+            object->get<PositionComponent>()->movePositionX(moveX);
         }
     }
 }

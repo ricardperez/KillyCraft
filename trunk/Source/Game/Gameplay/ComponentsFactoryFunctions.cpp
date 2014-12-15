@@ -75,7 +75,7 @@ namespace MelonGames
             {
                 return [](const Json::Value& json) -> Component*
                 {
-                    auto result = new CircularMoveStateComponent();
+                    auto result = new MoveCircularStateComponent();
                     result->setRadiansPerSecond(json["rps"].asFloat());
                     result->setRadius(json["r"].asFloat());
                     return result;
@@ -86,7 +86,7 @@ namespace MelonGames
             {
                 return [](const Json::Value& json) -> Component*
                 {
-                    auto result = new LinearMoveStateComponent();
+                    auto result = new MoveLinearStateComponent();
                     result->setMovementPerSecond(vec3FromJson(json["move"]));
                     return result;
                 };

@@ -32,6 +32,8 @@ namespace MelonGames
             void movePositionX(float x);
             void movePositionY(float y);
             void movePositionZ(float z);
+            void movePosition(const cocos2d::Vec2& vec2);
+            void movePosition(const cocos2d::Vec3& vec3);
             
 			bool isPositionSet() const;
 			

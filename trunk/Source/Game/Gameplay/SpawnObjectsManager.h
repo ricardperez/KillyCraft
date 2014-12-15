@@ -41,7 +41,7 @@ namespace MelonGames
             class SpawnManager
             {
             public:
-                SpawnManager(float minTime, float varTime) : minTime(minTime), varTime(varTime), map(nullptr), timeout(0.0f) {};
+                SpawnManager(float minTime, float varTime, bool spawnNow);
                 
                 virtual void update(float dt);
                 virtual void spawnNextItem() = 0;
@@ -61,7 +61,7 @@ namespace MelonGames
             class SpawnSquadsManager : public SpawnManager
             {
             public:
-                SpawnSquadsManager(float minTime, float varTime) : SpawnManager(minTime, varTime) {};
+                SpawnSquadsManager(float minTime, float varTime) : SpawnManager(minTime, varTime, true) {};
                 struct SquadTemplate
                 {
                     std::string name;
@@ -81,7 +81,7 @@ namespace MelonGames
             class SpawnPowerUpsManager : public SpawnManager
             {
             public:
-                SpawnPowerUpsManager(float minTime, float varTime) : SpawnManager(minTime, varTime) {};
+                SpawnPowerUpsManager(float minTime, float varTime) : SpawnManager(minTime, varTime, false) {};
                 void spawnNextItem() override;
                 
             };

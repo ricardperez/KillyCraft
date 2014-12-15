@@ -95,7 +95,7 @@ namespace MelonGames
                     
                     result->addComponent(behaviourComponent);
                     
-                    CircularMoveStateComponent* circularState = new CircularMoveStateComponent();
+                    MoveCircularStateComponent* circularState = new MoveCircularStateComponent();
                     circularState->setRadiansPerSecond(CC_DEGREES_TO_RADIANS(360.0f));
                     result->addComponent(circularState);
                 }
@@ -118,7 +118,7 @@ namespace MelonGames
                 viewComponent->setSpriteFrameName("Bullet.png");
                 result->addComponent(viewComponent);
                 
-                auto linearMoveState = new LinearMoveStateComponent();
+                auto linearMoveState = new MoveLinearStateComponent();
                 linearMoveState->setMovementPerSecond(cocos2d::Vec3(0.0f, 600.0f, 0.0f));
                 result->addComponent(linearMoveState);
                 
@@ -142,24 +142,30 @@ namespace MelonGames
                 return result;
             }
             
-            MapObject* ObjectsFastFactory::createPowerUp()
+            MapObject* createPowerUp()
             {
                 MapObject* result = new MapObject();
                 
+                auto posComponent = new PositionComponent();
+                result->addComponent(posComponent);
+                
                 PowerUpComponent* powerUpComponent = new PowerUpComponent();
-                powerUpComponent->addPowerUp(PowerUpFactory::createPowerUp(Json::nullValue));
+                if (auto powerUp = PowerUpFactory::createPowerUp(Json::nullValue))
+                {
+                    powerUpComponent->addPowerUp(powerUp);
+                }
                 result->addComponent(powerUpComponent);
                 
                 auto collisionDetection = new CollisionDetectionComponent();
                 collisionDetection->setType(CollisionDetectionType::ePowerUp);
-                collisionDetection->addCollisionType(CollisionDetectionType::ePlayer);
                 result->addComponent(collisionDetection);
                 
                 BehaviourComponent* behaviourComponent = new BehaviourComponent();
                 behaviourComponent->addBehaviour(new MoveLinearBehaviour());
-                behaviourComponent->addBehaviour(new MoveCircularBehaviour());
+                behaviourComponent->addBehaviour(new MoveCircularProjectedBehaviour());
                 DestroyBehaviour* destroyBehaviour = new DestroyBehaviour();
                 destroyBehaviour->addCheckFunctionWithName(DestroyBehaviourFunctions::makeIsCollisionFunction(), "Collision");
+                destroyBehaviour->addCheckFunctionWithName(DestroyBehaviourFunctions::makeIsOutOfScreenDownFunction(), "OutOfScreen");
                 behaviourComponent->addBehaviour(destroyBehaviour);
                 result->addComponent(behaviourComponent);
                 
@@ -167,13 +173,13 @@ namespace MelonGames
                 viewComponent->setSpriteFrameName("PowerUp.png");
                 result->addComponent(viewComponent);
                 
-                auto moveLinearState = new LinearMoveStateComponent();
+                auto moveLinearState = new MoveLinearStateComponent();
                 moveLinearState->setMovementPerSecond(cocos2d::Vec3(0.0f, -50.0f, 0.0f));
                 result->addComponent(moveLinearState);
                 
-                auto moveCircularState = new CircularMoveStateComponent();
-                moveCircularState->setRadiansPerSecond(M_PI_2);
-                moveCircularState->setRadius(45.0f);
+                auto moveCircularState = new MoveCircularStateComponent();
+                moveCircularState->setPeriod(2.0f);
+                moveCircularState->setRadius(75.0f);
                 result->addComponent(moveCircularState);
                 
                 return result;

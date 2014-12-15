@@ -20,14 +20,6 @@ namespace MelonGames
         {
         }
         
-        PowerUpComponent::~PowerUpComponent()
-        {
-            if (auto collisionDetection = object->get<CollisionDetectionComponent>())
-            {
-                collisionDetection->getCollisionSignal().Disconnect(this, &PowerUpComponent::onCollisionDetection);
-            }
-        }
-        
         void PowerUpComponent::onObjectAttachedToMap()
         {
             Base::onObjectAttachedToMap();
@@ -38,12 +30,22 @@ namespace MelonGames
             }
         }
         
+        void PowerUpComponent::onWillDetachFromObject()
+        {
+            if (auto collisionDetection = object->get<CollisionDetectionComponent>())
+            {
+                collisionDetection->getCollisionSignal().Disconnect(this, &PowerUpComponent::onCollisionDetection);
+            }
+            
+            Base::onWillDetachFromObject();
+        }
+        
         void PowerUpComponent::addPowerUp(const PowerUp *powerUp)
         {
             powerUps.push_back(powerUp);
         }
         
-        void PowerUpComponent::onCollisionDetection(CollisionDetectionComponent* selfCollisionComponent, CollisionDetectionComponent* otherCollisionComponent)
+        void PowerUpComponent::onCollisionDetection(CollisionDetectionComponent* otherCollisionComponent)
         {
             assert(!applied && "Can apply only once");
             if (!applied)

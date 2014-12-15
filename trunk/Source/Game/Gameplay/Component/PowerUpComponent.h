@@ -25,14 +25,14 @@ namespace MelonGames
             DECLARE_TYPE_WITH_BASE_TYPE(PowerUpComponent, Component);
             
             PowerUpComponent();
-            virtual ~PowerUpComponent();
             
             virtual void onObjectAttachedToMap() override;
+            virtual void onWillDetachFromObject() override;
             
             void addPowerUp(const PowerUp* powerUp);
             
         private:
-            void onCollisionDetection(CollisionDetectionComponent* selfCollisionComponent, CollisionDetectionComponent* otherCollisionComponent);
+            void onCollisionDetection(CollisionDetectionComponent* otherCollisionComponent);
             
         private:
             std::vector<const PowerUp*> powerUps;

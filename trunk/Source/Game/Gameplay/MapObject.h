@@ -27,7 +27,6 @@ namespace MelonGames
 			
 			void addComponent(Component* component);
 			void removeComponent(Component* component);
-			void flush();
 			
 			template <typename T>
 			T* get() const;
@@ -42,6 +41,7 @@ namespace MelonGames
 			
 			Map* getMap() const;
 			
+            void preupdate();
 			void update(float dt);
             
             int getIdentifier() const;

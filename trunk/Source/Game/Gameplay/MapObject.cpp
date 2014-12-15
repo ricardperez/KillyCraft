@@ -24,11 +24,13 @@ namespace MelonGames
 		
 		MapObject::~MapObject()
 		{
-            for (auto it = components.begin(); it != components.end(); ++it)
+            auto it = components.begin();
+            while (it != components.end())
             {
-                delete *it;
+                auto component = *it;
+                it = components.erase(it);
+                delete component;
             }
-			components.clear();
 		}
 		
 		void MapObject::addComponent(Component* component)
@@ -48,28 +50,6 @@ namespace MelonGames
 		{
             component->onWillDetachFromObject();
             componentsToRemove.push_back(component);
-		}
-		
-		void MapObject::flush()
-		{
-			assert(map);
-			
-			for (auto component : componentsToRemove)
-			{
-				auto it = std::find(components.begin(), components.end(), component);
-                assert (it != components.end());
-                components.erase(it);
-                delete component;
-			}
-			componentsToRemove.clear();
-			
-			for (auto component : componentsToAdd)
-			{
-				components.push_back(component);
-				component->onAttachedToObject(this);
-				component->onObjectAttachedToMap();
-			}
-			componentsToAdd.clear();
 		}
 		
 		
@@ -114,6 +94,34 @@ namespace MelonGames
 			return map;
 		}
 		
+        void MapObject::preupdate()
+        {
+            assert(valid);
+            assert(map);
+            
+            for (auto component : componentsToRemove)
+            {
+                auto it = std::find(components.begin(), components.end(), component);
+                assert (it != components.end());
+                components.erase(it);
+                delete component;
+            }
+            componentsToRemove.clear();
+            
+            for (auto component : componentsToAdd)
+            {
+                components.push_back(component);
+                component->onAttachedToObject(this);
+                component->onObjectAttachedToMap();
+            }
+            componentsToAdd.clear();
+            
+            for (auto component : components)
+            {
+                component->preupdate();
+            }
+        }
+        
 		void MapObject::update(float dt)
 		{
 			assert(valid);

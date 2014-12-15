@@ -52,11 +52,12 @@ namespace MelonGames
             
             void addCollisionType(CollisionDetectionType type, bool collides=true);
             
+            virtual void preupdate() override;
             virtual void update(float dt) override;
             
             bool hasCollision() const;
             
-            Gallant::Signal2<CollisionDetectionComponent*, CollisionDetectionComponent*>& getCollisionSignal();
+            Gallant::Signal1<CollisionDetectionComponent*>& getCollisionSignal();
             
         protected:
             bool ensureHasMask();
@@ -75,7 +76,7 @@ namespace MelonGames
             
             std::vector<int> collisions;
             
-            Gallant::Signal2<CollisionDetectionComponent*, CollisionDetectionComponent*> collisionSignal;
+            Gallant::Signal1<CollisionDetectionComponent*> collisionSignal;
             
 #ifdef DRAW_COLLISION_BOXES
             cocos2d::DrawNode* boxDrawer = nullptr;

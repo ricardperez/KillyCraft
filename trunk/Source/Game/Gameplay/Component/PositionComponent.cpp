@@ -71,6 +71,16 @@ namespace MelonGames
         {
             setPosition(position + Vec3(0.0f, 0.0f, z));
         }
+        
+        void PositionComponent::movePosition(const cocos2d::Vec2& vec2)
+        {
+            setPosition(position + Vec3(vec2.x, vec2.y, 0.0f));
+        }
+        
+        void PositionComponent::movePosition(const cocos2d::Vec3& vec3)
+        {
+            setPosition(position + vec3);
+        }
 		
 		bool PositionComponent::isPositionSet() const
 		{

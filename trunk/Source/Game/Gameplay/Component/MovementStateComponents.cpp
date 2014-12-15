@@ -7,47 +7,58 @@
 //
 
 #include "MovementStateComponents.h"
+#include <cmath>
 
 namespace MelonGames
 {
     namespace KillyCraft
     {
-#pragma mark - LinearMoveStateComponent
-        const cocos2d::Vec3& LinearMoveStateComponent::getMovementPerSecond() const
+#pragma mark - MoveLinearStateComponent
+        const cocos2d::Vec3& MoveLinearStateComponent::getMovementPerSecond() const
         {
             return movementPerSecond;
         }
         
-        void LinearMoveStateComponent::setMovementPerSecond(const cocos2d::Vec3& movementPerSecond)
+        void MoveLinearStateComponent::setMovementPerSecond(const cocos2d::Vec3& movementPerSecond)
         {
             this->movementPerSecond = movementPerSecond;
         }
         
-#pragma mark - CircularMoveStateComponent
-        CircularMoveStateComponent::CircularMoveStateComponent()
+#pragma mark - MoveCircularStateComponent
+        MoveCircularStateComponent::MoveCircularStateComponent()
         : radiansPerSecond(0.0f)
         , radius(0.0f)
         {
         }
         
-        float CircularMoveStateComponent::getRadiansPerSecond() const
+        float MoveCircularStateComponent::getRadiansPerSecond() const
         {
             return radiansPerSecond;
         }
         
-        void CircularMoveStateComponent::setRadiansPerSecond(float radiansPerSecond)
+        float MoveCircularStateComponent::getPeriod() const
         {
-            this->radiansPerSecond = radiansPerSecond;
+            return (radiansPerSecond / (M_PI * 2.0f));
         }
         
-        float CircularMoveStateComponent::getRadius() const
+        void MoveCircularStateComponent::setRadiansPerSecond(float radsPerSec)
+        {
+            radiansPerSecond = radsPerSec;
+        }
+        
+        void MoveCircularStateComponent::setPeriod(float period)
+        {
+            radiansPerSecond = (2.0f * M_PI / period);
+        }
+        
+        float MoveCircularStateComponent::getRadius() const
         {
             return radius;
         }
         
-        void CircularMoveStateComponent::setRadius(float radius)
+        void MoveCircularStateComponent::setRadius(float rad)
         {
-            this->radius = radius;
+            radius = rad;
         }
     }
 }

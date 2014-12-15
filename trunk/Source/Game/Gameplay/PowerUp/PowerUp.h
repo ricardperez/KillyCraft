@@ -25,7 +25,7 @@ namespace MelonGames
             PowerUp();
             virtual ~PowerUp();
             
-            void setFunction(const PowerUpFunction function);
+            void setFunction(const PowerUpFunction& f);
             
             void applyToObject(MapObject* object) const;
             

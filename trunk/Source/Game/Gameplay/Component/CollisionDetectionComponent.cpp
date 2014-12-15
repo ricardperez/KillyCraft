@@ -70,15 +70,21 @@ namespace MelonGames
             collisionTypes[(int)type] = collides;
         }
         
-        void CollisionDetectionComponent::update(float dt)
+        void CollisionDetectionComponent::preupdate()
         {
-            Base::update(dt);
+            Base::preupdate();
+            
+            collisions.clear();
             
 #ifdef DRAW_COLLISION_BOXES
             drawBox();
 #endif
+        }
         
-            collisions.clear();
+        void CollisionDetectionComponent::update(float dt)
+        {
+            Base::update(dt);
+        
             const auto& objects = object->getMap()->getObjects();
             for (auto object : objects)
             {
@@ -89,15 +95,13 @@ namespace MelonGames
                     {
                         if (auto other = object->get<CollisionDetectionComponent>())
                         {
-#ifdef DRAW_COLLISION_BOXES
-                            other->drawBox();
-#endif
                             if (collidesAgainst(other))
                             {
                                 collisions.push_back(oid);
                                 other->collisions.push_back(this->object->getIdentifier());
                                 
-                                collisionSignal.Emit(this, other);
+                                collisionSignal.Emit(other);
+                                other->collisionSignal.Emit(this);
                             }
                         }
                     }
@@ -110,7 +114,7 @@ namespace MelonGames
             return (!collisions.empty());
         }
         
-        Gallant::Signal2<CollisionDetectionComponent*, CollisionDetectionComponent*>& CollisionDetectionComponent::getCollisionSignal()
+        Gallant::Signal1<CollisionDetectionComponent*>& CollisionDetectionComponent::getCollisionSignal()
         {
             return collisionSignal;
         }

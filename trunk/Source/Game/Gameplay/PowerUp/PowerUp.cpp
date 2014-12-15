@@ -22,14 +22,17 @@ namespace MelonGames
         {
         }
         
-        void PowerUp::setFunction(const PowerUpFunction function)
+        void PowerUp::setFunction(const PowerUpFunction& f)
         {
-            this->function = function;
+            function = f;
         }
         
         void PowerUp::applyToObject(MapObject* object) const
         {
-            function(object);
+            if (function)
+            {
+                function(object);
+            }
         }
     }
 }

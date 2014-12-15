@@ -29,6 +29,7 @@ namespace MelonGames
 			virtual void onObjectAttachedToMap();
 			virtual void onWillDetachFromObject();
 			
+            virtual void preupdate();
 			virtual void update(float dt);
             
             MapObject* getObject() const;

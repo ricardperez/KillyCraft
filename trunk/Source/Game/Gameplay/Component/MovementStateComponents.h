@@ -16,10 +16,10 @@ namespace MelonGames
 {
     namespace KillyCraft
     {
-        class LinearMoveStateComponent : public Component
+        class MoveLinearStateComponent : public Component
         {
         public:
-            DECLARE_TYPE_WITH_BASE_TYPE(LinearMoveStateComponent, Component);
+            DECLARE_TYPE_WITH_BASE_TYPE(MoveLinearStateComponent, Component);
             
             const cocos2d::Vec3& getMovementPerSecond() const;
             void setMovementPerSecond(const cocos2d::Vec3& movementPerSecond);
@@ -28,17 +28,19 @@ namespace MelonGames
             cocos2d::Vec3 movementPerSecond;
         };
         
-        class CircularMoveStateComponent : public Component
+        class MoveCircularStateComponent : public Component
         {
         public:
-            DECLARE_TYPE_WITH_BASE_TYPE(CircularMoveStateComponent, Component);
+            DECLARE_TYPE_WITH_BASE_TYPE(MoveCircularStateComponent, Component);
             
-            CircularMoveStateComponent();
+            MoveCircularStateComponent();
             
             float getRadiansPerSecond() const;
-            void setRadiansPerSecond(float radiansPerSecond);
+            float getPeriod() const;
+            void setRadiansPerSecond(float radsPerSec);
+            void setPeriod(float period);
             float getRadius() const;
-            void setRadius(float radius);
+            void setRadius(float rad);
             
         private:
             float radiansPerSecond;

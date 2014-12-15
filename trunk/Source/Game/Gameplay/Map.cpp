@@ -113,8 +113,8 @@ namespace MelonGames
 				MapObject* obj = *it;
 				if (obj->isValid())
 				{
-					obj->flush();
-					++it;
+					obj->preupdate();
+                    ++it;
 				}
 				else
 				{

@@ -30,6 +30,14 @@ namespace MelonGames
             
             virtual void update(MapObject* object, float dt) override;
         };
+        
+        class MoveCircularProjectedBehaviour : public Behaviour
+        {
+        public:
+            DECLARE_TYPE_WITH_BASE_TYPE(MoveCircularProjectedBehaviour, Behaviour);
+            
+            virtual void update(MapObject* object, float dt) override;
+        };
     }
 }
 

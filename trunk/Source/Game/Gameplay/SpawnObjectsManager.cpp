@@ -28,7 +28,7 @@ namespace MelonGames
     {
         SpawnObjectsManager::SpawnObjectsManager()
         : spawnSquadsManager(2.0f, 3.5f)
-        , spawnPowerUpsManager(5.0f, 10.0f)
+        , spawnPowerUpsManager(0.0f, 5.0f)
         {
             allManagers = {
                 &spawnSquadsManager,
@@ -58,6 +58,18 @@ namespace MelonGames
         }
         
 #pragma mark - SpawnManager
+        SpawnObjectsManager::SpawnManager::SpawnManager(float minTime, float varTime, bool spawnNow)
+        : minTime(minTime)
+        , varTime(varTime)
+        , map(nullptr)
+        , timeout(0.0f)
+        {
+            if (!spawnNow)
+            {
+                timeout = minTime + Random::getInstance().next() * varTime;
+            }
+        }
+        
         void SpawnObjectsManager::SpawnManager::update(float dt)
         {
             assert(map && "Map must be set before update is called");
@@ -74,6 +86,8 @@ namespace MelonGames
         
         void SpawnObjectsManager::SpawnSquadsManager::spawnNextItem()
         {
+            return;
+            
             const cocos2d::Size& screenSize = map->getDefinition().screenSize;
             cocos2d::Vec2 offset(screenSize.width * 0.5f, screenSize.height);
             
@@ -129,7 +143,7 @@ namespace MelonGames
                 
                 if (posY > offset.y)
                 {
-                    if (auto moveState = enemy->get<LinearMoveStateComponent>())
+                    if (auto moveState = enemy->get<MoveLinearStateComponent>())
                     {
                         float timeToReachTop = std::abs(((posY - offset.y) / moveState->getMovementPerSecond().y));
                         maxDelay = std::max(maxDelay, timeToReachTop);
@@ -211,6 +225,9 @@ namespace MelonGames
         {
             if (auto powerup = ObjectsFastFactory::createPowerUp())
             {
+                float posX = map->getDefinition().screenSize.width * 0.5f;
+                float posY = map->getDefinition().screenSize.height + 50.0f;
+                powerup->get<PositionComponent>()->setPosition(cocos2d::Vec3(posX, posY, 0.0f));
                 map->addObject(powerup);
             }
         }
