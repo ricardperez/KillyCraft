@@ -278,7 +278,7 @@ namespace MelonGames
             if (!textureMask)
             {
                 ViewComponent* viewComponent = object->get<ViewComponent>();
-                if (cocos2d::Sprite* sprite = viewComponent->getSprite())
+                if (const cocos2d::Sprite* sprite = viewComponent->getSprite())
                 {
                     cocos2d::Size size;
                     if (auto spriteFrame = sprite->getSpriteFrame())

@@ -10,6 +10,7 @@
 #define __KillyCraft__ViewComponent__
 
 #include "Component.h"
+#include "base/ccTypes.h"
 
 namespace cocos2d
 {
@@ -36,9 +37,12 @@ namespace MelonGames
 			
 			void setSpriteFrameName(const std::string& name);
             
-            cocos2d::Sprite* getSprite() const;
+            const cocos2d::Sprite* getSprite() const;
             
             float getScale() const;
+            
+            virtual void setTintColor(const cocos2d::Color3B& color);
+            const cocos2d::Color3B& getTintColor() const;
 			
 		protected:
 			void onPositionChanged(PositionComponent* posComponent);
@@ -46,6 +50,7 @@ namespace MelonGames
 		private:
 			std::string spriteFrameName;
 			cocos2d::Sprite* sprite;
+            cocos2d::Color3B tint;
 		};
 		
 		namespace CocosUtil
