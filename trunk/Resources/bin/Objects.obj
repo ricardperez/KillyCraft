@@ -26,9 +26,6 @@
 							]
 						},
 						{
-							"type":"MoveCircular"
-						},
-						{
 							"type":"MoveLinear"
 						}
 					]
@@ -67,9 +64,6 @@
 									"type":"Collision"
 								}
 							]
-						},
-						{
-							"type":"MoveCircular"
 						},
 						{
 							"type":"MoveLinear"
@@ -112,9 +106,6 @@
 							]
 						},
 						{
-							"type":"MoveCircular"
-						},
-						{
 							"type":"MoveLinear"
 						}
 					]
@@ -153,9 +144,6 @@
 									"type":"Collision"
 								}
 							]
-						},
-						{
-							"type":"MoveCircular"
 						},
 						{
 							"type":"MoveLinear"
