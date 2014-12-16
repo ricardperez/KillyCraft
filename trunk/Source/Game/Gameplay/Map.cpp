@@ -74,7 +74,7 @@ namespace MelonGames
             
             spawnObjectsManager = new SpawnObjectsManager();
             spawnObjectsManager->setMap(this);
-            spawnObjectsManager->loadEnemySquadsFromFile("Squads.obj");
+            spawnObjectsManager->loadEnemySquadsFromFile("Squads.squads");
 		}
         
         const MapDefinition& Map::getDefinition() const
