@@ -20,6 +20,10 @@ namespace MelonGames
         
         //0.0 .. 1.0
         float next();
+        int nextIntInRange(int min, int max, bool minInclusive=true, bool maxInclusive=true);
+        
+        int getMax() const;
+        int getMin() const;
         
     private:
         Random();
@@ -27,7 +31,7 @@ namespace MelonGames
     private:
         std::random_device rd;
         std::mt19937 gen;
-        std::uniform_real_distribution<> dis;
+        std::uniform_int_distribution<int> dis;
     };
 }
 

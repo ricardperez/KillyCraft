@@ -13,7 +13,7 @@ namespace MelonGames
     Random::Random()
     {
         gen = std::mt19937(rd());
-        dis = std::uniform_real_distribution<>(0, 1);
+        dis = std::uniform_int_distribution<>(getMin(), getMax());
     }
     
     Random& Random::getInstance()
@@ -24,6 +24,26 @@ namespace MelonGames
     
     float Random::next()
     {
-        return dis(gen);
+        return (((float)dis(gen)) / getMax());
+    }
+    
+    int Random::getMax() const
+    {
+        return std::numeric_limits<int>::max();
+    }
+    
+    int Random::getMin() const
+    {
+        return 0;
+    }
+    
+    int Random::nextIntInRange(int min, int max, bool minInclusive, bool maxInclusive)
+    {
+        int rnd = dis(gen);
+        
+        int m = (minInclusive ? min : min+1);
+        int M = (maxInclusive ? max : max-1);
+        
+        return (m + rnd % (M - m + 1));
     }
 }
