@@ -7,7 +7,7 @@
 //
 
 #include "PowerUpFactory.h"
-#include "PowerUp.h"
+#include "PowerUpAction.h"
 
 namespace MelonGames
 {
@@ -15,7 +15,7 @@ namespace MelonGames
     {
         namespace PowerUpFactory
         {
-            PowerUp* createPowerUp(const Json::Value& json)
+            const PowerUpAction* createPowerUpAction(const Json::Value& json)
             {
                 return nullptr;
             }

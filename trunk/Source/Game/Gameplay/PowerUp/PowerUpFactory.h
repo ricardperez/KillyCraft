@@ -15,11 +15,11 @@ namespace MelonGames
 {
     namespace KillyCraft
     {
-        class PowerUp;
+        class PowerUpAction;
         
         namespace PowerUpFactory
         {
-            PowerUp* createPowerUp(const Json::Value& json);
+            const PowerUpAction* createPowerUpAction(const Json::Value& json);
         }
     }
 }
