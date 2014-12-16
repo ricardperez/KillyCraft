@@ -28,9 +28,9 @@ namespace MelonGames
         enum class CollisionDetectionType
         {
             ePlayer = 0,
-            eEnemy,
-            eBullet,
-            ePowerUp,
+            eEnemy = 1,
+            eBullet = 2,
+            ePowerUp = 3,
             
             nTypes
         };
