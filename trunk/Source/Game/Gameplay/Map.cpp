@@ -71,10 +71,12 @@ namespace MelonGames
             
             factory = new MapObjectsFactory();
             factory->addTemplatesFromFile("Objects.obj");
+            factory->addTemplatesFromFile("PowerUps.obj");
             
             spawnObjectsManager = new SpawnObjectsManager();
             spawnObjectsManager->setMap(this);
             spawnObjectsManager->loadEnemySquadsFromFile("Squads.squads");
+            spawnObjectsManager->loadPowerUpsFromFile("PowerUps.list");
 		}
         
         const MapDefinition& Map::getDefinition() const
