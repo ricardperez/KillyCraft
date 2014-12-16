@@ -15,7 +15,7 @@
 		19202CBB19FBEA8500AFAB33 /* GamepadComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19202CB919FBEA8500AFAB33 /* GamepadComponent.cpp */; };
 		19202CBE19FBEC8300AFAB33 /* WeaponComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19202CBC19FBEC8300AFAB33 /* WeaponComponent.cpp */; };
 		19389AA21A3E0B5500E6C985 /* PowerUpComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19389AA01A3E0B5500E6C985 /* PowerUpComponent.cpp */; };
-		19389AA61A3E0CA400E6C985 /* PowerUp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19389AA41A3E0CA400E6C985 /* PowerUp.cpp */; };
+		19389AA61A3E0CA400E6C985 /* PowerUpAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19389AA41A3E0CA400E6C985 /* PowerUpAction.cpp */; };
 		19389AA91A3E0CD800E6C985 /* PowerUpFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19389AA71A3E0CD800E6C985 /* PowerUpFactory.cpp */; };
 		194B80C319FB99D80021CE64 /* Service.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194B80C119FB99D80021CE64 /* Service.cpp */; };
 		194B80C619FB99E80021CE64 /* ServicesManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194B80C419FB99E80021CE64 /* ServicesManager.cpp */; };
@@ -29,6 +29,8 @@
 		196AD4CE19F9832900D87881 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 196AD4CC19F9832900D87881 /* LaunchScreen.xib */; };
 		196AD4DA19F9832A00D87881 /* KillyCraftTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 196AD4D919F9832A00D87881 /* KillyCraftTests.m */; };
 		1998E2D51A2D212E00FED614 /* TextureMask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1998E2D31A2D212E00FED614 /* TextureMask.cpp */; };
+		199EF2D81A40B978003B1C6A /* ComponentsFactoryFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 199EF2D71A40B978003B1C6A /* ComponentsFactoryFunctions.cpp */; };
+		199EF2DA1A40BC7B003B1C6A /* BehavioursFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 199EF2D91A40BC7B003B1C6A /* BehavioursFactory.cpp */; };
 		19AB270619F984F3008D3B13 /* CCAffineTransform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AB26E819F984F3008D3B13 /* CCAffineTransform.cpp */; };
 		19AB270719F984F3008D3B13 /* CCGeometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AB26EA19F984F3008D3B13 /* CCGeometry.cpp */; };
 		19AB270819F984F3008D3B13 /* CCVertex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AB26EE19F984F3008D3B13 /* CCVertex.cpp */; };
@@ -112,8 +114,6 @@
 		19CA80CC1A0C004100C6BF2C /* Random.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CA80CA1A0C004100C6BF2C /* Random.cpp */; };
 		19CA80CF1A0C042E00C6BF2C /* MapObjectsFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CA80CD1A0C042E00C6BF2C /* MapObjectsFactory.cpp */; };
 		19CA80D21A0C0B5600C6BF2C /* Crypto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CA80D01A0C0B5600C6BF2C /* Crypto.cpp */; };
-		19CA80D41A0C0FEB00C6BF2C /* ComponentsFactoryFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CA80D31A0C0FEB00C6BF2C /* ComponentsFactoryFunctions.cpp */; };
-		19CA80D61A0C142A00C6BF2C /* BehavioursFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CA80D51A0C142A00C6BF2C /* BehavioursFactory.cpp */; };
 		19CCD38D1A02CBDD00986A8E /* CCFileUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD37D1A02CBDD00986A8E /* CCFileUtils.cpp */; };
 		19CCD38E1A02CBDD00986A8E /* CCGLView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD3801A02CBDD00986A8E /* CCGLView.cpp */; };
 		19CCD38F1A02CBDD00986A8E /* CCImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CCD3821A02CBDD00986A8E /* CCImage.cpp */; };
@@ -373,8 +373,8 @@
 		19202CBD19FBEC8300AFAB33 /* WeaponComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeaponComponent.h; sourceTree = "<group>"; };
 		19389AA01A3E0B5500E6C985 /* PowerUpComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PowerUpComponent.cpp; sourceTree = "<group>"; };
 		19389AA11A3E0B5500E6C985 /* PowerUpComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerUpComponent.h; sourceTree = "<group>"; };
-		19389AA41A3E0CA400E6C985 /* PowerUp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PowerUp.cpp; sourceTree = "<group>"; };
-		19389AA51A3E0CA400E6C985 /* PowerUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerUp.h; sourceTree = "<group>"; };
+		19389AA41A3E0CA400E6C985 /* PowerUpAction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PowerUpAction.cpp; sourceTree = "<group>"; };
+		19389AA51A3E0CA400E6C985 /* PowerUpAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerUpAction.h; sourceTree = "<group>"; };
 		19389AA71A3E0CD800E6C985 /* PowerUpFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PowerUpFactory.cpp; sourceTree = "<group>"; };
 		19389AA81A3E0CD800E6C985 /* PowerUpFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerUpFactory.h; sourceTree = "<group>"; };
 		194B80C119FB99D80021CE64 /* Service.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Service.cpp; sourceTree = "<group>"; };
@@ -403,6 +403,8 @@
 		199248B81A12AB0A0001D4B4 /* GameConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameConfig.h; sourceTree = "<group>"; };
 		1998E2D31A2D212E00FED614 /* TextureMask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureMask.cpp; sourceTree = "<group>"; };
 		1998E2D41A2D212E00FED614 /* TextureMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureMask.h; sourceTree = "<group>"; };
+		199EF2D71A40B978003B1C6A /* ComponentsFactoryFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ComponentsFactoryFunctions.cpp; sourceTree = "<group>"; };
+		199EF2D91A40BC7B003B1C6A /* BehavioursFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BehavioursFactory.cpp; sourceTree = "<group>"; };
 		19AB26E819F984F3008D3B13 /* CCAffineTransform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCAffineTransform.cpp; sourceTree = "<group>"; };
 		19AB26E919F984F3008D3B13 /* CCAffineTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAffineTransform.h; sourceTree = "<group>"; };
 		19AB26EA19F984F3008D3B13 /* CCGeometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCGeometry.cpp; sourceTree = "<group>"; };
@@ -683,8 +685,6 @@
 		19CA80CE1A0C042E00C6BF2C /* MapObjectsFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapObjectsFactory.h; sourceTree = "<group>"; };
 		19CA80D01A0C0B5600C6BF2C /* Crypto.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Crypto.cpp; sourceTree = "<group>"; };
 		19CA80D11A0C0B5600C6BF2C /* Crypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crypto.h; sourceTree = "<group>"; };
-		19CA80D31A0C0FEB00C6BF2C /* ComponentsFactoryFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ComponentsFactoryFunctions.cpp; sourceTree = "<group>"; };
-		19CA80D51A0C142A00C6BF2C /* BehavioursFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BehavioursFactory.cpp; sourceTree = "<group>"; };
 		19CA80D71A0C152800C6BF2C /* DestroyBehaviourFunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DestroyBehaviourFunctions.h; sourceTree = "<group>"; };
 		19CCD3791A02CBDD00986A8E /* CCApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCApplication.h; sourceTree = "<group>"; };
 		19CCD37A1A02CBDD00986A8E /* CCApplicationProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCApplicationProtocol.h; sourceTree = "<group>"; };
@@ -1209,6 +1209,7 @@
 		19202CBF19FBFCB800AFAB33 /* Behaviour */ = {
 			isa = PBXGroup;
 			children = (
+				199EF2D91A40BC7B003B1C6A /* BehavioursFactory.cpp */,
 				190913661A0383F400840DCB /* Behaviour.cpp */,
 				190913671A0383F400840DCB /* Behaviour.h */,
 				190913691A03849700840DCB /* MovementBehaviours.cpp */,
@@ -1224,8 +1225,8 @@
 		19389AA31A3E0C9600E6C985 /* PowerUp */ = {
 			isa = PBXGroup;
 			children = (
-				19389AA41A3E0CA400E6C985 /* PowerUp.cpp */,
-				19389AA51A3E0CA400E6C985 /* PowerUp.h */,
+				19389AA41A3E0CA400E6C985 /* PowerUpAction.cpp */,
+				19389AA51A3E0CA400E6C985 /* PowerUpAction.h */,
 				19389AA71A3E0CD800E6C985 /* PowerUpFactory.cpp */,
 				19389AA81A3E0CD800E6C985 /* PowerUpFactory.h */,
 			);
@@ -2480,8 +2481,6 @@
 				19CA80C81A0BFD9500C6BF2C /* SpawnObjectsManager.h */,
 				19CA80CD1A0C042E00C6BF2C /* MapObjectsFactory.cpp */,
 				19CA80CE1A0C042E00C6BF2C /* MapObjectsFactory.h */,
-				19CA80D31A0C0FEB00C6BF2C /* ComponentsFactoryFunctions.cpp */,
-				19CA80D51A0C142A00C6BF2C /* BehavioursFactory.cpp */,
 			);
 			path = Gameplay;
 			sourceTree = "<group>";
@@ -2489,6 +2488,7 @@
 		19AB704D19FACAE90041EAB6 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				199EF2D71A40B978003B1C6A /* ComponentsFactoryFunctions.cpp */,
 				19AB704E19FACAE90041EAB6 /* Component.cpp */,
 				19AB704F19FACAE90041EAB6 /* Component.h */,
 				19AB705019FACAE90041EAB6 /* PositionComponent.cpp */,
@@ -2953,6 +2953,7 @@
 				19CCD5EC1A02D30200986A8E /* CCParallaxNode.cpp in Sources */,
 				19CCD5071A02CE2B00986A8E /* UITextBMFont.cpp in Sources */,
 				19CCD47F1A02CDE800986A8E /* CCEventListenerController.cpp in Sources */,
+				199EF2DA1A40BC7B003B1C6A /* BehavioursFactory.cpp in Sources */,
 				19CCD4FF1A02CE2B00986A8E /* UIPageView.cpp in Sources */,
 				19CCD5F61A02D30200986A8E /* CCSpriteBatchNode.cpp in Sources */,
 				19CCD5E61A02D30200986A8E /* CCLight.cpp in Sources */,
@@ -3076,7 +3077,7 @@
 				19CCD3F41A02CCEA00986A8E /* CCControlSlider.cpp in Sources */,
 				19CCD47D1A02CDE800986A8E /* CCEventListener.cpp in Sources */,
 				19CCD5E31A02D30200986A8E /* CCLabelTextFormatter.cpp in Sources */,
-				19389AA61A3E0CA400E6C985 /* PowerUp.cpp in Sources */,
+				19389AA61A3E0CA400E6C985 /* PowerUpAction.cpp in Sources */,
 				19AB2BE619F9910A008D3B13 /* CCNotificationCenter.cpp in Sources */,
 				19CCD4941A02CDE800986A8E /* ccUTF8.cpp in Sources */,
 				19CCD46F1A02CDE800986A8E /* CCConsole.cpp in Sources */,
@@ -3088,7 +3089,6 @@
 				196AD4C019F9832900D87881 /* main.m in Sources */,
 				19AB706C19FACAE90041EAB6 /* ObjectsFastFactory.cpp in Sources */,
 				19CCD5F21A02D30200986A8E /* CCProtectedNode.cpp in Sources */,
-				19CA80D61A0C142A00C6BF2C /* BehavioursFactory.cpp in Sources */,
 				19AB2C2E19F99913008D3B13 /* CCPhysicsShapeInfo_chipmunk.cpp in Sources */,
 				19CCD46D1A02CDE800986A8E /* ccCArray.cpp in Sources */,
 				19AB706D19FACAE90041EAB6 /* GameScreen.cpp in Sources */,
@@ -3178,6 +3178,7 @@
 				19CCD6001A02D30200986A8E /* CCTransitionPageTurn.cpp in Sources */,
 				194B80CB19FBA6750021CE64 /* FilesService.cpp in Sources */,
 				19CCD48A1A02CDE800986A8E /* CCProfiling.cpp in Sources */,
+				199EF2D81A40B978003B1C6A /* ComponentsFactoryFunctions.cpp in Sources */,
 				19CCD4881A02CDE800986A8E /* CCIMEDispatcher.cpp in Sources */,
 				19CCD5F11A02D30200986A8E /* CCProgressTimer.cpp in Sources */,
 				19CA80CF1A0C042E00C6BF2C /* MapObjectsFactory.cpp in Sources */,
@@ -3196,7 +3197,6 @@
 				19CCD5E01A02D30200986A8E /* CCLabel.cpp in Sources */,
 				19AB2A2C19F98CAF008D3B13 /* edtaa3func.cpp in Sources */,
 				19AB2C2919F99913008D3B13 /* CCPhysicsShape.cpp in Sources */,
-				19CA80D41A0C0FEB00C6BF2C /* ComponentsFactoryFunctions.cpp in Sources */,
 				19CCD46B1A02CDE800986A8E /* base64.cpp in Sources */,
 				19CCD4981A02CDE800986A8E /* ObjectFactory.cpp in Sources */,
 				19CCD49A1A02CDE800986A8E /* s3tc.cpp in Sources */,
