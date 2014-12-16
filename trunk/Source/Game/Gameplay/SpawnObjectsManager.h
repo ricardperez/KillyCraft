@@ -31,6 +31,7 @@ namespace MelonGames
             SpawnObjectsManager();
             
             void loadEnemySquadsFromFile(const std::string& filename);
+            void loadPowerUpsFromFile(const std::string& filename);
             
             void setMap(Map* map);
             
@@ -68,7 +69,7 @@ namespace MelonGames
                     Json::Value json;
                 };
                 
-                void loadEnemySquadsFromFile(const std::string& filename);
+                void loadFromFile(const std::string& filename);
                 void spawnNextItem() override;
                 void createSquad(const SquadTemplate& squadTemplate, const cocos2d::Vec2& offset, std::vector<MapObject*>& enemies);
                 const SquadTemplate* getSquadTemplateWithName(const std::string& name) const;
@@ -82,7 +83,11 @@ namespace MelonGames
             {
             public:
                 SpawnPowerUpsManager(float minTime, float varTime) : SpawnManager(minTime, varTime, false) {};
+                void loadFromFile(const std::string& filename);
                 void spawnNextItem() override;
+                
+            private:
+                std::vector<std::string> powerUpNames;
                 
             };
             SpawnPowerUpsManager spawnPowerUpsManager;

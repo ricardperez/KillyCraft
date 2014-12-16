@@ -28,7 +28,7 @@ namespace MelonGames
     {
         SpawnObjectsManager::SpawnObjectsManager()
         : spawnSquadsManager(2.0f, 3.5f)
-        , spawnPowerUpsManager(0.0f, 5.0f)
+        , spawnPowerUpsManager(5.0f, 5.0f)
         {
             allManagers = {
                 &spawnSquadsManager,
@@ -38,7 +38,12 @@ namespace MelonGames
         
         void SpawnObjectsManager::loadEnemySquadsFromFile(const std::string& filename)
         {
-            spawnSquadsManager.loadEnemySquadsFromFile(filename);
+            spawnSquadsManager.loadFromFile(filename);
+        }
+        
+        void SpawnObjectsManager::loadPowerUpsFromFile(const std::string &filename)
+        {
+            spawnPowerUpsManager.loadFromFile(filename);
         }
         
         void SpawnObjectsManager::setMap(Map *map)
@@ -83,11 +88,26 @@ namespace MelonGames
         }
         
 #pragma mark - SpawnSquadsManager
-        
+        void SpawnObjectsManager::SpawnSquadsManager::loadFromFile(const std::string& filename)
+        {
+            std::string fileContents = cocos2d::FileUtils::getInstance()->getStringFromFile(filename);
+            
+            Json::Reader reader;
+            Json::Value json;
+            reader.parse(fileContents, json);
+            
+            const auto& squadsJson = json["obj"];
+            for (const auto& squadJson : squadsJson)
+            {
+                std::string name = squadJson["name"].asString();
+                SquadTemplate squadTemplate;
+                squadTemplate.name = name;
+                squadTemplate.json = squadJson;
+                squadTemplates.push_back(squadTemplate);
+            }
+        }
         void SpawnObjectsManager::SpawnSquadsManager::spawnNextItem()
         {
-            return;
-            
             const cocos2d::Size& screenSize = map->getDefinition().screenSize;
             cocos2d::Vec2 offset(screenSize.width * 0.5f, screenSize.height);
             
@@ -201,7 +221,8 @@ namespace MelonGames
             return nullptr;
         }
         
-        void SpawnObjectsManager::SpawnSquadsManager::loadEnemySquadsFromFile(const std::string& filename)
+#pragma mark - SpawnPowerUpsManager
+        void SpawnObjectsManager::SpawnPowerUpsManager::loadFromFile(const std::string &filename)
         {
             std::string fileContents = cocos2d::FileUtils::getInstance()->getStringFromFile(filename);
             
@@ -209,26 +230,28 @@ namespace MelonGames
             Json::Value json;
             reader.parse(fileContents, json);
             
-            const auto& squadsJson = json["obj"];
-            for (const auto& squadJson : squadsJson)
+            const auto& list = json["obj"];
+            for (const auto& name : list)
             {
-                std::string name = squadJson["name"].asString();
-                SquadTemplate squadTemplate;
-                squadTemplate.name = name;
-                squadTemplate.json = squadJson;
-                squadTemplates.push_back(squadTemplate);
+                powerUpNames.push_back(name.asString());
             }
         }
         
-#pragma mark - SpawnPowerUpsManager
         void SpawnObjectsManager::SpawnPowerUpsManager::spawnNextItem()
         {
-            if (auto powerup = ObjectsFastFactory::createPowerUp())
+            CCASSERT(!powerUpNames.empty(), "At least one powerup should be loaded");
+            
+            if (!powerUpNames.empty())
             {
-                float posX = map->getDefinition().screenSize.width * 0.5f;
-                float posY = map->getDefinition().screenSize.height + 50.0f;
-                powerup->get<PositionComponent>()->setPosition(cocos2d::Vec3(posX, posY, 0.0f));
-                map->addObject(powerup);
+                int index = Random::getInstance().nextIntInRange(0, powerUpNames.size(), true, false);
+                const std::string& name = *(powerUpNames.begin() + index);
+                if (auto powerup = map->getFactory()->createObject(name))
+                {
+                    float posX = map->getDefinition().screenSize.width * 0.5f;
+                    float posY = map->getDefinition().screenSize.height + 50.0f;
+                    powerup->getOrCreate<PositionComponent>()->setPosition(cocos2d::Vec3(posX, posY, 0.0f));
+                    map->addObject(powerup);
+                }
             }
         }
     }
