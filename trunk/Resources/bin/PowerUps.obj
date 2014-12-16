@@ -1,0 +1,123 @@
+{
+	"obj":
+	[
+		{
+			"name":"PowerUpHeal",
+			"components":
+			[
+				{
+					"type":"View",
+					"sprite":"PowerUp.png",
+					"tint":[0, 255, 0]
+				},
+				{
+					"type":"Behaviour",
+					"behaviours":
+					[
+						{
+							"type":"Destroy",
+							"checks":
+							[
+								{
+									"type":"OutOfScreenDown"
+								},
+								{
+									"type":"Collision"
+								}
+							]
+						},
+						{
+							"type":"MoveCircularProjected"
+						},
+						{
+							"type":"MoveLinear"
+						}
+					]
+				},
+				{
+					"type": "MoveLinear",
+					"move": [0.0, -50.0, 0.0]
+				},
+				{
+					"type": "MoveCircular",
+					"radius": 75.0,
+					"period": 2.0
+				},
+				{
+					"type": "CollisionDetection",
+					"mask": "",
+					"t": 3
+				},
+				{
+					"type": "PowerUp",
+					"actions":
+					[
+						{
+							"type": "Heal",
+							"amount": 100
+						}
+					]
+				}
+			]
+		},
+		{
+			"name":"PowerUpKillAll",
+			"components":
+			[
+				{
+					"type":"View",
+					"sprite":"PowerUp.png",
+					"tint":[255, 0, 0]
+				},
+				{
+					"type":"Behaviour",
+					"behaviours":
+					[
+						{
+							"type":"Destroy",
+							"checks":
+							[
+								{
+									"type":"OutOfScreenDown"
+								},
+								{
+									"type":"Collision"
+								}
+							]
+						},
+						{
+							"type":"MoveCircularProjected"
+						},
+						{
+							"type":"MoveLinear"
+						}
+					]
+				},
+				{
+					"type": "MoveLinear",
+					"move": [0.0, -50.0, 0.0]
+				},
+				{
+					"type": "MoveCircular",
+					"radius": 75.0,
+					"period": 2.0
+				},
+				{
+					"type": "CollisionDetection",
+					"mask": "",
+					"t": 3
+				},
+				{
+					"type": "PowerUp",
+					"actions":
+					[
+						{
+							"type": "Heal",
+							"amount": 100
+						}
+					]
+				}
+			]
+		}
+	]
+}
