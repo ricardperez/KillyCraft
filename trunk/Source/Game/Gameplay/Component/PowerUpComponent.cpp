@@ -8,7 +8,7 @@
 
 #include "PowerUpComponent.h"
 #include "CollisionDetectionComponent.h"
-#include "Gameplay/PowerUp/PowerUp.h"
+#include "Gameplay/PowerUp/PowerUpAction.h"
 #include "Gameplay/MapObject.h"
 
 namespace MelonGames
@@ -40,7 +40,7 @@ namespace MelonGames
             Base::onWillDetachFromObject();
         }
         
-        void PowerUpComponent::addPowerUp(const PowerUp *powerUp)
+        void PowerUpComponent::addPowerUpAction(const PowerUpAction *powerUp)
         {
             powerUps.push_back(powerUp);
         }

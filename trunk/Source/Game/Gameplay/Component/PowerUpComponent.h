@@ -16,7 +16,7 @@ namespace MelonGames
 {
     namespace KillyCraft
     {
-        class PowerUp;
+        class PowerUpAction;
         class CollisionDetectionComponent;
         
         class PowerUpComponent : public Component
@@ -29,13 +29,13 @@ namespace MelonGames
             virtual void onObjectAttachedToMap() override;
             virtual void onWillDetachFromObject() override;
             
-            void addPowerUp(const PowerUp* powerUp);
+            void addPowerUpAction(const PowerUpAction* powerUp);
             
         private:
             void onCollisionDetection(CollisionDetectionComponent* otherCollisionComponent);
             
         private:
-            std::vector<const PowerUp*> powerUps;
+            std::vector<const PowerUpAction*> powerUps;
             
             bool applied;
         };
