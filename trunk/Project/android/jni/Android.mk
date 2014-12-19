@@ -14,11 +14,10 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../../Source/Game/AppDelegate.cpp \
                    ../../../Source/Game/Command/CommandDirector.cpp \
                    ../../../Source/Game/Gameplay/Behaviour/Behaviour.cpp \
-                   ../../../Source/Game/Gameplay/Behaviour/BehaviourFactory.cpp \
+                   ../../../Source/Game/Gameplay/Behaviour/BehavioursFactory.cpp \
                    ../../../Source/Game/Gameplay/Behaviour/DestroyBehaviour.cpp \
                    ../../../Source/Game/Gameplay/Behaviour/DestroyBehaviourFunctions.cpp \
                    ../../../Source/Game/Gameplay/Behaviour/MovementBehaviours.cpp \
-                   ../../../Source/Game/Gameplay/BehavioursFactory.cpp \
                    ../../../Source/Game/Gameplay/Component/BehaviourComponent.cpp \
                    ../../../Source/Game/Gameplay/Component/CollisionDetectionComponent.cpp \
                    ../../../Source/Game/Gameplay/Component/Component.cpp \
@@ -58,7 +57,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../Source \
                     $(LOCAL_PATH)/../../../Source/Game \
                     $(LOCAL_PATH)/../../../Source/libs/jsoncpp/include \
-                    $(LOCAL_PATH)/../../../Source/libs/Signal
+                    $(LOCAL_PATH)/../../../Source/libs
 
 LOCAL_STATIC_LIBRARIES := cocos2dx_static
 

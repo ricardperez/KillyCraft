@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 MelonGames. All rights reserved.
 //
 
-#include "MapObjectsFactory.h"
+#include "Gameplay/MapObjectsFactory.h"
 #include "Gameplay/Component/Component.h"
 #include "Gameplay/Component/PositionComponent.h"
 #include "Gameplay/Component/ViewComponent.h"
