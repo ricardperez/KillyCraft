@@ -108,6 +108,12 @@ namespace MelonGames
         }
         void SpawnObjectsManager::SpawnSquadsManager::spawnNextItem()
         {
+#ifdef FORCED_SQUAD
+            if (map->getObjects().size() > 2)
+            {
+                return;
+            }
+#endif
             const cocos2d::Size& screenSize = map->getDefinition().screenSize;
             cocos2d::Vec2 offset(screenSize.width * 0.5f, screenSize.height);
             
@@ -240,6 +246,10 @@ namespace MelonGames
         void SpawnObjectsManager::SpawnPowerUpsManager::spawnNextItem()
         {
             CCASSERT(!powerUpNames.empty(), "At least one powerup should be loaded");
+            
+#ifdef FORCED_SQUAD
+            return;
+#endif
             
             if (!powerUpNames.empty())
             {
