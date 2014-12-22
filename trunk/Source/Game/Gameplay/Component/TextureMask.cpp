@@ -96,7 +96,7 @@ namespace MelonGames
                 int bitWeight = 1;
                 mask = new bool[width*height];
                 
-                for (int y = 0; y < height; ++y)
+                for (int y = height-1; y >= 0; --y)
                 {
                     for (int x = 0; x<width; ++x)
                     {
@@ -114,6 +114,15 @@ namespace MelonGames
                         }
                     }
                 }
+                
+//                for (int y=getHeight()-1; y>=0; ++y)
+//                {
+//                    for (int x=0; x<getWidth(); ++x)
+//                    {
+//                        printf("%c ", isOpaqueAt(x, y) ? 'X' : '.');
+//                    }
+//                    printf("\n");
+//                }
                 
                 return true;
             }
