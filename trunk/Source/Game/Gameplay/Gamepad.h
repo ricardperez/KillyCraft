@@ -17,6 +17,12 @@ namespace cocos2d
 	class EventListener;
 	class Touch;
 	class Timer;
+    class Node;
+    
+    namespace extension
+    {
+        class ControlButton;
+    }
 }
 
 namespace MelonGames
@@ -34,11 +40,13 @@ namespace MelonGames
 			bool isTouchingLeft() const;
 			bool isTouchingRight() const;
 			bool isFiring() const;
+            
+            cocos2d::extension::ControlButton* createShootingButton();
 			
 		private:
 			void onTouchBegan(const cocos2d::Touch* touch);
 			void onTouchEnded(const cocos2d::Touch* touch);
-			
+            
 		private:
 			cocos2d::EventListener* eventsListener;
 			
@@ -52,6 +60,8 @@ namespace MelonGames
             
 			TouchInfo leftTouch;
 			TouchInfo rightTouch;
+            
+            bool pressingButton;
 		};
 	}
 }

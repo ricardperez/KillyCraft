@@ -7,10 +7,12 @@
 //
 
 #include "Gamepad.h"
+#include "MelonGames/SpriteFrameHelper.h"
 #include "2d/CCNode.h"
 #include "base/CCEventListenerTouch.h"
 #include "base/CCDirector.h"
 #include "base/CCEventDispatcher.h"
+#include "extensions/GUI/CCControlExtension/CCControlButton.h"
 #include <chrono>
 
 namespace MelonGames
@@ -19,6 +21,7 @@ namespace MelonGames
 	{
 #pragma mark - Gamepad
 		Gamepad::Gamepad()
+        : pressingButton(nullptr)
 		{
 			auto eventsListener = cocos2d::EventListenerTouchAllAtOnce::create();
 			
@@ -76,8 +79,25 @@ namespace MelonGames
 		
 		bool Gamepad::isFiring() const
 		{
-			return ((leftTouch.touch != nullptr) && (rightTouch.touch != nullptr));
+			return (pressingButton || ((leftTouch.touch != nullptr) && (rightTouch.touch != nullptr)));
 		}
+        
+        cocos2d::extension::ControlButton* Gamepad::createShootingButton()
+        {
+            using namespace cocos2d;
+            using namespace cocos2d::extension;
+            using namespace cocos2d::ui;
+            
+            auto sprite = Scale9Sprite::createWithSpriteFrame(spriteFrameOrDefault("GamepadShoot.png"));
+            auto button = ControlButton::create(sprite);
+            button->setPreferredSize(Size(60.0f, 60.0f));
+            
+            button->schedule([this, button](float dt)->void{
+                this->pressingButton = button->isPushed();
+            }, "Gamepad-timer");
+            
+            return button;
+        }
 		
 		void Gamepad::onTouchBegan(const cocos2d::Touch *touch)
 		{

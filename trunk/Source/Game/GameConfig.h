@@ -10,7 +10,9 @@
 #define KillyCraft_GameConfig_h
 
 //#define FORCED_SQUAD "SquadBasic-1"
-#define DRAW_MAP_GRID
-#define DRAW_COLLISION_BOXES
+//#define DRAW_MAP_GRID
+//#define DRAW_COLLISION_BOXES
+
+#define USE_GAMEPAD_SHOOT_BUTTON
 
 #endif

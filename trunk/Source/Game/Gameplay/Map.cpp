@@ -14,8 +14,12 @@
 #include "Component/Component.h"
 #include "Component/ViewComponent.h"
 #include "View/MapView.h"
-
+#include "Gamepad.h"
 #include "ObjectsFastFactory.h"
+
+#ifdef USE_GAMEPAD_SHOOT_BUTTON
+#include "extensions/GUI/CCControlExtension/CCControlButton.h"
+#endif
 
 #include <cassert>
 
@@ -66,6 +70,12 @@ namespace MelonGames
             view = new MapView(this, node);
 			
 			player = new Player();
+            
+#ifdef USE_GAMEPAD_SHOOT_BUTTON
+            auto shootingButton = player->getGamepad()->createShootingButton();
+            node->addChild(shootingButton);
+            shootingButton->setPosition(cocos2d::Point(node->getContentSize().width - shootingButton->getContentSize().width*0.5f - 50.0f, shootingButton->getContentSize().height*0.5f + 50.0f));
+#endif
 			
 			auto player = ObjectsFastFactory::createPlayerObject();
 			addObject(player);
