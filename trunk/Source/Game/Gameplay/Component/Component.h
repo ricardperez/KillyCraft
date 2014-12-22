@@ -31,6 +31,7 @@ namespace MelonGames
 			
             virtual void preupdate();
 			virtual void update(float dt);
+            virtual void postupdate();
             
             MapObject* getObject() const;
 			

@@ -76,7 +76,10 @@ namespace MelonGames
             
             collisionsPrevFrame = collisions;
             collisions.clear();
-            
+        }
+        
+        void CollisionDetectionComponent::postupdate()
+        {
 #ifdef DRAW_COLLISION_BOXES
             drawBox();
 #endif
@@ -325,20 +328,20 @@ namespace MelonGames
                         color = cocos2d::Color4F::MAGENTA;
                 }
                 
-                if (!boxDrawer)
-                {
-                    boxDrawer = cocos2d::DrawNode::create();
-                    object->getMap()->getView()->getNode()->addChild(boxDrawer);
-                }
-                
-                if (false && maskBuilt && textureMask->isPixelPerfect())
+                if (maskBuilt && textureMask->isPixelPerfect())
                 {
                     cocos2d::Vec2 position = object->get<ViewComponent>()->getSprite()->getPosition();
                     cocos2d::Vec2 origin = (position - cocos2d::Vec2(textureMask->getWidth()*0.5f, textureMask->getHeight()*0.5f));
                     
+                    if (boxDrawer == nullptr)
+                    {
+                        boxDrawer = cocos2d::DrawNode::create();
+                        object->getMap()->getView()->getNode()->addChild(boxDrawer);
+                    }
+                    
                     boxDrawer->clear();
                     
-                    int pointSize = 5;
+                    int pointSize = 1;
                     
                     for (int x=0; x<textureMask->getWidth(); x+=pointSize)
                     {
@@ -346,13 +349,19 @@ namespace MelonGames
                         {
                             if (textureMask->isOpaqueAt(x, y))
                             {
-                                boxDrawer->drawPoint(origin + cocos2d::Vec2(x+pointSize*0.5f-0.5f, y+pointSize*0.5f-0.5f), pointSize, color);
+                                boxDrawer->drawCircle(origin + cocos2d::Vec2(x,y), 1.0f, M_PI*2.0f, 3, false, 1.0f, 1.0f, color);
                             }
                         }
                     }
                 }
                 else
                 {
+                    if (!boxDrawer)
+                    {
+                        boxDrawer = cocos2d::DrawNode::create();
+                        object->getMap()->getView()->getNode()->addChild(boxDrawer);
+                    }
+                    
                     boxDrawer->clear();
                     auto rect = getCurrentRect();
                     boxDrawer->drawRect(rect.origin, rect.origin + cocos2d::Vec2(rect.size.width, rect.size.height), color);

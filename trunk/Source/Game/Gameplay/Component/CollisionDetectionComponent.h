@@ -54,6 +54,7 @@ namespace MelonGames
             
             virtual void preupdate() override;
             virtual void update(float dt) override;
+            virtual void postupdate() override;
             
             bool hasCollision() const;
             

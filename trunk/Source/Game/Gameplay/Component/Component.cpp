@@ -45,6 +45,10 @@ namespace MelonGames
         void Component::preupdate()
         {
         }
+        
+        void Component::postupdate()
+        {
+        }
 		
 		void Component::update(float dt)
 		{

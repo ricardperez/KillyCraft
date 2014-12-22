@@ -152,6 +152,11 @@ namespace MelonGames
 				object->update(dt);
 			}
             
+            for (auto object : objects)
+            {
+                object->postupdate();
+            }
+            
             spawnObjectsManager->update(dt);
             
             updating = false;

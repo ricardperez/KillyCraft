@@ -43,6 +43,7 @@ namespace MelonGames
 			
             void preupdate();
 			void update(float dt);
+            void postupdate();
             
             int getIdentifier() const;
             void setIdentifier(int identifier);

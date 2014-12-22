@@ -99,15 +99,6 @@ namespace MelonGames
             assert(valid);
             assert(map);
             
-            for (auto component : componentsToRemove)
-            {
-                auto it = std::find(components.begin(), components.end(), component);
-                assert (it != components.end());
-                components.erase(it);
-                delete component;
-            }
-            componentsToRemove.clear();
-            
             for (auto component : componentsToAdd)
             {
                 components.push_back(component);
@@ -140,6 +131,26 @@ namespace MelonGames
                 onWillDetachFromMap();
             }
 		}
+        
+        void MapObject::postupdate()
+        {
+            assert(valid);
+            assert(map);
+            
+            for (auto component : componentsToRemove)
+            {
+                auto it = std::find(components.begin(), components.end(), component);
+                assert (it != components.end());
+                components.erase(it);
+                delete component;
+            }
+            componentsToRemove.clear();
+            
+            for (auto component : components)
+            {
+                component->postupdate();
+            }
+        }
         
         int MapObject::getIdentifier() const
         {
