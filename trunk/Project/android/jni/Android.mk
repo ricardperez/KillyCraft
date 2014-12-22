@@ -51,6 +51,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../../Source/MelonGames/Services/FilesService.cpp \
                    ../../../Source/MelonGames/Crypto.cpp \
                    ../../../Source/MelonGames/Random.cpp \
+                   ../../../Source/MelonGames/SpriteFrameHelper.cpp \
                    ../../../Source/MelonGames/Services/Service.cpp \
                    ../../../Source/MelonGames/Services/ServicesManager.cpp
 

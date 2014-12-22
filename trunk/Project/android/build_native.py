@@ -156,6 +156,6 @@ if __name__ == '__main__':
     help='the build mode for java project,debug[default] or release.Get more information,please refer to http://developer.android.com/tools/building/building-cmdline.html')
     (opts, args) = parser.parse_args()
 
-    os.system("find ../../ -name 'Android.mk' | xargs touch")
+    # os.system("find ../../ -name 'Android.mk' | xargs touch")
     
     build(opts.ndk_build_param,opts.android_platform,opts.build_mode)
