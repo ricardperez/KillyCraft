@@ -32,6 +32,7 @@ namespace MelonGames
         , factory(nullptr)
         , elapsedTime(0.0f)
         , nextIdentifier(0)
+        , updating(false)
 		{
 		}
 		
@@ -91,9 +92,16 @@ namespace MelonGames
 		
 		void Map::addObject(MapObject* o)
 		{
-            o->setIdentifier(nextIdentifier++);
-			objects.push_back(o);
-			o->onAttachedToMap(this);
+            if (updating)
+            {
+                objectsToAdd.push_back(o);
+            }
+            else
+            {
+                o->setIdentifier(nextIdentifier++);
+                objects.push_back(o);
+                o->onAttachedToMap(this);
+            }
 		}
 		
 		void Map::removeObjectWhenPossible(MapObject* o)
@@ -104,6 +112,8 @@ namespace MelonGames
 		void Map::update(float dt)
 		{
             assert(view);
+            
+            updating = true;
             
             elapsedTime += dt;
             
@@ -132,6 +142,14 @@ namespace MelonGames
 			}
             
             spawnObjectsManager->update(dt);
+            
+            updating = false;
+            
+            for (auto object : objectsToAdd)
+            {
+                addObject(object);
+            }
+            objectsToAdd.clear();
 		}
         
         float Map::getElapsedTime() const

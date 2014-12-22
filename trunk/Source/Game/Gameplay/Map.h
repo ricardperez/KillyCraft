@@ -63,7 +63,9 @@ namespace MelonGames
 			
 		private:
             MapDefinition definition;
-			std::vector<MapObject*> objects;
+			
+            std::vector<MapObject*> objects;
+            std::vector<MapObject*> objectsToAdd;
 			
 			cocos2d::Node* node;
             MapView* view;
@@ -74,6 +76,8 @@ namespace MelonGames
             float elapsedTime;
             
             int nextIdentifier;
+            
+            bool updating;
 		};
 	}
 }
