@@ -17,6 +17,7 @@
 		19389AA21A3E0B5500E6C985 /* PowerUpComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19389AA01A3E0B5500E6C985 /* PowerUpComponent.cpp */; };
 		19389AA61A3E0CA400E6C985 /* PowerUpAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19389AA41A3E0CA400E6C985 /* PowerUpAction.cpp */; };
 		19389AA91A3E0CD800E6C985 /* PowerUpFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19389AA71A3E0CD800E6C985 /* PowerUpFactory.cpp */; };
+		194A08BD1A48A405007CEEE0 /* SpriteFrameHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194A08BB1A48A405007CEEE0 /* SpriteFrameHelper.cpp */; };
 		194B80C319FB99D80021CE64 /* Service.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194B80C119FB99D80021CE64 /* Service.cpp */; };
 		194B80C619FB99E80021CE64 /* ServicesManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194B80C419FB99E80021CE64 /* ServicesManager.cpp */; };
 		194B80CB19FBA6750021CE64 /* FilesService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194B80C919FBA6750021CE64 /* FilesService.cpp */; };
@@ -377,6 +378,8 @@
 		19389AA51A3E0CA400E6C985 /* PowerUpAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerUpAction.h; sourceTree = "<group>"; };
 		19389AA71A3E0CD800E6C985 /* PowerUpFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PowerUpFactory.cpp; sourceTree = "<group>"; };
 		19389AA81A3E0CD800E6C985 /* PowerUpFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerUpFactory.h; sourceTree = "<group>"; };
+		194A08BB1A48A405007CEEE0 /* SpriteFrameHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpriteFrameHelper.cpp; sourceTree = "<group>"; };
+		194A08BC1A48A405007CEEE0 /* SpriteFrameHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteFrameHelper.h; sourceTree = "<group>"; };
 		194B80C119FB99D80021CE64 /* Service.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Service.cpp; sourceTree = "<group>"; };
 		194B80C219FB99D80021CE64 /* Service.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Service.h; sourceTree = "<group>"; };
 		194B80C419FB99E80021CE64 /* ServicesManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ServicesManager.cpp; sourceTree = "<group>"; };
@@ -1242,6 +1245,8 @@
 				19CA80CB1A0C004100C6BF2C /* Random.h */,
 				19CA80D01A0C0B5600C6BF2C /* Crypto.cpp */,
 				19CA80D11A0C0B5600C6BF2C /* Crypto.h */,
+				194A08BB1A48A405007CEEE0 /* SpriteFrameHelper.cpp */,
+				194A08BC1A48A405007CEEE0 /* SpriteFrameHelper.h */,
 			);
 			name = MelonGames;
 			path = ../../../Source/MelonGames;
@@ -3059,6 +3064,7 @@
 				19CCD5C51A02D30200986A8E /* CCActionInterval.cpp in Sources */,
 				19CCD5C01A02D30200986A8E /* CCActionCatmullRom.cpp in Sources */,
 				19CCD5031A02CE2B00986A8E /* UIScrollView.cpp in Sources */,
+				194A08BD1A48A405007CEEE0 /* SpriteFrameHelper.cpp in Sources */,
 				19CCD38F1A02CBDD00986A8E /* CCImage.cpp in Sources */,
 				19AB2BE819F9910A008D3B13 /* CCString.cpp in Sources */,
 				19AB270819F984F3008D3B13 /* CCVertex.cpp in Sources */,
