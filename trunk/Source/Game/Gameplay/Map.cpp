@@ -116,7 +116,19 @@ namespace MelonGames
 		
 		void Map::removeObjectWhenPossible(MapObject* o)
 		{
-			o->onWillDetachFromMap();
+            if (updating)
+            {
+                if (std::find(objectsToRemove.begin(), objectsToRemove.end(), o) == objectsToRemove.end())
+                {
+                    objectsToRemove.push_back(o);
+                }
+            }
+            else
+            {
+                o->onWillDetachFromMap();
+                objects.erase(std::find(objects.begin(), objects.end(), o));
+                delete o;
+            }
 		}
 		
 		void Map::update(float dt)
@@ -129,21 +141,10 @@ namespace MelonGames
             
             view->update(dt);
             
-			auto it = objects.begin();
-			while (it != objects.end())
-			{
-				MapObject* obj = *it;
-				if (obj->isValid())
-				{
-					obj->preupdate();
-                    ++it;
-				}
-				else
-				{
-                    MapObject* obj = *it;
-					it = objects.erase(it);
-                    delete obj;
-				}
+            for (auto object : objects)
+            {
+                assert(object->isValid());
+                object->preupdate();
 			}
 			
 			for (auto object : objects)
@@ -154,6 +155,12 @@ namespace MelonGames
             spawnObjectsManager->update(dt);
             
             updating = false;
+            
+            for (auto object : objectsToRemove)
+            {
+                removeObjectWhenPossible(object);
+            }
+            objectsToRemove.clear();
             
             for (auto object : objectsToAdd)
             {

@@ -66,6 +66,7 @@ namespace MelonGames
 			
             std::vector<MapObject*> objects;
             std::vector<MapObject*> objectsToAdd;
+            std::vector<MapObject*> objectsToRemove;
 			
 			cocos2d::Node* node;
             MapView* view;
