@@ -52,11 +52,6 @@ namespace MelonGames
 			cocos2d::Sprite* sprite;
             cocos2d::Color3B tint;
 		};
-		
-		namespace CocosUtil
-		{
-			cocos2d::SpriteFrame* spriteFrameOrDefault(const std::string& name);
-		}
 	}
 }
 
