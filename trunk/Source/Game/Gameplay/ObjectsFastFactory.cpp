@@ -76,6 +76,7 @@ namespace MelonGames
                 
                 auto collisionDetection = new CollisionDetectionComponent();
                 collisionDetection->setType(CollisionDetectionType::eEnemy);
+                collisionDetection->setCollisionMaskFileName("Melon.png.mask");
                 result->addComponent(collisionDetection);
                 
                 //Behaviour
