@@ -8,11 +8,13 @@
 
 #include "GamepadComponent.h"
 #include "PositionComponent.h"
+#include "ViewComponent.h"
 #include "WeaponComponent.h"
 #include "Gameplay/MapObject.h"
 #include "Gameplay/Player.h"
 #include "Gameplay/Map.h"
 #include "Gameplay/Gamepad.h"
+#include "2d/CCSprite.h"
 
 namespace MelonGames
 {
@@ -26,13 +28,30 @@ namespace MelonGames
         void GamepadComponent::update(float dt)
         {
             auto gamepad = object->getMap()->getPlayer()->getGamepad();
+            
+            auto moveObject = [](MapObject* object, float distance)
+            {
+                auto posComponent = object->get<PositionComponent>();
+                cocos2d::Vec3 positionCp = posComponent->getPosition();
+                
+                float viewComponentWidth = object->get<ViewComponent>()->getSprite()->getContentSize().width;
+                
+                float desiredX = positionCp.x + distance;
+                float maxX = (object->getMap()->getDefinition().screenSize.width - viewComponentWidth * 0.45f);
+                float minX = (viewComponentWidth * 0.45f);
+                
+                positionCp.x = std::max(minX, std::min(maxX, desiredX));
+                
+                posComponent->setPosition(positionCp);
+            };
+            
             if (gamepad->isTouchingLeft())
             {
-                object->get<PositionComponent>()->movePositionX(-speed*dt);
+                moveObject(object, -speed*dt);
             }
             else if (gamepad->isTouchingRight())
             {
-                object->get<PositionComponent>()->movePositionX(speed*dt);
+                moveObject(object, speed*dt);
             }
             
             if (gamepad->isFiring())
