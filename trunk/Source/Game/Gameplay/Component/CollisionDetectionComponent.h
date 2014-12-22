@@ -75,6 +75,7 @@ namespace MelonGames
             bool collisionTypes[(int)CollisionDetectionType::nTypes];
             
             std::vector<int> collisions;
+            std::vector<int> collisionsPrevFrame;
             
             Gallant::Signal1<CollisionDetectionComponent*> collisionSignal;
             

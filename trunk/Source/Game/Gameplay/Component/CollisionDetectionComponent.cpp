@@ -74,6 +74,7 @@ namespace MelonGames
         {
             Base::preupdate();
             
+            collisionsPrevFrame = collisions;
             collisions.clear();
             
 #ifdef DRAW_COLLISION_BOXES
@@ -111,7 +112,7 @@ namespace MelonGames
         
         bool CollisionDetectionComponent::hasCollision() const
         {
-            return (!collisions.empty());
+            return (!collisions.empty() || !collisionsPrevFrame.empty());
         }
         
         Gallant::Signal1<CollisionDetectionComponent*>& CollisionDetectionComponent::getCollisionSignal()
