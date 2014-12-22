@@ -56,7 +56,6 @@ namespace MelonGames
 		
 		bool Gamepad::isTouchingLeft() const
 		{
-            return false;
             if (leftTouch.touch && rightTouch.touch)
             {
                 return (leftTouch.timestamp <= rightTouch.timestamp);
@@ -67,7 +66,6 @@ namespace MelonGames
 		
 		bool Gamepad::isTouchingRight() const
 		{
-            return false;
             if (leftTouch.touch && rightTouch.touch)
             {
                 return (leftTouch.timestamp > rightTouch.timestamp);
@@ -78,7 +76,7 @@ namespace MelonGames
 		
 		bool Gamepad::isFiring() const
 		{
-			return ((leftTouch.touch != nullptr) || (rightTouch.touch != nullptr));
+			return ((leftTouch.touch != nullptr) && (rightTouch.touch != nullptr));
 		}
 		
 		void Gamepad::onTouchBegan(const cocos2d::Touch *touch)
