@@ -15,17 +15,17 @@ namespace MelonGames
 	{
 		Player::Player()
 		{
-			gamepadController = GamepadController::create();
+            gamepad = new Gamepad();
 		}
 		
 		Player::~Player()
 		{
-			delete gamepadController;
+			delete gamepad;
 		}
 		
-		GamepadController* Player::getGamepadController() const
+		Gamepad* Player::getGamepad() const
 		{
-			return gamepadController;
+			return gamepad;
 		}
 	}
 }

@@ -9,7 +9,6 @@
 #ifndef __KillyCraft__Gamepad__
 #define __KillyCraft__Gamepad__
 
-#include "libs/Signal/Signal.h"
 #include <set>
 #include <chrono>
 
@@ -24,14 +23,6 @@ namespace MelonGames
 {
 	namespace KillyCraft
 	{
-		enum GamepadAction
-		{
-			eNone = 0,
-			eMoveLeft = 1,
-			eMoveRight = 2,
-			eFire = 4
-		};
-		
 		class Gamepad
 		{
 		public:
@@ -61,25 +52,6 @@ namespace MelonGames
             
 			TouchInfo leftTouch;
 			TouchInfo rightTouch;
-		};
-		
-		//This class will schedule an update method and call the CommandDirector
-		class GamepadController
-		{
-		public:
-			static GamepadController* create();
-			virtual ~GamepadController();
-			
-			Gallant::Signal3<Gamepad*, int /*GamepadAction bitmask*/, float>& getGamepadActionSignal();
-			
-		private:
-			GamepadController();
-			
-		private:
-			Gamepad gamepad;
-			cocos2d::Timer* timer;
-			
-			Gallant::Signal3<Gamepad*, int, float> gamepadActionSignal;
 		};
 	}
 }

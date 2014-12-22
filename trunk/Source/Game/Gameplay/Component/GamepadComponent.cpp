@@ -18,66 +18,24 @@ namespace MelonGames
 {
     namespace KillyCraft
     {
-        void GamepadComponent::onObjectAttachedToMap()
-        {
-            Base::onObjectAttachedToMap();
-            
-            object->getMap()->getPlayer()->getGamepadController()->getGamepadActionSignal().Connect(this, &GamepadComponent::onGamepadAction);
-        }
-        
-        void GamepadComponent::onWillDetachFromObject()
-        {
-            object->getMap()->getPlayer()->getGamepadController()->getGamepadActionSignal().Disconnect(this, &GamepadComponent::onGamepadAction);
-            
-            Base::onWillDetachFromObject();
-        }
-        
-        GamepadMoveComponent::GamepadMoveComponent()
-        : speedLeft(100)
-        , speedRight(100)
+        GamepadComponent::GamepadComponent()
+        : speed(100)
         {
         }
         
-        void GamepadMoveComponent::setSpeed(float speed)
+        void GamepadComponent::update(float dt)
         {
-            speedLeft = speed;
-            speedRight = speed;
-        }
-        
-        void GamepadMoveComponent::setSpeed(float speedLeft, float speedRight)
-        {
-            this->speedLeft = speedLeft;
-            this->speedRight = speedRight;
-        }
-        
-        void GamepadMoveComponent::onGamepadAction(Gamepad* gamepad, int action, float dt)
-        {
-            PositionComponent* posComponent = object->get<PositionComponent>();
-            cocos2d::Vec3 position = posComponent->getPosition();
-            
-            float movement = 0.0f;
-            
-            if (action & GamepadAction::eMoveLeft)
+            auto gamepad = object->getMap()->getPlayer()->getGamepad();
+            if (gamepad->isTouchingLeft())
             {
-                movement = -speedLeft * dt;
+                object->get<PositionComponent>()->movePositionX(-speed*dt);
             }
-            else if (action & GamepadAction::eMoveRight)
+            else if (gamepad->isTouchingRight())
             {
-                movement = speedRight * dt;
+                object->get<PositionComponent>()->movePositionX(speed*dt);
             }
             
-            position.x += movement;
-            
-            //clamp it
-            float maxX = object->getMap()->getDefinition().screenSize.width;
-            position.x = std::max(0.0f, std::min(maxX, position.x));
-            
-            posComponent->setPosition(position);
-        }
-        
-        void GamepadShootComponent::onGamepadAction(Gamepad* gamepad, int action, float dt)
-        {
-            if (action & GamepadAction::eFire)
+            if (gamepad->isFiring())
             {
                 auto weaponComponent = object->get<WeaponComponent>();
                 assert(weaponComponent);
@@ -89,6 +47,13 @@ namespace MelonGames
                     }
                 }
             }
+            
+            Base::update(dt);
+        }
+        
+        void GamepadComponent::setSpeed(float speed)
+        {
+            this->speed = speed;
         }
     }
 }

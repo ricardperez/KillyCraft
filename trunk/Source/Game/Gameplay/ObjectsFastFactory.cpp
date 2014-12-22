@@ -48,12 +48,9 @@ namespace MelonGames
                 weaponComponent->setup(WeaponType::eMachinegun, 0.25f);
                 result->addComponent(weaponComponent);
 				
-				GamepadMoveComponent* gamepadMoveComponent = new GamepadMoveComponent();
-				gamepadMoveComponent->setSpeed(500.0f, 500.0f);
-				result->addComponent(gamepadMoveComponent);
-                
-                GamepadShootComponent* gamepadShootComponent = new GamepadShootComponent();
-                result->addComponent(gamepadShootComponent);
+				GamepadComponent* gamepadComponent = new GamepadComponent();
+				gamepadComponent->setSpeed(500.0f);
+				result->addComponent(gamepadComponent);
                 
                 auto collisionDetection = new CollisionDetectionComponent();
                 collisionDetection->setType(CollisionDetectionType::ePlayer);
@@ -107,11 +104,13 @@ namespace MelonGames
             {
                 MapObject* result = new MapObject();
                 
-                const auto& shooterPosition = owner->get<PositionComponent>()->getPosition();
-                const auto& weaponOffset = owner->get<WeaponComponent>()->getRelativePosition();
-                
                 auto posComponent = new PositionComponent();
-                posComponent->setPosition(shooterPosition + weaponOffset);
+                if (owner)
+                {
+                    const auto& shooterPosition = owner->get<PositionComponent>()->getPosition();
+                    const auto& weaponOffset = owner->get<WeaponComponent>()->getRelativePosition();
+                    posComponent->setPosition(shooterPosition + weaponOffset);
+                }
                 result->addComponent(posComponent);
                 
                 ViewComponent* viewComponent = new ViewComponent();
@@ -133,7 +132,7 @@ namespace MelonGames
                     behaviourComponent->addBehaviour(new MoveLinearBehaviour());
                     
                     DestroyBehaviour* destroyBehaviour = new DestroyBehaviour();
-                    destroyBehaviour->addCheckFunctionWithName(DestroyBehaviourFunctions::makeIsOutOfScreenUpFunction(), "OutOfScreen");
+                    destroyBehaviour->addCheckFunctionWithName(DestroyBehaviourFunctions::makeIsOutOfScreenUpFunction(), "bullet-OutOfScreen");
                     behaviourComponent->addBehaviour(destroyBehaviour);
                     
                     result->addComponent(behaviourComponent);

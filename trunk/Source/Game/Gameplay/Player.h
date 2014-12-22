@@ -13,7 +13,7 @@ namespace MelonGames
 {
 	namespace KillyCraft
 	{
-		class GamepadController;
+		class Gamepad;
 		
 		class Player
 		{
@@ -21,10 +21,10 @@ namespace MelonGames
 			Player();
 			virtual ~Player();
 			
-			GamepadController* getGamepadController() const;
+			Gamepad* getGamepad() const;
 			
 		private:
-			GamepadController* gamepadController;
+			Gamepad* gamepad;
 		};
 	}
 }

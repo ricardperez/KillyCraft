@@ -49,7 +49,9 @@ namespace MelonGames
 			
 		private:
 			Map* map;
+        public:
 			std::vector<Component*> components;
+        private:
 			bool valid;
 			
 			std::vector<Component*> componentsToAdd;

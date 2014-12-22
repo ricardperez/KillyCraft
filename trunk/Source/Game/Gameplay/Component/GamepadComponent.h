@@ -22,39 +22,14 @@ namespace MelonGames
         public:
             DECLARE_TYPE_WITH_BASE_TYPE(GamepadComponent, Component);
             
-            virtual void onObjectAttachedToMap() override;
-            virtual void onWillDetachFromObject() override;
+            GamepadComponent();
             
-        protected:
-            virtual void onGamepadAction(Gamepad* gamepad, int action, float dt) = 0;
-            
-        };
-        
-        class GamepadMoveComponent : public GamepadComponent
-        {
-        public:
-            DECLARE_TYPE_WITH_BASE_TYPE(GamepadMoveComponent, GamepadComponent);
-            
-            GamepadMoveComponent();
+            virtual void update(float dt) override;
             
             void setSpeed(float speed);
-            void setSpeed(float speedLeft, float speedRight);
-            
-        protected:
-            void onGamepadAction(Gamepad* gamepad, int action, float dt);
             
         private:
-            float speedLeft;
-            float speedRight;
-        };
-        
-        class GamepadShootComponent : public GamepadComponent
-        {
-        public:
-            DECLARE_TYPE_WITH_BASE_TYPE(GamepadShootComponent, GamepadComponent);
-            
-        protected:
-            void onGamepadAction(Gamepad* gamepad, int action, float dt);
+            float speed;
         };
     }
 }

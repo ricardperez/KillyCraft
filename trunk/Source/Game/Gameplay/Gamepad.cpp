@@ -10,7 +10,6 @@
 #include "2d/CCNode.h"
 #include "base/CCEventListenerTouch.h"
 #include "base/CCDirector.h"
-#include "base/CCScheduler.h"
 #include "base/CCEventDispatcher.h"
 #include <chrono>
 
@@ -57,6 +56,7 @@ namespace MelonGames
 		
 		bool Gamepad::isTouchingLeft() const
 		{
+            return false;
             if (leftTouch.touch && rightTouch.touch)
             {
                 return (leftTouch.timestamp <= rightTouch.timestamp);
@@ -67,6 +67,7 @@ namespace MelonGames
 		
 		bool Gamepad::isTouchingRight() const
 		{
+            return false;
             if (leftTouch.touch && rightTouch.touch)
             {
                 return (leftTouch.timestamp > rightTouch.timestamp);
@@ -77,7 +78,7 @@ namespace MelonGames
 		
 		bool Gamepad::isFiring() const
 		{
-			return ((leftTouch.touch != nullptr) && (rightTouch.touch != nullptr));
+			return ((leftTouch.touch != nullptr) || (rightTouch.touch != nullptr));
 		}
 		
 		void Gamepad::onTouchBegan(const cocos2d::Touch *touch)
@@ -112,61 +113,5 @@ namespace MelonGames
 				rightTouch.touch = nullptr;
 			}
 		}
-		
-#pragma mark - GamepadController
-		GamepadController* GamepadController::create()
-		{
-			return new GamepadController();
-		}
-		
-		GamepadController::GamepadController()
-		: timer(nullptr)
-		{
-			auto update = [this](float dt){
-				int action = GamepadAction::eNone;
-				
-				if (gamepad.isTouchingLeft())
-				{
-					action |= GamepadAction::eMoveLeft;
-				}
-                
-				if (gamepad.isTouchingRight())
-				{
-					action |= GamepadAction::eMoveRight;
-				}
-				
-                if (gamepad.isFiring())
-				{
-					action |= GamepadAction::eFire;
-				}
-                
-                if (action != GamepadAction::eNone)
-				{
-					gamepadActionSignal.Emit(&gamepad, action, dt);
-				}
-			};
-			
-			auto scheduler = cocos2d::Director::getInstance()->getScheduler();
-			auto timer = new cocos2d::TimerTargetCallback();
-			if (timer->initWithCallback(scheduler, update, nullptr, "", 0.0f, true, 0.0f))
-			{
-				scheduler->scheduleUpdate(timer, 0, false);
-				this->timer = timer;
-			}
-			else
-			{
-				delete timer;
-			}
-		}
-		
-		GamepadController::~GamepadController()
-		{
-			delete timer;
-		}
-		
-		Gallant::Signal3<Gamepad*, int, float>& GamepadController::getGamepadActionSignal()
-		{
-			return gamepadActionSignal;
-		}
-	}
+    }
 }
