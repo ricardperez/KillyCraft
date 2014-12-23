@@ -155,13 +155,13 @@ namespace MelonGames
             
             spawnObjectsManager->update(dt);
             
+            updating = false;
+            
             for (auto object : objectsToRemove)
             {
                 removeObjectWhenPossible(object);
             }
             objectsToRemove.clear();
-            
-            updating = false;
 		}
         
         float Map::getElapsedTime() const
