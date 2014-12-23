@@ -13,7 +13,7 @@
 
 namespace cocos2d
 {
-    class LabelAtlas;
+    class Label;
 }
 
 namespace MelonGames
@@ -21,6 +21,7 @@ namespace MelonGames
     namespace KillyCraft
     {
         class Map;
+        class Player;
         
         class GameHUDView : public cocos2d::Layer
         {
@@ -33,8 +34,13 @@ namespace MelonGames
             GameHUDView();
             bool init(const Map* map);
             
+            void onPlayerLivesChanged(Player* player);
+            
         private:
             const Map* map;
+            
+            cocos2d::Label* timeLabel;
+            cocos2d::Label* livesLabel;
         };
     }
 }
