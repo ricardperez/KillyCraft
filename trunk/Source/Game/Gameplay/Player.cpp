@@ -14,6 +14,7 @@ namespace MelonGames
 	namespace KillyCraft
 	{
 		Player::Player()
+        : lives(0)
 		{
             gamepad = new Gamepad();
 		}
@@ -27,5 +28,33 @@ namespace MelonGames
 		{
 			return gamepad;
 		}
+        
+        unsigned int Player::getLives() const
+        {
+            return lives;
+        }
+        
+        Gallant::Signal1<Player*>& Player::getLivesChangedSignal()
+        {
+            return livesChangedSignal;
+        }
+        
+        void Player::addLives(unsigned int n)
+        {
+            if (n > 0)
+            {
+                lives += n;
+                livesChangedSignal.Emit(this);
+            }
+        }
+        
+        void Player::removeLives(unsigned int n)
+        {
+            if (n > 0)
+            {
+                lives = std::max((unsigned int)0, lives-n);
+                livesChangedSignal.Emit(this);
+            }
+        }
 	}
 }

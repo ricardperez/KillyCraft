@@ -9,6 +9,8 @@
 #ifndef __KillyCraft__Player__
 #define __KillyCraft__Player__
 
+#include "Signal/Signal.h"
+
 namespace MelonGames
 {
 	namespace KillyCraft
@@ -22,9 +24,17 @@ namespace MelonGames
 			virtual ~Player();
 			
 			Gamepad* getGamepad() const;
+            
+            unsigned int getLives() const;
+            Gallant::Signal1<Player*>& getLivesChangedSignal();
+            
+            void addLives(unsigned int n);
+            void removeLives(unsigned int n);
 			
 		private:
 			Gamepad* gamepad;
+            unsigned int lives;
+            Gallant::Signal1<Player*> livesChangedSignal;
 		};
 	}
 }
