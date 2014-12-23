@@ -158,9 +158,9 @@ namespace MelonGames
                 object->postupdate();
             }
             
-            spawnObjectsManager->update(dt);
-            
             updating = false;
+            
+            spawnObjectsManager->update(dt);
             
             for (auto object : objectsToRemove)
             {
