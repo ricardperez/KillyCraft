@@ -1,18 +1,20 @@
 #!/bin/bash
 
 images="Bullet.png Frighty.png Gordy.png Killy.png Melon.png"
-directoriesPath="../Resources/"
-directories="NormalDPI/ HiDPI/"
+directoryPathNormalDPI="../Resources/NormalDPI/"
+directoryPathHiDPI="../Resources/HiDPI/"
+
 
 for image in $images
 do
-	for directory in $directories
-	do
-		imagePath="$directoriesPath$directory$image"
-		maskPath="$imagePath.mask"
+	imagePathNormalDPI="$directoryPathNormalDPI$image"
+	imagePathHiDPI="$directoryPathHiDPI$image"
 
-		printf "Building mask $directory$image.mask... "
-		python MaskBuilder/MaskBuilder.py --output $maskPath $imagePath
-		echo " ...done"
-	done
+	maskPathNormalDPI="$imagePathNormalDPI.mask"
+	maskPathHiDPI="$imagePathHiDPI.mask"
+
+	printf "Building mask $image.mask... "
+	python MaskBuilder/MaskBuilder.py --output $maskPathNormalDPI $imagePathNormalDPI
+	cp $maskPathNormalDPI $maskPathHiDPI
+	echo " ...done"
 done
