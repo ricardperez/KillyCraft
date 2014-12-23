@@ -46,8 +46,10 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../../Source/Game/Gameplay/View/MapGridView.cpp \
                    ../../../Source/Game/Gameplay/View/MapView.cpp \
                    ../../../Source/Game/Gameplay/View/StarsView.cpp \
+                   ../../../Source/Game/ScreenController.cpp \
                    ../../../Source/Game/Screens/GameScreen.cpp \
                    ../../../Source/Game/Screens/MenuScreen.cpp \
+                   ../../../Source/Game/Screens/Screen.cpp \
                    ../../../Source/libs/jsoncpp/src/lib_json/json_reader.cpp \
                    ../../../Source/libs/jsoncpp/src/lib_json/json_value.cpp \
                    ../../../Source/libs/jsoncpp/src/lib_json/json_writer.cpp \
