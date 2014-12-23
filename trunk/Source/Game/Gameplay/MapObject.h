@@ -32,6 +32,9 @@ namespace MelonGames
 			T* get() const;
             
             template <typename T>
+            bool has() const;
+            
+            template <typename T>
             T* getOrCreate();
 			
 			void onAttachedToMap(Map* map);
@@ -77,6 +80,20 @@ namespace MelonGames
             
 			return nullptr;
 		}
+        
+        template <typename T>
+        bool MapObject::has() const
+        {
+            for (auto c : components)
+            {
+                if (c->isA<T>())
+                {
+                    return true;
+                }
+            }
+            
+            return false;
+        }
         
         template <typename T>
         T* MapObject::getOrCreate()
