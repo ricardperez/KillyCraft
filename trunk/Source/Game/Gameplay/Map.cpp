@@ -67,9 +67,10 @@ namespace MelonGames
 		{
 			assert(node);
             
+            player = new Player();
+            player->addLives(3);
+            
             view = new MapView(this, node);
-			
-			player = new Player();
             
 #ifdef USE_GAMEPAD_SHOOT_BUTTON
             auto shootingButton = player->getGamepad()->createShootingButton();
