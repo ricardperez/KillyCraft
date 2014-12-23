@@ -16,6 +16,8 @@
 #include "Component/MovementStateComponents.h"
 #include "Component/CollisionDetectionComponent.h"
 #include "Component/PowerUpComponent.h"
+#include "Component/EnemyStateComponent.h"
+#include "Component/PlayerLivesControllerComponent.h"
 
 #include "Behaviour/MovementBehaviours.h"
 #include "Behaviour/DestroyBehaviour.h"
@@ -36,19 +38,19 @@ namespace MelonGames
 			{
 				MapObject* result = new MapObject();
 				
-				PositionComponent* posComponent = new PositionComponent();
+				auto posComponent = new PositionComponent();
 				posComponent->setPosition(cocos2d::Vec3(150.0f, 100.0f, 0.0f));
 				result->addComponent(posComponent);
 				
-				ViewComponent* viewComponent = new ViewComponent();
+				auto viewComponent = new ViewComponent();
 				viewComponent->setSpriteFrameName("Melon.png");
 				result->addComponent(viewComponent);
                 
-                WeaponComponent* weaponComponent = new WeaponComponent();
+                auto weaponComponent = new WeaponComponent();
                 weaponComponent->setup(WeaponType::eMachinegun, 0.25f);
                 result->addComponent(weaponComponent);
 				
-				GamepadComponent* gamepadComponent = new GamepadComponent();
+				auto gamepadComponent = new GamepadComponent();
 				gamepadComponent->setSpeed(500.0f);
 				result->addComponent(gamepadComponent);
                 
@@ -58,6 +60,9 @@ namespace MelonGames
                 collisionDetection->addCollisionType(CollisionDetectionType::ePowerUp);
                 collisionDetection->setCollisionMaskFileName("Melon.png.mask");
                 result->addComponent(collisionDetection);
+                
+                auto playerLivesController = new PlayerLivesControllerComponent();
+                result->addComponent(playerLivesController);
 				
 				return result;
 			}
@@ -70,7 +75,7 @@ namespace MelonGames
                 posComponent->setPosition(cocos2d::Vec3(380.0f, 800.0f, 0.0f));
                 result->addComponent(posComponent);
                 
-                ViewComponent* viewComponent = new ViewComponent();
+                auto viewComponent = new ViewComponent();
                 viewComponent->setSpriteFrameName("Killy.png");
                 result->addComponent(viewComponent);
                 
@@ -79,21 +84,24 @@ namespace MelonGames
                 collisionDetection->setCollisionMaskFileName("Melon.png.mask");
                 result->addComponent(collisionDetection);
                 
+                auto enemyState = new EnemyStateComponent();
+                result->addComponent(enemyState);
+                
                 //Behaviour
                 {
-                    BehaviourComponent* behaviourComponent = new BehaviourComponent();
+                    auto behaviourComponent = new BehaviourComponent();
                     auto linearMove = new MoveLinearBehaviour();
                     behaviourComponent->addBehaviour(linearMove);
                     
                     behaviourComponent->addBehaviour(new MoveCircularBehaviour());
                     
-                    DestroyBehaviour* destroyBehaviour = new DestroyBehaviour();
+                    auto destroyBehaviour = new DestroyBehaviour();
                     destroyBehaviour->addCheckFunctionWithName(DestroyBehaviourFunctions::makeIsOutOfScreenDownFunction(), "OutOfScreen");
                     behaviourComponent->addBehaviour(destroyBehaviour);
                     
                     result->addComponent(behaviourComponent);
                     
-                    MoveCircularStateComponent* circularState = new MoveCircularStateComponent();
+                    auto circularState = new MoveCircularStateComponent();
                     circularState->setRadiansPerSecond(CC_DEGREES_TO_RADIANS(360.0f));
                     result->addComponent(circularState);
                 }
@@ -114,7 +122,7 @@ namespace MelonGames
                 }
                 result->addComponent(posComponent);
                 
-                ViewComponent* viewComponent = new ViewComponent();
+                auto viewComponent = new ViewComponent();
                 viewComponent->setSpriteFrameName("Bullet.png");
                 result->addComponent(viewComponent);
                 
@@ -129,10 +137,10 @@ namespace MelonGames
                 
                 //Behaviour
                 {
-                    BehaviourComponent* behaviourComponent = new BehaviourComponent();
+                    auto behaviourComponent = new BehaviourComponent();
                     behaviourComponent->addBehaviour(new MoveLinearBehaviour());
                     
-                    DestroyBehaviour* destroyBehaviour = new DestroyBehaviour();
+                    auto destroyBehaviour = new DestroyBehaviour();
                     destroyBehaviour->addCheckFunctionWithName(DestroyBehaviourFunctions::makeIsOutOfScreenUpFunction(), "bullet-OutOfScreen");
                     behaviourComponent->addBehaviour(destroyBehaviour);
                     
