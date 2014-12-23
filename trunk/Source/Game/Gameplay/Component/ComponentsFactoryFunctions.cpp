@@ -15,6 +15,7 @@
 #include "Gameplay/Component/MovementStateComponents.h"
 #include "Gameplay/Component/CollisionDetectionComponent.h"
 #include "Gameplay/Component/PowerUpComponent.h"
+#include "Gameplay/Component/EnemyStateComponent.h"
 
 #include "base/ccMacros.h"
 #include "base/ccTypes.h"
@@ -149,6 +150,16 @@ namespace MelonGames
                 };
             }
             
+            ComponentFactoryFunction createEnemyStateComponent()
+            {
+                return [](const Json::Value& json) -> Component*
+                {
+                    auto result = new EnemyStateComponent();
+                    result->setLivesCost(json["livesCost"].asUInt());
+                    return result;
+                };
+            }
+            
             void registerFunctions(std::map<std::string, ComponentFactoryFunction>& functions)
             {
                 functions["Position"] = createPositionComponent();
@@ -158,6 +169,7 @@ namespace MelonGames
                 functions["MoveLinear"] = createMoveLinearComponent();
                 functions["CollisionDetection"] = createCollisionDetectionComponent();
                 functions["PowerUp"] = createPowerUpComponent();
+                functions["EnemyState"] = createEnemyStateComponent();
             }
         }
     }
