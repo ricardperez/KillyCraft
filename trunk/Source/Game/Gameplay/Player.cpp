@@ -52,7 +52,14 @@ namespace MelonGames
         {
             if (n > 0)
             {
-                lives = std::max((unsigned int)0, lives-n);
+                if (n >= lives)
+                {
+                    lives = 0;
+                }
+                else
+                {
+                    lives -= n;
+                }
                 livesChangedSignal.Emit(this);
             }
         }
