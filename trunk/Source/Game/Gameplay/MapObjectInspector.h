@@ -18,7 +18,7 @@ namespace MelonGames
         namespace MapObjectInspector
         {
             bool isEnemy(const MapObject* object);
-            
+            bool isPlayer(const MapObject* object);
         }
     }
 }

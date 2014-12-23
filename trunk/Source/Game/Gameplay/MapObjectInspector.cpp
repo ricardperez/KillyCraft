@@ -9,6 +9,7 @@
 #include "MapObjectInspector.h"
 #include "Gameplay/MapObject.h"
 #include "Gameplay/Component/EnemyStateComponent.h"
+#include "Gameplay/Component/PlayerLivesControllerComponent.h"
 
 namespace MelonGames
 {
@@ -19,6 +20,11 @@ namespace MelonGames
             bool isEnemy(const MapObject* object)
             {
                 return object->has<EnemyStateComponent>();
+            }
+            
+            bool isPlayer(const MapObject* object)
+            {
+                return object->has<PlayerLivesControllerComponent>();
             }
         }
     }
