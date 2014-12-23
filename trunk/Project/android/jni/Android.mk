@@ -22,8 +22,10 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../../Source/Game/Gameplay/Component/CollisionDetectionComponent.cpp \
                    ../../../Source/Game/Gameplay/Component/Component.cpp \
                    ../../../Source/Game/Gameplay/Component/ComponentsFactoryFunctions.cpp \
+                   ../../../Source/Game/Gameplay/Component/EnemyStateComponent.cpp \
                    ../../../Source/Game/Gameplay/Component/GamepadComponent.cpp \
                    ../../../Source/Game/Gameplay/Component/MovementStateComponents.cpp \
+                   ../../../Source/Game/Gameplay/Component/PlayerLivesControllerComponent.cpp \
                    ../../../Source/Game/Gameplay/Component/PositionComponent.cpp \
                    ../../../Source/Game/Gameplay/Component/PowerUpComponent.cpp \
                    ../../../Source/Game/Gameplay/Component/TextureMask.cpp \
@@ -34,6 +36,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../../Source/Game/Gameplay/Map.cpp \
                    ../../../Source/Game/Gameplay/MapObject.cpp \
                    ../../../Source/Game/Gameplay/MapObjectsFactory.cpp \
+                   ../../../Source/Game/Gameplay/MapObjectInspector.cpp \
                    ../../../Source/Game/Gameplay/ObjectsFastFactory.cpp \
                    ../../../Source/Game/Gameplay/Player.cpp \
                    ../../../Source/Game/Gameplay/PowerUp/PowerUpAction.cpp \
