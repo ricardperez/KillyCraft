@@ -58,7 +58,7 @@ namespace MelonGames
             
             bool hasCollision() const;
             
-            Gallant::Signal1<CollisionDetectionComponent*>& getCollisionSignal();
+            Gallant::Signal2<CollisionDetectionComponent*,CollisionDetectionComponent*>& getCollisionSignal();
             
         protected:
             bool ensureHasMask();
@@ -78,7 +78,7 @@ namespace MelonGames
             std::vector<int> collisions;
             std::vector<int> collisionsPrevFrame;
             
-            Gallant::Signal1<CollisionDetectionComponent*> collisionSignal;
+            Gallant::Signal2<CollisionDetectionComponent*,CollisionDetectionComponent*> collisionSignal;
             
 #ifdef DRAW_COLLISION_BOXES
             cocos2d::DrawNode* maskDrawer = nullptr;

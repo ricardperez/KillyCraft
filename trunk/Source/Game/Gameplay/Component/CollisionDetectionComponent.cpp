@@ -104,8 +104,8 @@ namespace MelonGames
                                 collisions.push_back(oid);
                                 other->collisions.push_back(this->object->getIdentifier());
                                 
-                                collisionSignal.Emit(other);
-                                other->collisionSignal.Emit(this);
+                                collisionSignal.Emit(this, other);
+                                other->collisionSignal.Emit(other, this);
                             }
                         }
                     }
@@ -118,7 +118,7 @@ namespace MelonGames
             return (!collisions.empty() || !collisionsPrevFrame.empty());
         }
         
-        Gallant::Signal1<CollisionDetectionComponent*>& CollisionDetectionComponent::getCollisionSignal()
+        Gallant::Signal2<CollisionDetectionComponent*, CollisionDetectionComponent*>& CollisionDetectionComponent::getCollisionSignal()
         {
             return collisionSignal;
         }
