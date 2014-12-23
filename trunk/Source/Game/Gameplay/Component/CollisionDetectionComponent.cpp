@@ -42,9 +42,9 @@ namespace MelonGames
         void CollisionDetectionComponent::onWillDetachFromObject()
         {
 #ifdef DRAW_COLLISION_BOXES
-            if (boxDrawer)
+            if (maskDrawer)
             {
-                boxDrawer->removeFromParent();
+                maskDrawer->removeFromParent();
             }
 #endif
             Base::onWillDetachFromObject();
@@ -304,68 +304,58 @@ namespace MelonGames
 #ifdef DRAW_COLLISION_BOXES
         void CollisionDetectionComponent::drawBox()
         {
-            unsigned int currFrameIndex = cocos2d::Director::getInstance()->getTotalFrames();
-            if (currFrameIndex != boxDrawerFrame)
+            if (maskDrawer == nullptr)
             {
-                boxDrawerFrame = currFrameIndex;
+                maskDrawer = cocos2d::DrawNode::create();
+                object->getMap()->getView()->getNode()->addChild(maskDrawer);
+            }
+            maskDrawer->clear();
+            
+            cocos2d::Color4F color;
+            switch (type)
+            {
+                case CollisionDetectionType::ePlayer:
+                    color = cocos2d::Color4F::RED;
+                    break;
+                case CollisionDetectionType::eEnemy:
+                    color = cocos2d::Color4F::BLUE;
+                    break;
+                case CollisionDetectionType::eBullet:
+                    color = cocos2d::Color4F::ORANGE;
+                    break;
+                case CollisionDetectionType::ePowerUp:
+                    color = cocos2d::Color4F::GREEN;
+                    break;
+                default:
+                    color = cocos2d::Color4F::MAGENTA;
+            }
+            
+            color.a = 0.5f;
+            
+            if (maskBuilt && textureMask->isPixelPerfect())
+            {
+                cocos2d::Vec2 position = object->get<ViewComponent>()->getSprite()->getPosition();
+                cocos2d::Vec2 origin = (position - cocos2d::Vec2(textureMask->getWidth()*0.5f, textureMask->getHeight()*0.5f));
                 
-                cocos2d::Color4F color;
-                switch (type)
-                {
-                    case CollisionDetectionType::ePlayer:
-                        color = cocos2d::Color4F::RED;
-                        break;
-                    case CollisionDetectionType::eEnemy:
-                        color = cocos2d::Color4F::BLUE;
-                        break;
-                    case CollisionDetectionType::eBullet:
-                        color = cocos2d::Color4F::ORANGE;
-                        break;
-                    case CollisionDetectionType::ePowerUp:
-                        color = cocos2d::Color4F::GREEN;
-                        break;
-                    default:
-                        color = cocos2d::Color4F::MAGENTA;
-                }
+                int pointSize = 5;
                 
-                if (maskBuilt && textureMask->isPixelPerfect())
+                for (int x=0; x<textureMask->getWidth(); x+=pointSize)
                 {
-                    cocos2d::Vec2 position = object->get<ViewComponent>()->getSprite()->getPosition();
-                    cocos2d::Vec2 origin = (position - cocos2d::Vec2(textureMask->getWidth()*0.5f, textureMask->getHeight()*0.5f));
-                    
-                    if (boxDrawer == nullptr)
+                    for (int y=0; y<textureMask->getHeight(); y+=pointSize)
                     {
-                        boxDrawer = cocos2d::DrawNode::create();
-                        object->getMap()->getView()->getNode()->addChild(boxDrawer);
-                    }
-                    
-                    boxDrawer->clear();
-                    
-                    int pointSize = 1;
-                    
-                    for (int x=0; x<textureMask->getWidth(); x+=pointSize)
-                    {
-                        for (int y=0; y<textureMask->getHeight(); y+=pointSize)
+                        if (textureMask->isOpaqueAt(x, y))
                         {
-                            if (textureMask->isOpaqueAt(x, y))
-                            {
-                                boxDrawer->drawCircle(origin + cocos2d::Vec2(x,y), 1.0f, M_PI*2.0f, 3, false, 1.0f, 1.0f, color);
-                            }
+                            auto bl = origin + cocos2d::Vec2(x,y);
+                            auto tr = bl + cocos2d::Vec2(pointSize, pointSize);
+                            maskDrawer->drawSolidRect(bl, tr, color);
                         }
                     }
                 }
-                else
-                {
-                    if (!boxDrawer)
-                    {
-                        boxDrawer = cocos2d::DrawNode::create();
-                        object->getMap()->getView()->getNode()->addChild(boxDrawer);
-                    }
-                    
-                    boxDrawer->clear();
-                    auto rect = getCurrentRect();
-                    boxDrawer->drawRect(rect.origin, rect.origin + cocos2d::Vec2(rect.size.width, rect.size.height), color);
-                }
+            }
+            else
+            {
+                auto rect = getCurrentRect();
+                maskDrawer->drawRect(rect.origin, rect.origin + cocos2d::Vec2(rect.size.width, rect.size.height), color);
             }
         }
 #endif

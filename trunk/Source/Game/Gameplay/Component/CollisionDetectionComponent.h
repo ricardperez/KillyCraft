@@ -81,8 +81,7 @@ namespace MelonGames
             Gallant::Signal1<CollisionDetectionComponent*> collisionSignal;
             
 #ifdef DRAW_COLLISION_BOXES
-            cocos2d::DrawNode* boxDrawer = nullptr;
-            unsigned int boxDrawerFrame = 0;
+            cocos2d::DrawNode* maskDrawer = nullptr;
             void drawBox();
 #endif
         };
