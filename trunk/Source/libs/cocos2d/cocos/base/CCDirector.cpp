@@ -1191,27 +1191,27 @@ void Director::createStatsLabel()
     _FPSLabel->retain();
     _FPSLabel->setIgnoreContentScaleFactor(true);
     _FPSLabel->initWithString(fpsString, texture, 12, 32 , '.');
-    _FPSLabel->setScale(scaleFactor);
+//    _FPSLabel->setScale(scaleFactor);
 
     _drawnBatchesLabel = LabelAtlas::create();
     _drawnBatchesLabel->retain();
     _drawnBatchesLabel->setIgnoreContentScaleFactor(true);
     _drawnBatchesLabel->initWithString(drawBatchString, texture, 12, 32, '.');
-    _drawnBatchesLabel->setScale(scaleFactor);
+//    _drawnBatchesLabel->setScale(scaleFactor);
 
     _drawnVerticesLabel = LabelAtlas::create();
     _drawnVerticesLabel->retain();
     _drawnVerticesLabel->setIgnoreContentScaleFactor(true);
     _drawnVerticesLabel->initWithString(drawVerticesString, texture, 12, 32, '.');
-    _drawnVerticesLabel->setScale(scaleFactor);
+//    _drawnVerticesLabel->setScale(scaleFactor);
 
 
     Texture2D::setDefaultAlphaPixelFormat(currentFormat);
 
     const int height_spacing = 22 / CC_CONTENT_SCALE_FACTOR();
-    _drawnVerticesLabel->setPosition(Vec2(0, height_spacing*2) + CC_DIRECTOR_STATS_POSITION);
-    _drawnBatchesLabel->setPosition(Vec2(0, height_spacing*1) + CC_DIRECTOR_STATS_POSITION);
-    _FPSLabel->setPosition(Vec2(0, height_spacing*0)+CC_DIRECTOR_STATS_POSITION);
+    _drawnVerticesLabel->setPosition(Vec2(0, height_spacing*2/scaleFactor) + CC_DIRECTOR_STATS_POSITION);
+    _drawnBatchesLabel->setPosition(Vec2(0, height_spacing*1/scaleFactor) + CC_DIRECTOR_STATS_POSITION);
+    _FPSLabel->setPosition(Vec2(0, height_spacing*0/scaleFactor)+CC_DIRECTOR_STATS_POSITION);
 }
 
 void Director::setContentScaleFactor(float scaleFactor)
