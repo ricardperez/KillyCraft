@@ -45,7 +45,7 @@ namespace MelonGames
             powerUps.push_back(powerUp);
         }
         
-        void PowerUpComponent::onCollisionDetection(CollisionDetectionComponent* otherCollisionComponent)
+        void PowerUpComponent::onCollisionDetection(CollisionDetectionComponent* playerCollisionComponent, CollisionDetectionComponent* otherCollisionComponent)
         {
             assert(!applied && "Can apply only once");
             if (!applied)

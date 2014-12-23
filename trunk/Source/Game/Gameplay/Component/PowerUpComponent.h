@@ -32,7 +32,7 @@ namespace MelonGames
             void addPowerUpAction(const PowerUpAction* powerUp);
             
         private:
-            void onCollisionDetection(CollisionDetectionComponent* otherCollisionComponent);
+            void onCollisionDetection(CollisionDetectionComponent* playerCollisionComponent, CollisionDetectionComponent* otherCollisionComponent);
             
         private:
             std::vector<const PowerUpAction*> powerUps;
