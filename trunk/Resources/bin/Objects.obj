@@ -38,6 +38,10 @@
 					"type":"CollisionDetection",
 					"mask":"",
 					"t":1
+				},
+				{
+					"type":"EnemyState",
+					"livesCost":1
 				}
 			]
 		},
@@ -78,6 +82,10 @@
 					"type":"CollisionDetection",
 					"mask":"Gordy.png.mask",
 					"t":1
+				},
+				{
+					"type":"EnemyState",
+					"livesCost":1
 				}
 			]
 		},
@@ -118,6 +126,10 @@
 					"type":"CollisionDetection",
 					"mask": "Killy.png.mask",
 					"t":1
+				},
+				{
+					"type":"EnemyState",
+					"livesCost":1
 				}
 			]
 		},
@@ -158,6 +170,10 @@
 					"type":"CollisionDetection",
 					"mask": "Frighty.png.mask",
 					"t":1
+				},
+				{
+					"type":"EnemyState",
+					"livesCost":1
 				}
 			]
 		}
