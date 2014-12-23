@@ -103,16 +103,9 @@ namespace MelonGames
 		
 		void Map::addObject(MapObject* o)
 		{
-            if (updating)
-            {
-                objectsToAdd.push_back(o);
-            }
-            else
-            {
-                o->setIdentifier(nextIdentifier++);
-                objects.push_back(o);
-                o->onAttachedToMap(this);
-            }
+            o->setIdentifier(nextIdentifier++);
+            objects.push_back(o);
+            o->onAttachedToMap(this);
 		}
 		
 		void Map::removeObjectWhenPossible(MapObject* o)
@@ -142,23 +135,23 @@ namespace MelonGames
             
             view->update(dt);
             
-            for (auto object : objects)
+            auto objectsCp = objects; //because we can be adding elements to the original vector while updating them...
+            
+            for (auto object : objectsCp)
             {
                 assert(object->isValid());
                 object->preupdate();
 			}
 			
-			for (auto object : objects)
+			for (auto object : objectsCp)
 			{
 				object->update(dt);
 			}
             
-            for (auto object : objects)
+            for (auto object : objectsCp)
             {
                 object->postupdate();
             }
-            
-            updating = false;
             
             spawnObjectsManager->update(dt);
             
@@ -168,11 +161,7 @@ namespace MelonGames
             }
             objectsToRemove.clear();
             
-            for (auto object : objectsToAdd)
-            {
-                addObject(object);
-            }
-            objectsToAdd.clear();
+            updating = false;
 		}
         
         float Map::getElapsedTime() const
