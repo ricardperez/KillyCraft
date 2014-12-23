@@ -9,7 +9,7 @@
 #ifndef __KillyCraft__GameScreen__
 #define __KillyCraft__GameScreen__
 
-#include "2d/CCLayer.h"
+#include "Screen.h"
 
 namespace MelonGames
 {
@@ -17,19 +17,23 @@ namespace MelonGames
 	{
 		class Map;
 		
-		class GameScreen : public cocos2d::LayerColor
+		class GameScreen : public Screen
 		{
 		public:
+            DECLARE_TYPE_WITH_BASE_TYPE(GameScreen, Screen);
+            
 			static GameScreen* create();
 			virtual ~GameScreen();
 			
 		private:
 			GameScreen();
-			bool init() override;
+			virtual bool init() override;
 			void update(float dt);
 			
 		private:
 			Map* map;
+            
+            bool dead;
 		};
 	}
 }

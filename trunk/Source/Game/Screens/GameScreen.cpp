@@ -9,6 +9,9 @@
 #include "GameScreen.h"
 #include "Gameplay/Map.h"
 #include "Gameplay/MapObject.h"
+#include "Gameplay/Player.h"
+#include "ScreenController.h"
+#include "Screens/MenuScreen.h"
 #include "base/CCDirector.h"
 
 namespace MelonGames
@@ -30,6 +33,7 @@ namespace MelonGames
 		
 		GameScreen::GameScreen()
 		: map(nullptr)
+        , dead(false)
 		{
 		}
 		
@@ -40,9 +44,8 @@ namespace MelonGames
 		
 		bool GameScreen::init()
 		{
-            if (cocos2d::LayerColor::initWithColor(cocos2d::Color4B::WHITE))
+            if (Base::init())
 			{
-                
                 const auto& winSize = cocos2d::Director::getInstance()->getWinSize();
                 
                 float forcedWidth = 768.0f;
@@ -61,8 +64,8 @@ namespace MelonGames
 				
 				map->setNode(mapNode);
 				map->initialize();
-				
-				scheduleUpdate();
+                
+                scheduleUpdate();
 				
 				return true;
 			}
@@ -72,7 +75,18 @@ namespace MelonGames
 		
 		void GameScreen::update(float dt)
 		{
+            if (dead)
+            {
+                return;
+            }
+            
 			map->update(dt);
+            
+            if (map->getPlayer()->getLives() == 0)
+            {
+                dead = true;
+                ScreenController::getInstance()->replaceScreen(MenuScreen::create());
+            }
 		}
 	}
 }

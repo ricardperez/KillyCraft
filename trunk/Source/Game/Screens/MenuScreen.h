@@ -9,15 +9,21 @@
 #ifndef __KillyCraft__MenuScreen__
 #define __KillyCraft__MenuScreen__
 
-#include "2d/CCLayer.h"
+#include "Screen.h"
 
 namespace MelonGames
 {
 	namespace KillyCraft
 	{
-		class MenuScreen : public cocos2d::Layer
+		class MenuScreen : public Screen
 		{
-			
+        public:
+            DECLARE_TYPE_WITH_BASE_TYPE(MenuScreen, Screen);
+            
+            static MenuScreen* create();
+            
+        private:
+            virtual bool init() override;
 		};
 	}
 }

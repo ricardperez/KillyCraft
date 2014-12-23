@@ -1,5 +1,6 @@
 #include "AppDelegate.h"
-#include "Screens/GameScreen.h"
+#include "ScreenController.h"
+#include "Screens/MenuScreen.h"
 #include "MelonGames/Services/ServicesManager.h"
 #include "MelonGames/Services/FilesService.h"
 
@@ -46,13 +47,7 @@ namespace MelonGames
             
 			createServices();
 			
-			// create a scene. it's an autorelease object
-			auto scene = Scene::create();
-            auto gameScreen = GameScreen::create();
-			scene->addChild(gameScreen);
-			
-			// run
-			director->runWithScene(scene);
+            ScreenController::getInstance()->replaceScreen(MenuScreen::create());
 			
 			return true;
 		}
