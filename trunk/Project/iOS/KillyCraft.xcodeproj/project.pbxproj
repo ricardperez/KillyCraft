@@ -106,6 +106,9 @@
 		19AB707D19FAD5B70041EAB6 /* HiDPI in Resources */ = {isa = PBXBuildFile; fileRef = 19AB707A19FAD5B70041EAB6 /* HiDPI */; };
 		19AB707E19FAD5B70041EAB6 /* NormalDPI in Resources */ = {isa = PBXBuildFile; fileRef = 19AB707B19FAD5B70041EAB6 /* NormalDPI */; };
 		19AB708619FADD2B0041EAB6 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AB708419FADD2B0041EAB6 /* Player.cpp */; };
+		19ABEE1E1A49E661000056F1 /* PlayerLivesControllerComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19ABEE1C1A49E661000056F1 /* PlayerLivesControllerComponent.cpp */; };
+		19ABEE211A49E837000056F1 /* MapObjectInspector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19ABEE1F1A49E837000056F1 /* MapObjectInspector.cpp */; };
+		19ABEE241A49E8F9000056F1 /* EnemyStateComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19ABEE221A49E8F9000056F1 /* EnemyStateComponent.cpp */; };
 		19AD18EC1A0E0CDC00200802 /* json_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AD18D71A0E0CDC00200802 /* json_reader.cpp */; };
 		19AD18ED1A0E0CDC00200802 /* json_value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AD18D91A0E0CDC00200802 /* json_value.cpp */; };
 		19AD18EF1A0E0CDC00200802 /* json_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AD18DB1A0E0CDC00200802 /* json_writer.cpp */; };
@@ -660,6 +663,12 @@
 		19AB707B19FAD5B70041EAB6 /* NormalDPI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = NormalDPI; path = ../../../Resources/NormalDPI; sourceTree = "<group>"; };
 		19AB708419FADD2B0041EAB6 /* Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
 		19AB708519FADD2B0041EAB6 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		19ABEE1C1A49E661000056F1 /* PlayerLivesControllerComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PlayerLivesControllerComponent.cpp; sourceTree = "<group>"; };
+		19ABEE1D1A49E661000056F1 /* PlayerLivesControllerComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerLivesControllerComponent.h; sourceTree = "<group>"; };
+		19ABEE1F1A49E837000056F1 /* MapObjectInspector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MapObjectInspector.cpp; sourceTree = "<group>"; };
+		19ABEE201A49E837000056F1 /* MapObjectInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapObjectInspector.h; sourceTree = "<group>"; };
+		19ABEE221A49E8F9000056F1 /* EnemyStateComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EnemyStateComponent.cpp; sourceTree = "<group>"; };
+		19ABEE231A49E8F9000056F1 /* EnemyStateComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnemyStateComponent.h; sourceTree = "<group>"; };
 		19AD18C21A0E0CDC00200802 /* assertions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = assertions.h; sourceTree = "<group>"; };
 		19AD18C31A0E0CDC00200802 /* autolink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = autolink.h; sourceTree = "<group>"; };
 		19AD18C41A0E0CDC00200802 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
@@ -2486,6 +2495,8 @@
 				19CA80C81A0BFD9500C6BF2C /* SpawnObjectsManager.h */,
 				19CA80CD1A0C042E00C6BF2C /* MapObjectsFactory.cpp */,
 				19CA80CE1A0C042E00C6BF2C /* MapObjectsFactory.h */,
+				19ABEE1F1A49E837000056F1 /* MapObjectInspector.cpp */,
+				19ABEE201A49E837000056F1 /* MapObjectInspector.h */,
 			);
 			path = Gameplay;
 			sourceTree = "<group>";
@@ -2516,6 +2527,10 @@
 				1998E2D41A2D212E00FED614 /* TextureMask.h */,
 				19389AA01A3E0B5500E6C985 /* PowerUpComponent.cpp */,
 				19389AA11A3E0B5500E6C985 /* PowerUpComponent.h */,
+				19ABEE1C1A49E661000056F1 /* PlayerLivesControllerComponent.cpp */,
+				19ABEE1D1A49E661000056F1 /* PlayerLivesControllerComponent.h */,
+				19ABEE221A49E8F9000056F1 /* EnemyStateComponent.cpp */,
+				19ABEE231A49E8F9000056F1 /* EnemyStateComponent.h */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -3103,6 +3118,7 @@
 				19CCD4991A02CDE800986A8E /* pvr.cpp in Sources */,
 				19AB2A8919F98DA8008D3B13 /* ConvertUTFWrapper.cpp in Sources */,
 				19CCD5FB1A02D30200986A8E /* CCTMXLayer.cpp in Sources */,
+				19ABEE241A49E8F9000056F1 /* EnemyStateComponent.cpp in Sources */,
 				19CCD3A81A02CBE600986A8E /* CCCommon-ios.mm in Sources */,
 				19CCD66D1A02D41000986A8E /* CCPrimitive.cpp in Sources */,
 				19CCD5C41A02D30200986A8E /* CCActionInstant.cpp in Sources */,
@@ -3133,6 +3149,7 @@
 				19AD18ED1A0E0CDC00200802 /* json_value.cpp in Sources */,
 				19AB270A19F984F3008D3B13 /* Mat4.cpp in Sources */,
 				19CCD3FA1A02CCEA00986A8E /* CCTableView.cpp in Sources */,
+				19ABEE1E1A49E661000056F1 /* PlayerLivesControllerComponent.cpp in Sources */,
 				19CCD3FB1A02CCEA00986A8E /* CCTableViewCell.cpp in Sources */,
 				19CCD4EC1A02CE2B00986A8E /* UIButton.cpp in Sources */,
 				19CCD4871A02CDE800986A8E /* ccFPSImages.c in Sources */,
@@ -3140,6 +3157,7 @@
 				19CCD5E11A02D30200986A8E /* CCLabelAtlas.cpp in Sources */,
 				19CCD4FA1A02CE2B00986A8E /* UILayoutComponent.cpp in Sources */,
 				19CCD4FC1A02CE2B00986A8E /* UILayoutParameter.cpp in Sources */,
+				19ABEE211A49E837000056F1 /* MapObjectInspector.cpp in Sources */,
 				19AB2C2B19F99913008D3B13 /* CCPhysicsBodyInfo_chipmunk.cpp in Sources */,
 				19CCD5D31A02D30200986A8E /* CCDrawingPrimitives.cpp in Sources */,
 				19CCD4921A02CDE800986A8E /* CCUserDefault-apple.mm in Sources */,
