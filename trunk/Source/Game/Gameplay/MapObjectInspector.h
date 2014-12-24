@@ -19,6 +19,8 @@ namespace MelonGames
         {
             bool isEnemy(const MapObject* object);
             bool isPlayer(const MapObject* object);
+            bool isProjectile(const MapObject* object);
+            bool isPowerUp(const MapObject* object);
         }
     }
 }

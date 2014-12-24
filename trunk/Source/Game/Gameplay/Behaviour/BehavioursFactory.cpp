@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 MelonGames. All rights reserved.
 //
 
-#include "Gameplay/Behaviour/Behaviour.h"
+#include "BehavioursFactory.h"
 #include "Gameplay/Behaviour/MovementBehaviours.h"
 #include "Gameplay/Behaviour/DestroyBehaviour.h"
 #include "Gameplay/Behaviour/DestroyBehaviourFunctions.h"

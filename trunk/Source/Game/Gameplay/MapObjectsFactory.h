@@ -11,7 +11,6 @@
 
 #include <string>
 #include <map>
-#include <vector>
 #include "json/value.h"
 
 namespace MelonGames
@@ -19,9 +18,6 @@ namespace MelonGames
     namespace KillyCraft
     {
         class MapObject;
-        class Component;
-        
-        typedef std::function<Component*(const Json::Value& json)> ComponentFactoryFunction;
         
         struct ObjectTemplate
         {
@@ -44,8 +40,6 @@ namespace MelonGames
             
         private:
             std::map<unsigned int, ObjectTemplate> templates;
-            
-            std::map<std::string, ComponentFactoryFunction> componentFactoryFunctions;
         };
     }
 }

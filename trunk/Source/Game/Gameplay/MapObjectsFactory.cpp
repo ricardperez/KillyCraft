@@ -9,6 +9,7 @@
 #include "MapObjectsFactory.h"
 #include "MelonGames/Crypto.h"
 #include "MapObject.h"
+#include "Component/ComponentsFactory.h"
 
 #include "base/ccMacros.h"
 #include "platform/CCFileUtils.h"
@@ -18,14 +19,8 @@ namespace MelonGames
 {
     namespace KillyCraft
     {
-        namespace ComponentsFactoryFunctions
-        {
-            void registerFunctions(std::map<std::string, ComponentFactoryFunction>& functions);
-        }
-        
         MapObjectsFactory::MapObjectsFactory()
         {
-            ComponentsFactoryFunctions::registerFunctions(componentFactoryFunctions);
         }
         
         void MapObjectsFactory::addTemplatesFromFile(const std::string& filename)
@@ -66,16 +61,7 @@ namespace MelonGames
             
             for (const auto& componentJson : t.json["components"])
             {
-                Component* component = nullptr;
-                
-                std::string type = componentJson["type"].asString();
-                auto functionIt = componentFactoryFunctions.find(type);
-                if (functionIt != componentFactoryFunctions.end())
-                {
-                    component = functionIt->second(componentJson);
-                }
-                
-                CCASSERT(component, ("Could not create a component of type " + type).c_str());
+                Component* component = ComponentsFactory::createComponent(componentJson);
                 
                 if (component)
                 {

@@ -78,7 +78,7 @@ namespace MelonGames
             shootingButton->setPosition(cocos2d::Point(node->getContentSize().width - shootingButton->getContentSize().width*0.5f - 50.0f, shootingButton->getContentSize().height*0.5f + 50.0f));
 #endif
 			
-			auto player = ObjectsFastFactory::createPlayerObject();
+			auto player = ObjectsFastFactory::getInstance()->createPlayerObject();
 			addObject(player);
             
             factory = new MapObjectsFactory();

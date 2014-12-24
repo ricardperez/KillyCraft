@@ -53,7 +53,7 @@ namespace MelonGames
             switch (weapon)
             {
                 case WeaponType::eMachinegun:
-                    projectile = ObjectsFastFactory::createProjectile(object);
+                    projectile = ObjectsFastFactory::getInstance()->createProjectile(object);
                     break;
                 default:
                     break;

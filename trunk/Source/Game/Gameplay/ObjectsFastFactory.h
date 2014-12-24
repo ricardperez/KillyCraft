@@ -15,13 +15,16 @@ namespace MelonGames
 	{
 		class MapObject;
         
-		namespace ObjectsFastFactory
+		class ObjectsFastFactory
 		{
-			MapObject* createPlayerObject();
-			MapObject* createEnemyObject();
+        public:
+            static ObjectsFastFactory* getInstance();
+			MapObject* createPlayerObject() const;
+            MapObject* createProjectile(MapObject* owner) const;
             
-            MapObject* createProjectile(MapObject* owner);
-		}
+        private:
+            ObjectsFastFactory() {};
+        };
 	}
 }
 

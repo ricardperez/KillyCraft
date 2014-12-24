@@ -95,18 +95,28 @@ namespace MelonGames
                 if (object != this->object)
                 {
                     int oid = object->getIdentifier();
-                    if (std::find(collisions.begin(), collisions.end(), oid) == collisions.end())
+                    
+                    bool isInBlackList = (std::find(ignoredObjectsIDs.begin(), ignoredObjectsIDs.end(), oid) != ignoredObjectsIDs.end());
+                    if (isInBlackList)
                     {
-                        if (auto other = object->get<CollisionDetectionComponent>())
+                        break;
+                    }
+                    
+                    bool alreadyCollided = (std::find(collisions.begin(), collisions.end(), oid) != collisions.end());
+                    if (alreadyCollided)
+                    {
+                        break;
+                    }
+                    
+                    if (auto other = object->get<CollisionDetectionComponent>())
+                    {
+                        if (collidesAgainst(other))
                         {
-                            if (collidesAgainst(other))
-                            {
-                                collisions.push_back(oid);
-                                other->collisions.push_back(this->object->getIdentifier());
-                                
-                                collisionSignal.Emit(this, other);
-                                other->collisionSignal.Emit(other, this);
-                            }
+                            collisions.push_back(oid);
+                            other->collisions.push_back(this->object->getIdentifier());
+                            
+                            collisionSignal.Emit(this, other);
+                            other->collisionSignal.Emit(other, this);
                         }
                     }
                 }
@@ -121,6 +131,11 @@ namespace MelonGames
         Gallant::Signal2<CollisionDetectionComponent*, CollisionDetectionComponent*>& CollisionDetectionComponent::getCollisionSignal()
         {
             return collisionSignal;
+        }
+        
+        void CollisionDetectionComponent::ignoreCollisionsAgainstObject(const MapObject* object)
+        {
+            ignoredObjectsIDs.push_back(object->getIdentifier());
         }
         
         bool getRectsIntersection(const cocos2d::Rect& r1, const cocos2d::Rect& r2, cocos2d::Vec2& r1StartOut, cocos2d::Vec2& r2StartOut, cocos2d::Size& intersectionSizeOut)

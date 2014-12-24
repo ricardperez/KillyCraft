@@ -14,6 +14,8 @@ namespace MelonGames
     {
         EnemyStateComponent::EnemyStateComponent()
         : livesCost(0)
+        , lives(0)
+        , score(0)
         {
         }
         
@@ -22,9 +24,26 @@ namespace MelonGames
             return livesCost;
         }
         
-        void EnemyStateComponent::setLivesCost(unsigned int cost)
+        unsigned int EnemyStateComponent::getLives() const
         {
-            livesCost = cost;
+            return lives;
+        }
+        
+        unsigned int EnemyStateComponent::getScore() const
+        {
+            return score;
+        }
+        
+        void EnemyStateComponent::removeLives(unsigned int nLives)
+        {
+            if (nLives >= lives)
+            {
+                lives = 0;
+            }
+            else
+            {
+                lives = (lives - nLives);
+            }
         }
     }
 }

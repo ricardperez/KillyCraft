@@ -23,10 +23,15 @@ namespace MelonGames
             EnemyStateComponent();
             
             unsigned int getLivesCost() const;
-            void setLivesCost(unsigned int cost);
+            unsigned int getLives() const;
+            unsigned int getScore() const;
+            
+            void removeLives(unsigned int nLives);
             
         private:
-            int livesCost;
+            unsigned int livesCost;
+            unsigned int lives;
+            unsigned int score;
         };
     }
 }
