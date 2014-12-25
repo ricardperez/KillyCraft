@@ -11,6 +11,11 @@
 
 #include "MelonGames/DeclaredTypes.h"
 
+namespace Json
+{
+    class Value;
+}
+
 namespace MelonGames
 {
 	namespace KillyCraft
@@ -22,7 +27,7 @@ namespace MelonGames
 		public:
 			DECLARE_BASE_TYPE(Component);
 			
-			Component();
+            Component();
 			virtual ~Component();
 			
 			virtual void onAttachedToObject(MapObject* o);

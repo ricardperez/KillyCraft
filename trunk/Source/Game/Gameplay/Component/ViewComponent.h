@@ -22,12 +22,20 @@ namespace MelonGames
 {
 	namespace KillyCraft
 	{
-		class PositionComponent;
+        namespace ComponentsFactory
+        {
+            Component* createViewComponent(const Json::Value& json);
+        }
+        
+        class PositionComponent;
 		
 		class ViewComponent : public Component
 		{
 		public:
 			DECLARE_TYPE_WITH_BASE_TYPE(ViewComponent, Component);
+            
+            friend class ObjectsFastFactory;
+            friend Component* ComponentsFactory::createViewComponent(const Json::Value &json);
 			
 			ViewComponent();
 			virtual ~ViewComponent();
@@ -35,9 +43,7 @@ namespace MelonGames
 			virtual void onObjectAttachedToMap() override;
             virtual void onWillDetachFromObject() override;
 			
-			void setSpriteFrameName(const std::string& name);
-            
-            const cocos2d::Sprite* getSprite() const;
+			const cocos2d::Sprite* getSprite() const;
             
             float getScale() const;
             

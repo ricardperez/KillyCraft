@@ -15,12 +15,20 @@ namespace MelonGames
 {
     namespace KillyCraft
     {
+        namespace ComponentsFactory
+        {
+            Component* createPlayerLivesControllerComponent(const Json::Value& json);
+        }
+        
         class CollisionDetectionComponent;
         
         class PlayerLivesControllerComponent : public Component
         {
         public:
             DECLARE_TYPE_WITH_BASE_TYPE(PlayerLivesControllerComponent, Component);
+            
+            friend class ObjectsFastFactory;
+            friend Component* ComponentsFactory::createPlayerLivesControllerComponent(const Json::Value& json);
             
             virtual void onObjectAttachedToMap() override;
             virtual void onWillDetachFromObject() override;

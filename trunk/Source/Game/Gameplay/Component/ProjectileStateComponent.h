@@ -15,12 +15,17 @@ namespace MelonGames
 {
     namespace KillyCraft
     {
+        namespace ComponentsFactory
+        {
+            Component* createProjectileStateComponent(const Json::Value& json);
+        }
+        
         class CollisionDetectionComponent;
         
         class ProjectileStateComponent : public Component
         {
-            friend class MapObjectsFactory;
             friend class ObjectsFastFactory;
+            friend Component* ComponentsFactory::createProjectileStateComponent(const Json::Value& json);
             
         public:
             DECLARE_TYPE_WITH_BASE_TYPE(ProjectileStateComponent, Component);

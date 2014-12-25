@@ -16,10 +16,18 @@ namespace MelonGames
 {
     namespace KillyCraft
     {
+        namespace ComponentsFactory
+        {
+            Component* createMoveLinearStateComponent(const Json::Value& json);
+            Component* createMoveCircularStateComponent(const Json::Value& json);
+        }
+        
         class MoveLinearStateComponent : public Component
         {
         public:
             DECLARE_TYPE_WITH_BASE_TYPE(MoveLinearStateComponent, Component);
+            
+            friend Component* ComponentsFactory::createMoveLinearStateComponent(const Json::Value& json);
             
             const cocos2d::Vec3& getMovementPerSecond() const;
             void setMovementPerSecond(const cocos2d::Vec3& movementPerSecond);
@@ -32,6 +40,9 @@ namespace MelonGames
         {
         public:
             DECLARE_TYPE_WITH_BASE_TYPE(MoveCircularStateComponent, Component);
+            
+            friend class ObjectsFastFactory;
+            friend Component* ComponentsFactory::createMoveCircularStateComponent(const Json::Value& json);
             
             MoveCircularStateComponent();
             

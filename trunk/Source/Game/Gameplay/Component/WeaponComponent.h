@@ -16,6 +16,11 @@ namespace MelonGames
 {
     namespace KillyCraft
     {
+        namespace ComponentsFactory
+        {
+            Component* createWeaponComponent(const Json::Value& json);
+        }
+        
         enum class WeaponType
         {
             eNone = 0,
@@ -26,6 +31,9 @@ namespace MelonGames
         {
         public:
             DECLARE_TYPE_WITH_BASE_TYPE(WeaponComponent, Component);
+            
+            friend class ObjectsFastFactory;
+            friend Component* ComponentsFactory::createWeaponComponent(const Json::Value& json);
             
             WeaponComponent();
             

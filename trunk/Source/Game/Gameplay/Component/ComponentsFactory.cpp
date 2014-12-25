@@ -13,11 +13,15 @@
 
 #include "PositionComponent.h"
 #include "ViewComponent.h"
+#include "GamepadComponent.h"
+#include "WeaponComponent.h"
 #include "BehaviourComponent.h"
 #include "MovementStateComponents.h"
 #include "CollisionDetectionComponent.h"
 #include "PowerUpComponent.h"
+#include "PlayerLivesControllerComponent.h"
 #include "EnemyStateComponent.h"
+#include "ProjectileStateComponent.h"
 
 #include "math/Vec3.h"
 #include "json/value.h"
@@ -33,6 +37,33 @@ namespace MelonGames
                 cocos2d::Vec3 result(json[0].asFloat(), json[1].asFloat(), json[2].asFloat());
                 return result;
             }
+            
+            Component* createComponent(const Json::Value& json)
+            {
+                static std::map<unsigned int, std::function<Component*(const Json::Value&)>> lambdas = {
+                    {Crypto::stringHash("Position"), createPositionComponent},
+                    {Crypto::stringHash("View"), createViewComponent},
+                    {Crypto::stringHash("Behaviour"), createBehaviourComponent},
+                    {Crypto::stringHash("MoveCircular"), createMoveCircularStateComponent},
+                    {Crypto::stringHash("MoveLinear"), createMoveLinearStateComponent},
+                    {Crypto::stringHash("CollisionDetection"), createCollisionDetectionComponent},
+                    {Crypto::stringHash("PowerUp"), createPowerUpComponent},
+                    {Crypto::stringHash("EnemyState"), createEnemyStateComponent},
+                };
+                
+                std::string type = json["type"].asString();
+                unsigned int key = Crypto::stringHash(type);
+                
+                auto lambdaIt = lambdas.find(key);
+                if (lambdaIt != lambdas.end())
+                {
+                    return lambdaIt->second(json);
+                }
+                
+                CCASSERT(false, ("Could not create a component of type " + type).c_str());
+                
+                return nullptr;
+            }
 
             Component* createPositionComponent(const Json::Value& json)
             {
@@ -43,7 +74,7 @@ namespace MelonGames
             {
                 auto result = new ViewComponent();
                 
-                result->setSpriteFrameName(json["sprite"].asString());
+                result->spriteFrameName = json["sprite"].asString();
                 
                 const Json::Value& tintValue = json["tint"];
                 if (!tintValue.isNull())
@@ -51,6 +82,18 @@ namespace MelonGames
                     result->setTintColor(cocos2d::Color3B(tintValue[0].asInt(), tintValue[1].asInt(), tintValue[2].asInt()));
                 }
                 
+                return result;
+            }
+            
+            Component* createGamepadComponent(const Json::Value& json)
+            {
+                auto result = new GamepadComponent();
+                return result;
+            }
+            
+            Component* createWeaponComponent(const Json::Value& json)
+            {
+                auto result = new WeaponComponent();
                 return result;
             }
             
@@ -70,7 +113,14 @@ namespace MelonGames
                 return result;
             }
             
-            Component* createMoveCircularComponent(const Json::Value& json)
+            Component* createMoveLinearStateComponent(const Json::Value& json)
+            {
+                auto result = new MoveLinearStateComponent();
+                result->setMovementPerSecond(vec3FromJson(json["move"]));
+                return result;
+            }
+            
+            Component* createMoveCircularStateComponent(const Json::Value& json)
             {
                 auto result = new MoveCircularStateComponent();
                 
@@ -90,13 +140,6 @@ namespace MelonGames
                 }
                 
                 result->setRadius(json["raius"].asFloat());
-                return result;
-            }
-            
-            Component* createMoveLinearComponent(const Json::Value& json)
-            {
-                auto result = new MoveLinearStateComponent();
-                result->setMovementPerSecond(vec3FromJson(json["move"]));
                 return result;
             }
             
@@ -121,40 +164,25 @@ namespace MelonGames
                 return result;
             }
             
-            Component* createEnemyStateComponent(const Json::Value& json)
+            Component* createPlayerLivesControllerComponent(const Json::Value& json)
             {
-                auto result = new EnemyStateComponent();
-//                result->livesCost = json["livesCost"].asUInt();
-//                result->lives = json["lives"].asUInt();
-//                result->score = json["score"].asUInt();
+                auto result = new PlayerLivesControllerComponent();
                 return result;
             }
             
-            Component* createComponent(const Json::Value& json)
+            Component* createEnemyStateComponent(const Json::Value& json)
             {
-                static std::map<unsigned int, std::function<Component*(const Json::Value&)>> lambdas = {
-                    {Crypto::stringHash("Position"), createPositionComponent},
-                    {Crypto::stringHash("View"), createViewComponent},
-                    {Crypto::stringHash("Behaviour"), createBehaviourComponent},
-                    {Crypto::stringHash("MoveCircular"), createMoveCircularComponent},
-                    {Crypto::stringHash("MoveLinear"), createMoveLinearComponent},
-                    {Crypto::stringHash("CollisionDetection"), createCollisionDetectionComponent},
-                    {Crypto::stringHash("PowerUp"), createPowerUpComponent},
-                    {Crypto::stringHash("EnemyState"), createEnemyStateComponent},
-                };
-                
-                std::string type = json["type"].asString();
-                unsigned int key = Crypto::stringHash(type);
-                
-                auto lambdaIt = lambdas.find(key);
-                if (lambdaIt != lambdas.end())
-                {
-                    return lambdaIt->second(json);
-                }
-                
-                CCASSERT(false, ("Could not create a component of type " + type).c_str());
-                
-                return nullptr;
+                auto result = new EnemyStateComponent();
+                result->livesCost = json["livesCost"].asUInt();
+                result->lives = json["lives"].asUInt();
+                result->score = json["score"].asUInt();
+                return result;
+            }
+            
+            Component* createProjectileStateComponent(const Json::Value& json)
+            {
+                auto result = new ProjectileStateComponent();
+                return result;
             }
         }
     }

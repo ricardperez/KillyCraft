@@ -57,11 +57,6 @@ namespace MelonGames
             Base::onWillDetachFromObject();
         }
         
-        void ViewComponent::setSpriteFrameName(const std::string &name)
-        {
-            spriteFrameName = name;
-        }
-        
         const cocos2d::Sprite* ViewComponent::getSprite() const
         {
             return sprite;

@@ -24,6 +24,11 @@ namespace MelonGames
 {
     namespace KillyCraft
     {
+        namespace ComponentsFactory
+        {
+            Component* createCollisionDetectionComponent(const Json::Value& json);
+        }
+        
         class TextureMask;
         enum class CollisionDetectionType
         {
@@ -40,15 +45,15 @@ namespace MelonGames
         public:
             DECLARE_TYPE_WITH_BASE_TYPE(CollisionDetectionComponent, Component);
             
+            friend class ObjectsFastFactory;
+            friend Component* ComponentsFactory::createCollisionDetectionComponent(const Json::Value& json);
+            
             CollisionDetectionComponent();
             virtual ~CollisionDetectionComponent();
             
             virtual void onWillDetachFromObject() override;
             
-            void setType(CollisionDetectionType t);
             CollisionDetectionType getType() const;
-            
-            void setCollisionMaskFileName(const std::string& fileName);
             
             void addCollisionType(CollisionDetectionType type, bool collides=true);
             
@@ -61,6 +66,10 @@ namespace MelonGames
             Gallant::Signal2<CollisionDetectionComponent*,CollisionDetectionComponent*>& getCollisionSignal();
             
             void ignoreCollisionsAgainstObject(const MapObject* object);
+            
+        private:
+            void setType(CollisionDetectionType t);
+            void setCollisionMaskFileName(const std::string& fileName);
             
         protected:
             bool ensureHasMask();

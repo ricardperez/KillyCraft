@@ -15,10 +15,18 @@ namespace MelonGames
 {
     namespace KillyCraft
     {
+        namespace ComponentsFactory
+        {
+            Component* createTimeComponent(const Json::Value& json);
+        }
+        
         class TimeComponent : public Component
         {
         public:
             DECLARE_TYPE_WITH_BASE_TYPE(TimeComponent, Component);
+            
+            friend class ObjectsFastFactory;
+            friend Component* ComponentsFactory::createTimeComponent(const Json::Value& json);
             
             TimeComponent();
             

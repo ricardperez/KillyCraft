@@ -48,7 +48,7 @@ namespace MelonGames
             result->addComponent(posComponent);
             
             auto viewComponent = new ViewComponent();
-            viewComponent->setSpriteFrameName("Melon.png");
+            viewComponent->spriteFrameName = "Melon.png";
             result->addComponent(viewComponent);
             
             auto weaponComponent = new WeaponComponent();
@@ -86,7 +86,7 @@ namespace MelonGames
             result->addComponent(posComponent);
             
             auto viewComponent = new ViewComponent();
-            viewComponent->setSpriteFrameName("Bullet.png");
+            viewComponent->spriteFrameName = "Bullet.png";
             result->addComponent(viewComponent);
             
             auto linearMoveState = new MoveLinearStateComponent();

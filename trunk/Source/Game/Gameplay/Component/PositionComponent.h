@@ -18,10 +18,18 @@ namespace MelonGames
 {
 	namespace KillyCraft
 	{
+        namespace ComponentsFactory
+        {
+            Component* createPositionComponent(const Json::Value& json);
+        }
+        
 		class PositionComponent : public Component
 		{
 		public:
 			DECLARE_TYPE_WITH_BASE_TYPE(PositionComponent, Component);
+            
+            friend class ObjectsFastFactory;
+            friend Component* ComponentsFactory::createPositionComponent(const Json::Value& json);
 			
 			PositionComponent();
 			
