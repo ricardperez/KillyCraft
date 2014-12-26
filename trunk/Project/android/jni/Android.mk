@@ -21,13 +21,14 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../../Source/Game/Gameplay/Component/BehaviourComponent.cpp \
                    ../../../Source/Game/Gameplay/Component/CollisionDetectionComponent.cpp \
                    ../../../Source/Game/Gameplay/Component/Component.cpp \
-                   ../../../Source/Game/Gameplay/Component/ComponentsFactoryFunctions.cpp \
+                   ../../../Source/Game/Gameplay/Component/ComponentsFactory.cpp \
                    ../../../Source/Game/Gameplay/Component/EnemyStateComponent.cpp \
                    ../../../Source/Game/Gameplay/Component/GamepadComponent.cpp \
                    ../../../Source/Game/Gameplay/Component/MovementStateComponents.cpp \
                    ../../../Source/Game/Gameplay/Component/PlayerLivesControllerComponent.cpp \
                    ../../../Source/Game/Gameplay/Component/PositionComponent.cpp \
                    ../../../Source/Game/Gameplay/Component/PowerUpComponent.cpp \
+                   ../../../Source/Game/Gameplay/Component/ProjectileStateComponent.cpp \
                    ../../../Source/Game/Gameplay/Component/TextureMask.cpp \
                    ../../../Source/Game/Gameplay/Component/TimeComponent.cpp \
                    ../../../Source/Game/Gameplay/Component/ViewComponent.cpp \
