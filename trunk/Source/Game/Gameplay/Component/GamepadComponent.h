@@ -37,7 +37,12 @@ namespace MelonGames
             void setSpeed(float speed);
             
         private:
+            void moveObject(float distance) const;
+            
+        private:
             float speed;
+            const float minTimeToStartMoving;
+            float timeLeftToStartMoving;
         };
     }
 }
