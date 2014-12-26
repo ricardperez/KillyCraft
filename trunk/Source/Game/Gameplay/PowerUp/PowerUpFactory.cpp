@@ -12,7 +12,7 @@
 #include "Gameplay/MapObject.h"
 #include "Gameplay/Map.h"
 #include "Gameplay/Player.h"
-#include "Crypto.h"
+#include "MelonGames/Crypto.h"
 
 namespace MelonGames
 {
