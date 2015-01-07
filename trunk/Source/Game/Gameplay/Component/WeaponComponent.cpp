@@ -32,7 +32,7 @@ namespace MelonGames
                 return ((currTime - lastShotTime) >= fireRate);
             }
             
-            return true;
+            return false;
         }
         
         void WeaponComponent::shoot()
