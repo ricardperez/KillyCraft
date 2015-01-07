@@ -28,13 +28,20 @@ namespace MelonGames
             unsigned int getLives() const;
             Gallant::Signal1<Player*>& getLivesChangedSignal();
             
+            unsigned int getScore() const;
+            Gallant::Signal1<Player*>& getScoreChangedSignal();
+            
             void addLives(unsigned int n);
             void removeLives(unsigned int n);
+            
+            void addScore(unsigned int nPoints);
 			
 		private:
 			Gamepad* gamepad;
             unsigned int lives;
+            unsigned int score;
             Gallant::Signal1<Player*> livesChangedSignal;
+            Gallant::Signal1<Player*> scoreChangedSignal;
 		};
 	}
 }

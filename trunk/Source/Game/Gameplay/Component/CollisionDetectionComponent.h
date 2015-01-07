@@ -45,7 +45,6 @@ namespace MelonGames
         public:
             DECLARE_TYPE_WITH_BASE_TYPE(CollisionDetectionComponent, Component);
             
-            friend class ObjectsFastFactory;
             friend Component* ComponentsFactory::createCollisionDetectionComponent(const Json::Value& json);
             
             CollisionDetectionComponent();

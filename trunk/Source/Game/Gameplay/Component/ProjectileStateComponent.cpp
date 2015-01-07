@@ -16,7 +16,7 @@ namespace MelonGames
     namespace KillyCraft
     {
         ProjectileStateComponent::ProjectileStateComponent()
-        : livesCost(0)
+        : power(0)
         , nCollisionsSupported(0)
         , nCollisionsHappened(0)
         {
@@ -41,9 +41,9 @@ namespace MelonGames
             Base::onWillDetachFromObject();
         }
         
-        unsigned int ProjectileStateComponent::getLivesCost() const
+        unsigned int ProjectileStateComponent::getPower() const
         {
-            return livesCost;
+            return power;
         }
         
         void ProjectileStateComponent::onCollision(CollisionDetectionComponent* first, CollisionDetectionComponent* second)

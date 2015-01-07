@@ -1,0 +1,49 @@
+{
+	"obj":
+	[
+		{
+			"name":"MachinegunBullet",
+			"components":
+			[
+				{
+					"type": "View",
+					"sprite": "Bullet.png",
+					"tint": [1.0, 0.0, 0.0]
+				},
+				{
+					"type": "MoveLinear",
+					"move": [0.0, 600.0, 0.0]
+				},
+				{
+					"type": "CollisionDetection",
+					"mask": "",
+					"t": 2,
+					"c": [1]
+				},
+				{
+					"type": "ProjectileState",
+					"power": 1,
+					"collisionsSupported": 1
+				},
+				{
+					"type": "Behaviour",
+					"behaviours":
+					[
+						{
+							"type":"MoveLinear"
+						},
+						{
+							"type":"Destroy",
+							"checks":
+							[
+								{
+									"type":"OutOfScreenUp"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -35,12 +35,14 @@ namespace MelonGames
             bool init(const Map* map);
             
             void onPlayerLivesChanged(Player* player);
+            void onPlayerScoreChanged(Player* player);
             
         private:
             const Map* map;
             
             cocos2d::Label* timeLabel;
             cocos2d::Label* livesLabel;
+            cocos2d::Label* scoreLabel;
         };
     }
 }

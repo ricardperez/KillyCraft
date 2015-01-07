@@ -15,6 +15,7 @@ namespace MelonGames
 	{
 		Player::Player()
         : lives(0)
+        , score(0)
 		{
             gamepad = new Gamepad();
 		}
@@ -37,6 +38,16 @@ namespace MelonGames
         Gallant::Signal1<Player*>& Player::getLivesChangedSignal()
         {
             return livesChangedSignal;
+        }
+        
+        unsigned int Player::getScore() const
+        {
+            return score;
+        }
+        
+        Gallant::Signal1<Player*>& Player::getScoreChangedSignal()
+        {
+            return scoreChangedSignal;
         }
         
         void Player::addLives(unsigned int n)
@@ -62,6 +73,12 @@ namespace MelonGames
                 }
                 livesChangedSignal.Emit(this);
             }
+        }
+        
+        void Player::addScore(unsigned int nPoints)
+        {
+            score += nPoints;
+            scoreChangedSignal.Emit(this);
         }
 	}
 }

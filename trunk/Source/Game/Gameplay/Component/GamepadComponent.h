@@ -27,7 +27,6 @@ namespace MelonGames
         public:
             DECLARE_TYPE_WITH_BASE_TYPE(GamepadComponent, Component);
             
-            friend class ObjectsFastFactory;
             friend Component* ComponentsFactory::createGamepadComponent(const Json::Value& json);
             
             GamepadComponent();

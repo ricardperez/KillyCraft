@@ -9,35 +9,27 @@
 #include "WeaponComponent.h"
 #include "Gameplay/MapObject.h"
 #include "Gameplay/Map.h"
-#include "Gameplay/ObjectsFastFactory.h"
+#include "Gameplay/MapObjectsFactory.h"
+#include "PositionComponent.h"
 
 namespace MelonGames
 {
     namespace KillyCraft
     {
         WeaponComponent::WeaponComponent()
-        : weapon(WeaponType::eNone)
-        , nShots(0)
-        , shotDelay(0.5f)
+        : nProjectilesLeft(0)
+        , fireRate(0.0f)
         , lastShotTime(0.0f)
         {
             
         }
         
-        void WeaponComponent::setup(WeaponType weaponType, float shotDelay)
-        {
-            this->weapon = weaponType;
-            this->shotDelay = shotDelay;
-            
-            nShots = 0;
-        }
-        
         bool WeaponComponent::canShoot() const
         {
-            if (nShots > 0)
+            if (nProjectilesLeft > 0)
             {
                 float currTime = object->getMap()->getElapsedTime();
-                return ((currTime - lastShotTime) >= shotDelay);
+                return ((currTime - lastShotTime) >= fireRate);
             }
             
             return true;
@@ -46,29 +38,19 @@ namespace MelonGames
         void WeaponComponent::shoot()
         {
             lastShotTime = object->getMap()->getElapsedTime();
-            ++nShots;
             
-            MapObject* projectile = nullptr;
-            
-            switch (weapon)
+            assert(nProjectilesLeft > 0 && "Should not be shooting as no bullets are left");
+            if (nProjectilesLeft > 0)
             {
-                case WeaponType::eMachinegun:
-                    projectile = ObjectsFastFactory::getInstance()->createProjectile(object);
-                    break;
-                default:
-                    break;
+                --nProjectilesLeft;
             }
             
-            if (projectile)
+            if (MapObject* projectile = object->getMap()->getFactory()->createObject(projectileTemplateName))
             {
+                projectile->get<PositionComponent>()->setPosition(object->get<PositionComponent>()->getPosition());
                 object->getMap()->addObject(projectile);
             }
             
-        }
-        
-        const cocos2d::Vec3& WeaponComponent::getRelativePosition() const
-        {
-            return relativePosition;
         }
     }
 }

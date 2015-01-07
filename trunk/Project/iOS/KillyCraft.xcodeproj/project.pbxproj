@@ -98,7 +98,6 @@
 		19AB706919FACAE90041EAB6 /* Gamepad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AB705419FACAE90041EAB6 /* Gamepad.cpp */; };
 		19AB706A19FACAE90041EAB6 /* Map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AB705619FACAE90041EAB6 /* Map.cpp */; };
 		19AB706B19FACAE90041EAB6 /* MapObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AB705819FACAE90041EAB6 /* MapObject.cpp */; };
-		19AB706C19FACAE90041EAB6 /* ObjectsFastFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AB705A19FACAE90041EAB6 /* ObjectsFastFactory.cpp */; };
 		19AB706D19FACAE90041EAB6 /* GameScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AB705D19FACAE90041EAB6 /* GameScreen.cpp */; };
 		19AB706E19FACAE90041EAB6 /* MenuScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AB705F19FACAE90041EAB6 /* MenuScreen.cpp */; };
 		19AB707419FACE4F0041EAB6 /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 19AB707319FACE4F0041EAB6 /* RootViewController.mm */; };
@@ -655,8 +654,6 @@
 		19AB705719FACAE90041EAB6 /* Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Map.h; sourceTree = "<group>"; };
 		19AB705819FACAE90041EAB6 /* MapObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MapObject.cpp; sourceTree = "<group>"; };
 		19AB705919FACAE90041EAB6 /* MapObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapObject.h; sourceTree = "<group>"; };
-		19AB705A19FACAE90041EAB6 /* ObjectsFastFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ObjectsFastFactory.cpp; sourceTree = "<group>"; };
-		19AB705B19FACAE90041EAB6 /* ObjectsFastFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectsFastFactory.h; sourceTree = "<group>"; };
 		19AB705D19FACAE90041EAB6 /* GameScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameScreen.cpp; sourceTree = "<group>"; };
 		19AB705E19FACAE90041EAB6 /* GameScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScreen.h; sourceTree = "<group>"; };
 		19AB705F19FACAE90041EAB6 /* MenuScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MenuScreen.cpp; sourceTree = "<group>"; };
@@ -2501,8 +2498,6 @@
 				19AB705719FACAE90041EAB6 /* Map.h */,
 				19AB705819FACAE90041EAB6 /* MapObject.cpp */,
 				19AB705919FACAE90041EAB6 /* MapObject.h */,
-				19AB705A19FACAE90041EAB6 /* ObjectsFastFactory.cpp */,
-				19AB705B19FACAE90041EAB6 /* ObjectsFastFactory.h */,
 				19AB708419FADD2B0041EAB6 /* Player.cpp */,
 				19AB708519FADD2B0041EAB6 /* Player.h */,
 				19CA80C71A0BFD9500C6BF2C /* SpawnObjectsManager.cpp */,
@@ -3130,7 +3125,6 @@
 				19CCD5ED1A02D30200986A8E /* CCParticleBatchNode.cpp in Sources */,
 				19CCD66C1A02D41000986A8E /* CCMeshCommand.cpp in Sources */,
 				196AD4C019F9832900D87881 /* main.m in Sources */,
-				19AB706C19FACAE90041EAB6 /* ObjectsFastFactory.cpp in Sources */,
 				19CCD5F21A02D30200986A8E /* CCProtectedNode.cpp in Sources */,
 				19AB2C2E19F99913008D3B13 /* CCPhysicsShapeInfo_chipmunk.cpp in Sources */,
 				19CCD46D1A02CDE800986A8E /* ccCArray.cpp in Sources */,

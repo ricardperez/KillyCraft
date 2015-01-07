@@ -49,6 +49,9 @@ namespace MelonGames
                     {Crypto::stringHash("CollisionDetection"), createCollisionDetectionComponent},
                     {Crypto::stringHash("PowerUp"), createPowerUpComponent},
                     {Crypto::stringHash("EnemyState"), createEnemyStateComponent},
+                    {Crypto::stringHash("Weapon"), createWeaponComponent},
+                    {Crypto::stringHash("Gamepad"), createGamepadComponent},
+                    {Crypto::stringHash("PlayerLivesController"), createPlayerLivesControllerComponent},
                 };
                 
                 std::string type = json["type"].asString();
@@ -88,12 +91,17 @@ namespace MelonGames
             Component* createGamepadComponent(const Json::Value& json)
             {
                 auto result = new GamepadComponent();
+                float speed = json["speed"].asFloat();
+                result->setSpeed(speed);
                 return result;
             }
             
             Component* createWeaponComponent(const Json::Value& json)
             {
                 auto result = new WeaponComponent();
+                result->projectileTemplateName = json["projectile"].asString();
+                result->nProjectilesLeft = json["nProjectiles"].asInt();
+                result->fireRate = json["fireRate"].asFloat();
                 return result;
             }
             
@@ -148,6 +156,10 @@ namespace MelonGames
                 auto result = new CollisionDetectionComponent();
                 result->setCollisionMaskFileName(json["mask"].asString());
                 result->setType((CollisionDetectionType)json["t"].asInt());
+                for (const auto& collisionTypes : json["c"])
+                {
+                    result->addCollisionType((CollisionDetectionType)collisionTypes.asInt());
+                }
                 return result;
             }
             
@@ -182,6 +194,8 @@ namespace MelonGames
             Component* createProjectileStateComponent(const Json::Value& json)
             {
                 auto result = new ProjectileStateComponent();
+                result->power = json["power"].asUInt();
+                result->nCollisionsSupported = json["collisionsSupported"].asUInt();
                 return result;
             }
         }

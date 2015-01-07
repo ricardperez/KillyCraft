@@ -29,7 +29,6 @@ namespace MelonGames
         public:
             DECLARE_TYPE_WITH_BASE_TYPE(PowerUpComponent, Component);
             
-            friend class ObjectsFastFactory;
             friend Component* ComponentsFactory::createPowerUpComponent(const Json::Value& json);
             
             PowerUpComponent();

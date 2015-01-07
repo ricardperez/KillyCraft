@@ -25,7 +25,6 @@ namespace MelonGames
         public:
             DECLARE_TYPE_WITH_BASE_TYPE(TimeComponent, Component);
             
-            friend class ObjectsFastFactory;
             friend Component* ComponentsFactory::createTimeComponent(const Json::Value& json);
             
             TimeComponent();

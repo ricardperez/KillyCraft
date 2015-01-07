@@ -28,7 +28,6 @@ namespace MelonGames
 		public:
 			DECLARE_TYPE_WITH_BASE_TYPE(PositionComponent, Component);
             
-            friend class ObjectsFastFactory;
             friend Component* ComponentsFactory::createPositionComponent(const Json::Value& json);
 			
 			PositionComponent();

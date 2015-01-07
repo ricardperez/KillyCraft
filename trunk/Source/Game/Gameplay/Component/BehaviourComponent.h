@@ -27,7 +27,6 @@ namespace MelonGames
         public:
             DECLARE_TYPE_WITH_BASE_TYPE(BehaviourComponent, Component);
             
-            friend class ObjectsFastFactory;
             friend Component* ComponentsFactory::createBehaviourComponent(const Json::Value& json);
             
             virtual void update(float dt) override;

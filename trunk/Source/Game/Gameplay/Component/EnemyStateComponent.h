@@ -25,7 +25,6 @@ namespace MelonGames
         public:
             DECLARE_TYPE_WITH_BASE_TYPE(EnemyStateComponent, Component);
             
-            friend class ObjectsFastFactory;
             friend Component* ComponentsFactory::createEnemyStateComponent(const Json::Value& json);
             
             EnemyStateComponent();

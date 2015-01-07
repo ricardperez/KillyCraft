@@ -24,7 +24,6 @@ namespace MelonGames
         
         class ProjectileStateComponent : public Component
         {
-            friend class ObjectsFastFactory;
             friend Component* ComponentsFactory::createProjectileStateComponent(const Json::Value& json);
             
         public:
@@ -35,13 +34,13 @@ namespace MelonGames
             virtual void onObjectAttachedToMap() override;
             virtual void onWillDetachFromObject() override;
             
-            unsigned int getLivesCost() const;
+            unsigned int getPower() const;
             
         private:
             void onCollision(CollisionDetectionComponent* first, CollisionDetectionComponent* second);
             
         private:
-            unsigned int livesCost;
+            unsigned int power;
             unsigned int nCollisionsSupported;
             unsigned int nCollisionsHappened;
         };

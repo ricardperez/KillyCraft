@@ -9,7 +9,6 @@
 #include "SpawnObjectsManager.h"
 #include "GameConfig.h"
 #include "MelonGames/Random.h"
-#include "ObjectsFastFactory.h"
 #include "Map.h"
 #include "MapObject.h"
 #include "MapObjectsFactory.h"

@@ -13,9 +13,9 @@
 #include "MapObject.h"
 #include "Component/Component.h"
 #include "Component/ViewComponent.h"
+#include "Component/PositionComponent.h"
 #include "View/MapView.h"
 #include "Gamepad.h"
-#include "ObjectsFastFactory.h"
 
 #ifdef USE_GAMEPAD_SHOOT_BUTTON
 #include "extensions/GUI/CCControlExtension/CCControlButton.h"
@@ -78,12 +78,16 @@ namespace MelonGames
             shootingButton->setPosition(cocos2d::Point(node->getContentSize().width - shootingButton->getContentSize().width*0.5f - 50.0f, shootingButton->getContentSize().height*0.5f + 50.0f));
 #endif
 			
-			auto player = ObjectsFastFactory::getInstance()->createPlayerObject();
-			addObject(player);
-            
-            factory = new MapObjectsFactory();
-            factory->addTemplatesFromFile("Objects.obj");
+			factory = new MapObjectsFactory();
+            factory->addTemplatesFromFile("Enemies.obj");
+            factory->addTemplatesFromFile("Weapons.obj");
             factory->addTemplatesFromFile("PowerUps.obj");
+            factory->addTemplatesFromFile("Player.obj");
+            
+            auto player = factory->createObject("Player");
+            addObject(player);
+            PositionComponent* posComponent = player->get<PositionComponent>();
+            posComponent->setPosition(cocos2d::Vec3(150.0f, 100.0f, 0.0));
             
             spawnObjectsManager = new SpawnObjectsManager();
             spawnObjectsManager->setMap(this);

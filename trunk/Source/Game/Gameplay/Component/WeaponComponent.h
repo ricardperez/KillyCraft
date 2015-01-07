@@ -21,37 +21,24 @@ namespace MelonGames
             Component* createWeaponComponent(const Json::Value& json);
         }
         
-        enum class WeaponType
-        {
-            eNone = 0,
-            eMachinegun = 1
-        };
-        
         class WeaponComponent : public Component
         {
         public:
             DECLARE_TYPE_WITH_BASE_TYPE(WeaponComponent, Component);
             
-            friend class ObjectsFastFactory;
             friend Component* ComponentsFactory::createWeaponComponent(const Json::Value& json);
             
             WeaponComponent();
             
-            void setup(WeaponType weaponType, float shotDelay);
-            
             bool canShoot() const;
             void shoot();
             
-            const cocos2d::Vec3& getRelativePosition() const;
-            
         private:
-            WeaponType weapon;
+            unsigned int nProjectilesLeft;
+            float fireRate;
+            std::string projectileTemplateName;
             
-            int nShots;
-            float shotDelay;
             float lastShotTime;
-            
-            cocos2d::Vec3 relativePosition;
         };
     }
 }

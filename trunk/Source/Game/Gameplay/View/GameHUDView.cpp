@@ -23,6 +23,7 @@ namespace MelonGames
         : map(nullptr)
         , timeLabel(nullptr)
         , livesLabel(nullptr)
+        , scoreLabel(nullptr)
         {
         }
         
@@ -68,9 +69,21 @@ namespace MelonGames
                     addChild(livesLabel);
                 }
                 
+                scoreLabel = cocos2d::Label::createWithTTF("", "Marker Felt.ttf", 50.0f);
+                if (scoreLabel)
+                {
+                    scoreLabel->setPosition(cocos2d::Vec2(getContentSize().width * 0.5f, getContentSize().height - 10.0f));
+                    scoreLabel->setAnchorPoint(cocos2d::Vec2(0.5f, 1.0f));
+                    addChild(scoreLabel);
+                }
+                
                 auto player = map->getPlayer();
-                player->getLivesChangedSignal().Connect(Gallant::MakeDelegate(this, &GameHUDView::onPlayerLivesChanged));
+                
+                player->getLivesChangedSignal().Connect(this, &GameHUDView::onPlayerLivesChanged);
                 onPlayerLivesChanged(player);
+                
+                player->getScoreChangedSignal().Connect(this, &GameHUDView::onPlayerScoreChanged);
+                onPlayerScoreChanged(player);
                 
                 return true;
             }
@@ -81,6 +94,11 @@ namespace MelonGames
         void GameHUDView::onPlayerLivesChanged(Player* player)
         {
             livesLabel->setString(std::to_string(player->getLives()));
+        }
+        
+        void GameHUDView::onPlayerScoreChanged(Player* player)
+        {
+            scoreLabel->setString(std::to_string(player->getScore()));
         }
     }
 }
