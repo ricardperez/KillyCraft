@@ -52,6 +52,7 @@ namespace MelonGames
                     {Crypto::stringHash("Weapon"), createWeaponComponent},
                     {Crypto::stringHash("Gamepad"), createGamepadComponent},
                     {Crypto::stringHash("PlayerLivesController"), createPlayerLivesControllerComponent},
+                    {Crypto::stringHash("ProjectileState"), createProjectileStateComponent},
                 };
                 
                 std::string type = json["type"].asString();
