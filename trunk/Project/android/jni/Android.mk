@@ -38,7 +38,6 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../../Source/Game/Gameplay/MapObject.cpp \
                    ../../../Source/Game/Gameplay/MapObjectsFactory.cpp \
                    ../../../Source/Game/Gameplay/MapObjectInspector.cpp \
-                   ../../../Source/Game/Gameplay/ObjectsFastFactory.cpp \
                    ../../../Source/Game/Gameplay/Player.cpp \
                    ../../../Source/Game/Gameplay/PowerUp/PowerUpAction.cpp \
                    ../../../Source/Game/Gameplay/PowerUp/PowerUpFactory.cpp \
