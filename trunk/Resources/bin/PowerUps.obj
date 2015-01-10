@@ -2,13 +2,12 @@
 	"obj":
 	[
 		{
-			"name":"PowerUpHeal",
+			"name":"PowerUpBase",
 			"components":
 			[
 				{
 					"type":"View",
-					"sprite":"PowerUp.png",
-					"tint":[0, 255, 0]
+					"sprite":"PowerUp.png"
 				},
 				{
 					"type":"Behaviour",
@@ -52,6 +51,23 @@
 					"type": "PowerUp",
 					"actions":
 					[
+					]
+				}
+			]
+		},
+		{
+			"super":"PowerUpBase",
+			"name":"PowerUpHeal",
+			"components":
+			[
+				{
+					"type":"View",
+					"tint":[0, 255, 0]
+				},
+				{
+					"type": "PowerUp",
+					"actions":
+					[
 						{
 							"type": "Heal",
 							"amount": 100
@@ -61,51 +77,13 @@
 			]
 		},
 		{
+			"super":"PowerUpBase",
 			"name":"PowerUpWeaponMachinegun",
 			"components":
 			[
 				{
 					"type":"View",
-					"sprite":"PowerUp.png",
 					"tint":[0, 255, 255]
-				},
-				{
-					"type":"Behaviour",
-					"behaviours":
-					[
-						{
-							"type":"Destroy",
-							"checks":
-							[
-								{
-									"type":"OutOfScreenDown"
-								},
-								{
-									"type":"Collision"
-								}
-							]
-						},
-						{
-							"type":"MoveCircularProjected"
-						},
-						{
-							"type":"MoveLinear"
-						}
-					]
-				},
-				{
-					"type": "MoveLinear",
-					"move": [0.0, -50.0, 0.0]
-				},
-				{
-					"type": "MoveCircular",
-					"radius": 75.0,
-					"period": 2.0
-				},
-				{
-					"type": "CollisionDetection",
-					"mask": "",
-					"t": 3
 				},
 				{
 					"type": "PowerUp",
@@ -122,51 +100,13 @@
 			]
 		},
 		{
+			"super":"PowerUpBase",
 			"name":"PowerUpKillAll",
 			"components":
 			[
 				{
 					"type":"View",
-					"sprite":"PowerUp.png",
 					"tint":[255, 0, 0]
-				},
-				{
-					"type":"Behaviour",
-					"behaviours":
-					[
-						{
-							"type":"Destroy",
-							"checks":
-							[
-								{
-									"type":"OutOfScreenDown"
-								},
-								{
-									"type":"Collision"
-								}
-							]
-						},
-						{
-							"type":"MoveCircularProjected"
-						},
-						{
-							"type":"MoveLinear"
-						}
-					]
-				},
-				{
-					"type": "MoveLinear",
-					"move": [0.0, -50.0, 0.0]
-				},
-				{
-					"type": "MoveCircular",
-					"radius": 75.0,
-					"period": 2.0
-				},
-				{
-					"type": "CollisionDetection",
-					"mask": "",
-					"t": 3
 				},
 				{
 					"type": "PowerUp",
