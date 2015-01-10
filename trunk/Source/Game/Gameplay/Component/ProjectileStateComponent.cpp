@@ -9,7 +9,10 @@
 #include "ProjectileStateComponent.h"
 #include "Gameplay/MapObject.h"
 #include "Gameplay/Map.h"
+#include "Gameplay/MapObjectInspector.h"
+#include "Gameplay/Player.h"
 #include "CollisionDetectionComponent.h"
+#include "EnemyStateComponent.h"
 
 namespace MelonGames
 {
@@ -56,6 +59,11 @@ namespace MelonGames
             nCollisionsHappened++;
             if (nCollisionsHappened >= nCollisionsSupported)
             {
+                if (auto enemyState = second->getObject()->get<EnemyStateComponent>())
+                {
+                    object->getMap()->getPlayer()->addScore(enemyState->getScore());
+                }
+                
                 object->getMap()->removeObjectWhenPossible(object);
             }
         }
