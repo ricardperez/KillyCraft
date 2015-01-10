@@ -2,7 +2,7 @@
 	"obj":
 	[
 		{
-			"name":"EnemyBasic",
+			"name":"EnemyBase",
 			"components":
 			[
 				{
@@ -48,6 +48,7 @@
 			]
 		},
 		{
+			"super":"EnemyBase",
 			"name":"EnemyGordy",
 			"components":
 			[
@@ -56,44 +57,14 @@
 					"sprite":"Gordy.png"
 				},
 				{
-					"type":"Behaviour",
-					"behaviours":
-					[
-						{
-							"type":"Destroy",
-							"checks":
-							[
-								{
-									"type":"OutOfScreenDown"
-								},
-								{
-									"type":"Collision"
-								}
-							]
-						},
-						{
-							"type":"MoveLinear"
-						}
-					]
-				},
-				{
-					"type":"MoveLinear",
-					"move":[0.0, -250.0, 0.0]
-				},
-				{
 					"type":"CollisionDetection",
 					"mask":"Gordy.png.mask",
 					"t":1
-				},
-				{
-					"type":"EnemyState",
-					"livesCost":1,
-					"lives":1,
-					"score":10
 				}
 			]
 		},
 		{
+			"super":"EnemyBase",
 			"name":"EnemyKilly",
 			"components":
 			[
@@ -102,44 +73,14 @@
 					"sprite":"Killy.png"
 				},
 				{
-					"type":"Behaviour",
-					"behaviours":
-					[
-						{
-							"type":"Destroy",
-							"checks":
-							[
-								{
-									"type":"OutOfScreenDown"
-								},
-								{
-									"type":"Collision"
-								}
-							]
-						},
-						{
-							"type":"MoveLinear"
-						}
-					]
-				},
-				{
-					"type":"MoveLinear",
-					"move":[0.0, -250.0, 0.0]
-				},
-				{
 					"type":"CollisionDetection",
 					"mask": "Killy.png.mask",
 					"t":1
-				},
-				{
-					"type":"EnemyState",
-					"livesCost":1,
-					"lives":1,
-					"score":10
 				}
 			]
 		},
 		{
+			"super":"EnemyBase",
 			"name":"EnemyFrighty",
 			"components":
 			[
@@ -148,40 +89,9 @@
 					"sprite":"Frighty.png"
 				},
 				{
-					"type":"Behaviour",
-					"behaviours":
-					[
-						{
-							"type":"Destroy",
-							"checks":
-							[
-								{
-									"type":"OutOfScreenDown"
-								},
-								{
-									"type":"Collision"
-								}
-							]
-						},
-						{
-							"type":"MoveLinear"
-						}
-					]
-				},
-				{
-					"type":"MoveLinear",
-					"move":[0.0, -250.0, 0.0]
-				},
-				{
 					"type":"CollisionDetection",
 					"mask": "Frighty.png.mask",
 					"t":1
-				},
-				{
-					"type":"EnemyState",
-					"livesCost":1,
-					"lives":1,
-					"score":10
 				}
 			]
 		}
