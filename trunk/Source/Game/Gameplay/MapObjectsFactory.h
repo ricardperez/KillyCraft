@@ -24,6 +24,8 @@ namespace MelonGames
             std::string name;
             Json::Value json;
             
+            bool abstract = false;
+            
             Json::Value* getComponentJson(const std::string& componentType);
         };
         
@@ -36,12 +38,14 @@ namespace MelonGames
             
             MapObject* createObject(const std::string& name) const;
             
+            std::vector<std::string> getObjectsNamesForFile(const std::string& filename) const;
+            
         private:
             MapObject* createObject(const ObjectTemplate& t) const;
             void mergeTemplate(const ObjectTemplate& superTemplate, ObjectTemplate& baseTemplate) const;
             
         private:
-            std::map<unsigned int, ObjectTemplate> templates;
+            std::map<std::string, std::map<unsigned int, ObjectTemplate>> templatesByFile;
         };
     }
 }

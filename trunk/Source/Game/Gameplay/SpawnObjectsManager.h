@@ -31,7 +31,7 @@ namespace MelonGames
             SpawnObjectsManager();
             
             void loadEnemySquadsFromFile(const std::string& filename);
-            void loadPowerUpsFromFile(const std::string& filename);
+            void setPowerUpsList(const std::vector<std::string>& names);
             
             void setMap(Map* map);
             
@@ -83,7 +83,7 @@ namespace MelonGames
             {
             public:
                 SpawnPowerUpsManager(float minTime, float varTime) : SpawnManager(minTime, varTime, false) {};
-                void loadFromFile(const std::string& filename);
+                void setList(const std::vector<std::string>& list);
                 void spawnNextItem() override;
                 
             private:

@@ -40,9 +40,9 @@ namespace MelonGames
             spawnSquadsManager.loadFromFile(filename);
         }
         
-        void SpawnObjectsManager::loadPowerUpsFromFile(const std::string &filename)
+        void SpawnObjectsManager::setPowerUpsList(const std::vector<std::string>& names)
         {
-            spawnPowerUpsManager.loadFromFile(filename);
+            spawnPowerUpsManager.setList(names);
         }
         
         void SpawnObjectsManager::setMap(Map *map)
@@ -227,19 +227,9 @@ namespace MelonGames
         }
         
 #pragma mark - SpawnPowerUpsManager
-        void SpawnObjectsManager::SpawnPowerUpsManager::loadFromFile(const std::string &filename)
+        void SpawnObjectsManager::SpawnPowerUpsManager::setList(const std::vector<std::string> &list)
         {
-            std::string fileContents = cocos2d::FileUtils::getInstance()->getStringFromFile(filename);
-            
-            Json::Reader reader;
-            Json::Value json;
-            reader.parse(fileContents, json);
-            
-            const auto& list = json["obj"];
-            for (const auto& name : list)
-            {
-                powerUpNames.push_back(name.asString());
-            }
+            powerUpNames = list;
         }
         
         void SpawnObjectsManager::SpawnPowerUpsManager::spawnNextItem()

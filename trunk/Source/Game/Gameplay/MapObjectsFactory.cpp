@@ -56,6 +56,8 @@ namespace MelonGames
         
         void MapObjectsFactory::addTemplatesFromFile(const std::string& filename)
         {
+            auto& templates = templatesByFile[filename];
+            
             Json::Value json;
             std::string contents = cocos2d::FileUtils::getInstance()->getStringFromFile(filename);
             Json::Reader reader;
@@ -79,6 +81,7 @@ namespace MelonGames
                     assert(superIt != templates.end() && "The super type has to be declared before its children.");
                     if (superIt != templates.end())
                     {
+                        superIt->second.abstract = true;
                         mergeTemplate(superIt->second, t);
                     }
                 }
@@ -90,13 +93,37 @@ namespace MelonGames
         MapObject* MapObjectsFactory::createObject(const std::string& name) const
         {
             unsigned int hash = Crypto::stringHash(name);
-            auto it = templates.find(hash);
-            if (it != templates.end())
+            for (const auto& templatesIt : templatesByFile)
             {
-                return createObject(it->second);
+                const auto& templates = templatesIt.second;
+                const auto it = templates.find(hash);
+                if (it != templates.end())
+                {
+                    return createObject(it->second);
+                }
             }
             
             return nullptr;
+        }
+        
+        std::vector<std::string> MapObjectsFactory::getObjectsNamesForFile(const std::string& filename) const
+        {
+            std::vector<std::string> result;
+            
+            auto it = templatesByFile.find(filename);
+            if (it != templatesByFile.end())
+            {
+                for (auto& componentIt : it->second)
+                {
+                    const ObjectTemplate& objectTemplate = componentIt.second;
+                    if (!objectTemplate.abstract)
+                    {
+                        result.push_back(objectTemplate.name);
+                    }
+                }
+            }
+            
+            return result;
         }
         
         MapObject* MapObjectsFactory::createObject(const ObjectTemplate& t) const
