@@ -41,7 +41,9 @@
 				},
 				{
 					"type":"EnemyState",
-					"livesCost":1
+					"livesCost":1,
+					"lives":1,
+					"score":10
 				}
 			]
 		},
@@ -85,7 +87,9 @@
 				},
 				{
 					"type":"EnemyState",
-					"livesCost":1
+					"livesCost":1,
+					"lives":1,
+					"score":10
 				}
 			]
 		},
@@ -129,7 +133,9 @@
 				},
 				{
 					"type":"EnemyState",
-					"livesCost":1
+					"livesCost":1,
+					"lives":1,
+					"score":10
 				}
 			]
 		},
@@ -173,7 +179,9 @@
 				},
 				{
 					"type":"EnemyState",
-					"livesCost":1
+					"livesCost":1,
+					"lives":1,
+					"score":10
 				}
 			]
 		}
