@@ -10,6 +10,7 @@
 #include "MelonGames/Crypto.h"
 #include "MapObject.h"
 #include "Component/ComponentsFactory.h"
+#include "MelonGames/JsonUtil.h"
 
 #include "base/ccMacros.h"
 #include "platform/CCFileUtils.h"
@@ -19,8 +20,38 @@ namespace MelonGames
 {
     namespace KillyCraft
     {
+        Json::Value* ObjectTemplate::getComponentJson(const std::string& componentType)
+        {
+            for (Json::Value& componentJson : json["components"])
+            {
+                if (componentType == componentJson["type"].asString())
+                {
+                    return &componentJson;
+                }
+            }
+            
+            return nullptr;
+        }
+        
         MapObjectsFactory::MapObjectsFactory()
         {
+        }
+        
+        void MapObjectsFactory::mergeTemplate(const ObjectTemplate& superTemplate, ObjectTemplate& baseTemplate) const
+        {
+            for (const auto& superComponentJson : superTemplate.json["components"])
+            {
+                std::string componentName = superComponentJson["type"].asString();
+                
+                if (auto baseComponentJsonPtr = baseTemplate.getComponentJson(componentName))
+                {
+                    JsonUtil::mergeContentToBase(superComponentJson, *baseComponentJsonPtr);
+                }
+                else
+                {
+                    baseTemplate.json["components"].append(superComponentJson);
+                }
+            }
         }
         
         void MapObjectsFactory::addTemplatesFromFile(const std::string& filename)
@@ -32,13 +63,26 @@ namespace MelonGames
             
             const Json::Value& objectsJson = json["obj"];
             
-            for (const auto& objectJson : objectsJson)
+            for (const auto objectJson : objectsJson)
             {
                 std::string name = objectJson["name"].asString();
                 unsigned int nameHash = Crypto::stringHash(name);
                 ObjectTemplate t;
                 t.name = name;
                 t.json = objectJson;
+                
+                std::string superName = objectJson["super"].asString();
+                if (!superName.empty())
+                {
+                    unsigned int superHash = Crypto::stringHash(superName);
+                    auto superIt = templates.find(superHash);
+                    assert(superIt != templates.end() && "The super type has to be declared before its children.");
+                    if (superIt != templates.end())
+                    {
+                        mergeTemplate(superIt->second, t);
+                    }
+                }
+                
                 templates[nameHash] = t;
             }
         }

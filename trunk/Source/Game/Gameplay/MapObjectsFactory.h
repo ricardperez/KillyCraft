@@ -23,6 +23,8 @@ namespace MelonGames
         {
             std::string name;
             Json::Value json;
+            
+            Json::Value* getComponentJson(const std::string& componentType);
         };
         
         class MapObjectsFactory
@@ -35,8 +37,8 @@ namespace MelonGames
             MapObject* createObject(const std::string& name) const;
             
         private:
-            
             MapObject* createObject(const ObjectTemplate& t) const;
+            void mergeTemplate(const ObjectTemplate& superTemplate, ObjectTemplate& baseTemplate) const;
             
         private:
             std::map<unsigned int, ObjectTemplate> templates;
