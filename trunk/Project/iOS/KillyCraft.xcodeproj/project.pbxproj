@@ -12,6 +12,7 @@
 		1909136E1A03851300840DCB /* DestroyBehaviour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1909136C1A03851300840DCB /* DestroyBehaviour.cpp */; };
 		190913701A03882F00840DCB /* DestroyBehaviourFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1909136F1A03882F00840DCB /* DestroyBehaviourFunctions.cpp */; };
 		190913731A03898200840DCB /* BehaviourComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 190913711A03898200840DCB /* BehaviourComponent.cpp */; };
+		191DF6101A6183A8002E9CC2 /* JsonUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 191DF60E1A6183A8002E9CC2 /* JsonUtil.cpp */; };
 		19202CBB19FBEA8500AFAB33 /* GamepadComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19202CB919FBEA8500AFAB33 /* GamepadComponent.cpp */; };
 		19202CBE19FBEC8300AFAB33 /* WeaponComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19202CBC19FBEC8300AFAB33 /* WeaponComponent.cpp */; };
 		192DFB7D1A4AD2E10057FD5B /* ProjectileStateComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 192DFB7B1A4AD2E10057FD5B /* ProjectileStateComponent.cpp */; };
@@ -373,6 +374,8 @@
 		1909136F1A03882F00840DCB /* DestroyBehaviourFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DestroyBehaviourFunctions.cpp; sourceTree = "<group>"; };
 		190913711A03898200840DCB /* BehaviourComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BehaviourComponent.cpp; sourceTree = "<group>"; };
 		190913721A03898200840DCB /* BehaviourComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BehaviourComponent.h; sourceTree = "<group>"; };
+		191DF60E1A6183A8002E9CC2 /* JsonUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JsonUtil.cpp; sourceTree = "<group>"; };
+		191DF60F1A6183A8002E9CC2 /* JsonUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JsonUtil.h; sourceTree = "<group>"; };
 		19202CB919FBEA8500AFAB33 /* GamepadComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GamepadComponent.cpp; sourceTree = "<group>"; };
 		19202CBA19FBEA8500AFAB33 /* GamepadComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamepadComponent.h; sourceTree = "<group>"; };
 		19202CBC19FBEC8300AFAB33 /* WeaponComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WeaponComponent.cpp; sourceTree = "<group>"; };
@@ -1265,6 +1268,8 @@
 				19CA80D11A0C0B5600C6BF2C /* Crypto.h */,
 				194A08BB1A48A405007CEEE0 /* SpriteFrameHelper.cpp */,
 				194A08BC1A48A405007CEEE0 /* SpriteFrameHelper.h */,
+				191DF60E1A6183A8002E9CC2 /* JsonUtil.cpp */,
+				191DF60F1A6183A8002E9CC2 /* JsonUtil.h */,
 			);
 			name = MelonGames;
 			path = ../../../Source/MelonGames;
@@ -2980,6 +2985,7 @@
 				19F4AFDA19FBD05400C73F6E /* StarsView.cpp in Sources */,
 				19CCD48B1A02CDE800986A8E /* ccRandom.cpp in Sources */,
 				19CCD4F81A02CE2B00986A8E /* UIImageView.cpp in Sources */,
+				191DF6101A6183A8002E9CC2 /* JsonUtil.cpp in Sources */,
 				19CCD3F71A02CCEA00986A8E /* CCControlUtils.cpp in Sources */,
 				19CCD3F21A02CCEA00986A8E /* CCControlPotentiometer.cpp in Sources */,
 				19CCD4EB1A02CE2B00986A8E /* CocosGUI.cpp in Sources */,
