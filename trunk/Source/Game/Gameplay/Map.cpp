@@ -68,7 +68,7 @@ namespace MelonGames
 			assert(node);
             
             player = new Player();
-            player->addLives(3);
+            player->addLives(10);
             
             view = new MapView(this, node);
             
