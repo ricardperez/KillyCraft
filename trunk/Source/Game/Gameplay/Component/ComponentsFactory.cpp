@@ -100,9 +100,10 @@ namespace MelonGames
             Component* createWeaponComponent(const Json::Value& json)
             {
                 auto result = new WeaponComponent();
-                result->projectileTemplateName = json["projectile"].asString();
-                result->nProjectilesLeft = json["nProjectiles"].asInt();
-                result->fireRate = json["fireRate"].asFloat();
+                std::string projectileTemplateName = json["projectile"].asString();
+                float fireRate = json["fireRate"].asFloat();
+                int nBullets = json["nProjectiles"].asInt();
+                result->reset(Weapon(projectileTemplateName, fireRate), nBullets);
                 return result;
             }
             

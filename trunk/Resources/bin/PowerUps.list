@@ -2,6 +2,7 @@
 	"obj":
 	[
 		"PowerUpHeal",
-		"PowerUpKillAll"
+		"PowerUpKillAll",
+		"PowerUpWeaponMachinegun"
 	]
 }

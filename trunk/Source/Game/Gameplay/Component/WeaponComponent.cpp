@@ -17,19 +17,22 @@ namespace MelonGames
     namespace KillyCraft
     {
         WeaponComponent::WeaponComponent()
-        : nProjectilesLeft(0)
-        , fireRate(0.0f)
+        : nBullets(0)
         , lastShotTime(0.0f)
         {
-            
+        }
+        
+        const Weapon& WeaponComponent::getWeapon() const
+        {
+            return weapon;
         }
         
         bool WeaponComponent::canShoot() const
         {
-            if (nProjectilesLeft > 0)
+            if (nBullets > 0)
             {
                 float currTime = object->getMap()->getElapsedTime();
-                return ((currTime - lastShotTime) >= fireRate);
+                return ((currTime - lastShotTime) >= weapon.fireRate);
             }
             
             return false;
@@ -39,18 +42,34 @@ namespace MelonGames
         {
             lastShotTime = object->getMap()->getElapsedTime();
             
-            assert(nProjectilesLeft > 0 && "Should not be shooting as no bullets are left");
-            if (nProjectilesLeft > 0)
+            assert(nBullets > 0 && "Should not be shooting as no bullets are left");
+            if (nBullets > 0)
             {
-                --nProjectilesLeft;
+                --nBullets;
             }
             
-            if (MapObject* projectile = object->getMap()->getFactory()->createObject(projectileTemplateName))
+            if (MapObject* projectile = object->getMap()->getFactory()->createObject(weapon.bulletTemplate))
             {
                 projectile->get<PositionComponent>()->setPosition(object->get<PositionComponent>()->getPosition());
                 object->getMap()->addObject(projectile);
             }
+        }
+        
+        void WeaponComponent::addBullets(unsigned int n)
+        {
+            nBullets += n;
+        }
+        
+        void WeaponComponent::reset(const Weapon &weapon, int nBullets)
+        {
+            this->weapon = weapon;
+            this->nBullets = nBullets;
             
+            if (object)
+            {
+                assert(object->getMap() && "Map has to exist");
+                lastShotTime = object->getMap()->getElapsedTime();
+            }
         }
     }
 }

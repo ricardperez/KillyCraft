@@ -21,6 +21,17 @@ namespace MelonGames
             Component* createWeaponComponent(const Json::Value& json);
         }
         
+        struct Weapon
+        {
+            std::string bulletTemplate;
+            float fireRate;
+            
+            Weapon(const std::string& bulletTemplate, float fireRate) : bulletTemplate(bulletTemplate), fireRate(fireRate) {}
+            Weapon() : fireRate(0.0f) {}
+            
+            bool operator==(const Weapon& other) const { return bulletTemplate == other.bulletTemplate; }
+        };
+        
         class WeaponComponent : public Component
         {
         public:
@@ -30,13 +41,17 @@ namespace MelonGames
             
             WeaponComponent();
             
+            const Weapon& getWeapon() const;
+            
             bool canShoot() const;
             void shoot();
             
+            void addBullets(unsigned int n);
+            void reset(const Weapon& weapon, int nBullets);
+            
         private:
-            unsigned int nProjectilesLeft;
-            float fireRate;
-            std::string projectileTemplateName;
+            Weapon weapon;
+            unsigned int nBullets;
             
             float lastShotTime;
         };

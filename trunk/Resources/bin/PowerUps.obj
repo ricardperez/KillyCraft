@@ -61,6 +61,67 @@
 			]
 		},
 		{
+			"name":"PowerUpWeaponMachinegun",
+			"components":
+			[
+				{
+					"type":"View",
+					"sprite":"PowerUp.png",
+					"tint":[0, 255, 255]
+				},
+				{
+					"type":"Behaviour",
+					"behaviours":
+					[
+						{
+							"type":"Destroy",
+							"checks":
+							[
+								{
+									"type":"OutOfScreenDown"
+								},
+								{
+									"type":"Collision"
+								}
+							]
+						},
+						{
+							"type":"MoveCircularProjected"
+						},
+						{
+							"type":"MoveLinear"
+						}
+					]
+				},
+				{
+					"type": "MoveLinear",
+					"move": [0.0, -50.0, 0.0]
+				},
+				{
+					"type": "MoveCircular",
+					"radius": 75.0,
+					"period": 2.0
+				},
+				{
+					"type": "CollisionDetection",
+					"mask": "",
+					"t": 3
+				},
+				{
+					"type": "PowerUp",
+					"actions":
+					[
+						{
+							"type": "Weapon",
+							"projectile": "MachinegunBullet",
+							"fireRate": 0.2,
+							"nProjectiles": 20
+						}
+					]
+				}
+			]
+		},
+		{
 			"name":"PowerUpKillAll",
 			"components":
 			[
