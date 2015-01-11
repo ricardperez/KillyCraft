@@ -55,6 +55,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../../Source/libs/jsoncpp/src/lib_json/json_writer.cpp \
                    ../../../Source/MelonGames/Services/FilesService.cpp \
                    ../../../Source/MelonGames/Crypto.cpp \
+                   ../../../Source/MelonGames/JsonUtil.cpp \
                    ../../../Source/MelonGames/Random.cpp \
                    ../../../Source/MelonGames/SpriteFrameHelper.cpp \
                    ../../../Source/MelonGames/Services/Service.cpp \
