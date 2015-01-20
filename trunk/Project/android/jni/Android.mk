@@ -17,6 +17,8 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../../Source/Game/Gameplay/Behaviour/BehavioursFactory.cpp \
                    ../../../Source/Game/Gameplay/Behaviour/DestroyBehaviour.cpp \
                    ../../../Source/Game/Gameplay/Behaviour/DestroyBehaviourFunctions.cpp \
+                   ../../../Source/Game/Gameplay/Behaviour/EvasionBehaviours.cpp \
+                   ../../../Source/Game/Gameplay/Behaviour/MoveActions.cpp \
                    ../../../Source/Game/Gameplay/Behaviour/MovementBehaviours.cpp \
                    ../../../Source/Game/Gameplay/Component/BehaviourComponent.cpp \
                    ../../../Source/Game/Gameplay/Component/CollisionDetectionComponent.cpp \
