@@ -10,6 +10,7 @@
 #include "Gameplay/Behaviour/MovementBehaviours.h"
 #include "Gameplay/Behaviour/DestroyBehaviour.h"
 #include "Gameplay/Behaviour/DestroyBehaviourFunctions.h"
+#include "Gameplay/Behaviour/EvasionBehaviours.h"
 
 #include "MelonGames/Crypto.h"
 
@@ -55,6 +56,20 @@ namespace MelonGames
                 return result;
             }
             
+            Behaviour* createMoveVerticallyBehaviour(const Json::Value& json)
+            {
+                auto result = new MoveLinearBehaviour();
+                result->setProjection(MoveLinearBehaviour::Projection::eVertical);
+                return result;
+            }
+            
+            Behaviour* createMoveHorizontallyBehaviour(const Json::Value& json)
+            {
+                auto result = new MoveLinearBehaviour();
+                result->setProjection(MoveLinearBehaviour::Projection::eHorizontal);
+                return result;
+            }
+            
             template <class T>
             Behaviour* createDefaultBehaviour(const Json::Value& json)
             {
@@ -66,8 +81,11 @@ namespace MelonGames
                 static std::map<unsigned int, std::function<Behaviour*(const Json::Value&)>> lambdas = {
                     {Crypto::stringHash("Destroy"), createDestroyBehaviour},
                     {Crypto::stringHash("MoveLinear"), createDefaultBehaviour<MoveLinearBehaviour>},
+                    {Crypto::stringHash("MoveVertically"), createMoveVerticallyBehaviour},
+                    {Crypto::stringHash("MoveHorizontally"), createMoveHorizontallyBehaviour},
                     {Crypto::stringHash("MoveCircular"), createDefaultBehaviour<MoveCircularBehaviour>},
                     {Crypto::stringHash("MoveCircularProjected"), createDefaultBehaviour<MoveCircularProjectedBehaviour>},
+                    {Crypto::stringHash("EvadeProjectilesHorizontally"), createDefaultBehaviour<EvadeProjectilesHorizontally>},
                 };
                 
                 std::string type = json["type"].asString();
