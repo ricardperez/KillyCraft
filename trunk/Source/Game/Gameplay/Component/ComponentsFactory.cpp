@@ -149,7 +149,7 @@ namespace MelonGames
                     CCASSERT(false, "One of radsPerSec or period has to be defined");
                 }
                 
-                result->setRadius(json["raius"].asFloat());
+                result->setRadius(json["radius"].asFloat());
                 return result;
             }
             
