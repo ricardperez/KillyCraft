@@ -59,7 +59,7 @@ namespace MelonGames
             float radius = moveState->getRadius();
             float radiansPerSecond = moveState->getRadiansPerSecond();
             
-            float moveX = radius * (std::cos(radiansPerSecond*time) - std::cos(radiansPerSecond*(lastTime)));
+            float moveX = radius * (std::cos(radiansPerSecond*time + M_PI_2) - std::cos(radiansPerSecond*lastTime + M_PI_2));
             object->get<PositionComponent>()->movePositionX(moveX);
         }
     }
