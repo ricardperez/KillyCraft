@@ -20,7 +20,20 @@ namespace MelonGames
         public:
             DECLARE_TYPE_WITH_BASE_TYPE(MoveLinearBehaviour, Behaviour);
             
+            MoveLinearBehaviour();
+            enum class Projection
+            {
+                eNormal,
+                eVertical,
+                eHorizontal
+            };
+            
+            void setProjection(Projection projection);
+            
             virtual void update(MapObject* object, float dt) override;
+            
+        private:
+            Projection projection;
         };
         
         class MoveCircularBehaviour : public Behaviour

@@ -18,13 +18,36 @@ namespace MelonGames
     namespace KillyCraft
     {
 #pragma mark - MoveLinearBehaviour
+        MoveLinearBehaviour::MoveLinearBehaviour()
+        : projection(Projection::eNormal)
+        {
+        }
+        
+        void MoveLinearBehaviour::setProjection(MoveLinearBehaviour::Projection projection)
+        {
+            this->projection = projection;
+        }
+        
         void MoveLinearBehaviour::update(MapObject* object, float dt)
         {
             Base::update(object, dt);
             
             auto posComponent = object->getOrCreate<PositionComponent>();
             auto moveState = object->getOrCreate<MoveLinearStateComponent>();
-            posComponent->setPosition(posComponent->getPosition() + moveState->getMovementPerSecond()*dt);
+            
+            switch (projection)
+            {
+                case Projection::eNormal:
+                default:
+                    posComponent->movePosition(moveState->getMovementPerSecond()*dt);
+                    break;
+                case Projection::eHorizontal:
+                    posComponent->movePositionX(moveState->getMovementPerSecond().x*dt);
+                    break;
+                case Projection::eVertical:
+                    posComponent->movePositionY(moveState->getMovementPerSecond().y*dt);
+                    break;
+            }
         }
         
         
