@@ -115,6 +115,8 @@
 		19AD18EC1A0E0CDC00200802 /* json_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AD18D71A0E0CDC00200802 /* json_reader.cpp */; };
 		19AD18ED1A0E0CDC00200802 /* json_value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AD18D91A0E0CDC00200802 /* json_value.cpp */; };
 		19AD18EF1A0E0CDC00200802 /* json_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AD18DB1A0E0CDC00200802 /* json_writer.cpp */; };
+		19C24FB81A6EE74500E18860 /* EvasionBehaviours.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19C24FB61A6EE74500E18860 /* EvasionBehaviours.cpp */; };
+		19C24FBB1A6EE87700E18860 /* MoveActions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19C24FB91A6EE87700E18860 /* MoveActions.cpp */; };
 		19C61FA71A06C168001674E0 /* CollisionDetectionComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19C61FA51A06C168001674E0 /* CollisionDetectionComponent.cpp */; };
 		19C72D0D1A0D5AD600EA9CB5 /* bin in Resources */ = {isa = PBXBuildFile; fileRef = 19C72D0C1A0D5AD600EA9CB5 /* bin */; };
 		19CA80C91A0BFD9500C6BF2C /* SpawnObjectsManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19CA80C71A0BFD9500C6BF2C /* SpawnObjectsManager.cpp */; };
@@ -695,6 +697,10 @@
 		19AD18D81A0E0CDC00200802 /* json_tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = json_tool.h; sourceTree = "<group>"; };
 		19AD18D91A0E0CDC00200802 /* json_value.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_value.cpp; sourceTree = "<group>"; };
 		19AD18DB1A0E0CDC00200802 /* json_writer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_writer.cpp; sourceTree = "<group>"; };
+		19C24FB61A6EE74500E18860 /* EvasionBehaviours.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EvasionBehaviours.cpp; sourceTree = "<group>"; };
+		19C24FB71A6EE74500E18860 /* EvasionBehaviours.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvasionBehaviours.h; sourceTree = "<group>"; };
+		19C24FB91A6EE87700E18860 /* MoveActions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MoveActions.cpp; sourceTree = "<group>"; };
+		19C24FBA1A6EE87700E18860 /* MoveActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveActions.h; sourceTree = "<group>"; };
 		19C61FA01A056CCB001674E0 /* Delegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Delegate.h; sourceTree = "<group>"; };
 		19C61FA11A056CCB001674E0 /* Signal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Signal.h; sourceTree = "<group>"; };
 		19C61FA51A06C168001674E0 /* CollisionDetectionComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CollisionDetectionComponent.cpp; sourceTree = "<group>"; };
@@ -1240,6 +1246,10 @@
 				1909136D1A03851300840DCB /* DestroyBehaviour.h */,
 				1909136F1A03882F00840DCB /* DestroyBehaviourFunctions.cpp */,
 				19CA80D71A0C152800C6BF2C /* DestroyBehaviourFunctions.h */,
+				19C24FB61A6EE74500E18860 /* EvasionBehaviours.cpp */,
+				19C24FB71A6EE74500E18860 /* EvasionBehaviours.h */,
+				19C24FB91A6EE87700E18860 /* MoveActions.cpp */,
+				19C24FBA1A6EE87700E18860 /* MoveActions.h */,
 				190913691A03849700840DCB /* MovementBehaviours.cpp */,
 				1909136A1A03849700840DCB /* MovementBehaviours.h */,
 			);
@@ -2999,6 +3009,7 @@
 				19CCD5E61A02D30200986A8E /* CCLight.cpp in Sources */,
 				19CCD5E51A02D30200986A8E /* CCLayer.cpp in Sources */,
 				19CCD4F91A02CE2B00986A8E /* UILayout.cpp in Sources */,
+				19C24FB81A6EE74500E18860 /* EvasionBehaviours.cpp in Sources */,
 				19AB2C2C19F99913008D3B13 /* CCPhysicsContactInfo_chipmunk.cpp in Sources */,
 				19CCD49C1A02CDE800986A8E /* ZipUtils.cpp in Sources */,
 				19AB298F19F988FF008D3B13 /* AssetsManager.cpp in Sources */,
@@ -3129,6 +3140,7 @@
 				19CA80C91A0BFD9500C6BF2C /* SpawnObjectsManager.cpp in Sources */,
 				19CCD3F11A02CCEA00986A8E /* CCControlHuePicker.cpp in Sources */,
 				19CCD5ED1A02D30200986A8E /* CCParticleBatchNode.cpp in Sources */,
+				19C24FBB1A6EE87700E18860 /* MoveActions.cpp in Sources */,
 				19CCD66C1A02D41000986A8E /* CCMeshCommand.cpp in Sources */,
 				196AD4C019F9832900D87881 /* main.m in Sources */,
 				19CCD5F21A02D30200986A8E /* CCProtectedNode.cpp in Sources */,
