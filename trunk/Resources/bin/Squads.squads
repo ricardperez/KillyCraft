@@ -62,6 +62,16 @@
 					[0, 700]
 				]
 			]
+		},
+		{
+			"name":"SquadEvadeProjectileHorizontally",
+			"enemies":
+			[
+				[
+					"EnemyEvasion",
+					[0, 0]
+				]
+			]
 		}
 	]
 }

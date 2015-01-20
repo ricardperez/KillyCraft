@@ -26,7 +26,7 @@
 							]
 						},
 						{
-							"type":"MoveLinear"
+							"type":"MoveVertically"
 						}
 					]
 				},
@@ -92,6 +92,51 @@
 					"type":"CollisionDetection",
 					"mask": "Frighty.png.mask",
 					"t":1
+				}
+			]
+		},
+		{
+			"super":"EnemyBase",
+			"name":"EnemyEvasion",
+			"components":
+			[
+				{
+					"type":"View",
+					"sprite":"Frighty.png",
+					"tint":[200, 255, 200]
+				},
+				{
+					"type":"CollisionDetection",
+					"mask": "Frighty.png.mask",
+					"t":1
+				},
+				{
+					"type":"Behaviour",
+					"behaviours":
+					[
+						{
+							"type":"Destroy",
+							"checks":
+							[
+								{
+									"type":"OutOfScreenDown"
+								},
+								{
+									"type":"Collision"
+								}
+							]
+						},
+						{
+							"type":"MoveVertically"
+						},
+						{
+							"type":"EvadeProjectilesHorizontally"
+						}
+					]
+				},
+				{
+					"type":"MoveLinear",
+					"move":[350.0, -150.0, 0.0]
 				}
 			]
 		}
