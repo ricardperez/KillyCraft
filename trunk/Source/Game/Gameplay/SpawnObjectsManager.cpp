@@ -27,7 +27,7 @@ namespace MelonGames
     {
         SpawnObjectsManager::SpawnObjectsManager()
         : spawnSquadsManager(2.0f, 3.5f)
-        , spawnPowerUpsManager(5.0f, 5.0f)
+        , spawnPowerUpsManager(8.0f, 10.0f)
         {
             allManagers = {
                 &spawnSquadsManager,
