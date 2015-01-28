@@ -37,6 +37,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../../Source/Game/Gameplay/Component/TextureMask.cpp \
                    ../../../Source/Game/Gameplay/Component/TimeComponent.cpp \
                    ../../../Source/Game/Gameplay/Component/ViewComponent.cpp \
+                   ../../../Source/Game/Gameplay/Component/ViewParts.cpp \
                    ../../../Source/Game/Gameplay/Component/WeaponComponent.cpp \
 
                    ../../../Source/Game/Gameplay/Gamepad.cpp \
