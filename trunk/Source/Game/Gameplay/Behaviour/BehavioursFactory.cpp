@@ -25,25 +25,21 @@ namespace MelonGames
         {
             Behaviour* createDestroyBehaviour(const Json::Value& json)
             {
+                static std::map<unsigned int, DestroyCheckFunction> lambdas = {
+                    {Crypto::stringHash("OutOfScreenDown"), DestroyBehaviourFunctions::isOutOfScreenDown},
+                    {Crypto::stringHash("OutOfScreenUp"), DestroyBehaviourFunctions::isOutOfScreenUp},
+                    {Crypto::stringHash("Collision"), DestroyBehaviourFunctions::isCollision},
+                    {Crypto::stringHash("Dead"), DestroyBehaviourFunctions::isDead},
+                };
+                
                 auto result = new DestroyBehaviour();
                 for (const auto& check : json["checks"])
                 {
                     std::string type = check["type"].asString();
-                    if (type == "OutOfScreenDown")
+                    auto it = lambdas.find(Crypto::stringHash(type));
+                    if (it != lambdas.end())
                     {
-                        result->addCheckFunctionWithName(DestroyBehaviourFunctions::makeIsOutOfScreenDownFunction(), type);
-                    }
-                    else if (type == "OutOfScreenUp")
-                    {
-                        result->addCheckFunctionWithName(DestroyBehaviourFunctions::makeIsOutOfScreenUpFunction(), type);
-                    }
-                    else if (type == "Collision")
-                    {
-                        result->addCheckFunctionWithName(DestroyBehaviourFunctions::makeIsCollisionFunction(), type);
-                    }
-                    else if (type == "Dead")
-                    {
-                        result->addCheckFunctionWithName(DestroyBehaviourFunctions::makeIsDeadFunction(), type);
+                        result->addCheckFunctionWithName(it->second, type);
                     }
                     else
                     {

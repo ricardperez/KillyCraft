@@ -21,75 +21,64 @@ namespace MelonGames
     {
         namespace DestroyBehaviourFunctions
         {
-            DestroyCheckFunction makeIsDeadFunction()
+            bool isDead(MapObject* object)
             {
-                return [](MapObject* object) -> bool
-                {
-                    return false;
-                };
+                return false;
             }
-            DestroyCheckFunction makeIsOutOfScreenDownFunction()
+            
+            bool isOutOfScreenDown(MapObject* object)
             {
-                return [](MapObject* object) -> bool
+                bool inside = false;
+                if (auto positionComponent = object->get<PositionComponent>())
                 {
-                    bool inside = false;
-                    if (auto positionComponent = object->get<PositionComponent>())
+                    cocos2d::Vec2 screenPos = Perspective::screenPosition(positionComponent->getPosition());
+                    inside = (screenPos.y >= 0.0f);
+                    if (!inside)
                     {
-                        cocos2d::Vec2 screenPos = Perspective::screenPosition(positionComponent->getPosition());
-                        inside = (screenPos.y >= 0.0f);
-                        if (!inside)
+                        if (auto viewComponent = object->get<ViewComponent>())
                         {
-                            if (auto viewComponent = object->get<ViewComponent>())
+                            if (auto sprite = viewComponent->getSprite())
                             {
-                                if (auto sprite = viewComponent->getSprite())
-                                {
-                                    cocos2d::Size spriteSize = (sprite->getContentSize() * sprite->getScale());
-                                    screenPos.y += spriteSize.height*0.5f;
-                                    
-                                    inside = (screenPos.y >= 0.0f);
-                                }
+                                cocos2d::Size spriteSize = (sprite->getContentSize() * sprite->getScale());
+                                screenPos.y += spriteSize.height*0.5f;
+                                
+                                inside = (screenPos.y >= 0.0f);
                             }
                         }
                     }
-                    return !inside;
-                };
+                }
+                return !inside;
             }
             
-            DestroyCheckFunction makeIsOutOfScreenUpFunction()
+            bool isOutOfScreenUp(MapObject* object)
             {
-                return [](MapObject* object) -> bool
+                bool inside = false;
+                if (auto positionComponent = object->get<PositionComponent>())
                 {
-                    bool inside = false;
-                    if (auto positionComponent = object->get<PositionComponent>())
+                    cocos2d::Size screenSize = object->getMap()->getDefinition().screenSize;
+                    cocos2d::Vec2 screenPos = Perspective::screenPosition(positionComponent->getPosition());
+                    inside = (screenPos.y <= screenSize.height);
+                    if (!inside)
                     {
-                        cocos2d::Size screenSize = object->getMap()->getDefinition().screenSize;
-                        cocos2d::Vec2 screenPos = Perspective::screenPosition(positionComponent->getPosition());
-                        inside = (screenPos.y <= screenSize.height);
-                        if (!inside)
+                        if (auto viewComponent = object->get<ViewComponent>())
                         {
-                            if (auto viewComponent = object->get<ViewComponent>())
+                            if (auto sprite = viewComponent->getSprite())
                             {
-                                if (auto sprite = viewComponent->getSprite())
-                                {
-                                    cocos2d::Size spriteSize = (sprite->getContentSize() * sprite->getScale());
-                                    screenPos.y -= spriteSize.height*0.5f;
-                                    
-                                    inside = (screenPos.y <= screenSize.height);
-                                }
+                                cocos2d::Size spriteSize = (sprite->getContentSize() * sprite->getScale());
+                                screenPos.y -= spriteSize.height*0.5f;
+                                
+                                inside = (screenPos.y <= screenSize.height);
                             }
                         }
                     }
-                    return !inside;
-                };
+                }
+                return !inside;
             }
             
-            DestroyCheckFunction makeIsCollisionFunction()
+            bool isCollision(MapObject* object)
             {
-                return [](MapObject* object) -> bool
-                {
-                    auto collisionComponent = object->get<CollisionDetectionComponent>();
-                    return (collisionComponent && collisionComponent->getObject() && collisionComponent->hasCollision());
-                };
+                auto collisionComponent = object->get<CollisionDetectionComponent>();
+                return (collisionComponent && collisionComponent->getObject() && collisionComponent->hasCollision());
             }
         }
     }
