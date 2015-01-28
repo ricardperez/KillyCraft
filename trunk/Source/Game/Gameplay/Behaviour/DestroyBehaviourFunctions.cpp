@@ -37,13 +37,9 @@ namespace MelonGames
                     {
                         if (auto viewComponent = object->get<ViewComponent>())
                         {
-                            if (auto sprite = viewComponent->getSprite())
-                            {
-                                cocos2d::Size spriteSize = (sprite->getContentSize() * sprite->getScale());
-                                screenPos.y += spriteSize.height*0.5f;
-                                
-                                inside = (screenPos.y >= 0.0f);
-                            }
+                            screenPos.y += viewComponent->getSize().height*0.5f;
+                            
+                            inside = (screenPos.y >= 0.0f);
                         }
                     }
                 }
@@ -62,13 +58,8 @@ namespace MelonGames
                     {
                         if (auto viewComponent = object->get<ViewComponent>())
                         {
-                            if (auto sprite = viewComponent->getSprite())
-                            {
-                                cocos2d::Size spriteSize = (sprite->getContentSize() * sprite->getScale());
-                                screenPos.y -= spriteSize.height*0.5f;
-                                
-                                inside = (screenPos.y <= screenSize.height);
-                            }
+                            screenPos.y -= (viewComponent->getSize().height * 0.5f);
+                            inside = (screenPos.y <= screenSize.height);
                         }
                     }
                 }

@@ -264,15 +264,11 @@ namespace MelonGames
         cocos2d::Rect CollisionDetectionComponent::getCurrentRect() const
         {
             auto position = object->get<PositionComponent>()->getGroundPosition();
-            float scale = 1.0f;
-            if (auto view = object->get<ViewComponent>())
-            {
-                scale = view->getScale();
-            }
+
             cocos2d::Rect rect;
             if (textureMask)
             {
-                rect.size = cocos2d::Vec2(textureMask->getWidth() * scale, textureMask->getHeight() * scale);
+                rect.size = cocos2d::Vec2(textureMask->getWidth(), textureMask->getHeight());
             }
             rect.origin = position - rect.size*0.5f;
             
@@ -297,20 +293,7 @@ namespace MelonGames
             if (!textureMask)
             {
                 ViewComponent* viewComponent = object->get<ViewComponent>();
-                if (const cocos2d::Sprite* sprite = viewComponent->getSprite())
-                {
-                    cocos2d::Size size;
-                    if (auto spriteFrame = sprite->getSpriteFrame())
-                    {
-                        size = spriteFrame->getRectInPixels().size;
-                    }
-                    else
-                    {
-                        size = sprite->getTexture()->getContentSizeInPixels();
-                    }
-                    
-                    textureMask = TextureMask::create(size);
-                }
+                textureMask = TextureMask::create(viewComponent->getSize());
             }
             
             maskBuilt = (textureMask != nullptr);

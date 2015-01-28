@@ -13,6 +13,7 @@
 
 #include "PositionComponent.h"
 #include "ViewComponent.h"
+#include "ViewParts.h"
 #include "GamepadComponent.h"
 #include "WeaponComponent.h"
 #include "BehaviourComponent.h"
@@ -78,12 +79,18 @@ namespace MelonGames
             {
                 auto result = new ViewComponent();
                 
-                result->spriteFrameName = json["sprite"].asString();
-                
-                const Json::Value& tintValue = json["tint"];
-                if (!tintValue.isNull())
+                for (const auto& partJson : json["parts"])
                 {
-                    result->setTintColor(cocos2d::Color3B(tintValue[0].asInt(), tintValue[1].asInt(), tintValue[2].asInt()));
+                    ViewPart* part = ViewPartsFactory::createViewPart(partJson);
+                    if (part != nullptr)
+                    {
+                        result->addPart(part);
+                    }
+                    else
+                    {
+                        delete result;
+                        return nullptr;
+                    }
                 }
                 
                 return result;

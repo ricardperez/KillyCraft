@@ -7,7 +7,14 @@
 			[
 				{
 					"type":"View",
-					"sprite":"PowerUp.png"
+					"parts":
+					[
+						{
+							"type":"Sprite",
+							"sprite":"PowerUp.png",
+							"tint": [255, 255, 255]
+						}
+					]
 				},
 				{
 					"type":"Behaviour",
@@ -62,7 +69,14 @@
 			[
 				{
 					"type":"View",
-					"tint":[0, 255, 0]
+					"parts":
+					[
+						{
+							"type":"Sprite",
+							"sprite":"PowerUp.png",
+							"tint": [0, 255, 0]
+						}
+					]
 				},
 				{
 					"type": "PowerUp",
@@ -83,7 +97,14 @@
 			[
 				{
 					"type":"View",
-					"tint":[0, 255, 255]
+					"parts":
+					[
+						{
+							"type":"Sprite",
+							"sprite":"PowerUp.png",
+							"tint": [0, 255, 255]
+						}
+					]
 				},
 				{
 					"type": "PowerUp",
@@ -106,7 +127,14 @@
 			[
 				{
 					"type":"View",
-					"tint":[255, 0, 0]
+					"parts":
+					[
+						{
+							"type":"Sprite",
+							"sprite":"PowerUp.png",
+							"tint": [255, 0, 0]
+						}
+					]
 				},
 				{
 					"type": "PowerUp",

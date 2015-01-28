@@ -7,7 +7,13 @@
 			[
 				{
 					"type":"View",
-					"sprite":"Placeholder.png"
+					"parts":
+					[
+						{
+							"type":"Sprite",
+							"sprite":"Placeholder.png"
+						}
+					]
 				},
 				{
 					"type":"Behaviour",
@@ -54,7 +60,13 @@
 			[
 				{
 					"type":"View",
-					"sprite":"Gordy.png"
+					"parts":
+					[
+						{
+							"type":"Sprite",
+							"sprite":"Gordy.png"
+						}
+					]
 				},
 				{
 					"type":"CollisionDetection",
@@ -70,7 +82,13 @@
 			[
 				{
 					"type":"View",
-					"sprite":"Killy.png"
+					"parts":
+					[
+						{
+							"type":"Sprite",
+							"sprite":"Killy.png"
+						}
+					]
 				},
 				{
 					"type":"CollisionDetection",
@@ -86,7 +104,13 @@
 			[
 				{
 					"type":"View",
-					"sprite":"Frighty.png"
+					"parts":
+					[
+						{
+							"type":"Sprite",
+							"sprite":"Frighty.png"
+						}
+					]
 				},
 				{
 					"type":"CollisionDetection",
@@ -102,8 +126,14 @@
 			[
 				{
 					"type":"View",
-					"sprite":"Frighty.png",
-					"tint":[200, 255, 200]
+					"parts":
+					[
+						{
+							"type":"Sprite",
+							"sprite":"Frighty.png",
+							"tint":[200, 255, 200]
+						}
+					]
 				},
 				{
 					"type":"CollisionDetection",

@@ -11,6 +11,7 @@
 
 #include "Component.h"
 #include "base/ccTypes.h"
+#include "math/CCGeometry.h"
 
 namespace cocos2d
 {
@@ -28,6 +29,7 @@ namespace MelonGames
         }
         
         class PositionComponent;
+        class ViewPart;
 		
 		class ViewComponent : public Component
 		{
@@ -42,20 +44,19 @@ namespace MelonGames
 			virtual void onObjectAttachedToMap() override;
             virtual void onWillDetachFromObject() override;
 			
-			const cocos2d::Sprite* getSprite() const;
+            void addPart(ViewPart* part);
+            void removePart(ViewPart* part);
             
-            float getScale() const;
-            
-            virtual void setTintColor(const cocos2d::Color3B& color);
-            const cocos2d::Color3B& getTintColor() const;
+            const cocos2d::Size& getSize();
 			
 		protected:
 			void onPositionChanged(PositionComponent* posComponent);
 			
 		private:
-			std::string spriteFrameName;
-			cocos2d::Sprite* sprite;
-            cocos2d::Color3B tint;
+            std::vector<ViewPart*> parts;
+            
+            cocos2d::Size size;
+            bool sizeDirty;
 		};
 	}
 }

@@ -149,13 +149,10 @@ namespace MelonGames
                 float posY = enemy->get<PositionComponent>()->getPosition().y;
                 if (auto view = enemy->get<ViewComponent>())
                 {
-                    if (auto sprite = view->getSprite())
+                    posY -= (view->getSize().height * 0.5f);
+                    if (posY < minY)
                     {
-                        posY -= (sprite->getContentSize().height * 0.5f);
-                        if (posY < minY)
-                        {
-                            offsetToHideFirst = (sprite->getContentSize().height * 0.5f);
-                        }
+                        offsetToHideFirst = (view->getSize().height * 0.5f);
                     }
                 }
             }

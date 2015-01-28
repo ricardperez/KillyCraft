@@ -36,7 +36,7 @@ namespace MelonGames
                         float viewComponentWidth = 0.0f;
                         if (auto viewComponent = object->get<ViewComponent>())
                         {
-                            viewComponentWidth = viewComponent->getSprite()->getContentSize().width;
+                            viewComponentWidth = viewComponent->getSize().width;
                         }
                         
                         float desiredX = positionCp.x + x;

@@ -32,7 +32,7 @@ namespace MelonGames
             auto posComponent = object->get<PositionComponent>();
             cocos2d::Vec3 positionCp = posComponent->getPosition();
             
-            float viewComponentWidth = object->get<ViewComponent>()->getSprite()->getContentSize().width;
+            float viewComponentWidth = object->get<ViewComponent>()->getSize().width;
             
             float desiredX = positionCp.x + distance;
             float maxX = (object->getMap()->getDefinition().screenSize.width - viewComponentWidth * 0.45f);

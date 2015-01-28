@@ -10,7 +10,13 @@
 				},
 				{
 					"type":"View",
-					"sprite":"Melon.png"
+					"parts":
+					[
+						{
+							"type":"Sprite",
+							"sprite":"Melon.png"
+						}
+					]
 				},
 				{
 					"type":"Weapon",

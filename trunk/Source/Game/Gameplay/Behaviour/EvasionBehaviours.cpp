@@ -27,10 +27,7 @@ namespace MelonGames
                 float allowedDistance = 350.0f;
                 if (auto viewComponent = object->get<ViewComponent>())
                 {
-                    if (auto sprite = viewComponent->getSprite())
-                    {
-                        allowedDistance += (sprite->getContentSize().width * 0.5f);
-                    }
+                    allowedDistance += viewComponent->getSize().width * 0.5f;
                 }
                 
                 const cocos2d::Vec3& position = posComponent->getPosition();

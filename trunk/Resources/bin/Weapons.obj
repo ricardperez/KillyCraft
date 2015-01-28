@@ -7,8 +7,14 @@
 			[
 				{
 					"type": "View",
-					"sprite": "Bullet.png",
-					"tint": [1.0, 0.0, 0.0]
+					"parts":
+					[
+						{
+							"type":"Sprite",
+							"sprite":"Bullet.png",
+							"tint": [255, 0, 0]
+						}
+					]
 				},
 				{
 					"type":"Position"

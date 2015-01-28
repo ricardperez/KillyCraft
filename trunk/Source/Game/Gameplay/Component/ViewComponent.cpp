@@ -7,90 +7,106 @@
 //
 
 #include "ViewComponent.h"
-#include "MelonGames/SpriteFrameHelper.h"
+#include "ViewParts.h"
 #include "Gameplay/MapObject.h"
 #include "Gameplay/Map.h"
 #include "Gameplay/View/MapView.h"
 #include "PositionComponent.h"
-#include "2d/CCSprite.h"
-#include "2d/CCSpriteFrame.h"
 
 namespace MelonGames
 {
 	namespace KillyCraft
 	{
 		ViewComponent::ViewComponent()
-		: sprite(nullptr)
-        , tint(255, 255, 255)
+        : sizeDirty(true)
 		{
 		}
 		
 		ViewComponent::~ViewComponent()
 		{
-			
+            for (auto part : parts)
+            {
+                part->getNode()->removeFromParent();
+                delete part;
+            }
 		}
 		
 		void ViewComponent::onObjectAttachedToMap()
 		{
 			Base::onObjectAttachedToMap();
-			
-			sprite = cocos2d::Sprite::createWithSpriteFrame(spriteFrameOrDefault(spriteFrameName));
-            sprite->setColor(tint);
-			object->getMap()->getView()->getNode()->addChild(sprite);
-			
-			auto posComponent = object->get<PositionComponent>();
-			posComponent->getPositionChangedSignal().Connect(this, &ViewComponent::onPositionChanged);
-			if (posComponent->isPositionSet())
-			{
-				onPositionChanged(posComponent);
-			}
-			
+            
+            auto mapViewNode = object->getMap()->getView()->getNode();
+            for (auto part : parts)
+            {
+                mapViewNode->addChild(part->getNode());
+            }
+            sizeDirty = true;
+            
+            auto positionComponent = object->getOrCreate<PositionComponent>();
+            positionComponent->getPositionChangedSignal().Connect(this, &ViewComponent::onPositionChanged);
+            if (positionComponent->isPositionSet())
+            {
+                onPositionChanged(positionComponent);
+            }
 		}
         
         void ViewComponent::onWillDetachFromObject()
         {
-            if (sprite)
+            for (auto part : parts)
             {
-                sprite->removeFromParent();
-                sprite = nullptr;
+                part->getNode()->removeFromParent();
+                delete part;
             }
+            parts.clear();
+            sizeDirty = true;
             Base::onWillDetachFromObject();
         }
         
-        const cocos2d::Sprite* ViewComponent::getSprite() const
+        void ViewComponent::addPart(ViewPart* part)
         {
-            return sprite;
-        }
-        
-        float ViewComponent::getScale() const
-        {
-            if (sprite)
+            parts.push_back(part);
+            if (object && object->getMap())
             {
-                return sprite->getScale();
-            }
-            return 0.0f;
-        }
-        
-        void ViewComponent::setTintColor(const cocos2d::Color3B& color)
-        {
-            tint = color;
-            if (sprite)
-            {
-                sprite->setColor(tint);
+                object->getMap()->getView()->getNode()->addChild(part->getNode());
+                onPositionChanged(object->get<PositionComponent>());
+                sizeDirty = true;
             }
         }
         
-        const cocos2d::Color3B& ViewComponent::getTintColor() const
+        void ViewComponent::removePart(ViewPart* part)
         {
-            return tint;
+            auto it = std::find(parts.begin(), parts.end(), part);
+            if (it != parts.end())
+            {
+                parts.erase(it);
+                delete part;
+                sizeDirty = true;
+            }
         }
-		
-		void ViewComponent::onPositionChanged(PositionComponent* posComponent)
+        
+		void ViewComponent::onPositionChanged(PositionComponent* positionComponent)
 		{
-			if (sprite)
-			{
-				sprite->setPosition(Perspective::screenPosition(posComponent->getPosition()));
-			}
+            const cocos2d::Vec3& position = positionComponent->getPosition();
+            for (auto part : parts)
+            {
+                part->getNode()->setPosition(Perspective::screenPosition(position + part->getPositionOffset()));
+            }
 		}
+        
+        const cocos2d::Size& ViewComponent::getSize()
+        {
+            if (sizeDirty)
+            {
+                size.width = 0.0f;
+                size.height = 0.0f;
+                for (auto part : parts)
+                {
+                    size.width = std::max(size.width, part->getNode()->getContentSize().width);
+                    size.height = std::max(size.height, part->getNode()->getContentSize().height);
+                }
+                sizeDirty = false;
+            }
+            return size;
+        }
 	}
 }

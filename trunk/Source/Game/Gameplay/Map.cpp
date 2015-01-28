@@ -131,6 +131,7 @@ namespace MelonGames
 		
 		void Map::update(float dt)
 		{
+            dt = 0.01f;
             assert(view);
             
             updating = true;
