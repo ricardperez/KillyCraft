@@ -13,7 +13,7 @@ LOCAL_MODULE_FILENAME := libcocos2dcpp
 LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../../Source/Game/AppDelegate.cpp \
                    ../../../Source/Game/Command/CommandDirector.cpp \
-
+                   \
                    ../../../Source/Game/Gameplay/Behaviour/Behaviour.cpp \
                    ../../../Source/Game/Gameplay/Behaviour/BehavioursFactory.cpp \
                    ../../../Source/Game/Gameplay/Behaviour/DestroyBehaviour.cpp \
@@ -22,7 +22,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../../Source/Game/Gameplay/Behaviour/MoveActions.cpp \
                    ../../../Source/Game/Gameplay/Behaviour/MovementBehaviours.cpp \
                    ../../../Source/Game/Gameplay/Behaviour/SpawnChildrenBehaviour.cpp \
-
+                   \
                    ../../../Source/Game/Gameplay/Component/BehaviourComponent.cpp \
                    ../../../Source/Game/Gameplay/Component/CollisionDetectionComponent.cpp \
                    ../../../Source/Game/Gameplay/Component/Component.cpp \
@@ -39,7 +39,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../../Source/Game/Gameplay/Component/ViewComponent.cpp \
                    ../../../Source/Game/Gameplay/Component/ViewParts.cpp \
                    ../../../Source/Game/Gameplay/Component/WeaponComponent.cpp \
-
+                   \
                    ../../../Source/Game/Gameplay/Gamepad.cpp \
                    ../../../Source/Game/Gameplay/Map.cpp \
                    ../../../Source/Game/Gameplay/MapObject.cpp \
@@ -53,16 +53,16 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../../Source/Game/Gameplay/View/MapGridView.cpp \
                    ../../../Source/Game/Gameplay/View/MapView.cpp \
                    ../../../Source/Game/Gameplay/View/StarsView.cpp \
-
+                   \
                    ../../../Source/Game/ScreenController.cpp \
                    ../../../Source/Game/Screens/GameScreen.cpp \
                    ../../../Source/Game/Screens/MenuScreen.cpp \
                    ../../../Source/Game/Screens/Screen.cpp \
-
+                   \
                    ../../../Source/libs/jsoncpp/src/lib_json/json_reader.cpp \
                    ../../../Source/libs/jsoncpp/src/lib_json/json_value.cpp \
                    ../../../Source/libs/jsoncpp/src/lib_json/json_writer.cpp \
-
+                   \
                    ../../../Source/MelonGames/Services/FilesService.cpp \
                    ../../../Source/MelonGames/Crypto.cpp \
                    ../../../Source/MelonGames/JsonUtil.cpp \
