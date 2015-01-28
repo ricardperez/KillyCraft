@@ -33,6 +33,7 @@
 		196AD4CE19F9832900D87881 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 196AD4CC19F9832900D87881 /* LaunchScreen.xib */; };
 		196AD4DA19F9832A00D87881 /* KillyCraftTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 196AD4D919F9832A00D87881 /* KillyCraftTests.m */; };
 		1986BA691A797877001EF606 /* SpawnChildrenBehaviour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1986BA671A797877001EF606 /* SpawnChildrenBehaviour.cpp */; };
+		1986BA6C1A798AB0001EF606 /* ViewParts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1986BA6A1A798AB0001EF606 /* ViewParts.cpp */; };
 		1998E2D51A2D212E00FED614 /* TextureMask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1998E2D31A2D212E00FED614 /* TextureMask.cpp */; };
 		199EF2DA1A40BC7B003B1C6A /* BehavioursFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 199EF2D91A40BC7B003B1C6A /* BehavioursFactory.cpp */; };
 		19AB270619F984F3008D3B13 /* CCAffineTransform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AB26E819F984F3008D3B13 /* CCAffineTransform.cpp */; };
@@ -421,6 +422,8 @@
 		196AD4D919F9832A00D87881 /* KillyCraftTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KillyCraftTests.m; sourceTree = "<group>"; };
 		1986BA671A797877001EF606 /* SpawnChildrenBehaviour.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpawnChildrenBehaviour.cpp; sourceTree = "<group>"; };
 		1986BA681A797877001EF606 /* SpawnChildrenBehaviour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpawnChildrenBehaviour.h; sourceTree = "<group>"; };
+		1986BA6A1A798AB0001EF606 /* ViewParts.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ViewParts.cpp; sourceTree = "<group>"; };
+		1986BA6B1A798AB0001EF606 /* ViewParts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewParts.h; sourceTree = "<group>"; };
 		199248B81A12AB0A0001D4B4 /* GameConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameConfig.h; sourceTree = "<group>"; };
 		1998E2D31A2D212E00FED614 /* TextureMask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureMask.cpp; sourceTree = "<group>"; };
 		1998E2D41A2D212E00FED614 /* TextureMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureMask.h; sourceTree = "<group>"; };
@@ -2561,6 +2564,8 @@
 				194EFC971A039999007C5014 /* TimeComponent.h */,
 				19AB705219FACAE90041EAB6 /* ViewComponent.cpp */,
 				19AB705319FACAE90041EAB6 /* ViewComponent.h */,
+				1986BA6A1A798AB0001EF606 /* ViewParts.cpp */,
+				1986BA6B1A798AB0001EF606 /* ViewParts.h */,
 				19202CBC19FBEC8300AFAB33 /* WeaponComponent.cpp */,
 				19202CBD19FBEC8300AFAB33 /* WeaponComponent.h */,
 			);
@@ -3126,6 +3131,7 @@
 				19CCD6671A02D41000986A8E /* CCGLProgramCache.cpp in Sources */,
 				190913681A0383F400840DCB /* Behaviour.cpp in Sources */,
 				19CCD6941A02D41000986A8E /* CCVertexIndexData.cpp in Sources */,
+				1986BA6C1A798AB0001EF606 /* ViewParts.cpp in Sources */,
 				19CCD5041A02CE2B00986A8E /* UISlider.cpp in Sources */,
 				19CCD4931A02CDE800986A8E /* CCUserDefault.cpp in Sources */,
 				19CCD5C61A02D30200986A8E /* CCActionManager.cpp in Sources */,
