@@ -11,6 +11,7 @@
 #include "Gameplay/Behaviour/DestroyBehaviour.h"
 #include "Gameplay/Behaviour/DestroyBehaviourFunctions.h"
 #include "Gameplay/Behaviour/EvasionBehaviours.h"
+#include "Gameplay/Behaviour/SpawnChildrenBehaviour.h"
 
 #include "MelonGames/Crypto.h"
 
@@ -67,6 +68,18 @@ namespace MelonGames
                 return result;
             }
             
+            Behaviour* createSpawnChildrenBehaviour(const Json::Value& json)
+            {
+                std::vector<std::string> childrenTypes;
+                for (const auto& childJson : json["children"])
+                {
+                    childrenTypes.push_back(childJson.asString());
+                }
+                
+                auto result = new SpawnChildrenBehaviour(childrenTypes);
+                return result;
+            }
+            
             template <class T>
             Behaviour* createDefaultBehaviour(const Json::Value& json)
             {
@@ -83,6 +96,7 @@ namespace MelonGames
                     {Crypto::stringHash("MoveCircular"), createDefaultBehaviour<MoveCircularBehaviour>},
                     {Crypto::stringHash("MoveCircularProjected"), createDefaultBehaviour<MoveCircularProjectedBehaviour>},
                     {Crypto::stringHash("EvadeProjectilesHorizontally"), createDefaultBehaviour<EvadeProjectilesHorizontally>},
+                    {Crypto::stringHash("SpawnChildren"), createSpawnChildrenBehaviour},
                 };
                 
                 std::string type = json["type"].asString();
