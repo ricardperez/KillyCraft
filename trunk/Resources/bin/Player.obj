@@ -15,6 +15,9 @@
 						{
 							"type":"Sprite",
 							"sprite":"Melon.png"
+						},
+						{
+							"type": "Weapon"
 						}
 					]
 				},
