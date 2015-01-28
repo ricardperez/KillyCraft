@@ -16,6 +16,7 @@
 #include "Component/PositionComponent.h"
 #include "View/MapView.h"
 #include "Gamepad.h"
+#include "base/CCDirector.h"
 
 #ifdef USE_GAMEPAD_SHOOT_BUTTON
 #include "extensions/GUI/CCControlExtension/CCControlButton.h"
@@ -131,7 +132,7 @@ namespace MelonGames
 		
 		void Map::update(float dt)
 		{
-            dt = 0.01f;
+            dt = cocos2d::Director::getInstance()->getAnimationInterval();
             assert(view);
             
             updating = true;
