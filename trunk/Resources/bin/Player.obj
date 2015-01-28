@@ -16,7 +16,7 @@
 					"type":"Weapon",
 					"projectile": "MachinegunBullet",
 					"fireRate": 0.2,
-					"nProjectiles": 20
+					"nProjectiles": 50
 				},
 				{
 					"type":"Gamepad",
