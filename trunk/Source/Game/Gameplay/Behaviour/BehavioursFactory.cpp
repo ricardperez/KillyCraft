@@ -30,6 +30,7 @@ namespace MelonGames
                     {Crypto::stringHash("OutOfScreenUp"), DestroyBehaviourFunctions::isOutOfScreenUp},
                     {Crypto::stringHash("Collision"), DestroyBehaviourFunctions::isCollision},
                     {Crypto::stringHash("Dead"), DestroyBehaviourFunctions::isDead},
+                    {Crypto::stringHash("Void"), [](MapObject*)->bool { return true; }},
                 };
                 
                 auto result = new DestroyBehaviour();
