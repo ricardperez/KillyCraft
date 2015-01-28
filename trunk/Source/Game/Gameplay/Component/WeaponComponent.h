@@ -11,6 +11,7 @@
 
 #include "Component.h"
 #include "math/Vec3.h"
+#include "libs/Signal/Signal.h"
 
 namespace MelonGames
 {
@@ -47,13 +48,18 @@ namespace MelonGames
             void shoot();
             
             void addBullets(unsigned int n);
+            int getNBullets() const;
             void reset(const Weapon& weapon, int nBullets);
+            
+            Gallant::Signal1<WeaponComponent*>& getChangedSignal();
             
         private:
             Weapon weapon;
             unsigned int nBullets;
             
             float lastShotTime;
+            
+            Gallant::Signal1<WeaponComponent*> changedSignal;
         };
     }
 }

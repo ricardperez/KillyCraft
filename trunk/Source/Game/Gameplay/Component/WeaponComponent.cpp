@@ -45,19 +45,26 @@ namespace MelonGames
             assert(nBullets > 0 && "Should not be shooting as no bullets are left");
             if (nBullets > 0)
             {
-                --nBullets;
-            }
-            
-            if (MapObject* projectile = object->getMap()->getFactory()->createObject(weapon.bulletTemplate))
-            {
-                projectile->get<PositionComponent>()->setPosition(object->get<PositionComponent>()->getPosition());
-                object->getMap()->addObject(projectile);
+                if (MapObject* projectile = object->getMap()->getFactory()->createObject(weapon.bulletTemplate))
+                {
+                    --nBullets;
+                    projectile->get<PositionComponent>()->setPosition(object->get<PositionComponent>()->getPosition());
+                    object->getMap()->addObject(projectile);
+                    
+                    changedSignal.Emit(this);
+                }
             }
         }
         
         void WeaponComponent::addBullets(unsigned int n)
         {
             nBullets += n;
+            changedSignal.Emit(this);
+        }
+        
+        int WeaponComponent::getNBullets() const
+        {
+            return nBullets;
         }
         
         void WeaponComponent::reset(const Weapon &weapon, int nBullets)
@@ -70,6 +77,13 @@ namespace MelonGames
                 assert(object->getMap() && "Map has to exist");
                 lastShotTime = object->getMap()->getElapsedTime();
             }
+            
+            changedSignal.Emit(this);
+        }
+        
+        Gallant::Signal1<WeaponComponent*>& WeaponComponent::getChangedSignal()
+        {
+            return changedSignal;
         }
     }
 }
