@@ -70,7 +70,7 @@
 					[
 						{
 							"type": "Heal",
-							"amount": 100
+							"amount": 5
 						}
 					]
 				}
@@ -91,9 +91,9 @@
 					[
 						{
 							"type": "Weapon",
-							"projectile": "MachinegunBullet",
+							"projectile": "MachinegunBullet3",
 							"fireRate": 0.2,
-							"nProjectiles": 20
+							"nProjectiles": 35
 						}
 					]
 				}
@@ -113,7 +113,7 @@
 					"actions":
 					[
 						{
-							"type": "Heal",
+							"type": "KillAll",
 							"amount": 100
 						}
 					]

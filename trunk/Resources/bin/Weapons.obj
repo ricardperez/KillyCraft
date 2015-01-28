@@ -47,6 +47,61 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "MachinegunBulletLeft",
+			"super": "MachinegunBullet",
+			"components":
+			[
+				{
+					"type": "MoveLinear",
+					"move": [-250.0, 600.0, 0.0]
+				}
+			]
+		},
+		{
+			"name": "MachinegunBulletRight",
+			"super": "MachinegunBullet",
+			"components":
+			[
+				{
+					"type": "MoveLinear",
+					"move": [250.0, 600.0, 0.0]
+				}
+			]
+		},
+		{
+			"name": "MachinegunBullet3",
+			"components":
+			[
+				{
+					"type":"Position"
+				},
+				{
+					"type": "Behaviour",
+					"behaviours":
+					[
+						{
+							"type":"SpawnChildren",
+							"children":
+							[
+								"MachinegunBullet",
+								"MachinegunBulletLeft",
+								"MachinegunBulletRight"
+							]
+						},
+						{
+							"type":"Destroy",
+							"checks":
+							[
+								{
+									"type":"Void"
+								}
+							]
+						}
+					]
+				}
+			]
 		}
 	]
 }
