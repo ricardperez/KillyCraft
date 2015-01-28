@@ -26,6 +26,7 @@ namespace MelonGames
 		{
             for (auto part : parts)
             {
+                part->onDetachedFromObject(object);
                 part->getNode()->removeFromParent();
                 delete part;
             }
@@ -38,6 +39,7 @@ namespace MelonGames
             auto mapViewNode = object->getMap()->getView()->getNode();
             for (auto part : parts)
             {
+                part->onAttachedToObject(object);
                 mapViewNode->addChild(part->getNode());
             }
             sizeDirty = true;
@@ -54,6 +56,7 @@ namespace MelonGames
         {
             for (auto part : parts)
             {
+                part->onDetachedFromObject(object);
                 part->getNode()->removeFromParent();
                 delete part;
             }
@@ -67,6 +70,7 @@ namespace MelonGames
             parts.push_back(part);
             if (object && object->getMap())
             {
+                part->onAttachedToObject(object);
                 object->getMap()->getView()->getNode()->addChild(part->getNode());
                 onPositionChanged(object->get<PositionComponent>());
                 sizeDirty = true;
@@ -78,6 +82,11 @@ namespace MelonGames
             auto it = std::find(parts.begin(), parts.end(), part);
             if (it != parts.end())
             {
+                if (object && object->getMap())
+                {
+                    part->onDetachedFromObject(object);
+                    part->getNode()->removeFromParent();
+                }
                 parts.erase(it);
                 delete part;
                 sizeDirty = true;

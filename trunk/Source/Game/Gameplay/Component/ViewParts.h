@@ -23,13 +23,17 @@ namespace cocos2d
     class Node;
     class Sprite;
     struct Color3B;
+    class Label;
 }
 
 namespace MelonGames
 {
     namespace KillyCraft
     {
+        class MapObject;
         class ViewPart;
+        class WeaponComponent;
+        
         namespace ViewPartsFactory
         {
             ViewPart* createViewPart(const Json::Value& json);
@@ -47,6 +51,9 @@ namespace MelonGames
             
             void setPositionOffset(const cocos2d::Vec3& offset);
             const cocos2d::Vec3& getPositionOffset() const;
+            
+            virtual void onAttachedToObject(MapObject* object);
+            virtual void onDetachedFromObject(MapObject* object);
             
         protected:
             cocos2d::Vec3 positionOffset;
@@ -67,6 +74,25 @@ namespace MelonGames
             
         private:
             cocos2d::Sprite* sprite;
+        };
+        
+        class ViewPartWeapon : public ViewPart
+        {
+        public:
+            DECLARE_TYPE_WITH_BASE_TYPE(ViewPartWeapon, ViewPart);
+            
+            ViewPartWeapon();
+            virtual ~ViewPartWeapon();
+            
+            virtual cocos2d::Node* getNode() override;
+            
+            virtual void onAttachedToObject(MapObject* object) override;
+            virtual void onDetachedFromObject(MapObject* object) override;
+            
+            void onWeaponComponentChanged(WeaponComponent* weaponComponent);
+            
+        private:
+            cocos2d::Label* label;
         };
     }
 }
