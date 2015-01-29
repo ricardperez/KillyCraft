@@ -12,6 +12,7 @@
 		1909136E1A03851300840DCB /* DestroyBehaviour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1909136C1A03851300840DCB /* DestroyBehaviour.cpp */; };
 		190913701A03882F00840DCB /* DestroyBehaviourFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1909136F1A03882F00840DCB /* DestroyBehaviourFunctions.cpp */; };
 		190913731A03898200840DCB /* BehaviourComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 190913711A03898200840DCB /* BehaviourComponent.cpp */; };
+		19141F481A7ABA80008B07EF /* SpawnManagers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19141F461A7ABA80008B07EF /* SpawnManagers.cpp */; };
 		191DF6101A6183A8002E9CC2 /* JsonUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 191DF60E1A6183A8002E9CC2 /* JsonUtil.cpp */; };
 		19202CBB19FBEA8500AFAB33 /* GamepadComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19202CB919FBEA8500AFAB33 /* GamepadComponent.cpp */; };
 		19202CBE19FBEC8300AFAB33 /* WeaponComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19202CBC19FBEC8300AFAB33 /* WeaponComponent.cpp */; };
@@ -378,6 +379,8 @@
 		1909136F1A03882F00840DCB /* DestroyBehaviourFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DestroyBehaviourFunctions.cpp; sourceTree = "<group>"; };
 		190913711A03898200840DCB /* BehaviourComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BehaviourComponent.cpp; sourceTree = "<group>"; };
 		190913721A03898200840DCB /* BehaviourComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BehaviourComponent.h; sourceTree = "<group>"; };
+		19141F461A7ABA80008B07EF /* SpawnManagers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpawnManagers.cpp; sourceTree = "<group>"; };
+		19141F471A7ABA80008B07EF /* SpawnManagers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpawnManagers.h; sourceTree = "<group>"; };
 		191DF60E1A6183A8002E9CC2 /* JsonUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JsonUtil.cpp; sourceTree = "<group>"; };
 		191DF60F1A6183A8002E9CC2 /* JsonUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JsonUtil.h; sourceTree = "<group>"; };
 		19202CB919FBEA8500AFAB33 /* GamepadComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GamepadComponent.cpp; sourceTree = "<group>"; };
@@ -2523,6 +2526,8 @@
 				19AB705919FACAE90041EAB6 /* MapObject.h */,
 				19AB708419FADD2B0041EAB6 /* Player.cpp */,
 				19AB708519FADD2B0041EAB6 /* Player.h */,
+				19141F461A7ABA80008B07EF /* SpawnManagers.cpp */,
+				19141F471A7ABA80008B07EF /* SpawnManagers.h */,
 				19CA80C71A0BFD9500C6BF2C /* SpawnObjectsManager.cpp */,
 				19CA80C81A0BFD9500C6BF2C /* SpawnObjectsManager.h */,
 				19CA80CD1A0C042E00C6BF2C /* MapObjectsFactory.cpp */,
@@ -3246,6 +3251,7 @@
 				19CCD5C11A02D30200986A8E /* CCActionEase.cpp in Sources */,
 				19AB706E19FACAE90041EAB6 /* MenuScreen.cpp in Sources */,
 				19CCD66A1A02D41000986A8E /* ccGLStateCache.cpp in Sources */,
+				19141F481A7ABA80008B07EF /* SpawnManagers.cpp in Sources */,
 				19CCD6001A02D30200986A8E /* CCTransitionPageTurn.cpp in Sources */,
 				194B80CB19FBA6750021CE64 /* FilesService.cpp in Sources */,
 				19CCD48A1A02CDE800986A8E /* CCProfiling.cpp in Sources */,
