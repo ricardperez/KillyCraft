@@ -60,6 +60,9 @@ namespace MelonGames
             MapObjectsFactory* getFactory() const;
             
             const std::vector<MapObject*>& getObjects() const;
+            
+        private:
+            void onSquadSpawned();
 			
 		private:
             MapDefinition definition;

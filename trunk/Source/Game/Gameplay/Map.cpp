@@ -9,6 +9,7 @@
 #include "Map.h"
 #include "Player.h"
 #include "SpawnObjectsManager.h"
+#include "SpawnManagers.h"
 #include "MapObjectsFactory.h"
 #include "MapObject.h"
 #include "Component/Component.h"
@@ -94,6 +95,11 @@ namespace MelonGames
             spawnObjectsManager->setMap(this);
             spawnObjectsManager->loadEnemySquadsFromFile("Squads.squads");
             spawnObjectsManager->setPowerUpsList(factory->getObjectsNamesForFile("PowerUps.obj"));
+            
+            spawnObjectsManager->setSpawnHandlerForType([this]()->void
+            {
+                this->onSquadSpawned();
+            }, SpawnObjectsType::eSquads);
 		}
         
         const MapDefinition& Map::getDefinition() const
@@ -183,6 +189,11 @@ namespace MelonGames
         const std::vector<MapObject*>& Map::getObjects() const
         {
             return objects;
+        }
+        
+        void Map::onSquadSpawned()
+        {
+            printf("Squad spawned\n");
         }
 	}
 }
