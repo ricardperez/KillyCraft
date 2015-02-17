@@ -32,6 +32,7 @@ namespace MelonGames
             virtual void update(float dt) override;
             
             template <typename T> T* get() const;
+            template <typename T> T* getOrCreate();
             void addBehaviour(Behaviour* b);
             
         private:
@@ -42,14 +43,31 @@ namespace MelonGames
         template <typename T>
         T* BehaviourComponent::get() const
         {
-            for (auto& behaviour : behaviours)
+            for (auto behaviour : behaviours)
             {
                 if (behaviour->isA<T>())
                 {
-                    return behaviour;
+                    return (T*)behaviour;
                 }
             }
             return nullptr;
+        }
+        
+        template <typename T>
+        T* BehaviourComponent::getOrCreate()
+        {
+            for (auto behaviour : behaviours)
+            {
+                if (behaviour->isA<T>())
+                {
+                    return (T*)behaviour;
+                }
+            }
+            
+            auto result = new T();
+            addBehaviour(result);
+            
+            return result;
         }
     }
 }
