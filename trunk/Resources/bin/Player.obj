@@ -41,6 +41,34 @@
 					"type": "PlayerLivesController"
 				}
 			]
+		},
+		{
+			"name": "PlayerTransition",
+			"components":
+			[
+				{
+					"type":"Position"
+				},
+				{
+					"type":"View",
+					"parts":
+					[
+						{
+							"type":"Sprite",
+							"sprite":"Melon.png"
+						}
+					]
+				},
+				{
+					"type":"Behaviour",
+					"behaviours":
+					[
+						{
+							"type":"MoveVertically"
+						}
+					]
+				}
+			]
 		}
 	]
 }

@@ -9,22 +9,43 @@
 #ifndef __KillyCraft__MapTransitionController__
 #define __KillyCraft__MapTransitionController__
 
-I was here making this guy be the responsible for moving tha player object after some squads have been spawned instead of the map itself...
+#include "Signal/Delegate.h"
 
 namespace MelonGames
 {
     namespace KillyCraft
     {
+        class Map;
+        class MapObject;
+        
         class MapTransitionController
         {
         public:
-            MapTransitionController();
+            MapTransitionController(Gallant::Delegate1<MapTransitionController*> handler, Map* map);
             
             void startTransition();
-            bool isTransitioning();
+            bool isTransitioning() const;
+            void update(float dt);
             
         private:
-            Gallant::Signal1<MapTransitionController*> transitionFinishedSignal;
+            void checkState();
+            
+        private:
+            const Gallant::Delegate1<MapTransitionController*> handler;
+            Map* map;
+            MapObject* mapPlayer;
+            MapObject* mapTransitionPlayer;
+            
+            enum class State
+            {
+                eNone,
+                eStart,
+                eMovingIn,
+                eWaitingIn,
+                eMovingOut,
+                eWaitingOut,
+                eFinished
+            } state;
         };
     }
 }

@@ -11,19 +11,16 @@
 #include "SpawnObjectsManager.h"
 #include "SpawnManagers.h"
 #include "MapObjectsFactory.h"
+#include "MapTransitionController.h"
 #include "MapObject.h"
-#include "MapObjectInspector.h"
+#include "View/MapView.h"
+#include "Gamepad.h"
+
 #include "Component/Component.h"
 #include "Component/ViewComponent.h"
 #include "Component/PositionComponent.h"
-#include "View/MapView.h"
-#include "Gamepad.h"
+
 #include "base/CCDirector.h"
-
-#include "Component/BehaviourComponent.h"
-#include "Component/MovementStateComponents.h"
-#include "Behaviour/MovementBehaviours.h"
-
 #ifdef USE_GAMEPAD_SHOOT_BUTTON
 #include "extensions/GUI/CCControlExtension/CCControlButton.h"
 #endif
@@ -41,6 +38,7 @@ namespace MelonGames
 		, player(nullptr)
         , spawnObjectsManager(nullptr)
         , factory(nullptr)
+        , mapTransitionController(nullptr)
         , elapsedTime(0.0f)
         , nextIdentifier(0)
         , updating(false)
@@ -106,6 +104,8 @@ namespace MelonGames
             {
                 this->onSquadSpawned();
             }, SpawnObjectsType::eSquads);
+            
+            mapTransitionController = new MapTransitionController(Gallant::MakeDelegate(this, &Map::onTransitionControllerFinished), this);
 		}
         
         const MapDefinition& Map::getDefinition() const
@@ -171,10 +171,12 @@ namespace MelonGames
                 object->postupdate();
             }
             
-            if (nRemainingSquads > 0)
+            if (!mapTransitionController->isTransitioning())
             {
                 spawnObjectsManager->update(dt);
             }
+            
+            mapTransitionController->update(dt);
             
             updating = false;
             
@@ -225,28 +227,30 @@ namespace MelonGames
             return nullptr;
         }
         
+        bool Map::isAnyObjectPassingFilter(const ObjectsFilter& filter) const
+        {
+            for (auto object : objects)
+            {
+                if (filter(object))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        
         void Map::onSquadSpawned()
         {
-            printf("Squad spawned\n");
             --nRemainingSquads;
             if (nRemainingSquads == 0)
             {
-                startLevelTransition();
+                mapTransitionController->startTransition();
             }
         }
         
-        void Map::startLevelTransition()
+        void Map::onTransitionControllerFinished(MapTransitionController* controller)
         {
-            auto playerObj = getObjectPassingFilter(MapObjectInspector::isPlayer);
-            if (playerObj)
-            {
-                auto behaviourComponent = playerObj->getOrCreate<BehaviourComponent>();
-                behaviourComponent->getOrCreate<MoveLinearBehaviour>();
-                
-                auto movementComponent = playerObj->getOrCreate<MoveLinearStateComponent>();
-                movementComponent->setMovementPerSecond(cocos2d::Vec3(0.0f, 500.0f, 0.0f));
-                
-            }
+            nRemainingSquads = 2;
         }
 	}
 }

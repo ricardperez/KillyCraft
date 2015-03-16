@@ -66,11 +66,12 @@ namespace MelonGames
             const std::vector<MapObject*>& getObjects() const;
             std::vector<MapObject*> getObjectsPassingFilter(const ObjectsFilter& filter);
             MapObject* getObjectPassingFilter(const ObjectsFilter& filter);
+            bool isAnyObjectPassingFilter(const ObjectsFilter& filter) const;
             
             
         private:
             void onSquadSpawned();
-            void startLevelTransition();
+            void onTransitionControllerFinished(MapTransitionController* controller);
 			
 		private:
             MapDefinition definition;
@@ -83,6 +84,7 @@ namespace MelonGames
 			Player* player;
             SpawnObjectsManager* spawnObjectsManager;
             MapObjectsFactory* factory;
+            MapTransitionController* mapTransitionController;
             
             float elapsedTime;
             
