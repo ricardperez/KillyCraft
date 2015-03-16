@@ -12,12 +12,17 @@
 #include "SpawnManagers.h"
 #include "MapObjectsFactory.h"
 #include "MapObject.h"
+#include "MapObjectInspector.h"
 #include "Component/Component.h"
 #include "Component/ViewComponent.h"
 #include "Component/PositionComponent.h"
 #include "View/MapView.h"
 #include "Gamepad.h"
 #include "base/CCDirector.h"
+
+#include "Component/BehaviourComponent.h"
+#include "Component/MovementStateComponents.h"
+#include "Behaviour/MovementBehaviours.h"
 
 #ifdef USE_GAMEPAD_SHOOT_BUTTON
 #include "extensions/GUI/CCControlExtension/CCControlButton.h"
@@ -39,6 +44,7 @@ namespace MelonGames
         , elapsedTime(0.0f)
         , nextIdentifier(0)
         , updating(false)
+        , nRemainingSquads(2)
 		{
 		}
 		
@@ -165,7 +171,10 @@ namespace MelonGames
                 object->postupdate();
             }
             
-            spawnObjectsManager->update(dt);
+            if (nRemainingSquads > 0)
+            {
+                spawnObjectsManager->update(dt);
+            }
             
             updating = false;
             
@@ -191,9 +200,53 @@ namespace MelonGames
             return objects;
         }
         
+        std::vector<MapObject*> Map::getObjectsPassingFilter(const ObjectsFilter& filter)
+        {
+            std::vector<MapObject*> result;
+            for (auto object : objects)
+            {
+                if (filter(object))
+                {
+                    result.push_back(object);
+                }
+            }
+            return result;
+        }
+        
+        MapObject* Map::getObjectPassingFilter(const ObjectsFilter& filter)
+        {
+            for (auto object : objects)
+            {
+                if (filter(object))
+                {
+                    return object;
+                }
+            }
+            return nullptr;
+        }
+        
         void Map::onSquadSpawned()
         {
             printf("Squad spawned\n");
+            --nRemainingSquads;
+            if (nRemainingSquads == 0)
+            {
+                startLevelTransition();
+            }
+        }
+        
+        void Map::startLevelTransition()
+        {
+            auto playerObj = getObjectPassingFilter(MapObjectInspector::isPlayer);
+            if (playerObj)
+            {
+                auto behaviourComponent = playerObj->getOrCreate<BehaviourComponent>();
+                behaviourComponent->getOrCreate<MoveLinearBehaviour>();
+                
+                auto movementComponent = playerObj->getOrCreate<MoveLinearStateComponent>();
+                movementComponent->setMovementPerSecond(cocos2d::Vec3(0.0f, 500.0f, 0.0f));
+                
+            }
         }
 	}
 }

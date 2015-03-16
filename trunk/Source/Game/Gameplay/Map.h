@@ -11,6 +11,7 @@
 
 #include "math/CCGeometry.h"
 #include <vector>
+#include <functional>
 
 namespace cocos2d
 {
@@ -26,6 +27,7 @@ namespace MelonGames
         class MapView;
         class SpawnObjectsManager;
         class MapObjectsFactory;
+        class MapTransitionController;
         
         struct MapDefinition
         {
@@ -33,6 +35,8 @@ namespace MelonGames
             cocos2d::Size screenSize;
             float screenScale;
         };
+        
+        typedef std::function<bool(const MapObject*)> ObjectsFilter;
 		
 		class Map
 		{
@@ -60,9 +64,13 @@ namespace MelonGames
             MapObjectsFactory* getFactory() const;
             
             const std::vector<MapObject*>& getObjects() const;
+            std::vector<MapObject*> getObjectsPassingFilter(const ObjectsFilter& filter);
+            MapObject* getObjectPassingFilter(const ObjectsFilter& filter);
+            
             
         private:
             void onSquadSpawned();
+            void startLevelTransition();
 			
 		private:
             MapDefinition definition;
@@ -81,6 +89,8 @@ namespace MelonGames
             int nextIdentifier;
             
             bool updating;
+            
+            int nRemainingSquads;
 		};
 	}
 }

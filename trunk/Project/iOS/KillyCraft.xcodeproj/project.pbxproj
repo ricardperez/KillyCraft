@@ -27,6 +27,7 @@
 		194B80CB19FBA6750021CE64 /* FilesService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194B80C919FBA6750021CE64 /* FilesService.cpp */; };
 		194EFC981A039999007C5014 /* TimeComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194EFC961A039999007C5014 /* TimeComponent.cpp */; };
 		194EFC9B1A039E58007C5014 /* MovementStateComponents.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194EFC991A039E58007C5014 /* MovementStateComponents.cpp */; };
+		195975961A93FC4A003C06A0 /* MapTransitionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 195975941A93FC4A003C06A0 /* MapTransitionController.cpp */; };
 		1968960E1A2E82D900435129 /* GameHUDView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1968960C1A2E82D900435129 /* GameHUDView.cpp */; };
 		196AD4C019F9832900D87881 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 196AD4BF19F9832900D87881 /* main.m */; };
 		196AD4C319F9832900D87881 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 196AD4C219F9832900D87881 /* AppController.mm */; };
@@ -411,6 +412,8 @@
 		194EFC971A039999007C5014 /* TimeComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeComponent.h; sourceTree = "<group>"; };
 		194EFC991A039E58007C5014 /* MovementStateComponents.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MovementStateComponents.cpp; sourceTree = "<group>"; };
 		194EFC9A1A039E58007C5014 /* MovementStateComponents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovementStateComponents.h; sourceTree = "<group>"; };
+		195975941A93FC4A003C06A0 /* MapTransitionController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MapTransitionController.cpp; sourceTree = "<group>"; };
+		195975951A93FC4A003C06A0 /* MapTransitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapTransitionController.h; sourceTree = "<group>"; };
 		1968960C1A2E82D900435129 /* GameHUDView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameHUDView.cpp; sourceTree = "<group>"; };
 		1968960D1A2E82D900435129 /* GameHUDView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameHUDView.h; sourceTree = "<group>"; };
 		196AD4BA19F9832900D87881 /* KillyCraft.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KillyCraft.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2534,6 +2537,8 @@
 				19CA80CE1A0C042E00C6BF2C /* MapObjectsFactory.h */,
 				19ABEE1F1A49E837000056F1 /* MapObjectInspector.cpp */,
 				19ABEE201A49E837000056F1 /* MapObjectInspector.h */,
+				195975941A93FC4A003C06A0 /* MapTransitionController.cpp */,
+				195975951A93FC4A003C06A0 /* MapTransitionController.h */,
 			);
 			path = Gameplay;
 			sourceTree = "<group>";
@@ -3144,6 +3149,7 @@
 				196AD4C319F9832900D87881 /* AppController.mm in Sources */,
 				19CCD5021A02CE2B00986A8E /* UIScale9Sprite.cpp in Sources */,
 				19CCD4ED1A02CE2B00986A8E /* UICheckBox.cpp in Sources */,
+				195975961A93FC4A003C06A0 /* MapTransitionController.cpp in Sources */,
 				19CCD4FD1A02CE2B00986A8E /* UIListView.cpp in Sources */,
 				19CCD3F41A02CCEA00986A8E /* CCControlSlider.cpp in Sources */,
 				19CCD47D1A02CDE800986A8E /* CCEventListener.cpp in Sources */,
