@@ -19,6 +19,7 @@ namespace MelonGames
 	{
 		ViewComponent::ViewComponent()
         : sizeDirty(true)
+        , visible(true)
 		{
 		}
 		
@@ -71,7 +72,12 @@ namespace MelonGames
             if (object && object->getMap())
             {
                 part->onAttachedToObject(object);
-                object->getMap()->getView()->getNode()->addChild(part->getNode());
+                
+                auto node = part->getNode();
+                CCASSERT(node != nullptr, "The ViewPart::node should not be null at this point");
+                object->getMap()->getView()->getNode()->addChild(node);
+                node->setVisible(visible);
+                
                 onPositionChanged(object->get<PositionComponent>());
                 sizeDirty = true;
             }
@@ -116,6 +122,28 @@ namespace MelonGames
                 sizeDirty = false;
             }
             return size;
+        }
+        
+        void ViewComponent::setVisible(bool visible)
+        {
+            if (visible != this->visible)
+            {
+                this->visible = visible;
+                for (auto part : parts)
+                {
+                    auto node = part->getNode();
+                    CCASSERT(node != nullptr, "The ViewPart::node should not be null at this point");
+                    if (node)
+                    {
+                        node->setVisible(visible);
+                    }
+                }
+            }
+        }
+        
+        bool ViewComponent::isVisible() const
+        {
+            return visible;
         }
 	}
 }

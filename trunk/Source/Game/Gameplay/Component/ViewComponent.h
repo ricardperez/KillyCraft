@@ -48,6 +48,9 @@ namespace MelonGames
             void removePart(ViewPart* part);
             
             const cocos2d::Size& getSize();
+            
+            void setVisible(bool visible);
+            bool isVisible() const;
 			
 		protected:
 			void onPositionChanged(PositionComponent* posComponent);
@@ -57,6 +60,8 @@ namespace MelonGames
             
             cocos2d::Size size;
             bool sizeDirty;
+            
+            bool visible;
 		};
 	}
 }
