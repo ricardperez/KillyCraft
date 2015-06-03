@@ -24,6 +24,7 @@ namespace cocos2d
     class Sprite;
     struct Color3B;
     class Label;
+    class ParticleSystemQuad;
 }
 
 namespace MelonGames
@@ -74,6 +75,20 @@ namespace MelonGames
             
         private:
             cocos2d::Sprite* sprite;
+        };
+        
+        class ViewPartParticleSystem : public ViewPart
+        {
+        public:
+            DECLARE_TYPE_WITH_BASE_TYPE(ViewPartParticleSystem, ViewPart);
+            
+            ViewPartParticleSystem(const std::string& fileName);
+            ~ViewPartParticleSystem();
+            
+            virtual cocos2d::Node* getNode() override;
+            
+        private:
+            cocos2d::ParticleSystemQuad* particleSystem;
         };
         
         class ViewPartWeapon : public ViewPart

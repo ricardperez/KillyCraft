@@ -34,6 +34,7 @@
 		196AD4CB19F9832900D87881 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 196AD4CA19F9832900D87881 /* Images.xcassets */; };
 		196AD4CE19F9832900D87881 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 196AD4CC19F9832900D87881 /* LaunchScreen.xib */; };
 		196AD4DA19F9832A00D87881 /* KillyCraftTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 196AD4D919F9832A00D87881 /* KillyCraftTests.m */; };
+		19821F581B1ECEA6007B5B9A /* Common in Resources */ = {isa = PBXBuildFile; fileRef = 19821F571B1ECEA6007B5B9A /* Common */; };
 		1986BA691A797877001EF606 /* SpawnChildrenBehaviour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1986BA671A797877001EF606 /* SpawnChildrenBehaviour.cpp */; };
 		1986BA6C1A798AB0001EF606 /* ViewParts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1986BA6A1A798AB0001EF606 /* ViewParts.cpp */; };
 		1998E2D51A2D212E00FED614 /* TextureMask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1998E2D31A2D212E00FED614 /* TextureMask.cpp */; };
@@ -426,6 +427,7 @@
 		196AD4D319F9832A00D87881 /* KillyCraftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KillyCraftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		196AD4D819F9832A00D87881 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		196AD4D919F9832A00D87881 /* KillyCraftTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KillyCraftTests.m; sourceTree = "<group>"; };
+		19821F571B1ECEA6007B5B9A /* Common */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Common; path = ../../../Resources/Common; sourceTree = "<group>"; };
 		1986BA671A797877001EF606 /* SpawnChildrenBehaviour.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpawnChildrenBehaviour.cpp; sourceTree = "<group>"; };
 		1986BA681A797877001EF606 /* SpawnChildrenBehaviour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpawnChildrenBehaviour.h; sourceTree = "<group>"; };
 		1986BA6A1A798AB0001EF606 /* ViewParts.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ViewParts.cpp; sourceTree = "<group>"; };
@@ -2599,6 +2601,7 @@
 			isa = PBXGroup;
 			children = (
 				19C72D0C1A0D5AD600EA9CB5 /* bin */,
+				19821F571B1ECEA6007B5B9A /* Common */,
 				19AB707919FAD5B70041EAB6 /* fonts */,
 				19AB707A19FAD5B70041EAB6 /* HiDPI */,
 				19AB707B19FAD5B70041EAB6 /* NormalDPI */,
@@ -2945,6 +2948,7 @@
 				19CCD6721A02D41000986A8E /* ccShader_3D_Color.frag in Resources */,
 				19CCD6771A02D41000986A8E /* ccShader_3D_PositionTex.vert in Resources */,
 				19CCD6761A02D41000986A8E /* ccShader_3D_PositionNormalTex.vert in Resources */,
+				19821F581B1ECEA6007B5B9A /* Common in Resources */,
 				19CCD68D1A02D41000986A8E /* ccShader_PositionTextureColorAlphaTest.frag in Resources */,
 				19AB270B19F984F3008D3B13 /* Mat4.inl in Resources */,
 				19AB270D19F984F3008D3B13 /* MathUtil.inl in Resources */,

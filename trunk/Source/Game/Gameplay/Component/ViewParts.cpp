@@ -16,6 +16,7 @@
 #include "2d/CCLabel.h"
 #include "json/value.h"
 #include "base/ccMacros.h"
+#include "2d/CCParticleSystemQuad.h"
 
 namespace MelonGames
 {
@@ -44,12 +45,30 @@ namespace MelonGames
                 return result;
             }
             
+            ViewPart* createViewPartParticleSystem(const Json::Value& json)
+            {
+                std::string fileName = json["file"].asString();
+                ViewPartParticleSystem* result = new ViewPartParticleSystem(fileName);
+                return result;
+            }
+            
+            void configureViewPartBase(ViewPart* viewPart, const Json::Value& json)
+            {
+                float offsetX = json["offset"][0].asFloat();
+                float offsetY = json["offset"][1].asFloat();
+                float offsetZ = json["offset"][2].asFloat();
+                viewPart->setPositionOffset(cocos2d::Vec3(offsetX, offsetY, offsetZ));
+            }
+            
             ViewPart* createViewPart(const Json::Value& json)
             {
                 static std::map<unsigned int, std::function<ViewPart*(const Json::Value&)>> lambdas = {
                     {Crypto::stringHash("Sprite"), createViewPartSprite},
                     {Crypto::stringHash("Weapon"), createViewPartWeapon},
+                    {Crypto::stringHash("Particles"), createViewPartParticleSystem},
                 };
+                
+                ViewPart* result = nullptr;
                 
                 std::string type = json["type"].asString();
                 unsigned int key = Crypto::stringHash(type);
@@ -57,11 +76,16 @@ namespace MelonGames
                 auto lambdaIt = lambdas.find(key);
                 if (lambdaIt != lambdas.end())
                 {
-                    return lambdaIt->second(json);
+                    result = lambdaIt->second(json);
+                }
+                
+                if (result)
+                {
+                    configureViewPartBase(result, json);
+                    return result;
                 }
                 
                 CCASSERT(false, ("Could not create a ViewPart of type " + type).c_str());
-                
                 return nullptr;
             }
         }
@@ -114,6 +138,24 @@ namespace MelonGames
         void ViewPartSprite::setTintColor(const cocos2d::Color3B& color)
         {
             sprite->setColor(color);
+        }
+        
+#pragma mark - ViewPartParticleSystem
+        ViewPartParticleSystem::ViewPartParticleSystem(const std::string& fileName)
+        {
+            particleSystem = cocos2d::ParticleSystemQuad::create(fileName);
+            particleSystem->setPositionType(cocos2d::ParticleSystem::PositionType::GROUPED);
+            particleSystem->retain();
+        }
+        
+        ViewPartParticleSystem::~ViewPartParticleSystem()
+        {
+            particleSystem->release();
+        }
+        
+        cocos2d::Node* ViewPartParticleSystem::getNode()
+        {
+            return particleSystem;
         }
         
 #pragma mark - ViewPartWeapon
