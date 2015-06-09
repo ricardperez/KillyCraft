@@ -22,7 +22,12 @@
 						{
 							"type": "Particles",
 							"file": "killy_engine.plist",
-							"offset": [0, -20, 0]
+							"offset": [-15, -30, 0]
+						},
+						{
+							"type": "Particles",
+							"file": "killy_engine.plist",
+							"offset": [15, -30, 0]
 						}
 					]
 				},
@@ -61,6 +66,16 @@
 						{
 							"type":"Sprite",
 							"sprite":"Melon.png"
+						},
+						{
+							"type": "Particles",
+							"file": "killy_engine_power.plist",
+							"offset": [-15, -30, 0]
+						},
+						{
+							"type": "Particles",
+							"file": "killy_engine_power.plist",
+							"offset": [15, -30, 0]
 						}
 					]
 				},

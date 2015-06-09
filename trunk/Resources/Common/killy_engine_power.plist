@@ -31,7 +31,7 @@
 	<key>finishColorVarianceRed</key>
 	<real>0.0</real>
 	<key>finishParticleSize</key>
-	<real>15</real>
+	<real>20</real>
 	<key>finishParticleSizeVariance</key>
 	<real>0.0</real>
 	<key>gravityx</key>
@@ -39,7 +39,7 @@
 	<key>gravityy</key>
 	<real>0.0</real>
 	<key>maxParticles</key>
-	<integer>50</integer>
+	<integer>100</integer>
 	<key>maxRadius</key>
 	<real>0.0</real>
 	<key>maxRadiusVariance</key>
@@ -79,9 +79,9 @@
 	<key>sourcePositionY</key>
 	<real>288.18603515625</real>
 	<key>speed</key>
-	<real>-25</real>
+	<real>-50</real>
 	<key>speedVariance</key>
-	<real>5</real>
+	<real>10</real>
 	<key>startColorAlpha</key>
 	<real>1</real>
 	<key>startColorBlue</key>
@@ -99,7 +99,7 @@
 	<key>startColorVarianceRed</key>
 	<real>0.0</real>
 	<key>startParticleSize</key>
-	<real>20</real>
+	<real>30</real>
 	<key>startParticleSizeVariance</key>
 	<real>0.0</real>
 	<key>tangentialAccelVariance</key>
@@ -107,9 +107,7 @@
 	<key>tangentialAcceleration</key>
 	<real>0.0</real>
 	<key>textureFileName</key>
-	<string>killy_engine_power.png</string>
-	<key>textureImageData</key>
-	<string></string>
+	<string>killy_engine.png</string>
 	<key>yCoordFlipped</key>
 	<integer>1</integer>
 </dict>
