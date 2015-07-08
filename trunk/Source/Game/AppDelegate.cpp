@@ -77,11 +77,11 @@ namespace MelonGames
 			FilesService* filesService = new FilesService();
             if (Director::getInstance()->getContentScaleFactor() == 1.0f)
             {
-                filesService->addDirectory("NormalDPI/");
+                filesService->addDirectory("SD/");
             }
             else
             {
-                filesService->addDirectory("HiDPI/");
+                filesService->addDirectory("HD/");
             }
             filesService->addDirectory("Common/");
             filesService->addDirectory("bin/");

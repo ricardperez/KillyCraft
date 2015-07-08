@@ -18,6 +18,8 @@
 		19202CBE19FBEC8300AFAB33 /* WeaponComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19202CBC19FBEC8300AFAB33 /* WeaponComponent.cpp */; };
 		192DFB7D1A4AD2E10057FD5B /* ProjectileStateComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 192DFB7B1A4AD2E10057FD5B /* ProjectileStateComponent.cpp */; };
 		192DFB801A4ADAFC0057FD5B /* ComponentsFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 192DFB7E1A4ADAFC0057FD5B /* ComponentsFactory.cpp */; };
+		19388A2F1B4CFFF7002F4F82 /* HD in Resources */ = {isa = PBXBuildFile; fileRef = 19388A2D1B4CFFF7002F4F82 /* HD */; };
+		19388A301B4CFFF7002F4F82 /* SD in Resources */ = {isa = PBXBuildFile; fileRef = 19388A2E1B4CFFF7002F4F82 /* SD */; };
 		19389AA21A3E0B5500E6C985 /* PowerUpComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19389AA01A3E0B5500E6C985 /* PowerUpComponent.cpp */; };
 		19389AA61A3E0CA400E6C985 /* PowerUpAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19389AA41A3E0CA400E6C985 /* PowerUpAction.cpp */; };
 		19389AA91A3E0CD800E6C985 /* PowerUpFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19389AA71A3E0CD800E6C985 /* PowerUpFactory.cpp */; };
@@ -109,8 +111,6 @@
 		19AB707419FACE4F0041EAB6 /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 19AB707319FACE4F0041EAB6 /* RootViewController.mm */; };
 		19AB707719FACECB0041EAB6 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AB707519FACECB0041EAB6 /* AppDelegate.cpp */; };
 		19AB707C19FAD5B70041EAB6 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 19AB707919FAD5B70041EAB6 /* fonts */; };
-		19AB707D19FAD5B70041EAB6 /* HiDPI in Resources */ = {isa = PBXBuildFile; fileRef = 19AB707A19FAD5B70041EAB6 /* HiDPI */; };
-		19AB707E19FAD5B70041EAB6 /* NormalDPI in Resources */ = {isa = PBXBuildFile; fileRef = 19AB707B19FAD5B70041EAB6 /* NormalDPI */; };
 		19AB708619FADD2B0041EAB6 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19AB708419FADD2B0041EAB6 /* Player.cpp */; };
 		19ABEE1E1A49E661000056F1 /* PlayerLivesControllerComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19ABEE1C1A49E661000056F1 /* PlayerLivesControllerComponent.cpp */; };
 		19ABEE211A49E837000056F1 /* MapObjectInspector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19ABEE1F1A49E837000056F1 /* MapObjectInspector.cpp */; };
@@ -394,6 +394,8 @@
 		192DFB7E1A4ADAFC0057FD5B /* ComponentsFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ComponentsFactory.cpp; sourceTree = "<group>"; };
 		192DFB7F1A4ADAFC0057FD5B /* ComponentsFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComponentsFactory.h; sourceTree = "<group>"; };
 		192DFB811A4ADC500057FD5B /* BehavioursFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BehavioursFactory.h; sourceTree = "<group>"; };
+		19388A2D1B4CFFF7002F4F82 /* HD */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HD; path = ../../../Resources/HD; sourceTree = "<group>"; };
+		19388A2E1B4CFFF7002F4F82 /* SD */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SD; path = ../../../Resources/SD; sourceTree = "<group>"; };
 		19389AA01A3E0B5500E6C985 /* PowerUpComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PowerUpComponent.cpp; sourceTree = "<group>"; };
 		19389AA11A3E0B5500E6C985 /* PowerUpComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerUpComponent.h; sourceTree = "<group>"; };
 		19389AA41A3E0CA400E6C985 /* PowerUpAction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PowerUpAction.cpp; sourceTree = "<group>"; };
@@ -682,8 +684,6 @@
 		19AB707519FACECB0041EAB6 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		19AB707619FACECB0041EAB6 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		19AB707919FAD5B70041EAB6 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fonts; path = ../../../Resources/fonts; sourceTree = "<group>"; };
-		19AB707A19FAD5B70041EAB6 /* HiDPI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HiDPI; path = ../../../Resources/HiDPI; sourceTree = "<group>"; };
-		19AB707B19FAD5B70041EAB6 /* NormalDPI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = NormalDPI; path = ../../../Resources/NormalDPI; sourceTree = "<group>"; };
 		19AB708419FADD2B0041EAB6 /* Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
 		19AB708519FADD2B0041EAB6 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		19ABEE1C1A49E661000056F1 /* PlayerLivesControllerComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PlayerLivesControllerComponent.cpp; sourceTree = "<group>"; };
@@ -2603,8 +2603,8 @@
 				19C72D0C1A0D5AD600EA9CB5 /* bin */,
 				19821F571B1ECEA6007B5B9A /* Common */,
 				19AB707919FAD5B70041EAB6 /* fonts */,
-				19AB707A19FAD5B70041EAB6 /* HiDPI */,
-				19AB707B19FAD5B70041EAB6 /* NormalDPI */,
+				19388A2D1B4CFFF7002F4F82 /* HD */,
+				19388A2E1B4CFFF7002F4F82 /* SD */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -2953,9 +2953,10 @@
 				19AB270B19F984F3008D3B13 /* Mat4.inl in Resources */,
 				19AB270D19F984F3008D3B13 /* MathUtil.inl in Resources */,
 				19CCD68B1A02D41000986A8E /* ccShader_PositionTextureColor.frag in Resources */,
-				19AB707D19FAD5B70041EAB6 /* HiDPI in Resources */,
+				19388A2F1B4CFFF7002F4F82 /* HD in Resources */,
 				19CCD6841A02D41000986A8E /* ccShader_PositionTexture_uColor.vert in Resources */,
 				19CCD6801A02D41000986A8E /* ccShader_PositionColor.vert in Resources */,
+				19388A301B4CFFF7002F4F82 /* SD in Resources */,
 				19CCD6781A02D41000986A8E /* ccShader_Label_df_glow.frag in Resources */,
 				196AD4CE19F9832900D87881 /* LaunchScreen.xib in Resources */,
 				19AB707C19FAD5B70041EAB6 /* fonts in Resources */,
@@ -2977,7 +2978,6 @@
 				19CCD6791A02D41000986A8E /* ccShader_Label_df.frag in Resources */,
 				19CCD6891A02D41000986A8E /* ccShader_PositionTextureColor_noMVP.frag in Resources */,
 				19CCD67D1A02D41000986A8E /* ccShader_Position_uColor.frag in Resources */,
-				19AB707E19FAD5B70041EAB6 /* NormalDPI in Resources */,
 				19CCD6851A02D41000986A8E /* ccShader_PositionTexture.frag in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
