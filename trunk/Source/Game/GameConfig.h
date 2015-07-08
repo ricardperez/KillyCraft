@@ -6,12 +6,17 @@
 //  Copyright (c) 2014 MelonGames. All rights reserved.
 //
 
+#include "TargetConditionals.h" //to access TARGET_IPHONE_SIMULATOR
+
 #ifndef KillyCraft_GameConfig_h
 #define KillyCraft_GameConfig_h
 
 //#define FORCED_SQUAD "SquadBasic-1"
 //#define DRAW_MAP_GRID
 //#define DRAW_COLLISION_BOXES
-//#define USE_GAMEPAD_SHOOT_BUTTON
+
+#if TARGET_IPHONE_SIMULATOR
+#define USE_GAMEPAD_SHOOT_BUTTON
+#endif
 
 #endif
