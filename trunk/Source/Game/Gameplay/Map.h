@@ -28,6 +28,7 @@ namespace MelonGames
         class SpawnObjectsManager;
         class MapObjectsFactory;
         class MapTransitionController;
+        class VFXController;
         
         struct MapDefinition
         {
@@ -51,8 +52,9 @@ namespace MelonGames
 			void initialize();
             
             MapView* getView() const;
-			
-            Player* getPlayer() const;
+			Player* getPlayer() const;
+            MapObjectsFactory* getFactory() const;
+            VFXController* getVFXController() const;
 			
 			void addObject(MapObject* o);
 			void removeObjectWhenPossible(MapObject* o);
@@ -60,8 +62,6 @@ namespace MelonGames
 			void update(float dt);
             
             float getElapsedTime() const;
-            
-            MapObjectsFactory* getFactory() const;
             
             const std::vector<MapObject*>& getObjects() const;
             std::vector<MapObject*> getObjectsPassingFilter(const ObjectsFilter& filter);
@@ -85,6 +85,7 @@ namespace MelonGames
             SpawnObjectsManager* spawnObjectsManager;
             MapObjectsFactory* factory;
             MapTransitionController* mapTransitionController;
+            VFXController* vfxController;
             
             float elapsedTime;
             

@@ -21,6 +21,7 @@ namespace MelonGames
         //0.0 .. 1.0
         float next();
         int nextIntInRange(int min, int max, bool minInclusive=true, bool maxInclusive=true);
+        float nextRealInRange(float min, float max);
         
         int getMax() const;
         int getMin() const;

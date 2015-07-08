@@ -20,6 +20,7 @@
 		192DFB801A4ADAFC0057FD5B /* ComponentsFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 192DFB7E1A4ADAFC0057FD5B /* ComponentsFactory.cpp */; };
 		19388A2F1B4CFFF7002F4F82 /* HD in Resources */ = {isa = PBXBuildFile; fileRef = 19388A2D1B4CFFF7002F4F82 /* HD */; };
 		19388A301B4CFFF7002F4F82 /* SD in Resources */ = {isa = PBXBuildFile; fileRef = 19388A2E1B4CFFF7002F4F82 /* SD */; };
+		19388A331B4D0084002F4F82 /* VFXController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19388A311B4D0084002F4F82 /* VFXController.cpp */; };
 		19389AA21A3E0B5500E6C985 /* PowerUpComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19389AA01A3E0B5500E6C985 /* PowerUpComponent.cpp */; };
 		19389AA61A3E0CA400E6C985 /* PowerUpAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19389AA41A3E0CA400E6C985 /* PowerUpAction.cpp */; };
 		19389AA91A3E0CD800E6C985 /* PowerUpFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19389AA71A3E0CD800E6C985 /* PowerUpFactory.cpp */; };
@@ -396,6 +397,8 @@
 		192DFB811A4ADC500057FD5B /* BehavioursFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BehavioursFactory.h; sourceTree = "<group>"; };
 		19388A2D1B4CFFF7002F4F82 /* HD */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HD; path = ../../../Resources/HD; sourceTree = "<group>"; };
 		19388A2E1B4CFFF7002F4F82 /* SD */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SD; path = ../../../Resources/SD; sourceTree = "<group>"; };
+		19388A311B4D0084002F4F82 /* VFXController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VFXController.cpp; sourceTree = "<group>"; };
+		19388A321B4D0084002F4F82 /* VFXController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VFXController.h; sourceTree = "<group>"; };
 		19389AA01A3E0B5500E6C985 /* PowerUpComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PowerUpComponent.cpp; sourceTree = "<group>"; };
 		19389AA11A3E0B5500E6C985 /* PowerUpComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerUpComponent.h; sourceTree = "<group>"; };
 		19389AA41A3E0CA400E6C985 /* PowerUpAction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PowerUpAction.cpp; sourceTree = "<group>"; };
@@ -2541,6 +2544,8 @@
 				19ABEE201A49E837000056F1 /* MapObjectInspector.h */,
 				195975941A93FC4A003C06A0 /* MapTransitionController.cpp */,
 				195975951A93FC4A003C06A0 /* MapTransitionController.h */,
+				19388A311B4D0084002F4F82 /* VFXController.cpp */,
+				19388A321B4D0084002F4F82 /* VFXController.h */,
 			);
 			path = Gameplay;
 			sourceTree = "<group>";
@@ -3157,6 +3162,7 @@
 				19CCD4FD1A02CE2B00986A8E /* UIListView.cpp in Sources */,
 				19CCD3F41A02CCEA00986A8E /* CCControlSlider.cpp in Sources */,
 				19CCD47D1A02CDE800986A8E /* CCEventListener.cpp in Sources */,
+				19388A331B4D0084002F4F82 /* VFXController.cpp in Sources */,
 				19CCD5E31A02D30200986A8E /* CCLabelTextFormatter.cpp in Sources */,
 				19389AA61A3E0CA400E6C985 /* PowerUpAction.cpp in Sources */,
 				19AB2BE619F9910A008D3B13 /* CCNotificationCenter.cpp in Sources */,

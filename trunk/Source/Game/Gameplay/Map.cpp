@@ -12,6 +12,7 @@
 #include "SpawnManagers.h"
 #include "MapObjectsFactory.h"
 #include "MapTransitionController.h"
+#include "VFXController.h"
 #include "MapObject.h"
 #include "View/MapView.h"
 #include "Gamepad.h"
@@ -39,6 +40,7 @@ namespace MelonGames
         , spawnObjectsManager(nullptr)
         , factory(nullptr)
         , mapTransitionController(nullptr)
+        , vfxController(nullptr)
         , elapsedTime(0.0f)
         , nextIdentifier(0)
         , updating(false)
@@ -57,6 +59,8 @@ namespace MelonGames
             delete view;
             delete spawnObjectsManager;
             delete factory;
+            delete mapTransitionController;
+            delete vfxController;
 		}
 		
 		void Map::setNode(cocos2d::Node *node)
@@ -108,6 +112,8 @@ namespace MelonGames
             }, SpawnObjectsType::eSquads);
             
             mapTransitionController = new MapTransitionController(Gallant::MakeDelegate(this, &Map::onTransitionControllerFinished), this);
+            
+            vfxController = new VFXController(this);
 		}
         
         const MapDefinition& Map::getDefinition() const
@@ -119,6 +125,16 @@ namespace MelonGames
 		{
 			return player;
 		}
+        
+        MapObjectsFactory* Map::getFactory() const
+        {
+            return factory;
+        }
+        
+        VFXController* Map::getVFXController() const
+        {
+            return vfxController;
+        }
 		
 		void Map::addObject(MapObject* o)
 		{
@@ -192,11 +208,6 @@ namespace MelonGames
         float Map::getElapsedTime() const
         {
             return elapsedTime;
-        }
-        
-        MapObjectsFactory* Map::getFactory() const
-        {
-            return factory;
         }
         
         const std::vector<MapObject*>& Map::getObjects() const

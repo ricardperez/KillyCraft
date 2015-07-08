@@ -46,4 +46,9 @@ namespace MelonGames
         
         return (m + rnd % (M - m + 1));
     }
+    
+    float Random::nextRealInRange(float min, float max)
+    {
+        return (min + next() * (max-min));
+    }
 }

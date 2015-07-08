@@ -7,10 +7,12 @@
 //
 
 #include "ProjectileStateComponent.h"
+#include "PositionComponent.h"
 #include "Gameplay/MapObject.h"
 #include "Gameplay/Map.h"
 #include "Gameplay/MapObjectInspector.h"
 #include "Gameplay/Player.h"
+#include "Gameplay/VFXController.h"
 #include "CollisionDetectionComponent.h"
 #include "EnemyStateComponent.h"
 
@@ -61,7 +63,11 @@ namespace MelonGames
             {
                 if (auto enemyState = second->getObject()->get<EnemyStateComponent>())
                 {
-                    object->getMap()->getPlayer()->addScore(enemyState->getScore());
+                    auto map = object->getMap();
+                    map->getPlayer()->addScore(enemyState->getScore());
+                    
+                    const cocos2d::Vec3& position = second->getObject()->get<PositionComponent>()->getPosition();
+                    map->getVFXController()->showScoreNode(enemyState->getScore(), cocos2d::Vec2(position.x, position.y), true);
                 }
                 
                 object->getMap()->removeObjectWhenPossible(object);
