@@ -76,7 +76,20 @@ namespace MelonGames
             player = new Player();
             player->addLives(10);
             
+            factory = new MapObjectsFactory();
+            factory->addTemplatesFromFile("Enemies.obj");
+            factory->addTemplatesFromFile("Weapons.obj");
+            factory->addTemplatesFromFile("PowerUps.obj");
+            factory->addTemplatesFromFile("Player.obj");
+            
+            auto playerObject = factory->createObject("Player");
+            PositionComponent* posComponent = playerObject->get<PositionComponent>();
+            posComponent->setPosition(cocos2d::Vec3(150.0f, 130.0f, 0.0));
+            player->setPlayerObject(playerObject);
+            
             view = new MapView(this, node);
+            
+            addObject(playerObject);
             
 #ifdef USE_GAMEPAD_SHOOT_BUTTON
             auto shootingButton = player->getGamepad()->createShootingButton();
@@ -84,18 +97,7 @@ namespace MelonGames
             shootingButton->setPosition(cocos2d::Point(node->getContentSize().width - shootingButton->getContentSize().width*0.5f - 50.0f, shootingButton->getContentSize().height*0.5f + 50.0f));
 #endif
 			
-			factory = new MapObjectsFactory();
-            factory->addTemplatesFromFile("Enemies.obj");
-            factory->addTemplatesFromFile("Weapons.obj");
-            factory->addTemplatesFromFile("PowerUps.obj");
-            factory->addTemplatesFromFile("Player.obj");
-            
-            auto player = factory->createObject("Player");
-            addObject(player);
-            PositionComponent* posComponent = player->get<PositionComponent>();
-            posComponent->setPosition(cocos2d::Vec3(150.0f, 100.0f, 0.0));
-            
-            spawnObjectsManager = new SpawnObjectsManager();
+			spawnObjectsManager = new SpawnObjectsManager();
             spawnObjectsManager->setMap(this);
             spawnObjectsManager->loadEnemySquadsFromFile("Squads.squads");
             spawnObjectsManager->setPowerUpsList(factory->getObjectsNamesForFile("PowerUps.obj"));

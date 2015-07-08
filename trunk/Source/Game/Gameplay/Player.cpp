@@ -8,6 +8,7 @@
 
 #include "Player.h"
 #include "Gameplay/Gamepad.h"
+#include "Gameplay/MapObject.h"
 
 namespace MelonGames
 {
@@ -16,6 +17,7 @@ namespace MelonGames
 		Player::Player()
         : lives(0)
         , score(0)
+        , playerObject(nullptr)
 		{
             gamepad = new Gamepad();
 		}
@@ -79,6 +81,16 @@ namespace MelonGames
         {
             score += nPoints;
             scoreChangedSignal.Emit(this);
+        }
+        
+        void Player::setPlayerObject(MapObject* object)
+        {
+            playerObject = object;
+        }
+        
+        MapObject* Player::getPlayerObject() const
+        {
+            return playerObject;
         }
 	}
 }

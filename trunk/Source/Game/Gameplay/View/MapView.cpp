@@ -41,6 +41,8 @@ namespace MelonGames
 #endif
             
             hudView = GameHUDView::create(map);
+            hudView->setAnchorPoint(cocos2d::Vec2::ANCHOR_BOTTOM_LEFT);
+            hudView->setPosition(cocos2d::Vec2::ZERO);
             mainNode->addChild(hudView);
         }
         

@@ -9,7 +9,12 @@
 #include "GameHUDView.h"
 #include "Gameplay/Map.h"
 #include "Gameplay/Player.h"
+#include "Gameplay/MapObject.h"
+#include "Gameplay/Component/WeaponComponent.h"
+#include "SpriteFrameHelper.h"
 #include "2d/CCLabel.h"
+#include "ui/UIScale9Sprite.h"
+#include "base/CCDirector.h"
 
 namespace MelonGames
 {
@@ -23,7 +28,7 @@ namespace MelonGames
         : map(nullptr)
         , timeLabel(nullptr)
         , livesLabel(nullptr)
-        , scoreLabel(nullptr)
+        , ammoLabel(nullptr)
         {
         }
         
@@ -42,48 +47,46 @@ namespace MelonGames
         
         bool GameHUDView::init(const Map* map)
         {
-            if (cocos2d::Layer::init())
+            if (cocos2d::Node::init())
             {
+                const cocos2d::Size size(cocos2d::Director::getInstance()->getWinSize().width, 65.0f);
+                setContentSize(size);
+                
                 this->map = map;
                 
+                auto background = cocos2d::ui::Scale9Sprite::createWithSpriteFrame(spriteFrameOrDefault("black_gradient.png"));
+                background->setContentSize(size);
+                background->setAnchorPoint(cocos2d::Vec2::ZERO);
+                background->setOpacity(120);
+                addChild(background);
+                
+                livesLabel = cocos2d::Label::createWithTTF("", "Marker Felt.ttf", 25.0f);
+                livesLabel->setColor(cocos2d::Color3B::RED);
+                livesLabel->setPosition(cocos2d::Vec2(10.0f, getContentSize().height - 5.0f));
+                livesLabel->setAnchorPoint(cocos2d::Vec2(0.0f, 1.0f));
+                addChild(livesLabel);
+                
+                ammoLabel = cocos2d::Label::createWithTTF("", "Marker Felt.ttf", 25.0f);
+                ammoLabel->setPosition(cocos2d::Vec2(10.0f, 5.0f));
+                ammoLabel->setAnchorPoint(cocos2d::Vec2(0.0f, 0.0f));
+                addChild(ammoLabel);
+                
                 timeLabel = cocos2d::Label::createWithTTF("", "Marker Felt.ttf", 25.0f);
-                if (timeLabel)
-                {
-                    timeLabel->setColor(cocos2d::Color3B::GRAY);
-                    timeLabel->setPosition(cocos2d::Vec2(10.0f, getContentSize().height - 10.0f));
-                    timeLabel->setAnchorPoint(cocos2d::Vec2(0.0f, 1.0f));
-                    addChild(timeLabel);
-                    
-                    schedule([this](float dt) -> void
-                    {
-                        timeLabel->setString(std::to_string(this->map->getElapsedTime()));
-                    }, "update-time-label");
-                }
-                
-                livesLabel = cocos2d::Label::createWithTTF("", "Marker Felt.ttf", 50.0f);
-                if (livesLabel)
-                {
-                    livesLabel->setColor(cocos2d::Color3B::RED);
-                    livesLabel->setPosition(cocos2d::Vec2(getContentSize().width - 10.0f, getContentSize().height - 10.0f));
-                    livesLabel->setAnchorPoint(cocos2d::Vec2(1.0f, 1.0f));
-                    addChild(livesLabel);
-                }
-                
-                scoreLabel = cocos2d::Label::createWithTTF("", "Marker Felt.ttf", 50.0f);
-                if (scoreLabel)
-                {
-                    scoreLabel->setPosition(cocos2d::Vec2(getContentSize().width * 0.5f, getContentSize().height - 10.0f));
-                    scoreLabel->setAnchorPoint(cocos2d::Vec2(0.5f, 1.0f));
-                    addChild(scoreLabel);
-                }
+                timeLabel->setColor(cocos2d::Color3B::GRAY);
+                timeLabel->setPosition(cocos2d::Vec2(getContentSize().width - 10.0f, 5.0f));
+                timeLabel->setAnchorPoint(cocos2d::Vec2(1.0f, 0.0f));
+                addChild(timeLabel);
                 
                 auto player = map->getPlayer();
                 
                 player->getLivesChangedSignal().Connect(this, &GameHUDView::onPlayerLivesChanged);
                 onPlayerLivesChanged(player);
                 
-                player->getScoreChangedSignal().Connect(this, &GameHUDView::onPlayerScoreChanged);
-                onPlayerScoreChanged(player);
+                auto weaponComponent = player->getPlayerObject()->get<WeaponComponent>();
+                weaponComponent->getChangedSignal().Connect(this, &GameHUDView::onPlayerWeaponComponentChanged);
+                onPlayerWeaponComponentChanged(weaponComponent);
+                
+                scheduleUpdate();
                 
                 return true;
             }
@@ -91,14 +94,19 @@ namespace MelonGames
             return false;
         }
         
-        void GameHUDView::onPlayerLivesChanged(Player* player)
+        void GameHUDView::update(float dt)
         {
-            livesLabel->setString(std::to_string(player->getLives()));
+            timeLabel->setString(std::to_string(this->map->getElapsedTime()));
         }
         
-        void GameHUDView::onPlayerScoreChanged(Player* player)
+        void GameHUDView::onPlayerLivesChanged(Player* player)
         {
-            scoreLabel->setString(std::to_string(player->getScore()));
+            livesLabel->setString("Lives: " + std::to_string(player->getLives()));
+        }
+        
+        void GameHUDView::onPlayerWeaponComponentChanged(WeaponComponent* weaponComponent)
+        {
+            ammoLabel->setString("Ammo: " + std::to_string(weaponComponent->getNBullets()));
         }
     }
 }

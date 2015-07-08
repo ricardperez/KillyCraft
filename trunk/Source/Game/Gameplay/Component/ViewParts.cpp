@@ -161,19 +161,18 @@ namespace MelonGames
 #pragma mark - ViewPartWeapon
         ViewPartWeapon::ViewPartWeapon()
         {
-            label = cocos2d::Label::createWithTTF("", "Marker Felt.ttf", 25.0f);
-            label->setColor(cocos2d::Color3B(0, 0, 0));
-            label->retain();
+            node = cocos2d::Node::create();
+            node->retain();
         }
         
         ViewPartWeapon::~ViewPartWeapon()
         {
-            label->release();
+            node->release();
         }
         
         cocos2d::Node* ViewPartWeapon::getNode()
         {
-            return label;
+            return node;
         }
         
         void ViewPartWeapon::onAttachedToObject(MapObject* object)
@@ -183,7 +182,6 @@ namespace MelonGames
             if (WeaponComponent* weaponComponent = object->get<WeaponComponent>())
             {
                 weaponComponent->getChangedSignal().Connect(this, &ViewPartWeapon::onWeaponComponentChanged);
-                label->setString(std::to_string(weaponComponent->getNBullets()));
             }
         }
         
@@ -198,7 +196,6 @@ namespace MelonGames
         
         void ViewPartWeapon::onWeaponComponentChanged(WeaponComponent* weaponComponent)
         {
-            label->setString(std::to_string(weaponComponent->getNBullets()));
         }
     }
 }

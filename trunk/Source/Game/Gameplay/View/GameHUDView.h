@@ -9,7 +9,7 @@
 #ifndef __KillyCraft__GameHUDView__
 #define __KillyCraft__GameHUDView__
 
-#include "2d/CCLayer.h"
+#include "2d/CCNode.h"
 
 namespace cocos2d
 {
@@ -22,8 +22,9 @@ namespace MelonGames
     {
         class Map;
         class Player;
+        class WeaponComponent;
         
-        class GameHUDView : public cocos2d::Layer
+        class GameHUDView : public cocos2d::Node
         {
         public:
             static GameHUDView* create(const Map* map);
@@ -33,16 +34,17 @@ namespace MelonGames
         private:
             GameHUDView();
             bool init(const Map* map);
+            void update(float dt) override;
             
             void onPlayerLivesChanged(Player* player);
-            void onPlayerScoreChanged(Player* player);
+            void onPlayerWeaponComponentChanged(WeaponComponent* weaponComponent);
             
         private:
             const Map* map;
             
             cocos2d::Label* timeLabel;
             cocos2d::Label* livesLabel;
-            cocos2d::Label* scoreLabel;
+            cocos2d::Label* ammoLabel;
         };
     }
 }

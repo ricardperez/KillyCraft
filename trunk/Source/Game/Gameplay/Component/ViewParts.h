@@ -107,7 +107,7 @@ namespace MelonGames
             void onWeaponComponentChanged(WeaponComponent* weaponComponent);
             
         private:
-            cocos2d::Label* label;
+            cocos2d::Node* node;
         };
     }
 }

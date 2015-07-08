@@ -16,6 +16,7 @@ namespace MelonGames
 	namespace KillyCraft
 	{
 		class Gamepad;
+        class MapObject;
 		
 		class Player
 		{
@@ -35,6 +36,9 @@ namespace MelonGames
             void removeLives(unsigned int n);
             
             void addScore(unsigned int nPoints);
+            
+            void setPlayerObject(MapObject* object);
+            MapObject* getPlayerObject() const;
 			
 		private:
 			Gamepad* gamepad;
@@ -42,6 +46,8 @@ namespace MelonGames
             unsigned int score;
             Gallant::Signal1<Player*> livesChangedSignal;
             Gallant::Signal1<Player*> scoreChangedSignal;
+            
+            MapObject* playerObject;
 		};
 	}
 }
