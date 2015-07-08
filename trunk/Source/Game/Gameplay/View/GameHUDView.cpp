@@ -11,7 +11,7 @@
 #include "Gameplay/Player.h"
 #include "Gameplay/MapObject.h"
 #include "Gameplay/Component/WeaponComponent.h"
-#include "SpriteFrameHelper.h"
+#include "MelonGames/SpriteFrameHelper.h"
 #include "2d/CCLabel.h"
 #include "ui/UIScale9Sprite.h"
 #include "base/CCDirector.h"

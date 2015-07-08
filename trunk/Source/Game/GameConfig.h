@@ -6,7 +6,9 @@
 //  Copyright (c) 2014 MelonGames. All rights reserved.
 //
 
+#ifdef CC_TARGET_OS_IPHONE
 #include "TargetConditionals.h" //to access TARGET_IPHONE_SIMULATOR
+#endif
 
 #ifndef KillyCraft_GameConfig_h
 #define KillyCraft_GameConfig_h

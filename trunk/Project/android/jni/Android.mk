@@ -45,9 +45,12 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../../Source/Game/Gameplay/MapObject.cpp \
                    ../../../Source/Game/Gameplay/MapObjectsFactory.cpp \
                    ../../../Source/Game/Gameplay/MapObjectInspector.cpp \
+                   ../../../Source/Game/Gameplay/MapTransitionController.cpp \
+                   ../../../Source/Game/Gameplay/VFXController.cpp \
                    ../../../Source/Game/Gameplay/Player.cpp \
                    ../../../Source/Game/Gameplay/PowerUp/PowerUpAction.cpp \
                    ../../../Source/Game/Gameplay/PowerUp/PowerUpFactory.cpp \
+                   ../../../Source/Game/Gameplay/SpawnManagers.cpp \
                    ../../../Source/Game/Gameplay/SpawnObjectsManager.cpp \
                    ../../../Source/Game/Gameplay/View/GameHUDView.cpp \
                    ../../../Source/Game/Gameplay/View/MapGridView.cpp \

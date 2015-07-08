@@ -9,7 +9,7 @@
 #include "VFXController.h"
 #include "Map.h"
 #include "View/MapView.h"
-#include "Random.h"
+#include "MelonGames/Random.h"
 #include "2d/CCLabel.h"
 #include "2d/CCActionInterval.h"
 #include "2d/CCActionInstant.h"
