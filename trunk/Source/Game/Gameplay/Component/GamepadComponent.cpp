@@ -21,7 +21,7 @@ namespace MelonGames
     namespace KillyCraft
     {
         GamepadComponent::GamepadComponent()
-        : speed(100)
+        : speed(100.0f)
         , minTimeToStartMoving(0.05f)
         , timeLeftToStartMoving(minTimeToStartMoving)
         {
@@ -62,7 +62,14 @@ namespace MelonGames
                         weaponComponent->shoot();
                     }
                 }
-            } else if (touchingLeft || touchingRight)
+                
+                if (timeLeftToStartMoving > 0.0f)
+                {
+                    timeLeftToStartMoving = minTimeToStartMoving;
+                }
+            }
+            
+            if (touchingLeft || touchingRight)
             {
                 timeLeftToStartMoving -= dt;
                 if (timeLeftToStartMoving <= 0.0f)
