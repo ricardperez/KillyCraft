@@ -64,8 +64,8 @@ namespace MelonGames
             float getElapsedTime() const;
             
             const std::vector<MapObject*>& getObjects() const;
-            std::vector<MapObject*> getObjectsPassingFilter(const ObjectsFilter& filter);
-            MapObject* getObjectPassingFilter(const ObjectsFilter& filter);
+            std::vector<MapObject*> getObjectsPassingFilter(const ObjectsFilter& filter) const;
+            MapObject* getObjectPassingFilter(const ObjectsFilter& filter) const;
             bool isAnyObjectPassingFilter(const ObjectsFilter& filter) const;
             
             

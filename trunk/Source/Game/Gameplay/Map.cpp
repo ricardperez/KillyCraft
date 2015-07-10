@@ -16,6 +16,7 @@
 #include "MapObject.h"
 #include "View/MapView.h"
 #include "Gamepad.h"
+#include "MelonGames/Random.h"
 
 #include "Component/Component.h"
 #include "Component/ViewComponent.h"
@@ -46,6 +47,7 @@ namespace MelonGames
         , updating(false)
         , nRemainingSquads(2)
 		{
+            nRemainingSquads = Random::getInstance().nextIntInRange(3, 5);
 		}
 		
 		Map::~Map()
@@ -215,7 +217,7 @@ namespace MelonGames
             return objects;
         }
         
-        std::vector<MapObject*> Map::getObjectsPassingFilter(const ObjectsFilter& filter)
+        std::vector<MapObject*> Map::getObjectsPassingFilter(const ObjectsFilter& filter) const
         {
             std::vector<MapObject*> result;
             for (auto object : objects)
@@ -228,7 +230,7 @@ namespace MelonGames
             return result;
         }
         
-        MapObject* Map::getObjectPassingFilter(const ObjectsFilter& filter)
+        MapObject* Map::getObjectPassingFilter(const ObjectsFilter& filter) const
         {
             for (auto object : objects)
             {
@@ -263,7 +265,7 @@ namespace MelonGames
         
         void Map::onTransitionControllerFinished(MapTransitionController* controller)
         {
-            nRemainingSquads = 2;
+            nRemainingSquads = Random::getInstance().nextIntInRange(3, 5);
         }
 	}
 }
