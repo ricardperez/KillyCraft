@@ -79,6 +79,8 @@ namespace MelonGames
             {
                 auto result = new ViewComponent();
                 
+                result->setRotateOnMovement(json["rotateOnMovement"].asBool());
+                
                 for (const auto& partJson : json["parts"])
                 {
                     ViewPart* part = ViewPartsFactory::createViewPart(partJson);

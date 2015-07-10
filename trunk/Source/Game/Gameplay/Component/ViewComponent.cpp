@@ -20,6 +20,9 @@ namespace MelonGames
 		ViewComponent::ViewComponent()
         : sizeDirty(true)
         , visible(true)
+        , rotateOnMovement(false)
+        , rotation(0.0f)
+        , firstFrame(true)
 		{
 		}
 		
@@ -42,6 +45,12 @@ namespace MelonGames
             {
                 part->onAttachedToObject(object);
                 mapViewNode->addChild(part->getNode());
+                
+                if (firstFrame && rotateOnMovement)
+                {
+                    part->getNode()->setVisible(false);
+                }
+                
             }
             sizeDirty = true;
             
@@ -66,6 +75,18 @@ namespace MelonGames
             Base::onWillDetachFromObject();
         }
         
+        void ViewComponent::update(float dt)
+        {
+            Base::update(dt);
+            
+            if (firstFrame)
+            {
+                firstFrame = false;
+                visible = !visible;
+                setVisible(!visible);
+            }
+        }
+        
         void ViewComponent::addPart(ViewPart* part)
         {
             parts.push_back(part);
@@ -76,9 +97,18 @@ namespace MelonGames
                 auto node = part->getNode();
                 CCASSERT(node != nullptr, "The ViewPart::node should not be null at this point");
                 object->getMap()->getView()->getNode()->addChild(node);
-                node->setVisible(visible);
+                if (firstFrame && rotateOnMovement)
+                {
+                    node->setVisible(false);
+                }
+                else
+                {
+                    node->setVisible(visible);
+                }
                 
-                onPositionChanged(object->get<PositionComponent>());
+                auto positionComponent = object->get<PositionComponent>();
+                previousPosition = positionComponent->getPosition();
+                onPositionChanged(positionComponent);
                 sizeDirty = true;
             }
         }
@@ -102,10 +132,23 @@ namespace MelonGames
 		void ViewComponent::onPositionChanged(PositionComponent* positionComponent)
 		{
             const cocos2d::Vec2& position = positionComponent->getPosition();
+            
+            if (rotateOnMovement)
+            {
+                if (position.getDistanceSq(previousPosition) > std::numeric_limits<float>::epsilon())
+                {
+                    rotation = (-CC_RADIANS_TO_DEGREES((position - previousPosition).getAngle()) + 90.0f);
+                }
+            }
+            
             for (auto part : parts)
             {
-                part->getNode()->setPosition(position + part->getPositionOffset());
+                auto node = part->getNode();
+                node->setPosition(position + part->getPositionOffset());
+                node->setRotation(rotation);
             }
+            
+            previousPosition = position;
 		}
         
         const cocos2d::Size& ViewComponent::getSize()
@@ -126,16 +169,24 @@ namespace MelonGames
         
         void ViewComponent::setVisible(bool visible)
         {
-            if (visible != this->visible)
+            if (firstFrame && rotateOnMovement)
             {
                 this->visible = visible;
-                for (auto part : parts)
+                return;
+            }
+            else
+            {
+                if (visible != this->visible)
                 {
-                    auto node = part->getNode();
-                    CCASSERT(node != nullptr, "The ViewPart::node should not be null at this point");
-                    if (node)
+                    this->visible = visible;
+                    for (auto part : parts)
                     {
-                        node->setVisible(visible);
+                        auto node = part->getNode();
+                        CCASSERT(node != nullptr, "The ViewPart::node should not be null at this point");
+                        if (node)
+                        {
+                            node->setVisible(visible);
+                        }
                     }
                 }
             }
@@ -144,6 +195,11 @@ namespace MelonGames
         bool ViewComponent::isVisible() const
         {
             return visible;
+        }
+        
+        void ViewComponent::setRotateOnMovement(bool truthiness)
+        {
+            rotateOnMovement = truthiness;
         }
 	}
 }

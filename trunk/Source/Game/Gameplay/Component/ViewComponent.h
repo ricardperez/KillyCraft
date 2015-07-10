@@ -43,6 +43,7 @@ namespace MelonGames
 			
 			virtual void onObjectAttachedToMap() override;
             virtual void onWillDetachFromObject() override;
+            void update(float dt) override;
 			
             void addPart(ViewPart* part);
             void removePart(ViewPart* part);
@@ -51,6 +52,8 @@ namespace MelonGames
             
             void setVisible(bool visible);
             bool isVisible() const;
+            
+            void setRotateOnMovement(bool truthiness);
 			
 		protected:
 			void onPositionChanged(PositionComponent* posComponent);
@@ -62,6 +65,12 @@ namespace MelonGames
             bool sizeDirty;
             
             bool visible;
+            
+            bool rotateOnMovement;
+            cocos2d::Vec2 previousPosition;
+            float rotation;
+            
+            bool firstFrame;
 		};
 	}
 }
