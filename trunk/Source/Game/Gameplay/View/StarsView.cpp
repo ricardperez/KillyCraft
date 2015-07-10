@@ -16,6 +16,7 @@ namespace MelonGames
     namespace KillyCraft
     {
         StarsView::StarsView()
+        : speedMultiplier(1.0f)
         {
             
         }
@@ -34,8 +35,8 @@ namespace MelonGames
             {
                 const cocos2d::Rect& lastRect = layer.sprite->getTextureRect();
                 cocos2d::Rect nextRect = lastRect;
-                nextRect.origin.x += dt * layer.speedX;
-                nextRect.origin.y += dt * layer.speedY;
+                nextRect.origin.x += (dt * layer.speedX * speedMultiplier);
+                nextRect.origin.y += (dt * layer.speedY * speedMultiplier);
                 
                 layer.sprite->setTextureRect(nextRect);
             }
@@ -56,6 +57,11 @@ namespace MelonGames
             layer.sprite->setPosition(operatingNode->getContentSize()*0.5f);
             
             layers.push_back(layer);
+        }
+        
+        void StarsView::setSpeedMultiplier(float multiplier)
+        {
+            speedMultiplier = multiplier;
         }
     }
 }

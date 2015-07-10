@@ -27,9 +27,10 @@ namespace MelonGames
             StarsView();
             virtual ~StarsView();
             
-            
             void update(float dt);
             void addLayerWithTexture(cocos2d::Node* operatingNode, int zOrder, const std::string& textureName, float speedX, float speedY);
+            
+            void setSpeedMultiplier(float multiplier);
             
         private:
             struct Layer
@@ -39,6 +40,8 @@ namespace MelonGames
                 float speedY = 0.0f;
             };
             std::vector<Layer> layers;
+            
+            float speedMultiplier;
         };
     }
 }

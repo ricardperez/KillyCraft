@@ -16,17 +16,24 @@
 #include "Component/PositionComponent.h"
 #include "Component/ViewComponent.h"
 #include "Behaviour/MovementBehaviours.h"
+#include "View/MapView.h"
+#include "View/StarsView.h"
 
 namespace MelonGames
 {
     namespace KillyCraft
     {
+        const static float kWaitingIn = 3.0f;
+        const static float kParallaxMaxMultiplier = 5.0f;
+        const static float kWaitingInY = 400.0f;
+        
         MapTransitionController::MapTransitionController(Gallant::Delegate1<MapTransitionController*> handler, Map* map)
         : handler(handler)
         , map(map)
         , mapPlayer(nullptr)
         , mapTransitionPlayer(nullptr)
         , state(State::eNone)
+        , stateTime(0.0f)
         {
             
         }
@@ -44,6 +51,8 @@ namespace MelonGames
         
         void MapTransitionController::update(float dt)
         {
+            State oldState = state;
+            float stateElapsedTime = (map->getElapsedTime() - stateTime);
             switch (state)
             {
                 case State::eNone:
@@ -83,31 +92,54 @@ namespace MelonGames
                 }
                 case State::eMovingIn:
                 {
+                    const float kStartHeight = mapPlayer->get<PositionComponent>()->getPosition().y;
+                    
                     auto posComponent = mapTransitionPlayer->get<PositionComponent>();
-                    if (posComponent->getPosition().y >= 400.0f)
+                    float currentHeight = posComponent->getPosition().y;
+                    
+                    float parallaxSpeedMultiplier = (1.0f + ((currentHeight-kStartHeight) / (kWaitingInY - kStartHeight)) * kParallaxMaxMultiplier);
+                    
+                    if (currentHeight >= kWaitingInY)
                     {
                         auto movementComponent = mapTransitionPlayer->get<MoveLinearStateComponent>();
                         movementComponent->setMovementPerSecond(cocos2d::Vec3(0.0f, 0.0f, 0.0f));
+                        parallaxSpeedMultiplier = kParallaxMaxMultiplier;
                         state = State::eWaitingIn;
                     }
+                    
+                    map->getView()->getStarsView()->setSpeedMultiplier(parallaxSpeedMultiplier);
+                    
                     break;
                 }
                 case State::eWaitingIn:
                 {
-                    auto movementComponent = mapTransitionPlayer->get<MoveLinearStateComponent>();
-                    movementComponent->setMovementPerSecond(cocos2d::Vec3(0.0f, -500.0f, 0.0f));
-                    state = State::eMovingOut;
+                    if (stateElapsedTime > kWaitingIn)
+                    {
+                        auto movementComponent = mapTransitionPlayer->get<MoveLinearStateComponent>();
+                        movementComponent->setMovementPerSecond(cocos2d::Vec3(0.0f, -500.0f, 0.0f));
+                        state = State::eMovingOut;
+                    }
                     break;
                 }
                 case State::eMovingOut:
                 {
+                    const float kStartHeight = mapPlayer->get<PositionComponent>()->getPosition().y;
+                    
                     auto posComponent = mapTransitionPlayer->get<PositionComponent>();
+                    float currentHeight = posComponent->getPosition().y;
+                    
+                    float parallaxSpeedMultiplier = (1.0f + ((currentHeight-kStartHeight) / (kWaitingInY - kStartHeight)) * kParallaxMaxMultiplier);
+                    
                     if (posComponent->getPosition().y <= mapPlayer->get<PositionComponent>()->getPosition().y)
                     {
                         auto movementComponent = mapTransitionPlayer->get<MoveLinearStateComponent>();
                         movementComponent->setMovementPerSecond(cocos2d::Vec3(0.0f, 0.0f, 0.0f));
+                        parallaxSpeedMultiplier = 1.0f;
                         state = State::eWaitingOut;
                     }
+                    
+                    map->getView()->getStarsView()->setSpeedMultiplier(parallaxSpeedMultiplier);
+                    
                     break;
                 }
                 case State::eWaitingOut:
@@ -126,6 +158,11 @@ namespace MelonGames
                     handler(this);
                     break;
                 }
+            }
+            
+            if (state != oldState)
+            {
+                stateTime = map->getElapsedTime();
             }
         }
     }

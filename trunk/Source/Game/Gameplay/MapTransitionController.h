@@ -36,6 +36,8 @@ namespace MelonGames
             MapObject* mapPlayer;
             MapObject* mapTransitionPlayer;
             
+            float stateTime;
+            
             enum class State
             {
                 eNone,

@@ -56,6 +56,11 @@ namespace MelonGames
             return mainView;
         }
         
+        StarsView* MapView::getStarsView() const
+        {
+            return starsView;
+        }
+        
         void MapView::update(float dt)
         {
             if (starsView)

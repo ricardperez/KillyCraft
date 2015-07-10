@@ -28,6 +28,7 @@ namespace MelonGames
             virtual ~MapView();
             
             cocos2d::Node* getNode() const;
+            StarsView* getStarsView() const;
             
             void update(float dt);
             
