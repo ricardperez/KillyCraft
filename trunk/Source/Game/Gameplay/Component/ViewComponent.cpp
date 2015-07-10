@@ -101,10 +101,10 @@ namespace MelonGames
         
 		void ViewComponent::onPositionChanged(PositionComponent* positionComponent)
 		{
-            const cocos2d::Vec3& position = positionComponent->getPosition();
+            const cocos2d::Vec2& position = positionComponent->getPosition();
             for (auto part : parts)
             {
-                part->getNode()->setPosition(Perspective::screenPosition(position + part->getPositionOffset()));
+                part->getNode()->setPosition(position + part->getPositionOffset());
             }
 		}
         

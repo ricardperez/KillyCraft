@@ -31,7 +31,7 @@ namespace MelonGames
                 bool inside = false;
                 if (auto positionComponent = object->get<PositionComponent>())
                 {
-                    cocos2d::Vec2 screenPos = Perspective::screenPosition(positionComponent->getPosition());
+                    cocos2d::Vec2 screenPos = positionComponent->getPosition();
                     inside = (screenPos.y >= 0.0f);
                     if (!inside)
                     {
@@ -52,7 +52,7 @@ namespace MelonGames
                 if (auto positionComponent = object->get<PositionComponent>())
                 {
                     cocos2d::Size screenSize = object->getMap()->getDefinition().screenSize;
-                    cocos2d::Vec2 screenPos = Perspective::screenPosition(positionComponent->getPosition());
+                    cocos2d::Vec2 screenPos = positionComponent->getPosition();
                     inside = (screenPos.y <= screenSize.height);
                     if (!inside)
                     {

@@ -11,7 +11,6 @@
 
 #include "Component.h"
 #include "math/Vec2.h"
-#include "math/Vec3.h"
 #include "libs/Signal/Signal.h"
 
 namespace MelonGames
@@ -32,33 +31,22 @@ namespace MelonGames
 			
 			PositionComponent();
 			
-			void setPosition(const cocos2d::Vec3& p);
-			const cocos2d::Vec3& getPosition() const;
-            cocos2d::Vec2 getGroundPosition() const;
+			void setPosition(const cocos2d::Vec2& p);
+			const cocos2d::Vec2& getPosition() const;
             
             void movePositionX(float x);
             void movePositionY(float y);
-            void movePositionZ(float z);
             void movePosition(const cocos2d::Vec2& vec2);
-            void movePosition(const cocos2d::Vec3& vec3);
             
 			bool isPositionSet() const;
 			
 			Gallant::Signal1<PositionComponent*>& getPositionChangedSignal();
 			
 		private:
-			cocos2d::Vec3 position;
+			cocos2d::Vec2 position;
 			Gallant::Signal1<PositionComponent*> positionChangedSignal;
 			bool positionSet;
 		};
-		
-		namespace Perspective
-		{
-			cocos2d::Vec2 screenPosition(const cocos2d::Vec3& vec);
-			cocos2d::Vec2 screenPosition(const cocos2d::Vec2& vec, float height);
-			
-			const float kRatio = 0.5f;
-		}
 	}
 }
 

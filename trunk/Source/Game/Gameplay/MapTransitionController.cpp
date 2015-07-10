@@ -75,7 +75,7 @@ namespace MelonGames
                                 mapPlayer->get<ViewComponent>()->setVisible(false);
                                 
                                 auto movementComponent = mapTransitionPlayer->getOrCreate<MoveLinearStateComponent>();
-                                movementComponent->setMovementPerSecond(cocos2d::Vec3(0.0f, 500.0f, 0.0f));
+                                movementComponent->setMovementPerSecond(cocos2d::Vec2(0.0f, 500.0f));
                                 state = State::eMovingIn;
                             }
                             else
@@ -102,7 +102,7 @@ namespace MelonGames
                     if (currentHeight >= kWaitingInY)
                     {
                         auto movementComponent = mapTransitionPlayer->get<MoveLinearStateComponent>();
-                        movementComponent->setMovementPerSecond(cocos2d::Vec3(0.0f, 0.0f, 0.0f));
+                        movementComponent->setMovementPerSecond(cocos2d::Vec2(0.0f, 0.0f));
                         parallaxSpeedMultiplier = kParallaxMaxMultiplier;
                         state = State::eWaitingIn;
                     }
@@ -116,7 +116,7 @@ namespace MelonGames
                     if (stateElapsedTime > kWaitingIn)
                     {
                         auto movementComponent = mapTransitionPlayer->get<MoveLinearStateComponent>();
-                        movementComponent->setMovementPerSecond(cocos2d::Vec3(0.0f, -500.0f, 0.0f));
+                        movementComponent->setMovementPerSecond(cocos2d::Vec2(0.0f, -500.0f));
                         state = State::eMovingOut;
                     }
                     break;
@@ -133,7 +133,7 @@ namespace MelonGames
                     if (posComponent->getPosition().y <= mapPlayer->get<PositionComponent>()->getPosition().y)
                     {
                         auto movementComponent = mapTransitionPlayer->get<MoveLinearStateComponent>();
-                        movementComponent->setMovementPerSecond(cocos2d::Vec3(0.0f, 0.0f, 0.0f));
+                        movementComponent->setMovementPerSecond(cocos2d::Vec2(0.0f, 0.0f));
                         parallaxSpeedMultiplier = 1.0f;
                         state = State::eWaitingOut;
                     }

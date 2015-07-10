@@ -11,7 +11,7 @@
 
 #include "MelonGames/DeclaredTypes.h"
 #include <string>
-#include "math/Vec3.h"
+#include "math/Vec2.h"
 
 namespace Json
 {
@@ -50,14 +50,14 @@ namespace MelonGames
             
             virtual cocos2d::Node* getNode() = 0;
             
-            void setPositionOffset(const cocos2d::Vec3& offset);
-            const cocos2d::Vec3& getPositionOffset() const;
+            void setPositionOffset(const cocos2d::Vec2& offset);
+            const cocos2d::Vec2& getPositionOffset() const;
             
             virtual void onAttachedToObject(MapObject* object);
             virtual void onDetachedFromObject(MapObject* object);
             
         protected:
-            cocos2d::Vec3 positionOffset;
+            cocos2d::Vec2 positionOffset;
         };
         
         

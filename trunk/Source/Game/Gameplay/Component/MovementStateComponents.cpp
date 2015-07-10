@@ -14,12 +14,12 @@ namespace MelonGames
     namespace KillyCraft
     {
 #pragma mark - MoveLinearStateComponent
-        const cocos2d::Vec3& MoveLinearStateComponent::getMovementPerSecond() const
+        const cocos2d::Vec2& MoveLinearStateComponent::getMovementPerSecond() const
         {
             return movementPerSecond;
         }
         
-        void MoveLinearStateComponent::setMovementPerSecond(const cocos2d::Vec3& movementPerSecond)
+        void MoveLinearStateComponent::setMovementPerSecond(const cocos2d::Vec2& movementPerSecond)
         {
             this->movementPerSecond = movementPerSecond;
         }

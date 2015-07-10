@@ -157,7 +157,7 @@ namespace MelonGames
                 if (enemy)
                 {
                     auto posComponent = enemy->getOrCreate<PositionComponent>();
-                    cocos2d::Vec3 position = posComponent->getPosition();
+                    cocos2d::Vec2 position = posComponent->getPosition();
                     position.x += offset.x + enemyOffset.x;
                     position.y += offset.y + enemyOffset.y;
                     posComponent->setPosition(position);
@@ -213,7 +213,7 @@ namespace MelonGames
                 {
                     float posX = map->getDefinition().screenSize.width * 0.5f;
                     float posY = map->getDefinition().screenSize.height + 50.0f;
-                    powerup->getOrCreate<PositionComponent>()->setPosition(cocos2d::Vec3(posX, posY, 0.0f));
+                    powerup->getOrCreate<PositionComponent>()->setPosition(cocos2d::Vec2(posX, posY));
                     map->addObject(powerup);
                 }
             }

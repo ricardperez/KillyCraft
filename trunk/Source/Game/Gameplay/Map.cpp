@@ -90,7 +90,7 @@ namespace MelonGames
             
             auto playerObject = factory->createObject("Player");
             PositionComponent* posComponent = playerObject->get<PositionComponent>();
-            posComponent->setPosition(cocos2d::Vec3(150.0f, 130.0f, 0.0));
+            posComponent->setPosition(cocos2d::Vec2(150.0f, 130.0f));
             player->setPlayerObject(playerObject);
             
             view = new MapView(this, node);

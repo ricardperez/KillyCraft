@@ -56,8 +56,7 @@ namespace MelonGames
             {
                 float offsetX = json["offset"][0].asFloat();
                 float offsetY = json["offset"][1].asFloat();
-                float offsetZ = json["offset"][2].asFloat();
-                viewPart->setPositionOffset(cocos2d::Vec3(offsetX, offsetY, offsetZ));
+                viewPart->setPositionOffset(cocos2d::Vec2(offsetX, offsetY));
             }
             
             ViewPart* createViewPart(const Json::Value& json)
@@ -100,12 +99,12 @@ namespace MelonGames
         {
         }
         
-        void ViewPart::setPositionOffset(const cocos2d::Vec3& offset)
+        void ViewPart::setPositionOffset(const cocos2d::Vec2& offset)
         {
             positionOffset = offset;
         }
         
-        const cocos2d::Vec3& ViewPart::getPositionOffset() const
+        const cocos2d::Vec2& ViewPart::getPositionOffset() const
         {
             return positionOffset;
         }

@@ -24,7 +24,7 @@
 #include "EnemyStateComponent.h"
 #include "ProjectileStateComponent.h"
 
-#include "math/Vec3.h"
+#include "math/Vec2.h"
 #include "json/value.h"
 
 namespace MelonGames
@@ -33,9 +33,9 @@ namespace MelonGames
     {
         namespace ComponentsFactory
         {
-            cocos2d::Vec3 vec3FromJson(const Json::Value& json)
+            cocos2d::Vec2 vec2FromJson(const Json::Value& json)
             {
-                cocos2d::Vec3 result(json[0].asFloat(), json[1].asFloat(), json[2].asFloat());
+                cocos2d::Vec2 result(json[0].asFloat(), json[1].asFloat());
                 return result;
             }
             
@@ -133,7 +133,7 @@ namespace MelonGames
             Component* createMoveLinearStateComponent(const Json::Value& json)
             {
                 auto result = new MoveLinearStateComponent();
-                result->setMovementPerSecond(vec3FromJson(json["move"]));
+                result->setMovementPerSecond(vec2FromJson(json["move"]));
                 return result;
             }
             

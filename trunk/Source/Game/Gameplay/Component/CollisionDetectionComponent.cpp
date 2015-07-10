@@ -263,7 +263,7 @@ namespace MelonGames
         
         cocos2d::Rect CollisionDetectionComponent::getCurrentRect() const
         {
-            auto position = object->get<PositionComponent>()->getGroundPosition();
+            const cocos2d::Vec2& position = object->get<PositionComponent>()->getPosition();
 
             cocos2d::Rect rect;
             if (textureMask)

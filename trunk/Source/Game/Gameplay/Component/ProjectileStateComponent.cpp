@@ -66,7 +66,7 @@ namespace MelonGames
                     auto map = object->getMap();
                     map->getPlayer()->addScore(enemyState->getScore());
                     
-                    const cocos2d::Vec3& position = second->getObject()->get<PositionComponent>()->getPosition();
+                    const cocos2d::Vec2& position = second->getObject()->get<PositionComponent>()->getPosition();
                     map->getVFXController()->showScoreNode(enemyState->getScore(), cocos2d::Vec2(position.x, position.y), true);
                 }
                 

@@ -15,28 +15,15 @@ namespace MelonGames
 {
 	namespace KillyCraft
 	{
-		namespace Perspective
-		{
-			cocos2d::Vec2 screenPosition(const cocos2d::Vec3& vec)
-			{
-				return Vec2(vec.x, vec.y + vec.z*Perspective::kRatio);
-			}
-			
-			cocos2d::Vec2 screenPosition(const cocos2d::Vec2& vec, float height)
-			{
-				return Vec2(vec.x, vec.y + height*Perspective::kRatio);
-			}
-		}
-		
 		PositionComponent::PositionComponent()
 		: positionSet(false)
 		{
 		}
 		
-		void PositionComponent::setPosition(const cocos2d::Vec3& p)
+		void PositionComponent::setPosition(const cocos2d::Vec2& p)
 		{
 			float e = std::numeric_limits<float>::min();
-			bool changed = ((std::abs(p.x-position.x) > e) || (std::abs(p.y-position.y) > e) || (std::abs(p.z-position.z) > e));
+			bool changed = ((std::abs(p.x-position.x) > e) || (std::abs(p.y-position.y) > e));
 			position = p;
 			
 			positionSet = true;
@@ -47,39 +34,24 @@ namespace MelonGames
 			}
 		}
 		
-		const cocos2d::Vec3& PositionComponent::getPosition() const
+		const cocos2d::Vec2& PositionComponent::getPosition() const
 		{
 			return position;
 		}
         
-        cocos2d::Vec2 PositionComponent::getGroundPosition() const
-        {
-            return Vec2(position.x, position.y);
-        }
-        
         void PositionComponent::movePositionX(float x)
         {
-            setPosition(position + Vec3(x, 0.0f, 0.0f));
+            setPosition(position + Vec2(x, 0.0f));
         }
         
         void PositionComponent::movePositionY(float y)
         {
-            setPosition(position + Vec3(0.0f, y, 0.0f));
-        }
-        
-        void PositionComponent::movePositionZ(float z)
-        {
-            setPosition(position + Vec3(0.0f, 0.0f, z));
+            setPosition(position + Vec2(0.0f, y));
         }
         
         void PositionComponent::movePosition(const cocos2d::Vec2& vec2)
         {
-            setPosition(position + Vec3(vec2.x, vec2.y, 0.0f));
-        }
-        
-        void PositionComponent::movePosition(const cocos2d::Vec3& vec3)
-        {
-            setPosition(position + vec3);
+            setPosition(position + vec2);
         }
 		
 		bool PositionComponent::isPositionSet() const

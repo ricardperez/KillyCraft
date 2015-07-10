@@ -25,7 +25,7 @@ namespace MelonGames
         {
             Base::update(object, dt);
             
-            cocos2d::Vec3 position;
+            cocos2d::Vec2 position;
             if (auto positionComponent = object->get<PositionComponent>())
             {
                 position = positionComponent->getPosition();

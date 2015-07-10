@@ -20,16 +20,16 @@ namespace MelonGames
     {
         namespace MoveActions
         {
-            void moveByVector(MapObject* object, const cocos2d::Vec3& vector)
+            void moveByVector(MapObject* object, const cocos2d::Vec2& vector)
             {
-                moveByVector(object, vector.x, vector.y, vector.z);
+                moveByVector(object, vector.x, vector.y);
             }
             
-            void moveByVector(MapObject* object, float x, float y, float z)
+            void moveByVector(MapObject* object, float x, float y)
             {
                 if (auto posComponent = object->get<PositionComponent>())
                 {
-                    cocos2d::Vec3 positionCp = posComponent->getPosition();
+                    cocos2d::Vec2 positionCp = posComponent->getPosition();
                     
                     if (std::abs(x) > std::numeric_limits<float>::epsilon())
                     {
@@ -47,25 +47,19 @@ namespace MelonGames
                     }
                     
                     positionCp.y += y;
-                    positionCp.z += z;
                     
                     posComponent->setPosition(positionCp);
                 }
             }
             
-            void moveByVector(MapObject* object, float x, float y)
-            {
-                moveByVector(object, x, y, 0.0f);
-            }
-            
             void moveOnX(MapObject* object, float x)
             {
-                moveByVector(object, x, 0.0f, 0.0f);
+                moveByVector(object, x, 0.0f);
             }
             
             void moveOnY(MapObject* object, float y)
             {
-                moveByVector(object, 0.0f, y, 0.0f);
+                moveByVector(object, 0.0f, y);
             }
         }
     }

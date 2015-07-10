@@ -30,7 +30,7 @@ namespace MelonGames
         void GamepadComponent::moveObject(float distance) const
         {
             auto posComponent = object->get<PositionComponent>();
-            cocos2d::Vec3 positionCp = posComponent->getPosition();
+            cocos2d::Vec2 positionCp = posComponent->getPosition();
             
             float viewComponentWidth = object->get<ViewComponent>()->getSize().width;
             

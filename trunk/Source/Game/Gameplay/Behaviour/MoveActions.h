@@ -11,7 +11,7 @@
 
 namespace cocos2d
 {
-    class Vec3;
+    class Vec2;
 }
 
 namespace MelonGames
@@ -22,8 +22,7 @@ namespace MelonGames
         
         namespace MoveActions
         {
-            void moveByVector(MapObject* object, const cocos2d::Vec3& vector);
-            void moveByVector(MapObject* object, float x, float y, float z);
+            void moveByVector(MapObject* object, const cocos2d::Vec2& vector);
             void moveByVector(MapObject* object, float x, float y);
             void moveOnX(MapObject* object, float x);
             void moveOnY(MapObject* object, float y);

@@ -10,7 +10,7 @@
 #define __KillyCraft__MovementStateComponents__
 
 #include "Component.h"
-#include "math/Vec3.h"
+#include "math/Vec2.h"
 
 namespace MelonGames
 {
@@ -29,11 +29,11 @@ namespace MelonGames
             
             friend Component* ComponentsFactory::createMoveLinearStateComponent(const Json::Value& json);
             
-            const cocos2d::Vec3& getMovementPerSecond() const;
-            void setMovementPerSecond(const cocos2d::Vec3& movementPerSecond);
+            const cocos2d::Vec2& getMovementPerSecond() const;
+            void setMovementPerSecond(const cocos2d::Vec2& movementPerSecond);
             
         private:
-            cocos2d::Vec3 movementPerSecond;
+            cocos2d::Vec2 movementPerSecond;
         };
         
         class MoveCircularStateComponent : public Component

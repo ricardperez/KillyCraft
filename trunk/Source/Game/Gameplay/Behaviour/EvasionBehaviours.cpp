@@ -30,7 +30,7 @@ namespace MelonGames
                     allowedDistance += viewComponent->getSize().width * 0.5f;
                 }
                 
-                const cocos2d::Vec3& position = posComponent->getPosition();
+                const cocos2d::Vec2& position = posComponent->getPosition();
                 
                 MapObject* closestProjectile = nullptr;
                 float closestDistSq = std::numeric_limits<float>::max();
@@ -42,7 +42,7 @@ namespace MelonGames
                     {
                         if (auto projectilePosComponent = mapObject->get<PositionComponent>())
                         {
-                            const cocos2d::Vec3& projectilePosition = projectilePosComponent->getPosition();
+                            const cocos2d::Vec2& projectilePosition = projectilePosComponent->getPosition();
                             if (projectilePosition.y < position.y)
                             {
                                 float distanceSq = projectilePosition.distanceSquared(position);
@@ -60,7 +60,7 @@ namespace MelonGames
                 {
                     if (closestDistSq < allowedDistance*allowedDistance)
                     {
-                        const cocos2d::Vec3& projectilePosition = closestProjectile->get<PositionComponent>()->getPosition();
+                        const cocos2d::Vec2& projectilePosition = closestProjectile->get<PositionComponent>()->getPosition();
                         
                         if (auto moveStateComponent = object->get<MoveLinearStateComponent>())
                         {
