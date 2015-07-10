@@ -96,7 +96,9 @@ namespace MelonGames
         
         void GameHUDView::update(float dt)
         {
-            timeLabel->setString(std::to_string(this->map->getElapsedTime()));
+            static char timerString[10];
+            sprintf(timerString, "%.2f", map->getElapsedTime());
+            timeLabel->setString(timerString);
         }
         
         void GameHUDView::onPlayerLivesChanged(Player* player)
