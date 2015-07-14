@@ -58,11 +58,25 @@ namespace MelonGames
                 };
             }
             
+            PowerUpFunction createKillAllFunction(const Json::Value& json)
+            {
+                return [json](MapObject* object)->void
+                {
+                    auto map = object->getMap();
+                    auto enemies = map->getObjectsPassingFilter(MapObjectInspector::isEnemy);
+                    for (auto enemy : enemies)
+                    {
+                        map->removeObjectWhenPossible(enemy);
+                    }
+                };
+            }
+            
             const PowerUpAction* createPowerUpAction(const Json::Value& json)
             {
                 static std::map<unsigned int, std::function<PowerUpFunction(const Json::Value&)>> lambdas = {
                     {Crypto::stringHash("Heal"), createHealFunction},
                     {Crypto::stringHash("Weapon"), createWeaponFunction},
+                    {Crypto::stringHash("KillAll"), createKillAllFunction},
                 };
                 
                 std::string action = json["type"].asString();
