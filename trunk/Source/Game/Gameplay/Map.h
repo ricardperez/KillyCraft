@@ -54,6 +54,7 @@ namespace MelonGames
             MapView* getView() const;
 			Player* getPlayer() const;
             MapObjectsFactory* getFactory() const;
+            MapTransitionController* getMapTransitionController() const;
             VFXController* getVFXController() const;
 			
 			void addObject(MapObject* o);

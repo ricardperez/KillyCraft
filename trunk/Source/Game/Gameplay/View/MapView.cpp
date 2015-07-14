@@ -32,7 +32,7 @@ namespace MelonGames
 
             starsView = new StarsView();
 #ifndef DRAW_MAP_GRID
-            starsView->addLayerWithTexture(mainView, std::numeric_limits<int>::min(), "background.png", 0.0f, -100.0f);
+            starsView->addLayerWithTexture(mainView, std::numeric_limits<int>::min(), "background.png", 0.0f, -200.0f);
 #endif
             
 #ifdef DRAW_MAP_GRID

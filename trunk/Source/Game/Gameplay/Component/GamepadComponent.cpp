@@ -14,6 +14,7 @@
 #include "Gameplay/Player.h"
 #include "Gameplay/Map.h"
 #include "Gameplay/Gamepad.h"
+#include "Gameplay/MapTransitionController.h"
 #include "2d/CCSprite.h"
 
 namespace MelonGames
@@ -45,6 +46,11 @@ namespace MelonGames
         
         void GamepadComponent::update(float dt)
         {
+            if (object->getMap()->getMapTransitionController()->isTransitioning())
+            {
+                return;
+            }
+            
             auto gamepad = object->getMap()->getPlayer()->getGamepad();
             
             bool firing = gamepad->isFiring();

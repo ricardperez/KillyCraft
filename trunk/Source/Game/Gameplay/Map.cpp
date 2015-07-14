@@ -14,6 +14,7 @@
 #include "MapTransitionController.h"
 #include "VFXController.h"
 #include "MapObject.h"
+#include "MapObjectInspector.h"
 #include "View/MapView.h"
 #include "Gamepad.h"
 #include "GameConfig.h"
@@ -134,6 +135,11 @@ namespace MelonGames
             return factory;
         }
         
+        MapTransitionController* Map::getMapTransitionController() const
+        {
+            return mapTransitionController;
+        }
+        
         VFXController* Map::getVFXController() const
         {
             return vfxController;
@@ -165,9 +171,7 @@ namespace MelonGames
 		
 		void Map::update(float dt)
 		{
-#if !TARGET_IPHONE_SIMULATOR
             dt = cocos2d::Director::getInstance()->getAnimationInterval();
-#endif
             assert(view);
             
             updating = true;
@@ -194,12 +198,21 @@ namespace MelonGames
                 object->postupdate();
             }
             
+            mapTransitionController->update(dt);
             if (!mapTransitionController->isTransitioning())
             {
-                spawnObjectsManager->update(dt);
+                if (nRemainingSquads <= 0)
+                {
+                    if (!isAnyObjectPassingFilter(MapObjectInspector::isEnemy))
+                    {
+                        mapTransitionController->startTransition();
+                    }
+                }
+                else
+                {
+                    spawnObjectsManager->update(dt);
+                }
             }
-            
-            mapTransitionController->update(dt);
             
             updating = false;
             
@@ -260,10 +273,6 @@ namespace MelonGames
         void Map::onSquadSpawned()
         {
             --nRemainingSquads;
-            if (nRemainingSquads == 0)
-            {
-                mapTransitionController->startTransition();
-            }
         }
         
         void Map::onTransitionControllerFinished(MapTransitionController* controller)

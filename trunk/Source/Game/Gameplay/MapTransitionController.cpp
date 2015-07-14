@@ -46,7 +46,7 @@ namespace MelonGames
         
         bool MapTransitionController::isTransitioning() const
         {
-            return ((state != State::eNone) && (state != State::eFinished));
+            return (state != State::eNone);
         }
         
         void MapTransitionController::update(float dt)
@@ -60,33 +60,30 @@ namespace MelonGames
                     break;
                 case State::eStart:
                 {
-                    if (!map->isAnyObjectPassingFilter(MapObjectInspector::isEnemy))
+                    mapPlayer = map->getObjectPassingFilter(MapObjectInspector::isPlayer);
+                    CCASSERT(mapPlayer != nullptr, "There must be a player object at this point");
+                    if (mapPlayer)
                     {
-                        mapPlayer = map->getObjectPassingFilter(MapObjectInspector::isPlayer);
-                        CCASSERT(mapPlayer != nullptr, "There must be a player object at this point");
-                        if (mapPlayer)
+                        mapTransitionPlayer = map->getFactory()->createObject("PlayerTransition");
+                        CCASSERT(mapTransitionPlayer != nullptr, "A PlayerTransition template must exist");
+                        if (mapTransitionPlayer)
                         {
-                            mapTransitionPlayer = map->getFactory()->createObject("PlayerTransition");
-                            CCASSERT(mapTransitionPlayer != nullptr, "A PlayerTransition template must exist");
-                            if (mapTransitionPlayer)
-                            {
-                                map->addObject(mapTransitionPlayer);
-                                mapTransitionPlayer->get<PositionComponent>()->setPosition(mapPlayer->get<PositionComponent>()->getPosition());
-                                mapPlayer->get<ViewComponent>()->setVisible(false);
-                                
-                                auto movementComponent = mapTransitionPlayer->getOrCreate<MoveLinearStateComponent>();
-                                movementComponent->setMovementPerSecond(cocos2d::Vec2(0.0f, 500.0f));
-                                state = State::eMovingIn;
-                            }
-                            else
-                            {
-                                state = State::eFinished;
-                            }
+                            map->addObject(mapTransitionPlayer);
+                            mapTransitionPlayer->get<PositionComponent>()->setPosition(mapPlayer->get<PositionComponent>()->getPosition());
+                            mapPlayer->get<ViewComponent>()->setVisible(false);
+                            
+                            auto movementComponent = mapTransitionPlayer->getOrCreate<MoveLinearStateComponent>();
+                            movementComponent->setMovementPerSecond(cocos2d::Vec2(0.0f, 500.0f));
+                            state = State::eMovingIn;
                         }
                         else
                         {
                             state = State::eFinished;
                         }
+                    }
+                    else
+                    {
+                        state = State::eFinished;
                     }
                     break;
                 }
