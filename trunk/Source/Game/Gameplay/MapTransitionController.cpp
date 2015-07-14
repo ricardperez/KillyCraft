@@ -68,12 +68,22 @@ namespace MelonGames
                         CCASSERT(mapTransitionPlayer != nullptr, "A PlayerTransition template must exist");
                         if (mapTransitionPlayer)
                         {
+                            const float speedY = 500.0f;
+                            float targetX = (map->getView()->getNode()->getContentSize().width * 0.5f);
+                            
+                            const cocos2d::Vec2& currPosition = mapPlayer->get<PositionComponent>()->getPosition();
                             map->addObject(mapTransitionPlayer);
-                            mapTransitionPlayer->get<PositionComponent>()->setPosition(mapPlayer->get<PositionComponent>()->getPosition());
+                            mapTransitionPlayer->get<PositionComponent>()->setPosition(currPosition);
                             mapPlayer->get<ViewComponent>()->setVisible(false);
                             
+                            float distToCenter = (targetX - currPosition.x);
+                            float movingTime = std::abs((kWaitingInY - currPosition.y) / speedY);
+                            float speedX = (distToCenter / movingTime);
+                            
                             auto movementComponent = mapTransitionPlayer->getOrCreate<MoveLinearStateComponent>();
-                            movementComponent->setMovementPerSecond(cocos2d::Vec2(0.0f, 500.0f));
+                            movementComponent->setMovementPerSecond(cocos2d::Vec2(speedX, speedY));
+                            
+                            mapPlayer->get<PositionComponent>()->setPosition(cocos2d::Vec2(targetX, currPosition.y));
                             state = State::eMovingIn;
                         }
                         else

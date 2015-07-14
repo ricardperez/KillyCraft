@@ -84,7 +84,7 @@
 					"behaviours":
 					[
 						{
-							"type":"MoveVertically"
+							"type":"MoveLinear"
 						}
 					]
 				}
