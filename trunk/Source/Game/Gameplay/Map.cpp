@@ -16,6 +16,7 @@
 #include "MapObject.h"
 #include "View/MapView.h"
 #include "Gamepad.h"
+#include "GameConfig.h"
 #include "MelonGames/Random.h"
 
 #include "Component/Component.h"
@@ -164,7 +165,9 @@ namespace MelonGames
 		
 		void Map::update(float dt)
 		{
+#if !TARGET_IPHONE_SIMULATOR
             dt = cocos2d::Director::getInstance()->getAnimationInterval();
+#endif
             assert(view);
             
             updating = true;
