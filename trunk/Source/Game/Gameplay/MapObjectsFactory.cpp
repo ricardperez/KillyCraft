@@ -45,7 +45,7 @@ namespace MelonGames
                 
                 if (auto baseComponentJsonPtr = baseTemplate.getComponentJson(componentName))
                 {
-                    JsonUtil::mergeContentToBase(superComponentJson, *baseComponentJsonPtr);
+                    JsonUtil::mergeContentToBase(superComponentJson, *baseComponentJsonPtr, JsonUtil::MergeType::eAutomatic);
                 }
                 else
                 {

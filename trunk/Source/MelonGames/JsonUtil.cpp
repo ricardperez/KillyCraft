@@ -12,7 +12,7 @@ namespace MelonGames
 {
     namespace JsonUtil
     {
-        void mergeContentToBase(const Json::Value& base, Json::Value& contentAndResult)
+        void mergeContentToBase(const Json::Value& base, Json::Value& contentAndResult, MergeType mergeType)
         {
             if (base.isObject() && contentAndResult.isObject())
             {
@@ -21,17 +21,39 @@ namespace MelonGames
                 {
                     if (contentAndResult.isMember(baseMember))
                     {
+                        MergeType usedMergeType = mergeType;
+                        if (usedMergeType == MergeType::eAutomatic)
+                        {
+                            usedMergeType = (MergeType)contentAndResult.get("merge", (int)mergeType).asInt();
+                        }
+                        
                         const Json::Value& baseValue = base[baseMember];
                         Json::Value& contentValue = contentAndResult[baseMember];
-                        if (baseValue.isObject() && contentValue.isObject())
-                        {
-                            mergeContentToBase(baseValue, contentValue);
-                        }
+                        mergeContentToBase(baseValue, contentValue, usedMergeType);
                     }
                     else
                     {
                         contentAndResult[baseMember] = base[baseMember];
                     }
+                }
+            }
+            else if (base.isArray() && contentAndResult.isArray())
+            {
+                switch (mergeType)
+                {
+                    case MergeType::eAll:
+                        for (const auto& baseValue : base)
+                        {
+                            contentAndResult.append(baseValue);
+                        }
+                        break;
+                    case MergeType::eBase:
+                        contentAndResult = base;
+                        break;
+                    case MergeType::eOriginal:
+                    case MergeType::eAutomatic:
+                    default:
+                        break;
                 }
             }
         }

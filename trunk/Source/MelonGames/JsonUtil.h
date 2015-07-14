@@ -15,7 +15,15 @@ namespace MelonGames
 {
     namespace JsonUtil
     {
-        void mergeContentToBase(const Json::Value& base, Json::Value& contentAndResult);
+        enum class MergeType
+        {
+            eAutomatic = 0,
+            eOriginal = 1,
+            eBase = 2,
+            eAll = 3,
+        };
+        
+        void mergeContentToBase(const Json::Value& base, Json::Value& contentAndResult, MergeType mergeType);
     }
 }
 
