@@ -15,6 +15,8 @@
 #include "Component/PositionComponent.h"
 #include "Component/MovementStateComponents.h"
 #include "Component/ViewComponent.h"
+#include "View/MapView.h"
+#include "View/StarsView.h"
 
 #include "2d/CCSprite.h"
 #include "base/ccMacros.h"
@@ -133,11 +135,9 @@ namespace MelonGames
                 
                 if (posY > offset.y)
                 {
-                    if (auto moveState = enemy->get<MoveLinearStateComponent>())
-                    {
-                        float timeToReachTop = std::abs(((posY - offset.y) / moveState->getMovementPerSecond().y));
-                        maxDelay = std::max(maxDelay, timeToReachTop);
-                    }
+                    float speedY = map->getView()->getStarsView()->getSpeedVector().y;
+                    float timeToReachTop = std::abs(((posY - offset.y) / speedY));
+                    maxDelay = std::max(maxDelay, timeToReachTop);
                 }
             }
             
