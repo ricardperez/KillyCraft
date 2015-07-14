@@ -3,6 +3,7 @@
 	[
 		{
 			"name":"EnemyBase",
+			"abstract": true,
 			"components":
 			[
 				{
@@ -49,6 +50,7 @@
 		{
 			"super": "EnemyBase",
 			"name":"EnemyBaseStatic",
+			"abstract": true,
 			"components":
 			[
 				{
@@ -66,6 +68,7 @@
 		{
 			"super": "EnemyBase",
 			"name":"EnemyBaseFree",
+			"abstract": true,
 			"components":
 			[
 				{
@@ -151,7 +154,7 @@
 			]
 		},
 		{
-			"super":"EnemyBaseFree",
+			"super":"EnemyBaseStatic",
 			"name":"EnemyEvasion",
 			"components":
 			[
@@ -183,7 +186,7 @@
 				},
 				{
 					"type":"MoveLinear",
-					"move":[350.0, -150.0, 0.0]
+					"move":[350.0, 0.0, 0.0]
 				}
 			]
 		}

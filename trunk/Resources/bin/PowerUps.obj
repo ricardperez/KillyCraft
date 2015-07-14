@@ -3,6 +3,7 @@
 	[
 		{
 			"name":"PowerUpBase",
+			"abstract": true,
 			"components":
 			[
 				{
@@ -53,12 +54,6 @@
 					"type": "CollisionDetection",
 					"mask": "",
 					"t": 3
-				},
-				{
-					"type": "PowerUp",
-					"actions":
-					[
-					]
 				}
 			]
 		},
@@ -114,7 +109,7 @@
 							"type": "Weapon",
 							"projectile": "MachinegunBullet3",
 							"fireRate": 0.2,
-							"nProjectiles": 35
+							"nProjectiles": 100
 						}
 					]
 				}

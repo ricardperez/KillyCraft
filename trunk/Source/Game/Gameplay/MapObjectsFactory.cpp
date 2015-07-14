@@ -81,10 +81,11 @@ namespace MelonGames
                     assert(superIt != templates.end() && "The super type has to be declared before its children.");
                     if (superIt != templates.end())
                     {
-                        superIt->second.abstract = true;
                         mergeTemplate(superIt->second, t);
                     }
                 }
+                
+                t.abstract = objectJson["abstract"].asBool();
                 
                 templates[nameHash] = t;
             }
@@ -128,6 +129,8 @@ namespace MelonGames
         
         MapObject* MapObjectsFactory::createObject(const ObjectTemplate& t) const
         {
+            assert(!t.abstract && "Can't instantiate an abstract template");
+            
             MapObject* result = new MapObject();
             
             for (const auto& componentJson : t.json["components"])
