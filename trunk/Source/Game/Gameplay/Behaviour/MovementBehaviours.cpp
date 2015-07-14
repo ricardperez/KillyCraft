@@ -8,6 +8,9 @@
 
 #include "MovementBehaviours.h"
 #include "Gameplay/MapObject.h"
+#include "Gameplay/Map.h"
+#include "Gameplay/View/MapView.h"
+#include "Gameplay/View/StarsView.h"
 #include "Gameplay/Component/MovementStateComponents.h"
 #include "Gameplay/Component/PositionComponent.h"
 #include "Gameplay/Component/TimeComponent.h"
@@ -17,6 +20,16 @@ namespace MelonGames
 {
     namespace KillyCraft
     {
+#pragma mark - MoveWithBackgroundBehaviour
+        void MoveWithBackgroundBehaviour::update(MapObject* object, float dt)
+        {
+            Base::update(object, dt);
+            
+            cocos2d::Vec2 speedVector = object->getMap()->getView()->getStarsView()->getSpeedVector();
+            auto posComponent = object->getOrCreate<PositionComponent>();
+            posComponent->movePosition(speedVector * dt);
+        }
+        
 #pragma mark - MoveLinearBehaviour
         MoveLinearBehaviour::MoveLinearBehaviour()
         : projection(Projection::eNormal)

@@ -30,15 +30,8 @@
 									"type":"Collision"
 								}
 							]
-						},
-						{
-							"type":"MoveVertically"
 						}
 					]
-				},
-				{
-					"type":"MoveLinear",
-					"move":[0.0, -250.0, 0.0]
 				},
 				{
 					"type":"CollisionDetection",
@@ -54,7 +47,45 @@
 			]
 		},
 		{
-			"super":"EnemyBase",
+			"super": "EnemyBase",
+			"name":"EnemyBaseStatic",
+			"components":
+			[
+				{
+					"type":"Behaviour",
+					"merge": 3,
+					"behaviours":
+					[
+						{
+							"type":"MoveWithBackground"
+						}
+					]
+				}
+			]
+		},
+		{
+			"super": "EnemyBase",
+			"name":"EnemyBaseFree",
+			"components":
+			[
+				{
+					"type":"Behaviour",
+					"merge": 3,
+					"behaviours":
+					[
+						{
+							"type":"MoveVertically"
+						}
+					]
+				},
+				{
+					"type":"MoveLinear",
+					"move":[0.0, -250.0, 0.0]
+				}
+			]
+		},
+		{
+			"super":"EnemyBaseStatic",
 			"name":"EnemyGordy",
 			"components":
 			[
@@ -76,7 +107,7 @@
 			]
 		},
 		{
-			"super":"EnemyBase",
+			"super":"EnemyBaseStatic",
 			"name":"EnemyKilly",
 			"components":
 			[
@@ -98,7 +129,7 @@
 			]
 		},
 		{
-			"super":"EnemyBase",
+			"super":"EnemyBaseStatic",
 			"name":"EnemyFrighty",
 			"components":
 			[
@@ -120,7 +151,7 @@
 			]
 		},
 		{
-			"super":"EnemyBase",
+			"super":"EnemyBaseFree",
 			"name":"EnemyEvasion",
 			"components":
 			[
@@ -142,23 +173,9 @@
 				},
 				{
 					"type":"Behaviour",
+					"merge": 3,
 					"behaviours":
 					[
-						{
-							"type":"Destroy",
-							"checks":
-							[
-								{
-									"type":"OutOfScreenDown"
-								},
-								{
-									"type":"Collision"
-								}
-							]
-						},
-						{
-							"type":"MoveVertically"
-						},
 						{
 							"type":"EvadeProjectilesHorizontally"
 						}

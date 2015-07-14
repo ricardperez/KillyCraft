@@ -90,6 +90,7 @@ namespace MelonGames
             {
                 static std::map<unsigned int, std::function<Behaviour*(const Json::Value&)>> lambdas = {
                     {Crypto::stringHash("Destroy"), createDestroyBehaviour},
+                    {Crypto::stringHash("MoveWithBackground"), createDefaultBehaviour<MoveWithBackgroundBehaviour>},
                     {Crypto::stringHash("MoveLinear"), createDefaultBehaviour<MoveLinearBehaviour>},
                     {Crypto::stringHash("MoveVertically"), createMoveVerticallyBehaviour},
                     {Crypto::stringHash("MoveHorizontally"), createMoveHorizontallyBehaviour},

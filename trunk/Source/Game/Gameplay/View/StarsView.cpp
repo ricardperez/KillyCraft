@@ -63,5 +63,19 @@ namespace MelonGames
         {
             speedMultiplier = multiplier;
         }
+        
+        cocos2d::Vec2 StarsView::getSpeedVector() const
+        {
+            cocos2d::Vec2 result;
+            
+            if (!layers.empty())
+            {
+                const auto firstLayer = layers.front();
+                result.set(firstLayer.speedX, firstLayer.speedY);
+            }
+            
+            result *= speedMultiplier;
+            return result;
+        }
     }
 }

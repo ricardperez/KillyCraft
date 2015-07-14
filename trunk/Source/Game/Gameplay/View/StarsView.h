@@ -10,6 +10,7 @@
 #define __KillyCraft__StarsView__
 
 #include <vector>
+#include "math/Vec2.h"
 
 namespace cocos2d
 {
@@ -31,6 +32,8 @@ namespace MelonGames
             void addLayerWithTexture(cocos2d::Node* operatingNode, int zOrder, const std::string& textureName, float speedX, float speedY);
             
             void setSpeedMultiplier(float multiplier);
+            
+            cocos2d::Vec2 getSpeedVector() const;
             
         private:
             struct Layer
