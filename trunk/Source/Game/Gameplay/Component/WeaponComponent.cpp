@@ -32,7 +32,7 @@ namespace MelonGames
         {
             if (nBullets > 0)
             {
-                float currTime = object->getMap()->getTime()->getTime();
+                float currTime = object->getMap()->getTime()->getTotalTime();
                 return ((currTime - lastShotTime) >= weapon.fireRate);
             }
             
@@ -41,7 +41,7 @@ namespace MelonGames
         
         void WeaponComponent::shoot()
         {
-            lastShotTime = object->getMap()->getTime()->getTime();
+            lastShotTime = object->getMap()->getTime()->getTotalTime();
             
             assert(nBullets > 0 && "Should not be shooting as no bullets are left");
             if (nBullets > 0)
@@ -76,7 +76,7 @@ namespace MelonGames
             if (object)
             {
                 assert(object->getMap() && "Map has to exist");
-                lastShotTime = object->getMap()->getTime()->getTime();
+                lastShotTime = object->getMap()->getTime()->getTotalTime();
             }
             
             changedSignal.Emit(this);

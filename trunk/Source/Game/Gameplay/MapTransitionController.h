@@ -9,7 +9,7 @@
 #ifndef __KillyCraft__MapTransitionController__
 #define __KillyCraft__MapTransitionController__
 
-#include "Signal/Delegate.h"
+#include "Signal/Signal.h"
 
 namespace MelonGames
 {
@@ -21,17 +21,19 @@ namespace MelonGames
         class MapTransitionController
         {
         public:
-            MapTransitionController(Gallant::Delegate1<MapTransitionController*> handler, Map* map);
+            MapTransitionController(Map* map);
             
             void startTransition();
             bool isTransitioning() const;
             void update(float dt);
             
+            Gallant::Signal1<MapTransitionController*>& getTransitionFinishedSignal();
+            
         private:
             void checkState();
             
         private:
-            const Gallant::Delegate1<MapTransitionController*> handler;
+            Gallant::Signal1<MapTransitionController*> transitionFinishedSignal;
             Map* map;
             MapObject* mapPlayer;
             MapObject* mapTransitionPlayer;

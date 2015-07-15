@@ -9,7 +9,6 @@
 #include "Map.h"
 #include "Player.h"
 #include "SpawnObjectsManager.h"
-#include "SpawnManagers.h"
 #include "MapObjectsFactory.h"
 #include "MapTransitionController.h"
 #include "VFXController.h"
@@ -48,9 +47,7 @@ namespace MelonGames
         , time(nullptr)
         , nextIdentifier(0)
         , updating(false)
-        , nRemainingSquads(2)
 		{
-            nRemainingSquads = Random::getInstance().nextIntInRange(3, 5);
 		}
 		
 		Map::~Map()
@@ -84,6 +81,7 @@ namespace MelonGames
 			assert(node);
             
             time = new MapTime();
+            mapTransitionController = new MapTransitionController(this);
             
             player = new Player();
             player->addLives(10);
@@ -111,15 +109,9 @@ namespace MelonGames
 			
 			spawnObjectsManager = new SpawnObjectsManager();
             spawnObjectsManager->setMap(this);
-            spawnObjectsManager->loadEnemySquadsFromFile("Squads.squads");
-            spawnObjectsManager->setPowerUpsList(factory->getObjectsNamesForFile("PowerUps.obj"));
-            
-            spawnObjectsManager->setSpawnHandlerForType([this]()->void
-            {
-                this->onSquadSpawned();
-            }, SpawnObjectsType::eSquads);
-            
-            mapTransitionController = new MapTransitionController(Gallant::MakeDelegate(this, &Map::onTransitionControllerFinished), this);
+            spawnObjectsManager->loadSquadsListFromFile("Squads.kc");
+            spawnObjectsManager->loadSpawnEventsFromFile("levels/Level1.kc");
+            spawnObjectsManager->setPowerUpNames(factory->getObjectsNamesForFile("PowerUps.obj"));
             
             vfxController = new VFXController(this);
 		}
@@ -207,22 +199,8 @@ namespace MelonGames
                 object->postupdate();
             }
             
+            spawnObjectsManager->update(dt);
             mapTransitionController->update(dt);
-            if (!mapTransitionController->isTransitioning())
-            {
-                if (nRemainingSquads <= 0)
-                {
-                    if (!isAnyObjectPassingFilter(MapObjectInspector::isEnemy))
-                    {
-                        mapTransitionController->startTransition();
-                    }
-                }
-                else
-                {
-                    spawnObjectsManager->update(dt);
-                }
-            }
-            
             updating = false;
             
             for (auto object : objectsToRemove)
@@ -272,16 +250,6 @@ namespace MelonGames
                 }
             }
             return false;
-        }
-        
-        void Map::onSquadSpawned()
-        {
-            --nRemainingSquads;
-        }
-        
-        void Map::onTransitionControllerFinished(MapTransitionController* controller)
-        {
-            nRemainingSquads = Random::getInstance().nextIntInRange(3, 5);
         }
 	}
 }

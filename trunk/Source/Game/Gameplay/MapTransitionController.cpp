@@ -28,9 +28,8 @@ namespace MelonGames
         const static float kParallaxMaxMultiplier = 5.0f;
         const static float kWaitingInY = 400.0f;
         
-        MapTransitionController::MapTransitionController(Gallant::Delegate1<MapTransitionController*> handler, Map* map)
-        : handler(handler)
-        , map(map)
+        MapTransitionController::MapTransitionController(Map* map)
+        : map(map)
         , mapPlayer(nullptr)
         , mapTransitionPlayer(nullptr)
         , state(State::eNone)
@@ -53,7 +52,7 @@ namespace MelonGames
         void MapTransitionController::update(float dt)
         {
             State oldState = state;
-            float stateElapsedTime = (map->getTime()->getTime() - stateTime);
+            float stateElapsedTime = (map->getTime()->getTotalTime() - stateTime);
             switch (state)
             {
                 case State::eNone:
@@ -163,15 +162,20 @@ namespace MelonGames
                     map->removeObjectWhenPossible(mapTransitionPlayer);
                     mapTransitionPlayer = nullptr;
                     state = State::eNone;
-                    handler(this);
+                    transitionFinishedSignal.Emit(this);
                     break;
                 }
             }
             
             if (state != oldState)
             {
-                stateTime = map->getTime()->getTime();
+                stateTime = map->getTime()->getTotalTime();
             }
+        }
+        
+        Gallant::Signal1<MapTransitionController*>& MapTransitionController::getTransitionFinishedSignal()
+        {
+            return transitionFinishedSignal;
         }
     }
 }

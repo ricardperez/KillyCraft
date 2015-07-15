@@ -31,6 +31,8 @@ namespace MelonGames
         class VFXController;
         class MapTime;
         
+        enum class SpawnObjectsType;
+        
         struct MapDefinition
         {
             float height;
@@ -69,10 +71,6 @@ namespace MelonGames
             MapObject* getObjectPassingFilter(const ObjectsFilter& filter) const;
             bool isAnyObjectPassingFilter(const ObjectsFilter& filter) const;
             
-            
-        private:
-            void onSquadSpawned();
-            void onTransitionControllerFinished(MapTransitionController* controller);
 			
 		private:
             MapDefinition definition;
@@ -92,8 +90,6 @@ namespace MelonGames
             int nextIdentifier;
             
             bool updating;
-            
-            int nRemainingSquads;
 		};
 	}
 }

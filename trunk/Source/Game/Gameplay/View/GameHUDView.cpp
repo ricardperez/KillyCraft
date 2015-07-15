@@ -98,7 +98,7 @@ namespace MelonGames
         void GameHUDView::update(float dt)
         {
             static char timerString[10];
-            sprintf(timerString, "%.2f", map->getTime()->getTime());
+            sprintf(timerString, "%.2f", map->getTime()->getStageTime());
             timeLabel->setString(timerString);
         }
         

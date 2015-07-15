@@ -12,38 +12,82 @@
 #include <string>
 #include <vector>
 #include <functional>
+#include "Signal/Signal.h"
+#include "json/json.h"
+
+namespace cocos2d
+{
+    class Vec2;
+}
 
 namespace MelonGames
 {
     namespace KillyCraft
     {
+        enum class SpawnObjectsType
+        {
+            eSquads = 0,
+            ePowerUps = 1,
+            eTransitionStage = 2,
+            eUpdateSpeed = 3,
+        };
+        
         class Map;
         class MapObject;
-        class SpawnManager;
-        class SpawnSquadsManager;
-        class SpawnPowerUpsManager;
-        enum class SpawnObjectsType;
+        class MapTransitionController;
         
         class SpawnObjectsManager
         {
         public:
             SpawnObjectsManager();
             
-            void loadEnemySquadsFromFile(const std::string& filename);
-            void setPowerUpsList(const std::vector<std::string>& names);
-            
             void setMap(Map* map);
             
-            void update(float dt);
+            void loadSquadsListFromFile(const std::string& filename);
+            void setPowerUpNames(const std::vector<std::string>& names);
+            void loadSpawnEventsFromFile(const std::string& filename);
             
-            typedef std::function<void()> SpawnHandler;
-            void setSpawnHandlerForType(SpawnHandler handler, SpawnObjectsType type);
+            virtual void update(float dt);
+            
+            Gallant::Signal2<SpawnObjectsManager*, SpawnObjectsType>& getSpawnSignal();
             
         private:
-            SpawnSquadsManager* spawnSquadsManager;
-            SpawnPowerUpsManager* spawnPowerUpsManager;
+            struct SpawnData
+            {
+                float time;
+                SpawnObjectsType type;
+                std::string templateName;
+                
+                SpawnData() : time(0.0f), type(SpawnObjectsType::eSquads) {}
+            };
             
-            std::vector<SpawnManager*> allManagers;
+            void spawnItem(const SpawnData& data);
+            void spawnSquad(const std::string& templateName) const;
+            void spawnPowerup(const std::string& templateName) const;
+            void transitionStage();
+            
+            struct SquadTemplate
+            {
+                std::string name;
+                Json::Value json;
+            };
+            const SquadTemplate* getSquadTemplateWithName(const std::string& name) const;
+            void createSquad(const SquadTemplate& squadTemplate, const cocos2d::Vec2& offset, std::vector<MapObject*>& enemies) const;
+            
+            void onTransitionControllerFinished(MapTransitionController* transitionController);
+            
+        private:
+            Map* map;
+            std::vector<SpawnData> spawnItems;
+            int currentIndex;
+            
+            std::vector<SquadTemplate> squadTemplates;
+            std::vector<std::string> powerUpNames;
+            
+            Gallant::Signal2<SpawnObjectsManager*, SpawnObjectsType> spawnSignal;
+            
+            bool waitingForTransition;
+            bool transitionStarted;
         };
     }
 }

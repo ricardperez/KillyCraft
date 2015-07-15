@@ -13,7 +13,8 @@ namespace MelonGames
     namespace KillyCraft
     {
         MapTime::MapTime()
-        : time(0.0f)
+        : totalTime(0.0f)
+        , stageTime(0.0f)
         , lastDt(0.0f)
         {
             
@@ -21,18 +22,29 @@ namespace MelonGames
         
         void MapTime::addTime(float dt)
         {
-            time += dt;
+            totalTime += dt;
+            stageTime += dt;
             lastDt = dt;
         }
         
-        float MapTime::getTime() const
+        float MapTime::getTotalTime() const
         {
-            return time;
+            return totalTime;
+        }
+        
+        float MapTime::getStageTime() const
+        {
+            return stageTime;
         }
         
         float MapTime::getLastDt() const
         {
             return lastDt;
+        }
+        
+        void MapTime::clearStage()
+        {
+            stageTime = 0.0f;
         }
     }
 }

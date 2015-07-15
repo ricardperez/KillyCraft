@@ -19,11 +19,15 @@ namespace MelonGames
             MapTime();
             
             void addTime(float dt);
-            float getTime() const;
+            float getTotalTime() const;
+            float getStageTime() const;
             float getLastDt() const;
             
+            void clearStage();
+            
         private:
-            float time;
+            float totalTime;
+            float stageTime;
             float lastDt;
         };
     }
