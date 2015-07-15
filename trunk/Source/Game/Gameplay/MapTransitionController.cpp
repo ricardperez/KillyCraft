@@ -8,6 +8,7 @@
 
 #include "MapTransitionController.h"
 #include "Map.h"
+#include "MapTime.h"
 #include "MapObject.h"
 #include "MapObjectInspector.h"
 #include "MapObjectsFactory.h"
@@ -52,7 +53,7 @@ namespace MelonGames
         void MapTransitionController::update(float dt)
         {
             State oldState = state;
-            float stateElapsedTime = (map->getElapsedTime() - stateTime);
+            float stateElapsedTime = (map->getTime()->getTime() - stateTime);
             switch (state)
             {
                 case State::eNone:
@@ -169,7 +170,7 @@ namespace MelonGames
             
             if (state != oldState)
             {
-                stateTime = map->getElapsedTime();
+                stateTime = map->getTime()->getTime();
             }
         }
     }

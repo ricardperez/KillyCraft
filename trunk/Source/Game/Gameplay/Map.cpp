@@ -13,6 +13,7 @@
 #include "MapObjectsFactory.h"
 #include "MapTransitionController.h"
 #include "VFXController.h"
+#include "MapTime.h"
 #include "MapObject.h"
 #include "MapObjectInspector.h"
 #include "View/MapView.h"
@@ -44,7 +45,7 @@ namespace MelonGames
         , factory(nullptr)
         , mapTransitionController(nullptr)
         , vfxController(nullptr)
-        , elapsedTime(0.0f)
+        , time(nullptr)
         , nextIdentifier(0)
         , updating(false)
         , nRemainingSquads(2)
@@ -65,6 +66,7 @@ namespace MelonGames
             delete factory;
             delete mapTransitionController;
             delete vfxController;
+            delete time;
 		}
 		
 		void Map::setNode(cocos2d::Node *node)
@@ -80,6 +82,8 @@ namespace MelonGames
 		void Map::initialize()
 		{
 			assert(node);
+            
+            time = new MapTime();
             
             player = new Player();
             player->addLives(10);
@@ -144,6 +148,11 @@ namespace MelonGames
         {
             return vfxController;
         }
+        
+        MapTime* Map::getTime() const
+        {
+            return time;
+        }
 		
 		void Map::addObject(MapObject* o)
 		{
@@ -171,12 +180,12 @@ namespace MelonGames
 		
 		void Map::update(float dt)
 		{
-            dt = cocos2d::Director::getInstance()->getAnimationInterval();
             assert(view);
             
             updating = true;
             
-            elapsedTime += dt;
+            time->addTime(cocos2d::Director::getInstance()->getAnimationInterval());
+            dt = time->getLastDt();
             
             view->update(dt);
             
@@ -222,11 +231,6 @@ namespace MelonGames
             }
             objectsToRemove.clear();
 		}
-        
-        float Map::getElapsedTime() const
-        {
-            return elapsedTime;
-        }
         
         const std::vector<MapObject*>& Map::getObjects() const
         {

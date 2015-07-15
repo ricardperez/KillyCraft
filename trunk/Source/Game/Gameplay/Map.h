@@ -29,6 +29,7 @@ namespace MelonGames
         class MapObjectsFactory;
         class MapTransitionController;
         class VFXController;
+        class MapTime;
         
         struct MapDefinition
         {
@@ -56,13 +57,12 @@ namespace MelonGames
             MapObjectsFactory* getFactory() const;
             MapTransitionController* getMapTransitionController() const;
             VFXController* getVFXController() const;
+            MapTime* getTime() const;
 			
 			void addObject(MapObject* o);
 			void removeObjectWhenPossible(MapObject* o);
 			
 			void update(float dt);
-            
-            float getElapsedTime() const;
             
             const std::vector<MapObject*>& getObjects() const;
             std::vector<MapObject*> getObjectsPassingFilter(const ObjectsFilter& filter) const;
@@ -87,8 +87,7 @@ namespace MelonGames
             MapObjectsFactory* factory;
             MapTransitionController* mapTransitionController;
             VFXController* vfxController;
-            
-            float elapsedTime;
+            MapTime* time;
             
             int nextIdentifier;
             

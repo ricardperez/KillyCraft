@@ -10,6 +10,7 @@
 #include "Gameplay/Map.h"
 #include "Gameplay/Player.h"
 #include "Gameplay/MapObject.h"
+#include "Gameplay/MapTime.h"
 #include "Gameplay/Component/WeaponComponent.h"
 #include "MelonGames/SpriteFrameHelper.h"
 #include "2d/CCLabel.h"
@@ -97,7 +98,7 @@ namespace MelonGames
         void GameHUDView::update(float dt)
         {
             static char timerString[10];
-            sprintf(timerString, "%.2f", map->getElapsedTime());
+            sprintf(timerString, "%.2f", map->getTime()->getTime());
             timeLabel->setString(timerString);
         }
         
