@@ -49,6 +49,24 @@
 				},
 				{
 					"type": "PlayerLivesController"
+				},
+				{
+					"type": "MoveIdle",
+					"distX": 20,
+					"distY": 50,
+					"time": 1.5,
+					"gaussianA": 1.0,
+					"gaussianC": 3.0,
+					"gaussianXRange": 15.0
+				},
+				{
+					"type":"Behaviour",
+					"behaviours":
+					[
+						{
+							"type":"MoveIdle"
+						}
+					]
 				}
 			]
 		},

@@ -47,6 +47,7 @@ namespace MelonGames
                     {Crypto::stringHash("Behaviour"), createBehaviourComponent},
                     {Crypto::stringHash("MoveCircular"), createMoveCircularStateComponent},
                     {Crypto::stringHash("MoveLinear"), createMoveLinearStateComponent},
+                    {Crypto::stringHash("MoveIdle"), createMoveIdleStateComponent},
                     {Crypto::stringHash("CollisionDetection"), createCollisionDetectionComponent},
                     {Crypto::stringHash("PowerUp"), createPowerUpComponent},
                     {Crypto::stringHash("EnemyState"), createEnemyStateComponent},
@@ -159,6 +160,20 @@ namespace MelonGames
                 }
                 
                 result->setRadius(json["radius"].asFloat());
+                return result;
+            }
+            
+            Component* createMoveIdleStateComponent(const Json::Value& json)
+            {
+                auto result = new MoveIdleStateComponent();
+                
+                result->movementDistanceX = json["distX"].asFloat();
+                result->movementDistanceY = json["distY"].asFloat();
+                result->movementTime = json["time"].asFloat();
+                result->gaussianA = json["gaussianA"].asFloat();
+                result->gaussianC = json["gaussianC"].asFloat();
+                result->gaussianXRange = json["gaussianXRange"].asFloat();
+                
                 return result;
             }
             

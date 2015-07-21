@@ -31,15 +31,9 @@ namespace MelonGames
         void GamepadComponent::moveObject(float distance) const
         {
             auto posComponent = object->get<PositionComponent>();
+            
             cocos2d::Vec2 positionCp = posComponent->getPosition();
-            
-            float viewComponentWidth = object->get<ViewComponent>()->getSize().width;
-            
-            float desiredX = positionCp.x + distance;
-            float maxX = (object->getMap()->getDefinition().screenSize.width - viewComponentWidth * 0.45f);
-            float minX = (viewComponentWidth * 0.45f);
-            
-            positionCp.x = std::max(minX, std::min(maxX, desiredX));
+            positionCp.x += distance;
             
             posComponent->setPosition(positionCp);
         }
@@ -100,6 +94,19 @@ namespace MelonGames
         void GamepadComponent::setSpeed(float speed)
         {
             this->speed = speed;
+        }
+        
+        bool GamepadComponent::isMoving() const
+        {
+            return (timeLeftToStartMoving <= 0.0f);
+        }
+        
+        bool GamepadComponent::isShooting() const
+        {
+            auto gamepad = object->getMap()->getPlayer()->getGamepad();
+            bool firing = gamepad->isFiring();
+            
+            return (firing);
         }
     }
 }

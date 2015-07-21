@@ -59,6 +59,14 @@ namespace MelonGames
             
             virtual void update(MapObject* object, float dt) override;
         };
+        
+        class MoveIdleBehaviour : public Behaviour
+        {
+        public:
+            DECLARE_TYPE_WITH_BASE_TYPE(MoveIdleBehaviour, Behaviour);
+            
+            virtual void update(MapObject* object, float dt) override;
+        };
     }
 }
 

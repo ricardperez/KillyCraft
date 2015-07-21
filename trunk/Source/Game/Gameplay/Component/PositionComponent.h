@@ -41,11 +41,17 @@ namespace MelonGames
 			bool isPositionSet() const;
 			
 			Gallant::Signal1<PositionComponent*>& getPositionChangedSignal();
+            
+            void setMinPositionX(float minX);
+            void setMaxPositionX(float maxX);
 			
 		private:
 			cocos2d::Vec2 position;
 			Gallant::Signal1<PositionComponent*> positionChangedSignal;
 			bool positionSet;
+            
+            float minX;
+            float maxX;
 		};
 	}
 }

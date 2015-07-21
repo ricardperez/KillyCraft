@@ -17,14 +17,19 @@ namespace MelonGames
 	{
 		PositionComponent::PositionComponent()
 		: positionSet(false)
+        , minX(std::numeric_limits<float>::min())
+        , maxX(std::numeric_limits<float>::max())
 		{
 		}
 		
 		void PositionComponent::setPosition(const cocos2d::Vec2& p)
 		{
+            float x = std::max(minX, std::min(maxX, p.x));
+            float y = p.y;
+            
 			float e = std::numeric_limits<float>::min();
-			bool changed = ((std::abs(p.x-position.x) > e) || (std::abs(p.y-position.y) > e));
-			position = p;
+			bool changed = ((std::abs(x-position.x) > e) || (std::abs(y-position.y) > e));
+            position.set(x, y);
 			
 			positionSet = true;
 			
@@ -63,5 +68,15 @@ namespace MelonGames
 		{
 			return positionChangedSignal;
 		}
+        
+        void PositionComponent::setMinPositionX(float minX)
+        {
+            this->minX = minX;
+        }
+        
+        void PositionComponent::setMaxPositionX(float maxX)
+        {
+            this->maxX = maxX;
+        }
 	}
 }

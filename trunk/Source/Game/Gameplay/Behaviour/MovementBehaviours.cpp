@@ -98,5 +98,47 @@ namespace MelonGames
             float moveX = radius * (std::cos(radiansPerSecond*time + M_PI_2) - std::cos(radiansPerSecond*lastTime + M_PI_2));
             object->get<PositionComponent>()->movePositionX(moveX);
         }
+        
+#pragma mark - MoveIdleBehaviour
+        void MoveIdleBehaviour::update(MapObject* object, float dt)
+        {
+            Base::update(object, dt);
+            
+            auto gaussianFunc = [](float cycle, float a, float c, float xRange, float& t) -> float
+            {
+                t = (cycle - (int)cycle);
+                if ((((int)cycle) % 2) == 1)
+                {
+                    t = (1.0f - t);
+                }
+                
+                float x = (xRange * (t-0.5f));
+                float result = (a * std::exp(-(x*x) / (2*c*c)));
+                
+                return result;
+            };
+            
+            auto moveState = object->getOrCreate<MoveIdleStateComponent>();
+            
+            float movementTime = moveState->getMovementTime();
+            float gaussianA = moveState->getGaussianA();
+            float gaussianC = moveState->getGaussianC();
+            float gaussianXRange = moveState->getGaussianXRange();
+            
+            float cycle = (moveState->getTime() / movementTime);
+            float lastCycle = (moveState->getPreviousTime() / movementTime);
+            
+            float t = 0.0f;
+            float lastT = 0.0f;
+            float gaussian = gaussianFunc(cycle, gaussianA, gaussianC, gaussianXRange, t);
+            float lastGaussian = gaussianFunc(lastCycle, gaussianA, gaussianC, gaussianXRange, lastT);
+            
+            float moveY = ((gaussian * moveState->getMovementDistanceY()) - (lastGaussian * moveState->getMovementDistanceY()));
+            
+            float speedX = (moveState->getMovementDistanceX() / movementTime);
+            float moveX = ((t * speedX) - (lastT * speedX));
+            
+            object->get<PositionComponent>()->movePosition(cocos2d::Vec2(moveX, moveY));
+        }
     }
 }

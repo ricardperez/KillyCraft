@@ -20,6 +20,7 @@ namespace MelonGames
         {
             Component* createMoveLinearStateComponent(const Json::Value& json);
             Component* createMoveCircularStateComponent(const Json::Value& json);
+            Component* createMoveIdleStateComponent(const Json::Value& json);
         }
         
         class MoveLinearStateComponent : public Component
@@ -55,6 +56,39 @@ namespace MelonGames
         private:
             float radiansPerSecond;
             float radius;
+        };
+        
+        class MoveIdleStateComponent : public Component
+        {
+        public:
+            DECLARE_TYPE_WITH_BASE_TYPE(MoveIdleStateComponent, Component);
+            
+            friend Component* ComponentsFactory::createMoveIdleStateComponent(const Json::Value& json);
+            
+            MoveIdleStateComponent();
+            
+            void update(float dt) override;
+            
+            float getMovementDistanceX() const;
+            float getMovementDistanceY() const;
+            float getMovementTime() const;
+            float getGaussianA() const;
+            float getGaussianC() const;
+            float getGaussianXRange() const;
+            
+            float getTime() const;
+            float getPreviousTime() const;
+            
+        private:
+            float movementDistanceX;
+            float movementDistanceY;
+            float movementTime;
+            float gaussianA;
+            float gaussianC;
+            float gaussianXRange;
+            
+            float time;
+            float prevTime;
         };
     }
 }

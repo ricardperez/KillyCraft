@@ -95,6 +95,9 @@ namespace MelonGames
             auto playerObject = factory->createObject("Player");
             PositionComponent* posComponent = playerObject->get<PositionComponent>();
             posComponent->setPosition(cocos2d::Vec2(150.0f, 130.0f));
+            float playerViewWidth = playerObject->get<ViewComponent>()->getSize().width;
+            posComponent->setMaxPositionX((getDefinition().screenSize.width - playerViewWidth * 0.45f));
+            posComponent->setMinPositionX((playerViewWidth * 0.45f));
             player->setPlayerObject(playerObject);
             
             view = new MapView(this, node);

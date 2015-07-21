@@ -96,6 +96,7 @@ namespace MelonGames
                     {Crypto::stringHash("MoveHorizontally"), createMoveHorizontallyBehaviour},
                     {Crypto::stringHash("MoveCircular"), createDefaultBehaviour<MoveCircularBehaviour>},
                     {Crypto::stringHash("MoveCircularProjected"), createDefaultBehaviour<MoveCircularProjectedBehaviour>},
+                    {Crypto::stringHash("MoveIdle"), createDefaultBehaviour<MoveIdleBehaviour>},
                     {Crypto::stringHash("EvadeProjectilesHorizontally"), createDefaultBehaviour<EvadeProjectilesHorizontally>},
                     {Crypto::stringHash("SpawnChildren"), createSpawnChildrenBehaviour},
                 };

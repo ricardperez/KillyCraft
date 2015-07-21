@@ -35,6 +35,9 @@ namespace MelonGames
             
             void setSpeed(float speed);
             
+            bool isMoving() const;
+            bool isShooting() const;
+            
         private:
             void moveObject(float distance) const;
             
