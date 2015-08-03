@@ -42,7 +42,10 @@ namespace MelonGames
                 {
                     if (namedFunction.function(object))
                     {
-                        object->get<ViewComponent>()->setVisible(false);
+                        if (auto viewComponent = object->get<ViewComponent>())
+                        {
+                            viewComponent->setVisible(false);
+                        }
                         if (auto collisionDetectionComponent = object->get<CollisionDetectionComponent>())
                         {
                             collisionDetectionComponent->invalidate();
