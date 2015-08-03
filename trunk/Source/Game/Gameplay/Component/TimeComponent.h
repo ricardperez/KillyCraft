@@ -10,6 +10,7 @@
 #define __KillyCraft__TimeComponent__
 
 #include "Component.h"
+#include <map>
 
 namespace MelonGames
 {
@@ -35,6 +36,22 @@ namespace MelonGames
             
         private:
             float time;
+        };
+        
+        class TimerComponent : public Component
+        {
+        public:
+            DECLARE_TYPE_WITH_BASE_TYPE(TimerComponent, Component);
+            
+            TimerComponent();
+            
+            void update(float dt) override;
+            bool hasTimer(const std::string& name);
+            void addTimer(const std::string& name);
+            float getTimer(const std::string& name);
+            
+        private:
+            std::map<std::string, float> timers;
         };
     }
 }

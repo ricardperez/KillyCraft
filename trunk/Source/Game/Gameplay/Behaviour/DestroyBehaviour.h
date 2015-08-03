@@ -13,16 +13,30 @@
 #include <functional>
 #include <vector>
 
+namespace Json
+{
+    class Value;
+}
+
 namespace MelonGames
 {
     namespace KillyCraft
     {
+        namespace BehavioursFactory
+        {
+            Behaviour* createDestroyBehaviour(const Json::Value& json);
+        }
+        
         //Return true means it has to be destroyed
         typedef std::function<bool(MapObject*)> DestroyCheckFunction;
         class DestroyBehaviour : public Behaviour
         {
         public:
             DECLARE_TYPE_WITH_BASE_TYPE(DestroyBehaviour, Behaviour);
+            
+            friend Behaviour* BehavioursFactory::createDestroyBehaviour(const Json::Value& json);
+            
+            DestroyBehaviour();
             
             virtual void update(MapObject* object, float dt);
             void addCheckFunctionWithName(const DestroyCheckFunction& function, const std::string& name);
@@ -35,6 +49,7 @@ namespace MelonGames
                 std::string name;
             };
             std::vector<NamedCheckFunction> checkFunctions;
+            float fadeOutTime;
         };
     }
 }

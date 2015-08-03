@@ -186,6 +186,13 @@ namespace MelonGames
                 {
                     result->addCollisionType((CollisionDetectionType)collisionTypes.asInt());
                 }
+                for (const auto& particleSystem : json["particles"])
+                {
+                    CollisionDetectionComponent::CollisionParticleSystemData psData;
+                    psData.plist = particleSystem["plist"].asString();
+                    psData.attached = particleSystem["attached"].asBool();
+                    result->particleSystems.push_back(psData);
+                }
                 return result;
             }
             

@@ -30,14 +30,27 @@
 								{
 									"type":"Collision"
 								}
-							]
+							],
+							"fadeOut": 0.5
 						}
 					]
 				},
 				{
 					"type":"CollisionDetection",
 					"mask":"",
-					"t":1
+					"t":1,
+					"c": [0, 2],
+					"particles":
+					[
+						{
+							"plist": "explosion_fire.plist",
+							"attached": true
+						},
+						{
+							"plist": "explosion_smoke.plist",
+							"attached": true
+						}
+					]
 				},
 				{
 					"type":"EnemyState",

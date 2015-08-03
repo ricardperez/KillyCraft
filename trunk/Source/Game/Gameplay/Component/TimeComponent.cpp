@@ -12,6 +12,7 @@ namespace MelonGames
 {
     namespace KillyCraft
     {
+#pragma mark - TimeComponent
         TimeComponent::TimeComponent()
         : time(0.0f)
         {
@@ -26,6 +27,43 @@ namespace MelonGames
         float TimeComponent::getTime() const
         {
             return time;
+        }
+        
+#pragma mark - TimerComponent
+        TimerComponent::TimerComponent()
+        {
+            
+        }
+        
+        void TimerComponent::update(float dt)
+        {
+            Base::update(dt);
+            
+            for (auto& pair : timers)
+            {
+                pair.second += dt;
+            }
+        }
+        
+        bool TimerComponent::hasTimer(const std::string& name)
+        {
+            return (timers.find(name) != timers.end());
+        }
+        
+        void TimerComponent::addTimer(const std::string& name)
+        {
+            timers[name] = 0.0f;
+        }
+        
+        float TimerComponent::getTimer(const std::string& name)
+        {
+            auto it = timers.find(name);
+            if (it != timers.end())
+            {
+                return it->second;
+            }
+            
+            return 0.0f;
         }
     }
 }

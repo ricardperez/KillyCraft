@@ -11,7 +11,9 @@
 #include "Gameplay/MapObject.h"
 #include "Gameplay/Map.h"
 #include "Gameplay/View/MapView.h"
+#include "Gameplay/VFXController.h"
 #include "ViewComponent.h"
+#include "ViewParts.h"
 #include "PositionComponent.h"
 #include "2d/CCSprite.h"
 #include "2d/CCSpriteFrame.h"
@@ -28,6 +30,7 @@ namespace MelonGames
         : maskBuilt(false)
         , type(CollisionDetectionType::eEnemy)
         , textureMask(nullptr)
+        , invalidated(false)
         {
             for (int i=0; i<(int)CollisionDetectionType::nTypes; ++i)
             {
@@ -88,7 +91,13 @@ namespace MelonGames
         void CollisionDetectionComponent::update(float dt)
         {
             Base::update(dt);
-        
+            
+            if (invalidated)
+            {
+                return;
+            }
+            
+            bool particleSystemsInstantiated = false;
             const auto& objects = object->getMap()->getObjects();
             for (auto object : objects)
             {
@@ -114,8 +123,14 @@ namespace MelonGames
                         {
                             collisions.push_back(oid);
                             other->collisions.push_back(this->object->getIdentifier());
-                            
+                            if (!particleSystemsInstantiated)
+                            {
+                                particleSystemsInstantiated = true;
+                                instantiateParticleSystems();
+                            }
                             collisionSignal.Emit(this, other);
+                            
+                            other->instantiateParticleSystems();
                             other->collisionSignal.Emit(other, this);
                         }
                     }
@@ -136,6 +151,11 @@ namespace MelonGames
         void CollisionDetectionComponent::ignoreCollisionsAgainstObject(const MapObject* object)
         {
             ignoredObjectsIDs.push_back(object->getIdentifier());
+        }
+        
+        void CollisionDetectionComponent::invalidate()
+        {
+            invalidated = true;
         }
         
         bool getRectsIntersection(const cocos2d::Rect& r1, const cocos2d::Rect& r2, cocos2d::Vec2& r1StartOut, cocos2d::Vec2& r2StartOut, cocos2d::Size& intersectionSizeOut)
@@ -215,8 +235,37 @@ namespace MelonGames
             return false;
         }
         
+        bool CollisionDetectionComponent::ensureHasMask()
+        {
+            if (!maskBuilt)
+            {
+                buildMask();
+            }
+            
+            return true;
+        }
+        
+        void CollisionDetectionComponent::buildMask()
+        {
+            assert(!maskBuilt);
+            
+            textureMask = TextureMask::create(maskFileName);
+            if (!textureMask)
+            {
+                ViewComponent* viewComponent = object->get<ViewComponent>();
+                textureMask = TextureMask::create(viewComponent->getSize());
+            }
+            
+            maskBuilt = (textureMask != nullptr);
+        }
+        
         bool CollisionDetectionComponent::collidesAgainst(CollisionDetectionComponent* other)
         {
+            if (other->invalidated)
+            {
+                return false;
+            }
+            
             if (!collisionTypes[(int)other->type])
             {
                 return false;
@@ -275,28 +324,23 @@ namespace MelonGames
             return rect;
         }
         
-        bool CollisionDetectionComponent::ensureHasMask()
+        void CollisionDetectionComponent::instantiateParticleSystems()
         {
-            if (!maskBuilt)
+            if (!particleSystems.empty())
             {
-                buildMask();
+                const auto& position = object->get<PositionComponent>()->getPosition();
+                for (const auto& particleSystemData : particleSystems)
+                {
+                    if (particleSystemData.attached)
+                    {
+                        object->getMap()->getVFXController()->showParticleSystem(particleSystemData.plist, object);
+                    }
+                    else
+                    {
+                        object->getMap()->getVFXController()->showParticleSystem(particleSystemData.plist, position);
+                    }
+                }
             }
-            
-            return true;
-        }
-        
-        void CollisionDetectionComponent::buildMask()
-        {
-            assert(!maskBuilt);
-            
-            textureMask = TextureMask::create(maskFileName);
-            if (!textureMask)
-            {
-                ViewComponent* viewComponent = object->get<ViewComponent>();
-                textureMask = TextureMask::create(viewComponent->getSize());
-            }
-            
-            maskBuilt = (textureMask != nullptr);
         }
         
 #ifdef DRAW_COLLISION_BOXES

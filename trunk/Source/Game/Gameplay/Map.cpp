@@ -202,6 +202,7 @@ namespace MelonGames
                 object->postupdate();
             }
             
+            vfxController->update(dt);
             spawnObjectsManager->update(dt);
             mapTransitionController->update(dt);
             updating = false;

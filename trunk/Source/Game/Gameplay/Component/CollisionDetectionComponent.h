@@ -66,6 +66,8 @@ namespace MelonGames
             
             void ignoreCollisionsAgainstObject(const MapObject* object);
             
+            void invalidate();
+            
         private:
             void setType(CollisionDetectionType t);
             void setCollisionMaskFileName(const std::string& fileName);
@@ -73,10 +75,9 @@ namespace MelonGames
         protected:
             bool ensureHasMask();
             void buildMask();
-            
             bool collidesAgainst(CollisionDetectionComponent* other);
-            
             cocos2d::Rect getCurrentRect() const;
+            void instantiateParticleSystems();
             
         private:
             bool maskBuilt;
@@ -91,6 +92,15 @@ namespace MelonGames
             Gallant::Signal2<CollisionDetectionComponent*,CollisionDetectionComponent*> collisionSignal;
             
             std::vector<int> ignoredObjectsIDs;
+            
+            struct CollisionParticleSystemData
+            {
+                std::string plist;
+                bool attached;
+            };
+            std::vector<CollisionParticleSystemData> particleSystems;
+            
+            bool invalidated;
             
 #ifdef DRAW_COLLISION_BOXES
             cocos2d::DrawNode* maskDrawer = nullptr;

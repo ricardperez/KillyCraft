@@ -9,21 +9,54 @@
 #include "DestroyBehaviour.h"
 #include "Gameplay/MapObject.h"
 #include "Gameplay/Map.h"
+#include "Gameplay/Component/ViewComponent.h"
+#include "Gameplay/Component/TimeComponent.h"
+#include "Gameplay/Component/CollisionDetectionComponent.h"
 
 namespace MelonGames
 {
     namespace KillyCraft
     {
+        DestroyBehaviour::DestroyBehaviour()
+        : fadeOutTime(0.0f)
+        {
+            
+        }
+        
         void DestroyBehaviour::update(MapObject* object, float dt)
         {
             Base::update(object, dt);
             
-            for (const auto& namedFunction : checkFunctions)
+            const std::string fadeTimerName = "DestroyBehaviour-FadeOut";
+            auto timerComponent = object->getOrCreate<TimerComponent>();
+            if (timerComponent->hasTimer(fadeTimerName))
             {
-                if (namedFunction.function(object))
+                if (timerComponent->getTimer(fadeTimerName) >= fadeOutTime)
                 {
                     object->getMap()->removeObjectWhenPossible(object);
-                    break;
+                }
+            }
+            else
+            {
+                for (const auto& namedFunction : checkFunctions)
+                {
+                    if (namedFunction.function(object))
+                    {
+                        object->get<ViewComponent>()->setVisible(false);
+                        if (auto collisionDetectionComponent = object->get<CollisionDetectionComponent>())
+                        {
+                            collisionDetectionComponent->invalidate();
+                        }
+                        if (fadeOutTime <= 0.0f)
+                        {
+                            object->getMap()->removeObjectWhenPossible(object);
+                        }
+                        else
+                        {
+                            timerComponent->addTimer(fadeTimerName);
+                        }
+                        break;
+                    }
                 }
             }
         }

@@ -28,7 +28,14 @@
 					"type": "CollisionDetection",
 					"mask": "",
 					"t": 2,
-					"c": [1]
+					"c": [1],
+					"particles":
+					[
+						{
+							"plist": "explosion_fire.plist",
+							"attached": false
+						}
+					]
 				},
 				{
 					"type": "ProjectileState",
