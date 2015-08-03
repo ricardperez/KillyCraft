@@ -89,6 +89,7 @@ namespace MelonGames
             
             float time;
             float prevTime;
+            float idleTime;
         };
     }
 }

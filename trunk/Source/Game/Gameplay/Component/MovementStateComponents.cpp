@@ -76,6 +76,7 @@ namespace MelonGames
         , gaussianXRange(0.0f)
         , time(0.0f)
         , prevTime(0.0f)
+        , idleTime(0.0f)
         {
             
         }
@@ -99,7 +100,15 @@ namespace MelonGames
             
             if (!moving)
             {
-                time += dt;
+                idleTime += dt;
+                if (idleTime >= 1.0f)
+                {
+                    time += dt;
+                }
+            }
+            else
+            {
+                idleTime = 0.0f;
             }
         }
         
