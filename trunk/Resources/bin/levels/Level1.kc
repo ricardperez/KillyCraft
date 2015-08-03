@@ -36,9 +36,69 @@
 			"type": 2
 		},
 		{
-			"time": 1.5,
+			"time": 0.5,
+			"type": 1,
+			"template": "PowerUpHeal"
+		},
+		{
+			"time": 3.5,
+			"type": 1,
+			"template": "PowerUpWeaponMachinegun"
+		},
+		{
+			"time": 8.0,
 			"type": 0,
 			"template": "SquadBasic-1"
+		},
+		{
+			"time": 12.0,
+			"type": 0,
+			"template": "SquadBasic-Square:4:50"
+		},
+		{
+			"time": 20.0,
+			"type": 0,
+			"template": "SquadBasic-Square:4:50"
+		},
+		{
+			"time": 25.0,
+			"type": 2
+		},
+		{
+			"time": 1.0,
+			"type": 1,
+			"template": "PowerUpAddBullets"
+		},
+		{
+			"time": 5.0,
+			"type": 0,
+			"template": "SquadBasic-Square:4:50"
+		},
+		{
+			"time": 6.5,
+			"type": 0,
+			"template": "SquadBasic-Square:4:50"
+		},
+		{
+			"time": 8.0,
+			"type": 0,
+			"template": "SquadBasic-Square:4:50"
+		},
+		{
+			"time": 8.5,
+			"type": 1,
+			"template": "PowerUpKillAll"
+		},
+		{
+			"time": 9.5,
+			"type": 0,
+			"template": "SquadBasic-Square:4:50"
+		},
+		{
+			"time": 11,
+			"type": 0,
+			"template": "SquadBasic-Square:4:50"
 		}
+
 	]
 }

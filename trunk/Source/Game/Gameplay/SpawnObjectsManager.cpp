@@ -161,6 +161,10 @@ namespace MelonGames
                 powerup->getOrCreate<PositionComponent>()->setPosition(cocos2d::Vec2(posX, posY));
                 map->addObject(powerup);
             }
+            else
+            {
+                CCASSERT(false, "Powerup not found");
+            }
         }
         
         void SpawnObjectsManager::spawnSquad(const std::string &templateName) const

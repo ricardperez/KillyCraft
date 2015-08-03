@@ -71,12 +71,22 @@ namespace MelonGames
                 };
             }
             
+            PowerUpFunction createAddBulletsFunction(const Json::Value& json)
+            {
+                return [json](MapObject* object) -> void
+                {
+                    auto weaponComponent = object->get<WeaponComponent>();
+                    weaponComponent->addBullets(json["amount"].asInt());
+                };
+            }
+            
             const PowerUpAction* createPowerUpAction(const Json::Value& json)
             {
                 static std::map<unsigned int, std::function<PowerUpFunction(const Json::Value&)>> lambdas = {
                     {Crypto::stringHash("Heal"), createHealFunction},
                     {Crypto::stringHash("Weapon"), createWeaponFunction},
                     {Crypto::stringHash("KillAll"), createKillAllFunction},
+                    {Crypto::stringHash("AddBullets"), createAddBulletsFunction},
                 };
                 
                 std::string action = json["type"].asString();

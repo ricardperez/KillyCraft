@@ -142,6 +142,34 @@
 					]
 				}
 			]
+		},
+		{
+			"super": "PowerUpBase",
+			"name": "PowerUpAddBullets",
+			"components":
+			[
+				{
+					"type":"View",
+					"parts":
+					[
+						{
+							"type":"Sprite",
+							"sprite":"PowerUp.png",
+							"tint": [100, 100, 0]
+						}
+					]
+				},
+				{
+					"type": "PowerUp",
+					"actions":
+					[
+						{
+							"type": "AddBullets",
+							"amount": 50
+						}
+					]
+				}
+			]
 		}
 	]
 }
