@@ -29,6 +29,7 @@
 		194B80CB19FBA6750021CE64 /* FilesService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194B80C919FBA6750021CE64 /* FilesService.cpp */; };
 		194EFC981A039999007C5014 /* TimeComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194EFC961A039999007C5014 /* TimeComponent.cpp */; };
 		194EFC9B1A039E58007C5014 /* MovementStateComponents.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194EFC991A039E58007C5014 /* MovementStateComponents.cpp */; };
+		1951D9701B70CE1400B375BA /* StringUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1951D96E1B70CE1400B375BA /* StringUtils.cpp */; };
 		195975961A93FC4A003C06A0 /* MapTransitionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 195975941A93FC4A003C06A0 /* MapTransitionController.cpp */; };
 		195C5CDF1B562BF1005A1DF3 /* MapTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 195C5CDD1B562BF1005A1DF3 /* MapTime.cpp */; };
 		1968960E1A2E82D900435129 /* GameHUDView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1968960C1A2E82D900435129 /* GameHUDView.cpp */; };
@@ -416,6 +417,8 @@
 		194EFC971A039999007C5014 /* TimeComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeComponent.h; sourceTree = "<group>"; };
 		194EFC991A039E58007C5014 /* MovementStateComponents.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MovementStateComponents.cpp; sourceTree = "<group>"; };
 		194EFC9A1A039E58007C5014 /* MovementStateComponents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovementStateComponents.h; sourceTree = "<group>"; };
+		1951D96E1B70CE1400B375BA /* StringUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StringUtils.cpp; sourceTree = "<group>"; };
+		1951D96F1B70CE1400B375BA /* StringUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringUtils.h; sourceTree = "<group>"; };
 		195975941A93FC4A003C06A0 /* MapTransitionController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MapTransitionController.cpp; sourceTree = "<group>"; };
 		195975951A93FC4A003C06A0 /* MapTransitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapTransitionController.h; sourceTree = "<group>"; };
 		195C5CDD1B562BF1005A1DF3 /* MapTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MapTime.cpp; sourceTree = "<group>"; };
@@ -1299,6 +1302,8 @@
 				194A08BC1A48A405007CEEE0 /* SpriteFrameHelper.h */,
 				191DF60E1A6183A8002E9CC2 /* JsonUtil.cpp */,
 				191DF60F1A6183A8002E9CC2 /* JsonUtil.h */,
+				1951D96E1B70CE1400B375BA /* StringUtils.cpp */,
+				1951D96F1B70CE1400B375BA /* StringUtils.h */,
 			);
 			name = MelonGames;
 			path = ../../../Source/MelonGames;
@@ -3019,6 +3024,7 @@
 				19CCD4FB1A02CE2B00986A8E /* UILayoutManager.cpp in Sources */,
 				194EFC9B1A039E58007C5014 /* MovementStateComponents.cpp in Sources */,
 				19CCD4911A02CDE800986A8E /* CCUserDefault-android.cpp in Sources */,
+				1951D9701B70CE1400B375BA /* StringUtils.cpp in Sources */,
 				19CCD3911A02CBDD00986A8E /* CCThread.cpp in Sources */,
 				19CCD5C21A02D30200986A8E /* CCActionGrid.cpp in Sources */,
 				19F4AFDA19FBD05400C73F6E /* StarsView.cpp in Sources */,
