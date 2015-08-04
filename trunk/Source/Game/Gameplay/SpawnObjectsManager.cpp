@@ -109,7 +109,7 @@ namespace MelonGames
                 }
             }
             
-            bool keepSpawning = (currentIndex < (int)spawnItems.size());
+            bool keepSpawning = (currentIndex < spawnItems.size());
             while (keepSpawning)
             {
                 float time = map->getTime()->getStageTime();
@@ -130,6 +130,11 @@ namespace MelonGames
         Gallant::Signal2<SpawnObjectsManager*, SpawnObjectsType>& SpawnObjectsManager::getSpawnSignal()
         {
             return spawnSignal;
+        }
+        
+        bool SpawnObjectsManager::isFinished() const
+        {
+            return (currentIndex == (spawnItems.size()));
         }
         
         void SpawnObjectsManager::spawnItem(const SpawnObjectsManager::SpawnData &data)

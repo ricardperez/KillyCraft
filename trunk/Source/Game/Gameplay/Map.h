@@ -35,9 +35,9 @@ namespace MelonGames
         
         struct MapDefinition
         {
-            float height;
             cocos2d::Size screenSize;
             float screenScale;
+            std::string fileName;
         };
         
         typedef std::function<bool(const MapObject*)> ObjectsFilter;
@@ -60,6 +60,7 @@ namespace MelonGames
             MapTransitionController* getMapTransitionController() const;
             VFXController* getVFXController() const;
             MapTime* getTime() const;
+            SpawnObjectsManager* getSpawnObjectsManager() const;
 			
 			void addObject(MapObject* o);
 			void removeObjectWhenPossible(MapObject* o);

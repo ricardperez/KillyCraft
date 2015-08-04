@@ -51,6 +51,8 @@ namespace MelonGames
             
             Gallant::Signal2<SpawnObjectsManager*, SpawnObjectsType>& getSpawnSignal();
             
+            bool isFinished() const;
+            
         private:
             struct SpawnData
             {
@@ -79,7 +81,7 @@ namespace MelonGames
         private:
             Map* map;
             std::vector<SpawnData> spawnItems;
-            int currentIndex;
+            size_t currentIndex;
             
             std::vector<SquadTemplate> squadTemplates;
             std::vector<std::string> powerUpNames;

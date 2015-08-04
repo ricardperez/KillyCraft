@@ -113,7 +113,7 @@ namespace MelonGames
 			spawnObjectsManager = new SpawnObjectsManager();
             spawnObjectsManager->setMap(this);
             spawnObjectsManager->loadSquadsListFromFile("Squads.kc");
-            spawnObjectsManager->loadSpawnEventsFromFile("levels/Level1.kc");
+            spawnObjectsManager->loadSpawnEventsFromFile(definition.fileName);
             spawnObjectsManager->setPowerUpNames(factory->getObjectsNamesForFile("PowerUps.obj"));
             
             vfxController = new VFXController(this);
@@ -147,6 +147,11 @@ namespace MelonGames
         MapTime* Map::getTime() const
         {
             return time;
+        }
+        
+        SpawnObjectsManager* Map::getSpawnObjectsManager() const
+        {
+            return spawnObjectsManager;
         }
 		
 		void Map::addObject(MapObject* o)

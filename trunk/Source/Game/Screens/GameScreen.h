@@ -22,12 +22,12 @@ namespace MelonGames
 		public:
             DECLARE_TYPE_WITH_BASE_TYPE(GameScreen, Screen);
             
-			static GameScreen* create();
+            static GameScreen* create(const std::string& levelName);
 			virtual ~GameScreen();
 			
 		private:
 			GameScreen();
-			virtual bool init() override;
+            bool init(const std::string& levelName);
 			void update(float dt);
 			
 		private:

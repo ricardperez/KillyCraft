@@ -12,6 +12,9 @@
 #include "2d/CCMenu.h"
 #include "2d/CCMenuItem.h"
 #include "2d/CCLabel.h"
+#include "extensions/GUI/CCScrollView/CCScrollView.h"
+#include "MelonGames/StringUtils.h"
+#include "2d/CCDrawNode.h"
 
 namespace MelonGames
 {
@@ -34,11 +37,32 @@ namespace MelonGames
         {
             if (Base::init())
             {
-                auto label = cocos2d::Label::createWithTTF("Start Game", "Marker Felt.ttf", 50.0f);
-                cocos2d::MenuItemLabel* startMenuItem = cocos2d::MenuItemLabel::create(label, [](cocos2d::Ref* ref) -> void {
-                    ScreenController::getInstance()->replaceScreen(GameScreen::create());
-                });
-                cocos2d::Menu* menu = cocos2d::Menu::createWithItem(startMenuItem);
+                std::vector<std::string> levelNames = {
+                    "levels/Level1.kc",
+                    "levels/Level1.kc",
+                    "levels/Level1.kc",
+                    "levels/Level1.kc",
+                    "levels/Level1.kc",
+                    "levels/Level1.kc",
+                    "levels/Level1.kc",
+                };
+                
+                cocos2d::Vector<cocos2d::MenuItem*> menuItems;
+                for (const auto& levelName : levelNames)
+                {
+                    std::string fileName = StringUtils::split(levelName, "/").back();
+                    auto label = cocos2d::Label::createWithTTF(fileName, "Marker Felt.ttf", 50.0f);
+                    auto menuItem = cocos2d::MenuItemLabel::create(label, [levelName](cocos2d::Ref* ref) -> void {
+                        GameScreen* gameScreen = GameScreen::create(levelName);
+                        ScreenController::getInstance()->replaceScreen(gameScreen);
+                    });
+                    menuItems.pushBack(menuItem);
+                }
+                
+                auto menu = cocos2d::Menu::createWithArray(menuItems);
+                menu->alignItemsVerticallyWithPadding(25.0f);
+                menu->setPosition(getContentSize()*0.5f);
+                
                 addChild(menu);
                 
                 return true;

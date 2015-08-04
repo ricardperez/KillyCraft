@@ -10,6 +10,9 @@
 #include "Gameplay/Map.h"
 #include "Gameplay/MapObject.h"
 #include "Gameplay/Player.h"
+#include "Gameplay/SpawnObjectsManager.h"
+#include "Gameplay/MapObjectInspector.h"
+#include "Gameplay/VFXController.h"
 #include "ScreenController.h"
 #include "Screens/MenuScreen.h"
 #include "base/CCDirector.h"
@@ -18,10 +21,10 @@ namespace MelonGames
 {
 	namespace KillyCraft
 	{
-		GameScreen* GameScreen::create()
+		GameScreen* GameScreen::create(const std::string& levelName)
 		{
 			auto result = new GameScreen();
-			if (result && result->init())
+			if (result && result->init(levelName))
 			{
 				result->autorelease();
 				return result;
@@ -42,7 +45,7 @@ namespace MelonGames
 			delete map;
 		}
 		
-		bool GameScreen::init()
+		bool GameScreen::init(const std::string& levelName)
 		{
             if (Base::init())
 			{
@@ -53,9 +56,9 @@ namespace MelonGames
                 float forcedHeight = winSize.height / scale;
                 
                 MapDefinition mapDefinition;
-                mapDefinition.height = 5000.0f;
                 mapDefinition.screenSize = cocos2d::Size(forcedWidth, forcedHeight);
                 mapDefinition.screenScale = scale;
+                mapDefinition.fileName =  levelName;
 				map = new Map(mapDefinition);
 				
 				cocos2d::Node* mapNode = cocos2d::Node::create();
@@ -86,6 +89,13 @@ namespace MelonGames
             {
                 dead = true;
                 ScreenController::getInstance()->replaceScreen(MenuScreen::create());
+            }
+            else
+            {
+                if (map->getSpawnObjectsManager()->isFinished() && (map->getObjectPassingFilter(MapObjectInspector::isEnemy) == nullptr))
+                {
+                    ScreenController::getInstance()->replaceScreen(MenuScreen::create());
+                }
             }
 		}
 	}
