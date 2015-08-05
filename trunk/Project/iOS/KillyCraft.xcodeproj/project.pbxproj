@@ -30,6 +30,7 @@
 		194EFC981A039999007C5014 /* TimeComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194EFC961A039999007C5014 /* TimeComponent.cpp */; };
 		194EFC9B1A039E58007C5014 /* MovementStateComponents.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 194EFC991A039E58007C5014 /* MovementStateComponents.cpp */; };
 		1951D9701B70CE1400B375BA /* StringUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1951D96E1B70CE1400B375BA /* StringUtils.cpp */; };
+		1951D9731B7122C500B375BA /* FireWorks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1951D9711B7122C500B375BA /* FireWorks.cpp */; };
 		195975961A93FC4A003C06A0 /* MapTransitionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 195975941A93FC4A003C06A0 /* MapTransitionController.cpp */; };
 		195C5CDF1B562BF1005A1DF3 /* MapTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 195C5CDD1B562BF1005A1DF3 /* MapTime.cpp */; };
 		1968960E1A2E82D900435129 /* GameHUDView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1968960C1A2E82D900435129 /* GameHUDView.cpp */; };
@@ -419,6 +420,8 @@
 		194EFC9A1A039E58007C5014 /* MovementStateComponents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovementStateComponents.h; sourceTree = "<group>"; };
 		1951D96E1B70CE1400B375BA /* StringUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StringUtils.cpp; sourceTree = "<group>"; };
 		1951D96F1B70CE1400B375BA /* StringUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringUtils.h; sourceTree = "<group>"; };
+		1951D9711B7122C500B375BA /* FireWorks.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FireWorks.cpp; sourceTree = "<group>"; };
+		1951D9721B7122C500B375BA /* FireWorks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FireWorks.h; sourceTree = "<group>"; };
 		195975941A93FC4A003C06A0 /* MapTransitionController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MapTransitionController.cpp; sourceTree = "<group>"; };
 		195975951A93FC4A003C06A0 /* MapTransitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapTransitionController.h; sourceTree = "<group>"; };
 		195C5CDD1B562BF1005A1DF3 /* MapTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MapTime.cpp; sourceTree = "<group>"; };
@@ -2529,28 +2532,28 @@
 			children = (
 				19202CBF19FBFCB800AFAB33 /* Behaviour */,
 				19AB704D19FACAE90041EAB6 /* Component */,
-				19F4AFD419FBC64B00C73F6E /* View */,
-				19389AA31A3E0C9600E6C985 /* PowerUp */,
 				19AB705419FACAE90041EAB6 /* Gamepad.cpp */,
 				19AB705519FACAE90041EAB6 /* Gamepad.h */,
 				19AB705619FACAE90041EAB6 /* Map.cpp */,
 				19AB705719FACAE90041EAB6 /* Map.h */,
 				19AB705819FACAE90041EAB6 /* MapObject.cpp */,
 				19AB705919FACAE90041EAB6 /* MapObject.h */,
-				19AB708419FADD2B0041EAB6 /* Player.cpp */,
-				19AB708519FADD2B0041EAB6 /* Player.h */,
-				19CA80C71A0BFD9500C6BF2C /* SpawnObjectsManager.cpp */,
-				19CA80C81A0BFD9500C6BF2C /* SpawnObjectsManager.h */,
-				19CA80CD1A0C042E00C6BF2C /* MapObjectsFactory.cpp */,
-				19CA80CE1A0C042E00C6BF2C /* MapObjectsFactory.h */,
 				19ABEE1F1A49E837000056F1 /* MapObjectInspector.cpp */,
 				19ABEE201A49E837000056F1 /* MapObjectInspector.h */,
-				195975941A93FC4A003C06A0 /* MapTransitionController.cpp */,
-				195975951A93FC4A003C06A0 /* MapTransitionController.h */,
-				19388A311B4D0084002F4F82 /* VFXController.cpp */,
-				19388A321B4D0084002F4F82 /* VFXController.h */,
+				19CA80CD1A0C042E00C6BF2C /* MapObjectsFactory.cpp */,
+				19CA80CE1A0C042E00C6BF2C /* MapObjectsFactory.h */,
 				195C5CDD1B562BF1005A1DF3 /* MapTime.cpp */,
 				195C5CDE1B562BF1005A1DF3 /* MapTime.h */,
+				195975941A93FC4A003C06A0 /* MapTransitionController.cpp */,
+				195975951A93FC4A003C06A0 /* MapTransitionController.h */,
+				19AB708419FADD2B0041EAB6 /* Player.cpp */,
+				19AB708519FADD2B0041EAB6 /* Player.h */,
+				19389AA31A3E0C9600E6C985 /* PowerUp */,
+				19CA80C71A0BFD9500C6BF2C /* SpawnObjectsManager.cpp */,
+				19CA80C81A0BFD9500C6BF2C /* SpawnObjectsManager.h */,
+				19388A311B4D0084002F4F82 /* VFXController.cpp */,
+				19388A321B4D0084002F4F82 /* VFXController.h */,
+				19F4AFD419FBC64B00C73F6E /* View */,
 			);
 			path = Gameplay;
 			sourceTree = "<group>";
@@ -2855,14 +2858,16 @@
 		19F4AFD419FBC64B00C73F6E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1951D9711B7122C500B375BA /* FireWorks.cpp */,
+				1951D9721B7122C500B375BA /* FireWorks.h */,
+				1968960C1A2E82D900435129 /* GameHUDView.cpp */,
+				1968960D1A2E82D900435129 /* GameHUDView.h */,
+				19F6C5081A27DE4500F7BFD1 /* MapGridView.cpp */,
+				19F6C5091A27DE4500F7BFD1 /* MapGridView.h */,
 				19F4AFD519FBC6EB00C73F6E /* MapView.cpp */,
 				19F4AFD619FBC6EB00C73F6E /* MapView.h */,
 				19F4AFD819FBD05400C73F6E /* StarsView.cpp */,
 				19F4AFD919FBD05400C73F6E /* StarsView.h */,
-				19F6C5081A27DE4500F7BFD1 /* MapGridView.cpp */,
-				19F6C5091A27DE4500F7BFD1 /* MapGridView.h */,
-				1968960C1A2E82D900435129 /* GameHUDView.cpp */,
-				1968960D1A2E82D900435129 /* GameHUDView.h */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3109,6 +3114,7 @@
 				19CCD3AC1A02CBE600986A8E /* CCES2Renderer-ios.m in Sources */,
 				19CCD4971A02CDE800986A8E /* etc1.cpp in Sources */,
 				19CCD5F81A02D30200986A8E /* CCSpriteFrameCache.cpp in Sources */,
+				1951D9731B7122C500B375BA /* FireWorks.cpp in Sources */,
 				19CCD5D51A02D30200986A8E /* CCFastTMXLayer.cpp in Sources */,
 				19202CBE19FBEC8300AFAB33 /* WeaponComponent.cpp in Sources */,
 				19CCD5DB1A02D30200986A8E /* CCFontFNT.cpp in Sources */,

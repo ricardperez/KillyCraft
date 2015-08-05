@@ -52,6 +52,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../../Source/Game/Gameplay/PowerUp/PowerUpAction.cpp \
                    ../../../Source/Game/Gameplay/PowerUp/PowerUpFactory.cpp \
                    ../../../Source/Game/Gameplay/SpawnObjectsManager.cpp \
+                   ../../../Source/Game/Gameplay/View/FireWorks.cpp \
                    ../../../Source/Game/Gameplay/View/GameHUDView.cpp \
                    ../../../Source/Game/Gameplay/View/MapGridView.cpp \
                    ../../../Source/Game/Gameplay/View/MapView.cpp \
@@ -69,6 +70,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../../Source/MelonGames/Services/FilesService.cpp \
                    ../../../Source/MelonGames/Crypto.cpp \
                    ../../../Source/MelonGames/JsonUtil.cpp \
+                   ../../../Source/MelonGames/StringUtils.cpp \
                    ../../../Source/MelonGames/Random.cpp \
                    ../../../Source/MelonGames/SpriteFrameHelper.cpp \
                    ../../../Source/MelonGames/Services/Service.cpp \
