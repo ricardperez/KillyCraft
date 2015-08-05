@@ -44,6 +44,7 @@ namespace MelonGames
             void setMap(Map* map);
             
             void loadSquadsListFromFile(const std::string& filename);
+            void registerEnemiesAsSingleSquads(const std::vector<std::string>& enemyNames);
             void setPowerUpNames(const std::vector<std::string>& names);
             void loadSpawnEventsFromFile(const std::string& filename);
             

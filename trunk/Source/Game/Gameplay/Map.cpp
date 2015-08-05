@@ -112,6 +112,7 @@ namespace MelonGames
 			
 			spawnObjectsManager = new SpawnObjectsManager();
             spawnObjectsManager->setMap(this);
+            spawnObjectsManager->registerEnemiesAsSingleSquads(factory->getObjectsNamesForFile("Enemies.obj"));
             spawnObjectsManager->loadSquadsListFromFile("Squads.kc");
             spawnObjectsManager->loadSpawnEventsFromFile(definition.fileName);
             spawnObjectsManager->setPowerUpNames(factory->getObjectsNamesForFile("PowerUps.obj"));

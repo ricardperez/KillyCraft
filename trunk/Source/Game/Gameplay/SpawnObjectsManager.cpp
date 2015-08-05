@@ -59,6 +59,30 @@ namespace MelonGames
             }
         }
         
+        void SpawnObjectsManager::registerEnemiesAsSingleSquads(const std::vector<std::string>& enemyNames)
+        {
+            for (const auto& enemyName : enemyNames)
+            {
+                SquadTemplate squadTemplate;
+                squadTemplate.name = enemyName;
+                
+                Json::Value squadJson;
+                squadJson["name"] = enemyName;
+                Json::Value enemyJson;
+                enemyJson.append(enemyName);
+                Json::Value offsetJson;
+                offsetJson.append(0.0f);
+                offsetJson.append(0.0f);
+                enemyJson.append(offsetJson);
+                Json::Value enemiesJson;
+                enemiesJson.append(enemyJson);
+                squadJson["enemies"] = enemiesJson;
+                
+                squadTemplate.json = squadJson;
+                squadTemplates.push_back(squadTemplate);
+            }
+        }
+        
         void SpawnObjectsManager::setPowerUpNames(const std::vector<std::string>& names)
         {
             powerUpNames = names;
