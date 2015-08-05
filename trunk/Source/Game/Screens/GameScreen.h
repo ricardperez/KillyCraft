@@ -34,6 +34,7 @@ namespace MelonGames
 			Map* map;
             
             bool dead;
+            bool won;
 		};
 	}
 }

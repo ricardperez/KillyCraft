@@ -37,6 +37,7 @@ namespace MelonGames
 		GameScreen::GameScreen()
 		: map(nullptr)
         , dead(false)
+        , won(false)
 		{
 		}
 		
@@ -94,7 +95,16 @@ namespace MelonGames
             {
                 if (map->getSpawnObjectsManager()->isFinished() && (map->getObjectPassingFilter(MapObjectInspector::isEnemy) == nullptr))
                 {
-                    ScreenController::getInstance()->replaceScreen(MenuScreen::create());
+                    if (!won)
+                    {
+                        won = true;
+                        map->getVFXController()->showOpaqueLayer();
+                        map->getVFXController()->showFireWorks(10);
+                    }
+                    else if (!map->getVFXController()->isPlayingAnything())
+                    {
+                        ScreenController::getInstance()->replaceScreen(MenuScreen::create());
+                    }
                 }
             }
 		}
