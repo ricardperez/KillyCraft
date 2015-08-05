@@ -49,6 +49,7 @@ namespace MelonGames
             bool hasTimer(const std::string& name);
             void addTimer(const std::string& name);
             float getTimer(const std::string& name);
+            void resetTimer(const std::string& name);
             
         private:
             std::map<std::string, float> timers;

@@ -116,6 +116,68 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "EnemyBullet",
+			"components":
+			[
+				{
+					"type": "View",
+					"rotateOnMovement": true,
+					"parts":
+					[
+						{
+							"type":"Sprite",
+							"sprite":"Bullet.png",
+							"tint": [0, 255, 0]
+						}
+					]
+				},
+				{
+					"type":"Position"
+				},
+				{
+					"type": "MoveLinear",
+					"move": [0.0, -600.0, 0.0],
+					"addBackgroundSpeedMultiplier": -1.0
+				},
+				{
+					"type": "CollisionDetection",
+					"mask": "",
+					"t": 4,
+					"c": [0],
+					"particles":
+					[
+						{
+							"plist": "explosion_fire.plist",
+							"attached": false
+						}
+					]
+				},
+				{
+					"type": "ProjectileState",
+					"power": 1,
+					"collisionsSupported": 1
+				},
+				{
+					"type": "Behaviour",
+					"behaviours":
+					[
+						{
+							"type":"MoveLinear"
+						},
+						{
+							"type":"Destroy",
+							"checks":
+							[
+								{
+									"type":"OutOfScreenUp"
+								}
+							]
+						}
+					]
+				}
+			]
 		}
 	]
 }

@@ -45,7 +45,7 @@
 					"type": "CollisionDetection",
 					"mask": "Melon.png.mask",
 					"t": 0,
-					"c": [1, 3]
+					"c": [1, 3, 4]
 				},
 				{
 					"type": "PlayerLivesController"

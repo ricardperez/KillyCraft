@@ -72,17 +72,17 @@
 		{
 			"time": 5.0,
 			"type": 0,
-			"template": "SquadBasic-Square:4:50"
+			"template": "SquadBasic-Row:4:50"
 		},
 		{
 			"time": 6.5,
 			"type": 0,
-			"template": "SquadBasic-Square:4:50"
+			"template": "SquadBasic-Row:4:50"
 		},
 		{
 			"time": 8.0,
 			"type": 0,
-			"template": "SquadBasic-Square:4:50"
+			"template": "SquadBasic-Row:4:50"
 		},
 		{
 			"time": 8.5,

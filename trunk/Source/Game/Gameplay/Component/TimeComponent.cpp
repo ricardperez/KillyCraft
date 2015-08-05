@@ -65,5 +65,14 @@ namespace MelonGames
             
             return 0.0f;
         }
+        
+        void TimerComponent::resetTimer(const std::string& name)
+        {
+            auto it = timers.find(name);
+            if (it != timers.end())
+            {
+                it->second = 0.0f;
+            }
+        }
     }
 }

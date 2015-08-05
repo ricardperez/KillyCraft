@@ -202,6 +202,45 @@
 					"move":[350.0, 0.0, 0.0]
 				}
 			]
+		},
+		{
+			"super":"EnemyBaseStatic",
+			"name":"EnemyShooter",
+			"components":
+			[
+				{
+					"type":"View",
+					"parts":
+					[
+						{
+							"type":"Sprite",
+							"sprite":"Frighty.png",
+							"tint":[200, 100, 0]
+						}
+					]
+				},
+				{
+					"type":"CollisionDetection",
+					"mask": "Frighty.png.mask",
+					"t":1
+				},
+				{
+					"type":"Behaviour",
+					"merge": 3,
+					"behaviours":
+					[
+						{
+							"type":"Shoot"
+						}
+					]
+				},
+				{
+					"type":"Weapon",
+					"projectile": "EnemyBullet",
+					"fireRate": 0.8,
+					"nProjectiles": 500
+				}
+			]
 		}
 	]
 }

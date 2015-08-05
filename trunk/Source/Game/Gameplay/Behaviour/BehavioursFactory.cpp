@@ -12,6 +12,7 @@
 #include "Gameplay/Behaviour/DestroyBehaviourFunctions.h"
 #include "Gameplay/Behaviour/EvasionBehaviours.h"
 #include "Gameplay/Behaviour/SpawnChildrenBehaviour.h"
+#include "Gameplay/Behaviour/ShootBehaviour.h"
 
 #include "MelonGames/Crypto.h"
 
@@ -82,6 +83,12 @@ namespace MelonGames
                 return result;
             }
             
+            Behaviour* createShootBehaviour(const Json::Value& json)
+            {
+                auto result = new ShootBehaviour();
+                return result;
+            }
+            
             template <class T>
             Behaviour* createDefaultBehaviour(const Json::Value& json)
             {
@@ -101,6 +108,7 @@ namespace MelonGames
                     {Crypto::stringHash("MoveIdle"), createDefaultBehaviour<MoveIdleBehaviour>},
                     {Crypto::stringHash("EvadeProjectilesHorizontally"), createDefaultBehaviour<EvadeProjectilesHorizontally>},
                     {Crypto::stringHash("SpawnChildren"), createSpawnChildrenBehaviour},
+                    {Crypto::stringHash("Shoot"), createShootBehaviour},
                 };
                 
                 std::string type = json["type"].asString();

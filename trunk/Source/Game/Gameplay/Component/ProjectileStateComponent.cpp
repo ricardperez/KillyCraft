@@ -61,13 +61,17 @@ namespace MelonGames
             nCollisionsHappened++;
             if (nCollisionsHappened >= nCollisionsSupported)
             {
+                auto map = object->getMap();
                 if (auto enemyState = second->getObject()->get<EnemyStateComponent>())
                 {
-                    auto map = object->getMap();
                     map->getPlayer()->addScore(enemyState->getScore());
                     
                     const cocos2d::Vec2& position = second->getObject()->get<PositionComponent>()->getPosition();
                     map->getVFXController()->showScoreNode(enemyState->getScore(), cocos2d::Vec2(position.x, position.y), true);
+                }
+                else if (second->getObject() == map->getPlayer()->getPlayerObject())
+                {
+                    map->getPlayer()->removeLives(power);
                 }
                 
                 object->getMap()->removeObjectWhenPossible(object);

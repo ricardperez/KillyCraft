@@ -36,6 +36,7 @@ namespace MelonGames
             eEnemy = 1,
             eBullet = 2,
             ePowerUp = 3,
+            eEnemyBullet = 4,
             
             nTypes
         };
