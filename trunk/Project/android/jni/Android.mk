@@ -21,6 +21,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../../Source/Game/Gameplay/Behaviour/EvasionBehaviours.cpp \
                    ../../../Source/Game/Gameplay/Behaviour/MoveActions.cpp \
                    ../../../Source/Game/Gameplay/Behaviour/MovementBehaviours.cpp \
+                   ../../../Source/Game/Gameplay/Behaviour/ShootBehaviour.cpp \
                    ../../../Source/Game/Gameplay/Behaviour/SpawnChildrenBehaviour.cpp \
                    \
                    ../../../Source/Game/Gameplay/Component/BehaviourComponent.cpp \
