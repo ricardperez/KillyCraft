@@ -137,6 +137,7 @@ namespace MelonGames
             {
                 auto result = new MoveLinearStateComponent();
                 result->setMovementPerSecond(vec2FromJson(json["move"]));
+                result->setBackgroundSpeedMultiplier(json["backgroundSpeedMultiplier"].asFloat());
                 return result;
             }
             

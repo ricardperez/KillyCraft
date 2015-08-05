@@ -19,6 +19,12 @@ namespace MelonGames
     namespace KillyCraft
     {
 #pragma mark - MoveLinearStateComponent
+        MoveLinearStateComponent::MoveLinearStateComponent()
+        : backgroundSpeedMultiplier(0.0f)
+        {
+            
+        }
+        
         const cocos2d::Vec2& MoveLinearStateComponent::getMovementPerSecond() const
         {
             return movementPerSecond;
@@ -27,6 +33,16 @@ namespace MelonGames
         void MoveLinearStateComponent::setMovementPerSecond(const cocos2d::Vec2& movementPerSecond)
         {
             this->movementPerSecond = movementPerSecond;
+        }
+        
+        float MoveLinearStateComponent::getBackgroundSpeedMultiplier() const
+        {
+            return backgroundSpeedMultiplier;
+        }
+        
+        void MoveLinearStateComponent::setBackgroundSpeedMultiplier(float backgroundSpeedMultiplier)
+        {
+            this->backgroundSpeedMultiplier = backgroundSpeedMultiplier;
         }
         
 #pragma mark - MoveCircularStateComponent

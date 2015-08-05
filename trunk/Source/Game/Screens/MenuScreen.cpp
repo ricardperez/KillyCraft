@@ -40,6 +40,7 @@ namespace MelonGames
                 std::vector<std::string> levelNames = {
                     "levels/Level1.kc",
                     "levels/Level2.kc",
+                    "levels/Level3.kc",
                 };
                 
                 cocos2d::Vector<cocos2d::MenuItem*> menuItems;

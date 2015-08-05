@@ -19,17 +19,7 @@
 namespace MelonGames
 {
     namespace KillyCraft
-    {
-#pragma mark - MoveWithBackgroundBehaviour
-        void MoveWithBackgroundBehaviour::update(MapObject* object, float dt)
-        {
-            Base::update(object, dt);
-            
-            cocos2d::Vec2 speedVector = object->getMap()->getView()->getStarsView()->getSpeedVector();
-            auto posComponent = object->getOrCreate<PositionComponent>();
-            posComponent->movePosition(speedVector * dt);
-        }
-        
+    {   
 #pragma mark - MoveLinearBehaviour
         MoveLinearBehaviour::MoveLinearBehaviour()
         : projection(Projection::eNormal)
@@ -48,17 +38,19 @@ namespace MelonGames
             auto posComponent = object->getOrCreate<PositionComponent>();
             auto moveState = object->getOrCreate<MoveLinearStateComponent>();
             
+            cocos2d::Vec2 addedSpeed = (object->getMap()->getView()->getStarsView()->getSpeedVector() * moveState->getBackgroundSpeedMultiplier());
+            
             switch (projection)
             {
                 case Projection::eNormal:
                 default:
-                    posComponent->movePosition(moveState->getMovementPerSecond()*dt);
+                    posComponent->movePosition((moveState->getMovementPerSecond() + addedSpeed) * dt);
                     break;
                 case Projection::eHorizontal:
-                    posComponent->movePositionX(moveState->getMovementPerSecond().x*dt);
+                    posComponent->movePositionX((moveState->getMovementPerSecond().x + addedSpeed.x) * dt);
                     break;
                 case Projection::eVertical:
-                    posComponent->movePositionY(moveState->getMovementPerSecond().y*dt);
+                    posComponent->movePositionY((moveState->getMovementPerSecond().y + addedSpeed.y) * dt);
                     break;
             }
         }

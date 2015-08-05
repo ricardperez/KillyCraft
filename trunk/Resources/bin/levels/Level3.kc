@@ -1,0 +1,64 @@
+{
+	"obj":
+	[
+		{
+			"time": 1.0,
+			"type": 0,
+			"template": "EnemyShooter"
+		},
+		{
+			"time": 3.0,
+			"type": 2
+		},
+		{
+			"time": 1.0,
+			"type": 0,
+			"template": "EnemyShooter"
+		},
+		{
+			"time": 3.0,
+			"type": 2
+		},
+		{
+			"time": 1.0,
+			"type": 0,
+			"template": "EnemyShooter"
+		},
+		{
+			"time": 3.0,
+			"type": 2
+		},
+		{
+			"time": 1.0,
+			"type": 0,
+			"template": "EnemyShooter"
+		},
+		{
+			"time": 3.0,
+			"type": 2
+		},
+		{
+			"time": 1.0,
+			"type": 0,
+			"template": "EnemyShooter"
+		},
+		{
+			"time": 3.0,
+			"type": 2
+		},
+		{
+			"time": 1.0,
+			"type": 0,
+			"template": "EnemyShooter"
+		},
+		{
+			"time": 3.0,
+			"type": 2
+		},
+		{
+			"time": 1.0,
+			"type": 0,
+			"template": "EnemyShooter"
+		}
+	]
+}

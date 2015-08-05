@@ -15,14 +15,6 @@ namespace MelonGames
 {
     namespace KillyCraft
     {
-        class MoveWithBackgroundBehaviour : public Behaviour
-        {
-        public:
-            DECLARE_TYPE_WITH_BASE_TYPE(MoveWithBackgroundBehaviour, Behaviour);
-            
-            void update(MapObject* object, float dt) override;
-        };
-        
         class MoveLinearBehaviour : public Behaviour
         {
         public:

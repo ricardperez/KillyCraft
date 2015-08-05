@@ -72,9 +72,14 @@
 					"behaviours":
 					[
 						{
-							"type":"MoveWithBackground"
+							"type":"MoveVertically"
 						}
 					]
+				},
+				{
+					"type":"MoveLinear",
+					"move":[0.0, 0.0, 0.0],
+					"backgroundSpeedMultiplier": 1.0
 				}
 			]
 		},

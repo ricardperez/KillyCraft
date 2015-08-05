@@ -30,11 +30,17 @@ namespace MelonGames
             
             friend Component* ComponentsFactory::createMoveLinearStateComponent(const Json::Value& json);
             
+            MoveLinearStateComponent();
+            
             const cocos2d::Vec2& getMovementPerSecond() const;
             void setMovementPerSecond(const cocos2d::Vec2& movementPerSecond);
             
+            float getBackgroundSpeedMultiplier() const;
+            void setBackgroundSpeedMultiplier(float backgroundSpeedMultiplier);
+            
         private:
             cocos2d::Vec2 movementPerSecond;
+            float backgroundSpeedMultiplier;
         };
         
         class MoveCircularStateComponent : public Component

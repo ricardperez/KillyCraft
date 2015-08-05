@@ -22,7 +22,8 @@
 				},
 				{
 					"type": "MoveLinear",
-					"move": [0.0, 600.0, 0.0]
+					"move": [0.0, 600.0, 0.0],
+					"backgroundSpeedMultiplier": -1.0
 				},
 				{
 					"type": "CollisionDetection",
@@ -69,7 +70,8 @@
 			[
 				{
 					"type": "MoveLinear",
-					"move": [-250.0, 600.0, 0.0]
+					"move": [-250.0, 600.0, 0.0],
+					"backgroundSpeedMultiplier": -1.0
 				}
 			]
 		},
@@ -80,7 +82,8 @@
 			[
 				{
 					"type": "MoveLinear",
-					"move": [250.0, 600.0, 0.0]
+					"move": [250.0, 600.0, 0.0],
+					"backgroundSpeedMultiplier": -1.0
 				}
 			]
 		},
@@ -139,7 +142,7 @@
 				{
 					"type": "MoveLinear",
 					"move": [0.0, -600.0, 0.0],
-					"addBackgroundSpeedMultiplier": -1.0
+					"backgroundSpeedMultiplier": 1.0
 				},
 				{
 					"type": "CollisionDetection",

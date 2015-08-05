@@ -57,16 +57,22 @@ namespace MelonGames
                 return result;
             }
             
-            Behaviour* createMoveVerticallyBehaviour(const Json::Value& json)
+            Behaviour* createMoveLinearBehaviour(const Json::Value& json)
             {
                 auto result = new MoveLinearBehaviour();
+                return result;
+            }
+            
+            Behaviour* createMoveVerticallyBehaviour(const Json::Value& json)
+            {
+                auto result = static_cast<MoveLinearBehaviour*>(createMoveLinearBehaviour(json));
                 result->setProjection(MoveLinearBehaviour::Projection::eVertical);
                 return result;
             }
             
             Behaviour* createMoveHorizontallyBehaviour(const Json::Value& json)
             {
-                auto result = new MoveLinearBehaviour();
+                auto result = static_cast<MoveLinearBehaviour*>(createMoveLinearBehaviour(json));
                 result->setProjection(MoveLinearBehaviour::Projection::eHorizontal);
                 return result;
             }
@@ -99,8 +105,7 @@ namespace MelonGames
             {
                 static std::map<unsigned int, std::function<Behaviour*(const Json::Value&)>> lambdas = {
                     {Crypto::stringHash("Destroy"), createDestroyBehaviour},
-                    {Crypto::stringHash("MoveWithBackground"), createDefaultBehaviour<MoveWithBackgroundBehaviour>},
-                    {Crypto::stringHash("MoveLinear"), createDefaultBehaviour<MoveLinearBehaviour>},
+                    {Crypto::stringHash("MoveLinear"), createMoveLinearBehaviour},
                     {Crypto::stringHash("MoveVertically"), createMoveVerticallyBehaviour},
                     {Crypto::stringHash("MoveHorizontally"), createMoveHorizontallyBehaviour},
                     {Crypto::stringHash("MoveCircular"), createDefaultBehaviour<MoveCircularBehaviour>},
