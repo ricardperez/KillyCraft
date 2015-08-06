@@ -30,6 +30,7 @@ namespace MelonGames
         class MapTransitionController;
         class VFXController;
         class MapTime;
+        class MapEvents;
         
         enum class SpawnObjectsType;
         
@@ -61,6 +62,7 @@ namespace MelonGames
             VFXController* getVFXController() const;
             MapTime* getTime() const;
             SpawnObjectsManager* getSpawnObjectsManager() const;
+            MapEvents* getMapEvents() const;
 			
 			void addObject(MapObject* o);
 			void removeObjectWhenPossible(MapObject* o);
@@ -87,6 +89,7 @@ namespace MelonGames
             MapTransitionController* mapTransitionController;
             VFXController* vfxController;
             MapTime* time;
+            MapEvents* events;
             
             int nextIdentifier;
             

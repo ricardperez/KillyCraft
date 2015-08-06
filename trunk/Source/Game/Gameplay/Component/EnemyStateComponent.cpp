@@ -7,6 +7,9 @@
 //
 
 #include "EnemyStateComponent.h"
+#include "Gameplay/MapObject.h"
+#include "Gameplay/Map.h"
+#include "Gameplay/MapEvents.h"
 
 namespace MelonGames
 {
@@ -46,6 +49,11 @@ namespace MelonGames
             }
             
             livesChangedSignal.Emit(this);
+            
+            if (lives <= 0)
+            {
+                object->getMap()->getMapEvents()->getEnemyKilledSignal().Emit(object);
+            }
         }
         
         Gallant::Signal1<EnemyStateComponent*>& EnemyStateComponent::getLivesChangedSignal()

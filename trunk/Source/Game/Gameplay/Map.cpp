@@ -13,6 +13,7 @@
 #include "MapTransitionController.h"
 #include "VFXController.h"
 #include "MapTime.h"
+#include "MapEvents.h"
 #include "MapObject.h"
 #include "MapObjectInspector.h"
 #include "View/MapView.h"
@@ -45,6 +46,7 @@ namespace MelonGames
         , mapTransitionController(nullptr)
         , vfxController(nullptr)
         , time(nullptr)
+        , events(nullptr)
         , nextIdentifier(0)
         , updating(false)
 		{
@@ -64,6 +66,7 @@ namespace MelonGames
             delete mapTransitionController;
             delete vfxController;
             delete time;
+            delete events;
 		}
 		
 		void Map::setNode(cocos2d::Node *node)
@@ -82,6 +85,7 @@ namespace MelonGames
             
             time = new MapTime();
             mapTransitionController = new MapTransitionController(this);
+            events = new MapEvents();
             
             player = new Player();
             player->addLives(10);
@@ -153,6 +157,11 @@ namespace MelonGames
         SpawnObjectsManager* Map::getSpawnObjectsManager() const
         {
             return spawnObjectsManager;
+        }
+        
+        MapEvents* Map::getMapEvents() const
+        {
+            return events;
         }
 		
 		void Map::addObject(MapObject* o)

@@ -20,9 +20,10 @@
 #include "MovementStateComponents.h"
 #include "CollisionDetectionComponent.h"
 #include "PowerUpComponent.h"
-#include "PlayerLivesControllerComponent.h"
+#include "PlayerStateComponent.h"
 #include "EnemyStateComponent.h"
 #include "ProjectileStateComponent.h"
+#include "ShieldComponent.h"
 
 #include "math/Vec2.h"
 #include "json/value.h"
@@ -53,8 +54,9 @@ namespace MelonGames
                     {Crypto::stringHash("EnemyState"), createEnemyStateComponent},
                     {Crypto::stringHash("Weapon"), createWeaponComponent},
                     {Crypto::stringHash("Gamepad"), createGamepadComponent},
-                    {Crypto::stringHash("PlayerLivesController"), createPlayerLivesControllerComponent},
+                    {Crypto::stringHash("PlayerState"), createPlayerStateComponent},
                     {Crypto::stringHash("ProjectileState"), createProjectileStateComponent},
+                    {Crypto::stringHash("Shield"), createShieldComponent},
                 };
                 
                 std::string type = json["type"].asString();
@@ -210,9 +212,9 @@ namespace MelonGames
                 return result;
             }
             
-            Component* createPlayerLivesControllerComponent(const Json::Value& json)
+            Component* createPlayerStateComponent(const Json::Value& json)
             {
-                auto result = new PlayerLivesControllerComponent();
+                auto result = new PlayerStateComponent();
                 return result;
             }
             
@@ -230,6 +232,13 @@ namespace MelonGames
                 auto result = new ProjectileStateComponent();
                 result->power = json["power"].asUInt();
                 result->nCollisionsSupported = json["collisionsSupported"].asUInt();
+                return result;
+            }
+            
+            Component* createShieldComponent(const Json::Value& json)
+            {
+                auto result = new ShieldComponent();
+                result->assetName = json["asset"].asString();
                 return result;
             }
         }
