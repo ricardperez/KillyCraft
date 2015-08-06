@@ -13,6 +13,8 @@
 #include "Gameplay/Component/ViewComponent.h"
 #include "Gameplay/Component/PositionComponent.h"
 #include "Gameplay/Component/CollisionDetectionComponent.h"
+#include "Gameplay/Component/EnemyStateComponent.h"
+#include "Gameplay/Player.h"
 #include "2d/CCSprite.h"
 
 namespace MelonGames
@@ -23,6 +25,15 @@ namespace MelonGames
         {
             bool isDead(MapObject* object)
             {
+                if (EnemyStateComponent* enemyStateComponent = object->get<EnemyStateComponent>())
+                {
+                    return (enemyStateComponent->getLives() <= 0);
+                }
+                else if (object == object->getMap()->getPlayer()->getPlayerObject())
+                {
+                    return (object->getMap()->getPlayer()->getLives() <= 0);
+                }
+                
                 return false;
             }
             
