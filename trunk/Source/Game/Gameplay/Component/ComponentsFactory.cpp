@@ -89,7 +89,7 @@ namespace MelonGames
                     ViewPart* part = ViewPartsFactory::createViewPart(partJson);
                     if (part != nullptr)
                     {
-                        result->addPart(part);
+                        result->addPart(part, true);
                     }
                     else
                     {

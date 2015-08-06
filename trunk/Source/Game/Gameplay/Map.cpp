@@ -56,6 +56,19 @@ namespace MelonGames
 		{
             for (auto object : objects)
             {
+                object->onWillDetachFromMap();
+            }
+            for (auto object : objectsToRemove)
+            {
+                object->onWillDetachFromMap();
+            }
+            
+            for (auto object : objects)
+            {
+                delete object;
+            }
+            for (auto object : objectsToRemove)
+            {
                 delete object;
             }
             

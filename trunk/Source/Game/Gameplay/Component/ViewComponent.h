@@ -45,7 +45,7 @@ namespace MelonGames
             virtual void onWillDetachFromObject() override;
             void update(float dt) override;
 			
-            void addPart(ViewPart* part);
+            void addPart(ViewPart* part, bool takeOwnership);
             void removePart(ViewPart* part);
             
             const cocos2d::Size& getSize();
@@ -59,7 +59,12 @@ namespace MelonGames
 			void onPositionChanged(PositionComponent* posComponent);
 			
 		private:
-            std::vector<ViewPart*> parts;
+            struct ViewPartData
+            {
+                ViewPart* viewPart;
+                bool owned;
+            };
+            std::vector<ViewPartData> parts;
             
             cocos2d::Size size;
             bool sizeDirty;

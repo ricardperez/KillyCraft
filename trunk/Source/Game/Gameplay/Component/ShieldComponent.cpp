@@ -36,9 +36,15 @@ namespace MelonGames
         
         void ShieldComponent::onWillDetachFromObject()
         {
-            auto viewComponent = object->get<ViewComponent>();
-            viewComponent->removePart(spritePart);
-            spritePart = nullptr;
+            if (spritePart)
+            {
+                auto viewComponent = object->get<ViewComponent>();
+                viewComponent->removePart(spritePart);
+                delete spritePart;
+                spritePart = nullptr;
+            }
+            
+            Base::onWillDetachFromObject();
         }
         
         void ShieldComponent::onEnemyLivesChanged(EnemyStateComponent* enemyStateComponent)
@@ -46,7 +52,7 @@ namespace MelonGames
             if (!spritePart)
             {
                 spritePart = new ViewPartSprite(assetName);
-                object->get<ViewComponent>()->addPart(spritePart);
+                object->get<ViewComponent>()->addPart(spritePart, false);
                 spritePart->getNode()->setOpacity(0);
             }
             

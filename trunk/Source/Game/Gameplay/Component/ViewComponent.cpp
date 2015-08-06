@@ -28,11 +28,14 @@ namespace MelonGames
 		
 		ViewComponent::~ViewComponent()
 		{
-            for (auto part : parts)
+            for (auto& part : parts)
             {
-                part->onDetachedFromObject(object);
-                part->getNode()->removeFromParent();
-                delete part;
+                part.viewPart->onDetachedFromObject(object);
+                part.viewPart->getNode()->removeFromParent();
+                if (part.owned)
+                {
+                    delete part.viewPart;
+                }
             }
 		}
 		
@@ -41,14 +44,14 @@ namespace MelonGames
 			Base::onObjectAttachedToMap();
             
             auto mapViewNode = object->getMap()->getView()->getNode();
-            for (auto part : parts)
+            for (auto& part : parts)
             {
-                part->onAttachedToObject(object);
-                mapViewNode->addChild(part->getNode());
+                part.viewPart->onAttachedToObject(object);
+                mapViewNode->addChild(part.viewPart->getNode());
                 
                 if (firstFrame && rotateOnMovement)
                 {
-                    part->getNode()->setVisible(false);
+                    part.viewPart->getNode()->setVisible(false);
                 }
                 
             }
@@ -66,9 +69,12 @@ namespace MelonGames
         {
             for (auto part : parts)
             {
-                part->onDetachedFromObject(object);
-                part->getNode()->removeFromParent();
-                delete part;
+                part.viewPart->onDetachedFromObject(object);
+                part.viewPart->getNode()->removeFromParent();
+                if (part.owned)
+                {
+                    delete part.viewPart;
+                }
             }
             parts.clear();
             sizeDirty = true;
@@ -87,9 +93,13 @@ namespace MelonGames
             }
         }
         
-        void ViewComponent::addPart(ViewPart* part)
+        void ViewComponent::addPart(ViewPart* part, bool takeOwnership)
         {
-            parts.push_back(part);
+            ViewPartData partData;
+            partData.viewPart = part;
+            partData.owned = takeOwnership;
+            parts.push_back(partData);
+            
             if (object && object->getMap())
             {
                 part->onAttachedToObject(object);
@@ -115,16 +125,23 @@ namespace MelonGames
         
         void ViewComponent::removePart(ViewPart* part)
         {
-            auto it = std::find(parts.begin(), parts.end(), part);
+            auto it = std::find_if(parts.begin(), parts.end(), [part](const ViewPartData& partData)->bool {
+                return (partData.viewPart == part);
+            });
+            
             if (it != parts.end())
             {
+                const ViewPartData& partData = *it;
                 if (object && object->getMap())
                 {
                     part->onDetachedFromObject(object);
                     part->getNode()->removeFromParent();
                 }
+                if (partData.owned)
+                {
+                    delete partData.viewPart;
+                }
                 parts.erase(it);
-                delete part;
                 sizeDirty = true;
             }
         }
@@ -141,10 +158,10 @@ namespace MelonGames
                 }
             }
             
-            for (auto part : parts)
+            for (auto& part : parts)
             {
-                auto node = part->getNode();
-                node->setPosition(position + part->getPositionOffset());
+                auto node = part.viewPart->getNode();
+                node->setPosition(position + part.viewPart->getPositionOffset());
                 node->setRotation(rotation);
             }
             
@@ -157,10 +174,10 @@ namespace MelonGames
             {
                 size.width = 0.0f;
                 size.height = 0.0f;
-                for (auto part : parts)
+                for (auto& part : parts)
                 {
-                    size.width = std::max(size.width, part->getNode()->getContentSize().width);
-                    size.height = std::max(size.height, part->getNode()->getContentSize().height);
+                    size.width = std::max(size.width, part.viewPart->getNode()->getContentSize().width);
+                    size.height = std::max(size.height, part.viewPart->getNode()->getContentSize().height);
                 }
                 sizeDirty = false;
             }
@@ -179,9 +196,9 @@ namespace MelonGames
                 if (visible != this->visible)
                 {
                     this->visible = visible;
-                    for (auto part : parts)
+                    for (auto& part : parts)
                     {
-                        auto node = part->getNode();
+                        auto node = part.viewPart->getNode();
                         CCASSERT(node != nullptr, "The ViewPart::node should not be null at this point");
                         if (node)
                         {
