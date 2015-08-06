@@ -1,0 +1,15 @@
+{
+	"obj":
+	[
+		{
+			"time": 1.0,
+			"type": 0,
+			"template": "SquadBasic-Square:4:50"
+		},
+		{
+			"time": 3.5,
+			"type": 1,
+			"template": "PowerUpKillAll"
+		}
+	]
+}

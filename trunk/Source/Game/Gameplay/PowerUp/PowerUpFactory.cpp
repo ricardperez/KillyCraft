@@ -13,6 +13,7 @@
 #include "Gameplay/Map.h"
 #include "Gameplay/Player.h"
 #include "Gameplay/Component/WeaponComponent.h"
+#include "Gameplay/Component/EnemyStateComponent.h"
 #include "MelonGames/Crypto.h"
 
 namespace MelonGames
@@ -66,7 +67,8 @@ namespace MelonGames
                     auto enemies = map->getObjectsPassingFilter(MapObjectInspector::isEnemy);
                     for (auto enemy : enemies)
                     {
-                        map->removeObjectWhenPossible(enemy);
+                        auto enemyState = enemy->get<EnemyStateComponent>();
+                        enemyState->removeLives(enemyState->getLives());
                     }
                 };
             }
