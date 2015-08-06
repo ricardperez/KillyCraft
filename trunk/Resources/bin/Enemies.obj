@@ -39,24 +39,18 @@
 					"type":"CollisionDetection",
 					"mask":"",
 					"t":1,
-					"c": [0, 2],
-					"particles":
-					[
-						{
-							"plist": "explosion_fire.plist",
-							"attached": true
-						},
-						{
-							"plist": "explosion_smoke.plist",
-							"attached": true
-						}
-					]
+					"c": [0, 2]
 				},
 				{
 					"type":"EnemyState",
 					"livesCost":1,
 					"lives":1,
-					"score":10
+					"score":10,
+					"dieParticles":
+					[
+						"explosion_fire.plist",
+						"explosion_smoke.plist"
+					]
 				}
 			]
 		},

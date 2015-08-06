@@ -33,8 +33,7 @@
 					"particles":
 					[
 						{
-							"plist": "explosion_fire.plist",
-							"attached": false
+							"plist": "explosion_fire.plist"
 						}
 					]
 				},
@@ -152,8 +151,7 @@
 					"particles":
 					[
 						{
-							"plist": "explosion_fire.plist",
-							"attached": false
+							"plist": "explosion_fire.plist"
 						}
 					]
 				},

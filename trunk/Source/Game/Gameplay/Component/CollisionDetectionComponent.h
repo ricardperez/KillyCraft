@@ -97,7 +97,6 @@ namespace MelonGames
             struct CollisionParticleSystemData
             {
                 std::string plist;
-                bool attached;
             };
             std::vector<CollisionParticleSystemData> particleSystems;
             

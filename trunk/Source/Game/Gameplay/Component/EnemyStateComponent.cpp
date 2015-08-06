@@ -7,9 +7,11 @@
 //
 
 #include "EnemyStateComponent.h"
+#include "PositionComponent.h"
 #include "Gameplay/MapObject.h"
 #include "Gameplay/Map.h"
 #include "Gameplay/MapEvents.h"
+#include "Gameplay/VFXController.h"
 
 namespace MelonGames
 {
@@ -52,6 +54,16 @@ namespace MelonGames
             
             if (lives <= 0)
             {
+                if (!dieParticleSystems.empty())
+                {
+                    auto vfxController = object->getMap()->getVFXController();
+                    const cocos2d::Vec2& position = object->get<PositionComponent>()->getPosition();
+                    for (const auto& plist : dieParticleSystems)
+                    {
+                        vfxController->showParticleSystem(plist, position, true);
+                    }
+                }
+                
                 object->getMap()->getMapEvents()->getEnemyKilledSignal().Emit(object);
             }
         }

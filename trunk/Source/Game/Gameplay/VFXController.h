@@ -33,8 +33,7 @@ namespace MelonGames
             void update(float dt);
             
             void showScoreNode(int score, const cocos2d::Vec2& position, bool moveUp);
-            void showParticleSystem(const std::string& plistName, const cocos2d::Vec2& position);
-            void showParticleSystem(const std::string& plistName, MapObject* object);
+            void showParticleSystem(const std::string& plistName, const cocos2d::Vec2& position, bool animateWithBackground);
             void showFireWorks(int n);
             
             void showOpaqueLayer();
@@ -49,7 +48,7 @@ namespace MelonGames
         private:
             Map* map;
             
-            std::map<cocos2d::ParticleSystemQuad*, int> movingParticleSystems;
+            std::vector<cocos2d::ParticleSystemQuad*> movingParticleSystems;
             std::vector<FireWorks> fireWorks;
             
             cocos2d::LayerColor* opaqueLayer;

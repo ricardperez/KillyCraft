@@ -193,7 +193,6 @@ namespace MelonGames
                 {
                     CollisionDetectionComponent::CollisionParticleSystemData psData;
                     psData.plist = particleSystem["plist"].asString();
-                    psData.attached = particleSystem["attached"].asBool();
                     result->particleSystems.push_back(psData);
                 }
                 return result;
@@ -224,6 +223,10 @@ namespace MelonGames
                 result->livesCost = json["livesCost"].asUInt();
                 result->lives = json["lives"].asUInt();
                 result->score = json["score"].asUInt();
+                for (const auto& particleSystemName : json["dieParticles"])
+                {
+                    result->dieParticleSystems.push_back(particleSystemName.asString());
+                }
                 return result;
             }
             

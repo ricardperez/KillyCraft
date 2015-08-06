@@ -11,6 +11,7 @@
 #include "MapObject.h"
 #include "Component/PositionComponent.h"
 #include "View/MapView.h"
+#include "View/StarsView.h"
 #include "MelonGames/Random.h"
 #include "2d/CCLabel.h"
 #include "2d/CCActionInterval.h"
@@ -57,22 +58,18 @@ namespace MelonGames
                                                        nullptr));
         }
         
-        void VFXController::showParticleSystem(const std::string& plistName, const cocos2d::Vec2& position)
+        void VFXController::showParticleSystem(const std::string& plistName, const cocos2d::Vec2& position, bool animateWithBackground)
         {
             auto particleSystem = cocos2d::ParticleSystemQuad::create(plistName);
             particleSystem->setPosition(position);
-            map->getView()->getNode()->addChild(particleSystem);
-        }
-        
-        void VFXController::showParticleSystem(const std::string& plistName, MapObject* object)
-        {
-            auto particleSystem = cocos2d::ParticleSystemQuad::create(plistName);
-            particleSystem->setPosition(object->get<PositionComponent>()->getPosition());
             particleSystem->setAutoRemoveOnFinish(true);
-            particleSystem->retain();
             map->getView()->getNode()->addChild(particleSystem);
             
-            movingParticleSystems[particleSystem] = object->getIdentifier();
+            if (animateWithBackground)
+            {
+                particleSystem->retain();
+                movingParticleSystems.push_back(particleSystem);
+            }
         }
         
         void VFXController::showFireWorks(int n)
@@ -147,32 +144,25 @@ namespace MelonGames
         
         void VFXController::updateParticleSystems(float dt)
         {
-            std::map<cocos2d::ParticleSystemQuad*, int>::iterator it = movingParticleSystems.begin();
-            while (it != movingParticleSystems.end())
+            if (!movingParticleSystems.empty())
             {
-                cocos2d::ParticleSystemQuad* particleSystem = it->first;
-                if (particleSystem->getParent())
+                cocos2d::Vec2 movement = (map->getView()->getStarsView()->getSpeedVector() * dt);
+                
+                auto it = movingParticleSystems.begin();
+                while (it != movingParticleSystems.end())
                 {
-                    int identifier = it->second;
-                    auto object = map->getObjectPassingFilter([identifier](const MapObject* object) -> bool {
-                        return (object->getIdentifier() == identifier);
-                    });
-                    if (object)
+                    cocos2d::ParticleSystemQuad* particleSystem = *it;
+                    if (particleSystem->getParent())
                     {
-                        particleSystem->setPosition(object->get<PositionComponent>()->getPosition());
+                        particleSystem->setPosition(particleSystem->getPosition() + movement);
                         ++it;
                     }
                     else
                     {
                         particleSystem->release();
                         it = movingParticleSystems.erase(it);
+                        
                     }
-                }
-                else
-                {
-                    particleSystem->release();
-                    it = movingParticleSystems.erase(it);
-                    
                 }
             }
         }

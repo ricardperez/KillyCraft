@@ -331,14 +331,7 @@ namespace MelonGames
                 const auto& position = object->get<PositionComponent>()->getPosition();
                 for (const auto& particleSystemData : particleSystems)
                 {
-                    if (particleSystemData.attached)
-                    {
-                        object->getMap()->getVFXController()->showParticleSystem(particleSystemData.plist, object);
-                    }
-                    else
-                    {
-                        object->getMap()->getVFXController()->showParticleSystem(particleSystemData.plist, position);
-                    }
+                    object->getMap()->getVFXController()->showParticleSystem(particleSystemData.plist, position, false);
                 }
             }
         }

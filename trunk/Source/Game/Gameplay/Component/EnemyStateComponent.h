@@ -11,6 +11,7 @@
 
 #include "Component.h"
 #include "Signal/Signal.h"
+#include <vector>
 
 namespace MelonGames
 {
@@ -42,6 +43,7 @@ namespace MelonGames
             int livesCost;
             int lives;
             int score;
+            std::vector<std::string> dieParticleSystems;
             
             Gallant::Signal1<EnemyStateComponent*> livesChangedSignal;
         };
