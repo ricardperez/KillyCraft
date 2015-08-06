@@ -52,8 +52,6 @@ namespace MelonGames
                     }
                 }
                 
-                result->fadeOutTime = json["fadeOut"].asFloat();
-                
                 return result;
             }
             

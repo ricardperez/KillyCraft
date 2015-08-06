@@ -17,49 +17,27 @@ namespace MelonGames
 {
     namespace KillyCraft
     {
-        DestroyBehaviour::DestroyBehaviour()
-        : fadeOutTime(0.0f)
-        {
-            
-        }
-        
         void DestroyBehaviour::update(MapObject* object, float dt)
         {
             Base::update(object, dt);
             
-            const std::string fadeTimerName = "DestroyBehaviour-FadeOut";
-            auto timerComponent = object->getOrCreate<TimerComponent>();
-            if (timerComponent->hasTimer(fadeTimerName))
+            for (const auto& namedFunction : checkFunctions)
             {
-                if (timerComponent->getTimer(fadeTimerName) >= fadeOutTime)
+                if (namedFunction.function(object))
                 {
-                    object->getMap()->removeObjectWhenPossible(object);
-                }
-            }
-            else
-            {
-                for (const auto& namedFunction : checkFunctions)
-                {
-                    if (namedFunction.function(object))
+                    if (auto viewComponent = object->get<ViewComponent>())
                     {
-                        if (auto viewComponent = object->get<ViewComponent>())
-                        {
-                            viewComponent->setVisible(false);
-                        }
-                        if (auto collisionDetectionComponent = object->get<CollisionDetectionComponent>())
-                        {
-                            collisionDetectionComponent->invalidate();
-                        }
-                        if (fadeOutTime <= 0.0f)
-                        {
-                            object->getMap()->removeObjectWhenPossible(object);
-                        }
-                        else
-                        {
-                            timerComponent->addTimer(fadeTimerName);
-                        }
-                        break;
+                        viewComponent->setVisible(false);
                     }
+                    
+                    if (auto collisionDetectionComponent = object->get<CollisionDetectionComponent>())
+                    {
+                        collisionDetectionComponent->invalidate();
+                    }
+                    
+                    object->getMap()->removeObjectWhenPossible(object);
+                    
+                    break;
                 }
             }
         }

@@ -36,8 +36,6 @@ namespace MelonGames
             
             friend Behaviour* BehavioursFactory::createDestroyBehaviour(const Json::Value& json);
             
-            DestroyBehaviour();
-            
             virtual void update(MapObject* object, float dt);
             void addCheckFunctionWithName(const DestroyCheckFunction& function, const std::string& name);
             void removeCheckFunctionWithName(const std::string& name);
@@ -49,7 +47,6 @@ namespace MelonGames
                 std::string name;
             };
             std::vector<NamedCheckFunction> checkFunctions;
-            float fadeOutTime;
         };
     }
 }
