@@ -4,7 +4,7 @@
 		{
 			"time": 1.0,
 			"type": 0,
-			"template": "EnemyShooter"
+			"template": "EnemyShield"
 		}
 	]
 }

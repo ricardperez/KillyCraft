@@ -28,7 +28,7 @@
 									"type":"OutOfScreenDown"
 								},
 								{
-									"type":"Collision"
+									"type":"Dead"
 								}
 							],
 							"fadeOut": 0.5
@@ -204,7 +204,8 @@
 				},
 				{
 					"type":"MoveLinear",
-					"move":[350.0, 0.0, 0.0]
+					"move":[350.0, 0.0, 0.0],
+					"backgroundSpeedMultiplier": 1.0
 				}
 			]
 		},
@@ -244,6 +245,23 @@
 					"projectile": "EnemyBullet",
 					"fireRate": 0.8,
 					"nProjectiles": 500
+				}
+			]
+		},
+		{
+			"super":"EnemyGordy",
+			"name":"EnemyShield",
+			"components":
+			[
+				{
+					"type": "Shield",
+					"asset": "enemy_shield.png"
+				},
+				{
+					"type":"EnemyState",
+					"livesCost":1,
+					"lives":5,
+					"score":100
 				}
 			]
 		}
