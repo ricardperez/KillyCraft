@@ -330,7 +330,7 @@ void DataReaderHelper::addDataFromFile(const std::string& filePath)
         DataReaderHelper::addDataFromBinaryCache(contentStr.c_str(),&dataInfo);
     }
 
-	CC_SAFE_DELETE_ARRAY(pBytes);
+	free(pBytes);
 }
 
 void DataReaderHelper::addDataFromFileAsync(const std::string& imagePath, const std::string& plistPath, const std::string& filePath, Ref *target, SEL_SCHEDULE selector)
@@ -422,6 +422,8 @@ void DataReaderHelper::addDataFromFileAsync(const std::string& imagePath, const 
     ssize_t size;
     // FIXME: fileContent is being leaked
     
+    // This getFileData only read exportJson file, it takes only a little time.
+    // Large image files are loaded in DataReaderHelper::addDataFromJsonCache(dataInfo) asynchronously.
     _dataReaderHelper->_getFileMutex.lock();
     unsigned char *pBytes = FileUtils::getInstance()->getFileData(fullPath.c_str() , filereadmode.c_str(), &size);
     _dataReaderHelper->_getFileMutex.unlock();
@@ -429,7 +431,9 @@ void DataReaderHelper::addDataFromFileAsync(const std::string& imagePath, const 
 	Data bytecpy;
     bytecpy.copy(pBytes, size);
     data->fileContent = std::string((const char*)bytecpy.getBytes(), size);
-    CC_SAFE_DELETE_ARRAY(pBytes);
+
+    // fix memory leak for v3.3
+    free(pBytes);
     
     if (str == ".xml")
     {
@@ -1243,7 +1247,7 @@ void DataReaderHelper::addDataFromJsonCache(const std::string& fileContent, Data
     
     json.ParseStream<0>(stream);
     if (json.HasParseError()) {
-        CCLOG("GetParseError %s\n",json.GetParseError());
+        CCLOG("GetParseError %d\n",json.GetParseError());
     }
 	
 	dataInfo->contentScale = DICTOOL->getFloatValue_json(json, CONTENT_SCALE, 1.0f);
@@ -1330,8 +1334,13 @@ void DataReaderHelper::addDataFromJsonCache(const std::string& fileContent, Data
             {
                 std::string plistPath = filePath + ".plist";
                 std::string pngPath =  filePath + ".png";
+                if (FileUtils::getInstance()->isFileExist(dataInfo->baseFilePath + plistPath) && FileUtils::getInstance()->isFileExist(dataInfo->baseFilePath + pngPath))
+                {
+                    ValueMap dict = FileUtils::getInstance()->getValueMapFromFile(dataInfo->baseFilePath + plistPath);
+                    if (dict.find("particleLifespan") != dict.end()) continue;
 
-                ArmatureDataManager::getInstance()->addSpriteFrameFromFile((dataInfo->baseFilePath + plistPath).c_str(), (dataInfo->baseFilePath + pngPath).c_str(), dataInfo->filename.c_str());
+                    ArmatureDataManager::getInstance()->addSpriteFrameFromFile((dataInfo->baseFilePath + plistPath).c_str(), (dataInfo->baseFilePath + pngPath).c_str(), dataInfo->filename.c_str());
+                }
             }
         }
     }
@@ -1408,29 +1417,33 @@ DisplayData *DataReaderHelper::decodeBoneDisplay(const rapidjson::Value& json, D
     {
         displayData = new (std::nothrow) SpriteDisplayData();
 
-		const char *name =  DICTOOL->getStringValue_json(json, A_NAME);
+        const char *name =  DICTOOL->getStringValue_json(json, A_NAME);
         if(name != nullptr)
         {
             ((SpriteDisplayData *)displayData)->displayName = name;
         }
-		const rapidjson::Value &dicArray = DICTOOL->getSubDictionary_json(json, SKIN_DATA);
-		if(!dicArray.IsNull())
-		{
-			rapidjson::SizeType index = 0;
-			const rapidjson::Value &dic = DICTOOL->getSubDictionary_json(dicArray, index);
-			if (!dic.IsNull())
-			{
-				SpriteDisplayData *sdd = (SpriteDisplayData *)displayData;
-				sdd->skinData.x = DICTOOL->getFloatValue_json(dic, A_X) * s_PositionReadScale;
-				sdd->skinData.y = DICTOOL->getFloatValue_json(dic, A_Y) * s_PositionReadScale;
-				sdd->skinData.scaleX = DICTOOL->getFloatValue_json(dic, A_SCALE_X, 1.0f);
-				sdd->skinData.scaleY = DICTOOL->getFloatValue_json(dic, A_SCALE_Y, 1.0f);
-				sdd->skinData.skewX = DICTOOL->getFloatValue_json(dic, A_SKEW_X, 1.0f);
-				sdd->skinData.skewY = DICTOOL->getFloatValue_json(dic, A_SKEW_Y, 1.0f);
+        if(json.HasMember(SKIN_DATA))
+        {
+            const rapidjson::Value &dicArray = DICTOOL->getSubDictionary_json(json, SKIN_DATA);
+            if(!dicArray.IsNull())
+            {
+                rapidjson::SizeType index = 0;
+                const rapidjson::Value &dic = DICTOOL->getSubDictionary_json(dicArray, index);
+                if (!dic.IsNull())
+                {
+                    SpriteDisplayData *sdd = (SpriteDisplayData *)displayData;
+                    sdd->skinData.x = DICTOOL->getFloatValue_json(dic, A_X) * s_PositionReadScale;
+                    sdd->skinData.y = DICTOOL->getFloatValue_json(dic, A_Y) * s_PositionReadScale;
+                    sdd->skinData.scaleX = DICTOOL->getFloatValue_json(dic, A_SCALE_X, 1.0f);
+                    sdd->skinData.scaleY = DICTOOL->getFloatValue_json(dic, A_SCALE_Y, 1.0f);
+                    sdd->skinData.skewX = DICTOOL->getFloatValue_json(dic, A_SKEW_X, 1.0f);
+                    sdd->skinData.skewY = DICTOOL->getFloatValue_json(dic, A_SKEW_Y, 1.0f);
 
-                sdd->skinData.x *= dataInfo->contentScale;
-                sdd->skinData.y *= dataInfo->contentScale;
-			}
+                    sdd->skinData.x *= dataInfo->contentScale;
+                    sdd->skinData.y *= dataInfo->contentScale;
+                }
+            }
+
         }
     }
 
@@ -1638,6 +1651,7 @@ FrameData *DataReaderHelper::decodeFrame(const rapidjson::Value& json, DataInfo 
     if (length != 0)
     {
         frameData->easingParams = new float[length];
+        frameData->easingParamNumber = length;
         
         for (int i = 0; i < length; i++)
         {

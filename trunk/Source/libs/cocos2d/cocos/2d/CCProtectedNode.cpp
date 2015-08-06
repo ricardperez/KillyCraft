@@ -63,6 +63,14 @@ ProtectedNode * ProtectedNode::create(void)
 
 void ProtectedNode::cleanup()
 {
+#if CC_ENABLE_SCRIPT_BINDING
+    if (_scriptType == kScriptTypeJavascript)
+    {
+        if (ScriptEngineManager::sendNodeEventToJS(this, kNodeOnCleanup))
+            return;
+    }
+#endif // #if CC_ENABLE_SCRIPT_BINDING
+    
     Node::cleanup();
     // timers
     for( const auto &child: _protectedChildren)
@@ -429,6 +437,19 @@ void ProtectedNode::disableCascadeOpacity()
     for(auto child : _protectedChildren){
         child->updateDisplayedOpacity(255);
     }
+}
+
+void ProtectedNode::setCameraMask(unsigned short mask, bool applyChildren)
+{
+    Node::setCameraMask(mask, applyChildren);
+    if (applyChildren)
+    {
+        for (auto& iter: _protectedChildren)
+        {
+            iter->setCameraMask(mask);
+        }
+    }
+    
 }
 
 NS_CC_END

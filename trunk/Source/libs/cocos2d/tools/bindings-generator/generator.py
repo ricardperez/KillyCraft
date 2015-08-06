@@ -926,6 +926,25 @@ class Generator(object):
         self.script_control_cpp = opts['script_control_cpp'] == "yes"
         self.script_type = opts['script_type']
         self.macro_judgement = opts['macro_judgement']
+        self.hpp_headers = opts['hpp_headers']
+        self.cpp_headers = opts['cpp_headers']
+        self.win32_clang_flags = opts['win32_clang_flags']
+
+        extend_clang_args = []
+
+        for clang_arg in self.clang_args:
+            if not os.path.exists(clang_arg.replace("-I","")):
+                pos = clang_arg.find("lib/clang/3.3/include")
+                if -1 != pos:
+                    extend_clang_arg = clang_arg.replace("3.3", "3.4")
+                    if os.path.exists(extend_clang_arg.replace("-I","")):
+                        extend_clang_args.append(extend_clang_arg)
+
+        if len(extend_clang_args) > 0:
+            self.clang_args.extend(extend_clang_args)
+
+        if sys.platform == 'win32' and self.win32_clang_flags != None:
+            self.clang_args.extend(self.win32_clang_flags)
 
         if opts['skip']:
             list_of_skips = re.split(",\n?", opts['skip'])
@@ -1395,7 +1414,10 @@ def main():
                 'out_file': opts.out_file or config.get(s, 'prefix'),
                 'script_control_cpp': config.get(s, 'script_control_cpp') if config.has_option(s, 'script_control_cpp') else 'no',
                 'script_type': t,
-                'macro_judgement': config.get(s, 'macro_judgement') if config.has_option(s, 'macro_judgement') else None
+                'macro_judgement': config.get(s, 'macro_judgement') if config.has_option(s, 'macro_judgement') else None,
+                'hpp_headers': config.get(s, 'hpp_headers', 0, dict(userconfig.items('DEFAULT'))).split(' ') if config.has_option(s, 'hpp_headers') else None,
+                'cpp_headers': config.get(s, 'cpp_headers', 0, dict(userconfig.items('DEFAULT'))).split(' ') if config.has_option(s, 'cpp_headers') else None,
+                'win32_clang_flags': (config.get(s, 'win32_clang_flags', 0, dict(userconfig.items('DEFAULT'))) or "").split(" ") if config.has_option(s, 'win32_clang_flags') else None
                 }
             generator = Generator(gen_opts)
             generator.generate_code()

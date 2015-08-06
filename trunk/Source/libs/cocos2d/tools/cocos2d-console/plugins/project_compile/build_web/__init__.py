@@ -2,6 +2,8 @@
 import os
 import json
 import cocos
+from MultiLanguage import MultiLanguage
+import sys
 import subprocess
 
 
@@ -18,15 +20,16 @@ def check_jdk_version():
     jdk_version = None
     for line in child.stderr:
         if 'java version' in line:
-            if '1.7' in line:
-                jdk_version = JDK_1_7
             if '1.6' in line:
                 jdk_version = JDK_1_6
+            else:
+                jdk_version = JDK_1_7
 
     child.wait()
 
     if jdk_version is None:
-        raise cocos.CCPluginError("Not valid jdk installed")
+        raise cocos.CCPluginError(MultiLanguage.get_string('COMPILE_ERROR_NO_VALID_JDK'),
+                                  cocos.CCPluginError.ERROR_TOOLS_NOT_FOUND)
 
     return jdk_version
 
@@ -38,7 +41,10 @@ def gen_buildxml(project_dir, project_json, output_dir, build_opts):
     # get real publish dir
     publish_dir = output_dir
     # get tools dir
-    tools_dir = os.path.dirname(__file__)
+    if getattr(sys, 'frozen', None):
+        tools_dir = os.path.realpath(os.path.dirname(sys.executable))
+    else:
+        tools_dir = os.path.realpath(os.path.dirname(__file__))
 
     # download the binary files
     compiler_1_6 = os.path.join(tools_dir, "bin", "compiler-1.6.jar")

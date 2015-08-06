@@ -25,6 +25,36 @@
 #include "UIScale9SpriteTest.h"
 #include "testResource.h"
 
+USING_NS_CC;
+using namespace cocos2d::ui;
+
+UIScale9SpriteTests::UIScale9SpriteTests()
+{
+    ADD_TEST_CASE(UIScale9SpriteTest);
+    ADD_TEST_CASE(UIScale9SpriteHierarchialTest);
+    ADD_TEST_CASE(UIScale9SpriteTouchTest);
+    ADD_TEST_CASE(UIS9BatchNodeBasic);
+    ADD_TEST_CASE(UIS9FrameNameSpriteSheet);
+    ADD_TEST_CASE(UIS9FrameNameSpriteSheetRotated);
+    ADD_TEST_CASE(UIS9FrameNameSpriteSheetCropped);
+    ADD_TEST_CASE(UIS9FrameNameSpriteSheetCroppedRotated);
+    ADD_TEST_CASE(UIS9BatchNodeScaledNoInsets);
+    ADD_TEST_CASE(UIS9FrameNameSpriteSheetScaledNoInsets);
+    ADD_TEST_CASE(UIS9FrameNameSpriteSheetRotatedScaledNoInsets);
+    ADD_TEST_CASE(UIS9BatchNodeScaleWithCapInsets);
+    ADD_TEST_CASE(UIS9FrameNameSpriteSheetInsets);
+    ADD_TEST_CASE(UIS9FrameNameSpriteSheetInsetsScaled);
+    ADD_TEST_CASE(UIS9FrameNameSpriteSheetRotatedInsets);
+    ADD_TEST_CASE(UIS9_TexturePacker);
+    ADD_TEST_CASE(UIS9FrameNameSpriteSheetRotatedInsetsScaled);
+    ADD_TEST_CASE(UIS9FrameNameSpriteSheetRotatedSetCapInsetLater);
+    ADD_TEST_CASE(UIS9CascadeOpacityAndColor);
+    ADD_TEST_CASE(UIS9ZOrder);
+    ADD_TEST_CASE(UIS9Flip);
+    ADD_TEST_CASE(UIS9ChangeAnchorPoint);
+    ADD_TEST_CASE(UIS9NinePatchTest);
+}
+
 // UIScale9SpriteTest
 UIScale9SpriteTest::UIScale9SpriteTest()
 {
@@ -44,13 +74,14 @@ bool UIScale9SpriteTest::init()
         auto moveTo = MoveBy::create(1.0, Vec2(30,0));
         auto moveBack = moveTo->reverse();
         auto rotateBy = RotateBy::create(1.0, 180);
-        auto action = Sequence::create(moveTo,moveBack, rotateBy, NULL);
+        auto scaleBy = ScaleTo::create(1.0, -2.0);
+        auto action = Sequence::create(moveTo,moveBack, rotateBy,scaleBy, NULL);
 
         
         Sprite *normalSprite1 = Sprite::create("cocosui/animationbuttonnormal.png");
         normalSprite1->setPosition(100, 270);
-//        normalSprite1->setAnchorPoint(Vec2(0.5,0.5));
-//        normalSprite1->setContentSize(Size(100,100));
+        normalSprite1->setFlippedY(true);
+        
 
         this->addChild(normalSprite1);
         normalSprite1->runAction((FiniteTimeAction*)action->clone());
@@ -107,7 +138,8 @@ bool UIScale9SpriteHierarchialTest::init()
         auto moveBack = moveTo->reverse();
         auto rotateBy = RotateBy::create(1.0f, 180);
         auto fadeOut = FadeOut::create(2.0f);
-        auto action = Sequence::create(moveTo,moveBack, rotateBy,fadeOut, NULL);
+        auto scaleTo = ScaleTo::create(1.0, 2.0);
+        auto action = Sequence::create(moveTo,moveBack, rotateBy,fadeOut,scaleTo, NULL);
         
         Sprite *normalSprite1 = Sprite::create("cocosui/animationbuttonnormal.png");
         normalSprite1->setPosition(100, 270);
@@ -135,6 +167,7 @@ bool UIScale9SpriteHierarchialTest::init()
         cocos2d::ui::Scale9Sprite *sp2 = ui::Scale9Sprite::create("cocosui/animationbuttonnormal.png");
         sp2->setPreferredSize(sp1->getContentSize() * 1.2f);
         sp2->setColor(Color3B::GREEN);
+        sp2->setFlippedX(true);
         sp2->setContentSize(Size(100,100));
         
         sp1->addChild(sp2);
@@ -163,15 +196,13 @@ bool UIScale9SpriteTouchTest::init()
         
         auto containerForSprite1 = Node::create();
         auto sprite1 = cocos2d::ui::Scale9Sprite::create("Images/CyanSquare.png");
-//        sprite1->setScale9Enabled(false);
         sprite1->setPosition(origin+Vec2(size.width/2, size.height/2) + Vec2(-80, 80));
         containerForSprite1->addChild(sprite1);
         addChild(containerForSprite1, 10);
         
         auto sprite2 = ui::Scale9Sprite::create("Images/MagentaSquare.png");
         sprite2->setPosition(origin+Vec2(size.width/2, size.height/2));
-//        sprite2->setCascadeOpacityEnabled(false);
-//        sprite2->setScale9Enabled(false);
+
 
         addChild(sprite2, 20);
         
@@ -179,7 +210,6 @@ bool UIScale9SpriteTouchTest::init()
         sprite3->setPosition(Vec2(0, 0));
         sprite3->setCascadeOpacityEnabled(false);
         sprite2->addChild(sprite3, 1);
-//        sprite3->setScale9Enabled(false);
 
         
         // Make sprite1 touchable
@@ -647,6 +677,9 @@ bool UIS9Flip::init()
         float x = winSize.width / 2;
         float y = 0 + (winSize.height / 2);
         
+        auto statusLabel = Label::createWithSystemFont("Scale9Enabled", "Arial", 10);
+        statusLabel->setPosition(Vec2(x, winSize.height - statusLabel->getContentSize().height - 40));
+        this->addChild(statusLabel);
         
         auto normalSprite = ui::Scale9Sprite::createWithSpriteFrameName("blocks9r.png");
         
@@ -654,7 +687,7 @@ bool UIS9Flip::init()
         this->addChild(normalSprite);
         
         
-        auto normalLabel = Label::createWithSystemFont("Normal Sprite","Airal",10);
+        auto normalLabel = Label::createWithSystemFont("Normal Sprite","Arial",10);
         normalLabel->setPosition(normalSprite->getPosition() + Vec2(0, normalSprite->getContentSize().height/2 + 10));
         this->addChild(normalLabel);
         
@@ -663,11 +696,11 @@ bool UIS9Flip::init()
         auto flipXSprite = ui::Scale9Sprite::createWithSpriteFrameName("blocks9r.png");
         
         flipXSprite->setPosition(Vec2(x - 120, y ));
+        flipXSprite->setScale(1.2f);
         this->addChild(flipXSprite);
+        flipXSprite->setFlippedX(false);
         
-        flipXSprite->setFlippedX(true);
-        
-        auto flipXLabel = Label::createWithSystemFont("Sprite FlipX","Airal",10);
+        auto flipXLabel = Label::createWithSystemFont("sprite is not flipped!","Arial",10);
         flipXLabel->setPosition(flipXSprite->getPosition() + Vec2(0, flipXSprite->getContentSize().height/2 + 10));
         this->addChild(flipXLabel);
         
@@ -677,11 +710,79 @@ bool UIS9Flip::init()
         flipYSprite->setPosition(Vec2(x + 120, y));
         this->addChild(flipYSprite);
         
+        flipYSprite->setScale(0.8f);
         flipYSprite->setFlippedY(true);
         
-        auto flipYLabel = Label::createWithSystemFont("Sprite FlipY","Airal",10);
+        auto flipYLabel = Label::createWithSystemFont("sprite is flipped!","Arial",10);
         flipYLabel->setPosition(flipYSprite->getPosition() + Vec2(0, flipYSprite->getContentSize().height/2 + 10));
         this->addChild(flipYLabel);
+        
+        
+        auto toggleFlipXButton = Button::create();
+        toggleFlipXButton->setTitleText("Toggle FlipX");
+        toggleFlipXButton->setPosition(flipXSprite->getPosition() + Vec2(0, - 20 - flipXSprite->getContentSize().height/2));
+        toggleFlipXButton->addClickEventListener([=](Ref*){
+            flipXSprite->setFlippedX(! flipXSprite->isFlippedX());
+            if (flipXSprite->isFlippedX()) {
+                flipXLabel->setString("sprite is flipped!");
+            }
+            else{
+                flipXLabel->setString("sprite is not flipped!");
+            }
+        });
+        this->addChild(toggleFlipXButton);
+        
+        auto toggleFlipYButton = Button::create();
+        toggleFlipYButton->setTitleText("Toggle FlipY");
+        toggleFlipYButton->setPosition(flipYSprite->getPosition() + Vec2(0, -20 - flipYSprite->getContentSize().height/2));
+        toggleFlipYButton->addClickEventListener([=](Ref*){
+            flipYSprite->setFlippedY(!flipYSprite->isFlippedY());
+            if (flipYSprite->isFlippedY()) {
+                flipYLabel->setString("sprite is flipped!");
+            }
+            else{
+                flipYLabel->setString("sprpite is not flipped!");
+            }
+        });
+        this->addChild(toggleFlipYButton);
+        
+        auto toggleScale9Button = Button::create();
+        toggleScale9Button->setTitleText("Toggle Scale9");
+        toggleScale9Button->setPosition(normalSprite->getPosition() + Vec2(0, -20 - normalSprite->getContentSize().height/2));
+        toggleScale9Button->addClickEventListener([=](Ref*){
+            flipXSprite->setScale9Enabled(!flipXSprite->isScale9Enabled());
+            flipYSprite->setScale9Enabled(!flipYSprite->isScale9Enabled());
+            if (flipXSprite->isScale9Enabled()) {
+                statusLabel->setString("Scale9Enabled");
+            }else{
+                statusLabel->setString("Scale9Disabled");
+            }
+            
+            CCLOG("scaleX = %f", flipXSprite->getScaleX());
+            CCLOG("scaleY = %f", flipYSprite->getScale());
+            if (flipXSprite->isFlippedX()) {
+                CCLOG("xxxxxxx");
+            }
+            if (flipYSprite->isFlippedY()) {
+                CCLOG("YYYYYY");
+            }
+            
+            if (flipXSprite->isFlippedX()) {
+                flipXLabel->setString("sprite is flipped!");
+            }
+            else{
+                flipXLabel->setString("sprite is not flipped!");
+            }
+            
+            if (flipYSprite->isFlippedY()) {
+                flipYLabel->setString("sprite is flipped!");
+            }
+            else{
+                flipYLabel->setString("sprpite is not flipped!");
+            }
+            
+        });
+        this->addChild(toggleScale9Button);
         
         return true;
     }
@@ -747,7 +848,54 @@ bool UIS9ChangeAnchorPoint::init()
                                        });
         this->addChild(button2);
         
+
+        return true;
+    }
+    return false;
+}
+
+bool UIS9NinePatchTest::init()
+{
+    if (UIScene::init()) {
+        SpriteFrameCache::getInstance()->addSpriteFramesWithFile("cocosui/android9patch.plist");
+
+        auto winSize = Director::getInstance()->getWinSize();
+        float x = winSize.width / 2;
+        float y = 0 + (winSize.height / 2 + 50);
+
+        auto preferedSize = Size(99,99);
+
+        //9-patch sprite with filename
+        auto playerSprite = ui::Scale9Sprite::create("cocosui/player.9.png");
+        playerSprite->setPosition(x, y);
+        playerSprite->setContentSize(preferedSize);
+        auto capInsets = playerSprite->getCapInsets();
+        CCLOG("player sprite capInset = %f, %f %f, %f", capInsets.origin.x,
+              capInsets.origin.y, capInsets.size.width, capInsets.size.height);
+        this->addChild(playerSprite);
+
+        auto animationBtnSprite = ui::Scale9Sprite::createWithSpriteFrameName("animationbuttonpressed.png");
+        animationBtnSprite->setPosition(x-100, y-100);
+        capInsets = animationBtnSprite->getCapInsets();
+        CCLOG("animationBtnSprite capInset = %f, %f %f, %f", capInsets.origin.x,
+              capInsets.origin.y, capInsets.size.width, capInsets.size.height);
+        this->addChild(animationBtnSprite);
         
+        
+        auto monsterSprite = ui::Scale9Sprite::createWithSpriteFrameName("monster.9.png");
+        monsterSprite->setPosition(x+100, y-100);
+        capInsets = monsterSprite->getCapInsets();
+        monsterSprite->setContentSize(preferedSize);
+        CCLOG("monsterSprite capInset = %f, %f %f, %f", capInsets.origin.x,
+              capInsets.origin.y, capInsets.size.width, capInsets.size.height);
+        this->addChild(monsterSprite);
+
+        auto spriteFrame = SpriteFrameCache::getInstance()->getSpriteFrameByName("buttonnormal.9.png");
+        auto buttonScale9Sprite = Scale9Sprite::createWithSpriteFrame(spriteFrame);
+        buttonScale9Sprite->setContentSize(Size(150,80));
+        buttonScale9Sprite->setPosition(Vec2(100,200));
+        this->addChild(buttonScale9Sprite);
+
         return true;
     }
     return false;

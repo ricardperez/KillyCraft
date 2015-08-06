@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)pch.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)HelloTriangleRenderer.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)OpenGLES.h" />
+    <CLCompile Include="$(MSBuildThisFileDirectory)App.xaml.cpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)App.xaml.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\ActionManagerTest\ActionManagerTest.h">
       <Filter>Classes\ActionManagerTest</Filter>
     </ClInclude>
@@ -14,9 +13,6 @@
       <Filter>Classes</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\controller.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\testBasic.h">
       <Filter>Classes</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\testResource.h">
@@ -748,11 +744,66 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\ExtensionsTest\AssetsManagerExTest\AssetsManagerExTest.h">
       <Filter>Classes\ExtensionsTest\AssetsManagerExTest</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\cocos\platform\win8.1-universal\OpenGLESPage.xaml.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\cocos\platform\win8.1-universal\Cocos2dRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\cocos\platform\win8.1-universal\OpenGLES.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\cocos\platform\win8.1-universal\pch.h" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\UITest\CocoStudioGUITest\UITextFieldTest\UITextFieldTest_Editor.cpp">
+      <Filter>Classes\UITest\CocostudioGUISceneTest\UITextFieldTest</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\PerformanceTest\PerformanceMathTest.cpp">
+      <Filter>Classes\PerformanceTest</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\UITest\CocoStudioGUITest\CustomTest\CustomWidgetCallbackBindTest\CustomRootNode.cpp">
+      <Filter>Classes\UITest\CocostudioGUISceneTest\CustomTest\CustomWidgetCallbackBindTest</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\UITest\CocoStudioGUITest\CustomTest\CustomWidgetCallbackBindTest\CustomRootNodeReader.cpp">
+      <Filter>Classes\UITest\CocostudioGUISceneTest\CustomTest\CustomWidgetCallbackBindTest</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\UITest\CocoStudioGUITest\CustomTest\CustomWidgetCallbackBindTest\CustomWidgetCallbackBindTest.cpp">
+      <Filter>Classes\UITest\CocostudioGUISceneTest\CustomTest\CustomWidgetCallbackBindTest</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\AllocatorTest\AllocatorTest.cpp">
+      <Filter>Classes\AllocatorTest</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Particle3DTest\Particle3DTest.cpp">
+      <Filter>Classes\Particle3DTest</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\CocosStudio3DTest\CocosStudio3DTest.cpp">
+      <Filter>Classes\CocosStudio3DTest</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\PerformanceTest\PerformanceParticle3DTest.cpp">
+      <Filter>Classes\PerformanceTest</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\TerrainTest\TerrainTest.cpp">
+      <Filter>Classes\TerrainTest</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\SpritePolygonTest\SpritePolygonTest.cpp">
+      <Filter>Classes\SpritePolygonTest</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\MaterialSystemTest\MaterialSystemTest.cpp">
+      <Filter>Classes\MaterialSystemTest</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Physics3DTest\Physics3DTest.cpp">
+      <Filter>Classes\Physics3DTest</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\NewAudioEngineTest\NewAudioEngineTest.cpp">
+      <Filter>Classes\NewAudioEngineTest</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Scene3DTest\Scene3DTest.cpp">
+      <Filter>Classes\Scene3DTest</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\NavMeshTest\NavMeshTest.cpp">
+      <Filter>Classes\NavMeshTest</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\BugsTest\Bug-CCDrawNode.cpp">
+      <Filter>Classes\BugsTest</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\BugsTest\Bug-PageViewLayout.cpp">
+      <Filter>Classes\BugsTest</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)pch.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)HelloTriangleRenderer.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)OpenGLES.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\ActionManagerTest\ActionManagerTest.cpp">
       <Filter>Classes\ActionManagerTest</Filter>
     </ClCompile>
@@ -1272,9 +1323,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\UITest\CocoStudioGUITest\UITextFieldTest\UITextFieldTest.cpp">
       <Filter>Classes\UITest\CocostudioGUISceneTest\UITextFieldTest</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\UITest\CocoStudioGUITest\UITextFieldTest\UITextFieldTest_Editor.cpp">
-      <Filter>Classes\UITest\CocostudioGUISceneTest\UITextFieldTest</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\UITest\CocoStudioGUITest\UITextTest\UITextTest.cpp">
       <Filter>Classes\UITest\CocostudioGUISceneTest\UITextTest</Filter>
     </ClCompile>
@@ -1293,15 +1341,13 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\ExtensionsTest\AssetsManagerExTest\AssetsManagerExTest.cpp">
       <Filter>Classes\ExtensionsTest\AssetsManagerExTest</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\cocos\platform\win8.1-universal\OpenGLESPage.xaml.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\cocos\platform\win8.1-universal\Cocos2dRenderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\cocos\platform\win8.1-universal\OpenGLES.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\cocos\platform\win8.1-universal\pch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="$(MSBuildThisFileDirectory)App.xaml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)App.xaml.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)App.xaml.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
@@ -1646,5 +1692,92 @@
     <Filter Include="Classes\ExtensionsTest\AssetsManagerExTest">
       <UniqueIdentifier>{2c5dd382-6534-4369-b33c-6b18995e6576}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\UITest\CocostudioGUISceneTest\CustomTest\CustomWidgetCallbackBindTest">
+      <UniqueIdentifier>{f93dc8a9-3901-446e-bb08-5e51a31a470c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\AllocatorTest">
+      <UniqueIdentifier>{2840e615-0b65-4bd3-87b5-b1b36b5e4a3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Particle3DTest">
+      <UniqueIdentifier>{65d0f12d-321a-41f7-99af-de609183f206}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\CocosStudio3DTest">
+      <UniqueIdentifier>{65d0104d-321a-41f7-99af-de609183f206}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\TerrainTest">
+      <UniqueIdentifier>{56386912-b41e-4559-bd2c-b256434179d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\SpritePolygonTest">
+      <UniqueIdentifier>{ee1c5d87-3c80-4a10-892e-985fcd93a6c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\MaterialSystemTest">
+      <UniqueIdentifier>{9113774a-5e49-433b-b851-11533bc178ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Physics3DTest">
+      <UniqueIdentifier>{dbeed6f6-158b-4f99-8196-61616f724ae1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Scene3DTest">
+      <UniqueIdentifier>{77f319c0-fd62-4505-b872-a2fd52375636}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\NavMeshTest">
+      <UniqueIdentifier>{63894b40-d29e-4744-8cac-bd3d12916fe3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)..\..\..\..\cocos\platform\win8.1-universal\OpenGLESPage.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\testBasic.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\PerformanceTest\PerformanceMathTest.h">
+      <Filter>Classes\PerformanceTest</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\UITest\CocoStudioGUITest\CustomTest\CustomWidgetCallbackBindTest\CustomRootNode.h">
+      <Filter>Classes\UITest\CocostudioGUISceneTest\CustomTest\CustomWidgetCallbackBindTest</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\UITest\CocoStudioGUITest\CustomTest\CustomWidgetCallbackBindTest\CustomRootNodeReader.h">
+      <Filter>Classes\UITest\CocostudioGUISceneTest\CustomTest\CustomWidgetCallbackBindTest</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\UITest\CocoStudioGUITest\CustomTest\CustomWidgetCallbackBindTest\CustomWidgetCallbackBindTest.h">
+      <Filter>Classes\UITest\CocostudioGUISceneTest\CustomTest\CustomWidgetCallbackBindTest</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\AllocatorTest\AllocatorTest.h">
+      <Filter>Classes\AllocatorTest</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Particle3DTest\Particle3DTest.h">
+      <Filter>Classes\Particle3DTest</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\CocosStudio3DTest\CocosStudio3DTest.h">
+      <Filter>Classes\CocosStudio3DTest</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\PerformanceTest\PerformanceParticle3DTest.h">
+      <Filter>Classes\PerformanceTest</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\TerrainTest\TerrainTest.h">
+      <Filter>Classes\TerrainTest</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\SpritePolygonTest\SpritePolygonTest.h">
+      <Filter>Classes\SpritePolygonTest</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\MaterialSystemTest\MaterialSystemTest.h">
+      <Filter>Classes\MaterialSystemTest</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Physics3DTest\Physics3DTest.h">
+      <Filter>Classes\Physics3DTest</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\NewAudioEngineTest\NewAudioEngineTest.h">
+      <Filter>Classes\NewAudioEngineTest</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Scene3DTest\Scene3DTest.h">
+      <Filter>Classes\Scene3DTest</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\NavMeshTest\NavMeshTest.h">
+      <Filter>Classes\NavMeshTest</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\BugsTest\Bug-CCDrawNode.h">
+      <Filter>Classes\BugsTest</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\BugsTest\Bug-PageViewLayout.h">
+      <Filter>Classes\BugsTest</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

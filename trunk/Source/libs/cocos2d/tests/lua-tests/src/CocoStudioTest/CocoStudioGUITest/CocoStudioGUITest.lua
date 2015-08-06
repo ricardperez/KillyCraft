@@ -29,9 +29,6 @@ function UIScene:init()
 
     self._sceneTitle = root:getChildByName("UItest")
 
-    local back_label = root:getChildByName("back")--getWidgetByName
-    back_label:setVisible(false)
-
     local function previousCallback(sender, eventType)
         if eventType == ccui.TouchEventType.ended then
             cc.Director:getInstance():replaceScene(guiSceneManager.previousUIScene())
@@ -711,9 +708,6 @@ function UILoadingBarLeftTest:initExtend()
     local root = self._uiLayer:getChildByTag(81)
     self._sceneTitle = root:getChildByName("UItest")
 
-    local back_label = root:getChildByName("back")
-    back_label:setVisible(false)
-
     local widgetSize = self._widget:getContentSize()
         
     local alert = ccui.Text:create()
@@ -836,9 +830,6 @@ function UILoadingBarRightTest:initExtend()
 
     local root = self._uiLayer:getChildByTag(81)
     self._sceneTitle = root:getChildByName("UItest")
-
-    local back_label = root:getChildByName("back")
-    back_label:setVisible(false)
 
     local widgetSize = self._widget:getContentSize()
         
@@ -963,9 +954,6 @@ function UILoadingBarLeftScale9Test:initExtend()
 
     local root = self._uiLayer:getChildByTag(81)
     self._sceneTitle = root:getChildByName("UItest")
-
-    local back_label = root:getChildByName("back")
-    back_label:setVisible(false)
 
     local widgetSize = self._widget:getContentSize()
         
@@ -1093,9 +1081,6 @@ function UILoadingBarRightScale9Test:initExtend()
     local root = self._uiLayer:getChildByTag(81)
     self._sceneTitle = root:getChildByName("UItest")
 
-    local back_label = root:getChildByName("back")
-    back_label:setVisible(false)
-
     local widgetSize = self._widget:getContentSize()
         
     local alert = ccui.Text:create()
@@ -1113,7 +1098,7 @@ function UILoadingBarRightScale9Test:initExtend()
     loadingBar:setScale9Enabled(true)
     loadingBar:setCapInsets(cc.rect(0, 0, 0, 0))
     loadingBar:setContentSize(cc.size(300, 30))
-    loadingBar:setDirection(ccui.LoadingBarDirection.LEFT)
+    loadingBar:setDirection(ccui.LoadingBarDirection.RIGHT)
     loadingBar:setPercent(0)
         
     loadingBar:setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0 + loadingBar:getContentSize().height / 4.0))
@@ -1349,7 +1334,8 @@ function UITextAreaTest:initExtend()
     self._uiLayer:addChild(alert)
         
     local textArea = ccui.Text:create()
-    textArea:setTextAreaSize(cc.size(280, 150))
+    textArea:ignoreContentAdaptWithSize(false)
+    textArea:setContentSize(cc.size(280, 150))
     textArea:setTextHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER)
     textArea:setString("TextArea widget can line wrap")
     textArea:setFontName("AmericanTypewriter")
@@ -2096,6 +2082,222 @@ end
 function UIPanelLayoutLinearHorizontalTest.create()
     local scene = cc.Scene:create()
     local layer = UIPanelLayoutLinearHorizontalTest.extend(cc.Layer:create())
+    layer:initExtend()
+    scene:addChild(layer)
+    return scene  
+end
+
+local UILayoutComponentBerthTest = class("UILayoutComponentBerthTest",UIScene)
+UILayoutComponentBerthTest._displayValueLabel = nil
+
+function UILayoutComponentBerthTest.extend(target)
+    local t = tolua.getpeer(target)
+    if not t then
+        t = {}
+        tolua.setpeer(target, t)
+    end
+    setmetatable(t, UILayoutComponentBerthTest)
+    return target
+end
+
+function UILayoutComponentBerthTest:initExtend()
+
+    self:init()
+
+    local widgetSize = self._widget:getContentSize()
+
+    self._displayValueLabel = ccui.Text:create()
+    self._displayValueLabel:setString("LayoutComponent Berth Test")
+    self._displayValueLabel:setFontName(font_TextName)
+    self._displayValueLabel:setFontSize(32)
+    self._displayValueLabel:setAnchorPoint(cc.p(0.5, -1))
+    self._displayValueLabel:setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0 + self._displayValueLabel:getContentSize().height * 1.5))
+    self._uiLayer:addChild(self._displayValueLabel)
+
+    local baseLayer = cc.LayerColor:create()
+    baseLayer:setColor(cc.c3b(50, 100, 0))
+    baseLayer:setOpacity(100)
+    baseLayer:setContentSize(cc.size(200, 200))
+    self._uiLayer:addChild(baseLayer)
+
+    button = ccui.Button:create("cocosui/animationbuttonnormal.png")
+    print(string.format("content size should be greater than 0:  width = %f, height = %f", button:getContentSize().width,
+        button:getContentSize().height))
+    button:setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0))
+
+    button:addTouchEventListener(function(sender, eventType)
+        
+        if eventType == ccui.TouchEventType.began then
+            
+        elseif eventType == ccui.TouchEventType.moved then
+            
+        elseif eventType == ccui.TouchEventType.ended then
+            local touchWidgetSize = self._widget:getContentSize()
+            local layerSize = baseLayer:getContentSize()
+            if (layerSize.width == touchWidgetSize.width and layerSize.height == touchWidgetSize.height) then
+                baseLayer:setContentSize(cc.size(200, 200))
+            else
+                baseLayer:setContentSize(widgetSize)
+            end
+            ccui.Helper:doLayout(baseLayer)
+        else
+            
+        end
+    end)
+    button:setZoomScale(0.4)
+    button:setPressedActionEnabled(true)
+    self._uiLayer:addChild(button)
+
+
+    local leftTopSprite = cc.Sprite:create("cocosui/CloseSelected.png")
+    local leftTop = ccui.LayoutComponent:bindLayoutComponent(leftTopSprite)
+    leftTop:setHorizontalEdge(ccui.LayoutComponent.HorizontalEdge.Left)
+    leftTop:setVerticalEdge(ccui.LayoutComponent.VerticalEdge.Top)
+    baseLayer:addChild(leftTopSprite)
+
+    local leftBottomSprite = cc.Sprite:create("cocosui/CloseSelected.png")
+    local leftBottom = ccui.LayoutComponent:bindLayoutComponent(leftBottomSprite)
+    leftBottom:setHorizontalEdge(ccui.LayoutComponent.HorizontalEdge.Left)
+    leftBottom:setVerticalEdge(ccui.LayoutComponent.VerticalEdge.Bottom)
+    baseLayer:addChild(leftBottomSprite)
+
+    local rightTopSprite = cc.Sprite:create("cocosui/CloseSelected.png")
+    local rightTop = ccui.LayoutComponent:bindLayoutComponent(rightTopSprite)
+    rightTop:setHorizontalEdge(ccui.LayoutComponent.HorizontalEdge.Right)
+    rightTop:setVerticalEdge(ccui.LayoutComponent.VerticalEdge.Top)
+    baseLayer:addChild(rightTopSprite)
+
+    local rightBottomSprite = cc.Sprite:create("cocosui/CloseSelected.png")
+    local rightBottom = ccui.LayoutComponent:bindLayoutComponent(rightBottomSprite)
+    rightBottom:setHorizontalEdge(ccui.LayoutComponent.HorizontalEdge.Right)
+    rightBottom:setVerticalEdge(ccui.LayoutComponent.VerticalEdge.Bottom)
+    baseLayer:addChild(rightBottomSprite)
+
+    ccui.Helper:doLayout(baseLayer)
+end
+
+function UILayoutComponentBerthTest.create()
+    local scene = cc.Scene:create()
+    local layer = UILayoutComponentBerthTest.extend(cc.Layer:create())
+    layer:initExtend()
+    scene:addChild(layer)
+    return scene  
+end
+
+local UILayoutComponentBerthStretchTest = class("UILayoutComponentBerthStretchTest",UIScene)
+UILayoutComponentBerthStretchTest._displayValueLabel = nil
+
+function UILayoutComponentBerthStretchTest.extend(target)
+    local t = tolua.getpeer(target)
+    if not t then
+        t = {}
+        tolua.setpeer(target, t)
+    end
+    setmetatable(t, UILayoutComponentBerthStretchTest)
+    return target
+end
+
+function UILayoutComponentBerthStretchTest:initExtend()
+
+    self:init()
+
+    local widgetSize = self._widget:getContentSize()
+    
+    self._displayValueLabel = ccui.Text:create()
+    self._displayValueLabel:setString("LayoutComponent Berth Stretch Test")
+    self._displayValueLabel:setFontName(font_TextName)
+    self._displayValueLabel:setFontSize(32)
+    self._displayValueLabel:setAnchorPoint(cc.p(0.5, -1))
+    self._displayValueLabel:setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0 + self._displayValueLabel:getContentSize().height * 1.5))
+    self._uiLayer:addChild(self._displayValueLabel)
+
+    local baseLayer = cc.LayerColor:create()
+    baseLayer:setColor(cc.c3b(50, 100, 0))
+    baseLayer:setOpacity(100)
+    baseLayer:setContentSize(cc.size(200, 200))
+    self._uiLayer:addChild(baseLayer)
+
+    button = ccui.Button:create("cocosui/animationbuttonnormal.png")
+    print(string.format("content size should be greater than 0:  width = %f, height = %f", button:getContentSize().width,
+        button:getContentSize().height))
+    button:setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0))
+
+    button:addTouchEventListener(function(sender, eventType)
+        
+        if eventType == ccui.TouchEventType.began then
+            
+        elseif eventType == ccui.TouchEventType.moved then
+            
+        elseif eventType == ccui.TouchEventType.ended then
+            local touchWidgetSize = self._widget:getContentSize()
+            local layerSize = baseLayer:getContentSize()
+            if (layerSize.width == touchWidgetSize.width and layerSize.height == touchWidgetSize.height) then
+                baseLayer:setContentSize(cc.size(200, 200))
+            else
+                baseLayer:setContentSize(widgetSize)
+            end
+            ccui.Helper:doLayout(baseLayer)
+        else
+            
+        end
+    end)
+    button:setZoomScale(0.4)
+    button:setPressedActionEnabled(true)
+    self._uiLayer:addChild(button)
+
+    local leftTopSprite = ccui.ImageView:create("cocosui/CloseSelected.png")
+    leftTopSprite:ignoreContentAdaptWithSize(false)
+    local leftTop = ccui.LayoutComponent:bindLayoutComponent(leftTopSprite)
+    leftTop:setHorizontalEdge(ccui.LayoutComponent.HorizontalEdge.Left)
+    leftTop:setVerticalEdge(ccui.LayoutComponent.VerticalEdge.Top)
+    leftTop:setStretchWidthEnabled(true)
+    leftTop:setStretchHeightEnabled(true)
+    baseLayer:addChild(leftTopSprite)
+    leftTop:setSize(leftTopSprite:getContentSize())
+    leftTop:setLeftMargin(0)
+    leftTop:setTopMargin(0)
+
+    local leftBottomSprite = ccui.ImageView:create("cocosui/CloseSelected.png")
+    leftBottomSprite:ignoreContentAdaptWithSize(false)
+    local leftBottom = ccui.LayoutComponent:bindLayoutComponent(leftBottomSprite)
+    leftBottom:setHorizontalEdge(ccui.LayoutComponent.HorizontalEdge.Left)
+    leftBottom:setVerticalEdge(ccui.LayoutComponent.VerticalEdge.Bottom)
+    leftBottom:setStretchWidthEnabled(true)
+    leftBottom:setStretchHeightEnabled(true)
+    baseLayer:addChild(leftBottomSprite)
+    leftBottom:setSize(leftBottomSprite:getContentSize())
+    leftBottom:setLeftMargin(0)
+    leftBottom:setBottomMargin(0)
+
+    local rightTopSprite = ccui.ImageView:create("cocosui/CloseSelected.png")
+    rightTopSprite:ignoreContentAdaptWithSize(false)
+    local rightTop = ccui.LayoutComponent:bindLayoutComponent(rightTopSprite)
+    rightTop:setHorizontalEdge(ccui.LayoutComponent.HorizontalEdge.Right)
+    rightTop:setVerticalEdge(ccui.LayoutComponent.VerticalEdge.Top)
+    rightTop:setStretchWidthEnabled(true)
+    rightTop:setStretchHeightEnabled(true)
+    baseLayer:addChild(rightTopSprite)
+    rightTop:setSize(rightTopSprite:getContentSize())
+    rightTop:setTopMargin(0)
+    rightTop:setRightMargin(0)
+
+    local rightBottomSprite = ccui.ImageView:create("cocosui/CloseSelected.png")
+    rightBottomSprite:ignoreContentAdaptWithSize(false)
+    local rightBottom = ccui.LayoutComponent:bindLayoutComponent(rightBottomSprite)
+    rightBottom:setHorizontalEdge(ccui.LayoutComponent.HorizontalEdge.Right)
+    rightBottom:setVerticalEdge(ccui.LayoutComponent.VerticalEdge.Bottom)
+    rightBottom:setStretchWidthEnabled(true)
+    rightBottom:setStretchHeightEnabled(true)
+    baseLayer:addChild(rightBottomSprite)
+    rightBottom:setSize(rightBottomSprite:getContentSize())
+    rightBottom:setBottomMargin(0)
+    rightBottom:setRightMargin(0)
+    ccui.Helper:doLayout(baseLayer)
+end
+
+function UILayoutComponentBerthStretchTest.create()
+    local scene = cc.Scene:create()
+    local layer = UILayoutComponentBerthStretchTest.extend(cc.Layer:create())
     layer:initExtend()
     scene:addChild(layer)
     return scene  
@@ -3078,7 +3280,7 @@ function UIFocusTestHorizontal:initExtend()
         self._horizontalLayout:addChild(imageView)
     end
 
-    self._loopText = ccui.Text:create("loop enabled", "Airal", 20)
+    self._loopText = ccui.Text:create("loop enabled", "Arial", 20)
     self._loopText:setPosition(cc.p(winSize.width/2, winSize.height - 50))
     self._loopText:setColor(cc.c3b(255, 0 ,0))
     self:addChild(self._loopText)
@@ -3228,7 +3430,7 @@ function UIFocusTestVertical:initExtend()
         self._verticalLayout:addChild(imageView)
     end
 
-    self._loopText = ccui.Text:create("loop enabled", "Airal", 20)
+    self._loopText = ccui.Text:create("loop enabled", "Arial", 20)
     self._loopText:setPosition(cc.p(winSize.width/2, winSize.height - 50))
     self._loopText:setColor(cc.c3b(255, 0 ,0))
     self:addChild(self._loopText)
@@ -3410,7 +3612,7 @@ function UIFocusTestNestedLayout1:initExtend()
         innerVBox:addChild(imageView)
     end
 
-    self._loopText = ccui.Text:create("loop enabled", "Airal", 20)
+    self._loopText = ccui.Text:create("loop enabled", "Arial", 20)
     self._loopText:setPosition(cc.p(winSize.width/2, winSize.height - 50))
     self._loopText:setColor(cc.c3b(255, 0 ,0))
     self:addChild(self._loopText)
@@ -3592,7 +3794,7 @@ function UIFocusTestNestedLayout2:initExtend()
         innerVBox:addChild(imageView)
     end
 
-    self._loopText = ccui.Text:create("loop enabled", "Airal", 20)
+    self._loopText = ccui.Text:create("loop enabled", "Arial", 20)
     self._loopText:setPosition(cc.p(winSize.width/2, winSize.height - 50))
     self._loopText:setColor(cc.c3b(255, 0 ,0))
     self:addChild(self._loopText)
@@ -3783,7 +3985,7 @@ function UIFocusTestNestedLayout3:initExtend()
 
     self._verticalLayout:addChild(bottomHBox)
 
-    self._loopText = ccui.Text:create("loop enabled", "Airal", 20)
+    self._loopText = ccui.Text:create("loop enabled", "Arial", 20)
     self._loopText:setPosition(cc.p(winSize.width/2, winSize.height - 50))
     self._loopText:setColor(cc.c3b(255, 0 ,0))
     self:addChild(self._loopText)
@@ -3810,6 +4012,78 @@ end
 function UIFocusTestNestedLayout3.create()
     local scene = cc.Scene:create()
     local layer = UIFocusTestNestedLayout3.extend(cc.Layer:create())
+    layer:initExtend()
+    scene:addChild(layer)
+    return scene   
+end
+
+local UIS9NinePatchTest = class("UIS9NinePatchTest",UIScene)
+
+function UIS9NinePatchTest.extend(target)
+    local t = tolua.getpeer(target)
+    if not t then
+        t = {}
+        tolua.setpeer(target, t)
+    end
+    setmetatable(t, UIS9NinePatchTest)
+    return target
+end
+
+function UIS9NinePatchTest:initExtend()
+    self:init()
+    
+    local widgetSize = self._widget:getContentSize()
+    self._displayValueLabel = ccui.Text:create()
+    self._displayValueLabel:setString("UIS9NinePatchTest")
+    self._displayValueLabel:setFontName(font_TextName)
+    self._displayValueLabel:setFontSize(32)
+    self._displayValueLabel:setAnchorPoint(cc.p(0.5, -1))
+    self._displayValueLabel:setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0 + self._displayValueLabel:getContentSize().height * 1.8))
+    self._uiLayer:addChild(self._displayValueLabel)
+
+    cc.SpriteFrameCache:getInstance():addSpriteFrames("cocosui/android9patch.plist")
+
+    local winSize = cc.Director:getInstance():getWinSize()
+    local x = winSize.width / 2
+    local y = 0 + (winSize.height / 2 + 50)
+
+    local preferedSize = cc.size(99,99)
+
+    --9-patch sprite with filename
+    local playerSprite = ccui.Scale9Sprite:create("cocosui/player.9.png")
+    playerSprite:setPosition(x, y)
+    playerSprite:setContentSize(preferedSize)
+    local capInsets = playerSprite:getCapInsets()
+    print(string.format("player sprite capInset = %f, %f %f, %f", capInsets.x,
+          capInsets.y, capInsets.width, capInsets.height))
+    self:addChild(playerSprite)
+
+    local animationBtnSprite = ccui.Scale9Sprite:createWithSpriteFrameName("animationbuttonpressed.png")
+    animationBtnSprite:setPosition(x-100, y-100)
+    capInsets = animationBtnSprite:getCapInsets()
+    print(string.format("animationBtnSprite capInset = %f, %f %f, %f", capInsets.x,
+          capInsets.y, capInsets.width, capInsets.height))
+    self:addChild(animationBtnSprite)
+    
+    
+    local monsterSprite = ccui.Scale9Sprite:createWithSpriteFrameName("monster.9.png")
+    monsterSprite:setPosition(x+100, y-100)
+    capInsets = monsterSprite:getCapInsets()
+    monsterSprite:setContentSize(preferedSize)
+    print(string.format("monsterSprite capInset = %f, %f %f, %f", capInsets.x,
+          capInsets.y, capInsets.width, capInsets.height))
+    self:addChild(monsterSprite)
+
+    local spriteFrame = cc.SpriteFrameCache:getInstance():getSpriteFrame("buttonnormal.9.png")
+    local buttonScale9Sprite = ccui.Scale9Sprite:createWithSpriteFrame(spriteFrame)
+    buttonScale9Sprite:setContentSize(cc.size(150,80))
+    buttonScale9Sprite:setPosition(cc.p(100,200))
+    self:addChild(buttonScale9Sprite)
+end
+
+function UIS9NinePatchTest.create()
+    local scene = cc.Scene:create()
+    local layer = UIS9NinePatchTest.extend(cc.Layer:create())
     layer:initExtend()
     scene:addChild(layer)
     return scene   
@@ -4049,6 +4323,20 @@ local cocoStudioGuiArray =
     },
 
     {
+        title = "UILayoutComponentBerthTest",
+        func = function()
+            return UILayoutComponentBerthTest.create()
+        end
+    },
+
+    {
+        title = "UILayoutComponentBerthStretchTest",
+        func = function()
+            return UILayoutComponentBerthStretchTest.create()
+        end
+    },
+
+    {
         title = "UIScrollViewVerticalTest",
         func  = function ( )
             return UIScrollViewVerticalTest.create()
@@ -4108,6 +4396,12 @@ local cocoStudioGuiArray =
         title = "UIRichTextTest",
         func  = function()
             return UIRichTextTest.create()
+        end
+    },
+    {
+        title = "UIS9NinePatchTest",
+        func  = function()
+            return UIS9NinePatchTest.create()
         end
     },
 }

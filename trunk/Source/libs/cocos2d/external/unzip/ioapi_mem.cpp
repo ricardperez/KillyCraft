@@ -16,7 +16,7 @@
 
  This file is under the same license as the Unzip tool it is distributed
  with.
-  */
+ */
 
 
 #include <stdio.h>

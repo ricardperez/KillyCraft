@@ -37,6 +37,7 @@ extern "C" {
 
 #include "network/HttpClient.h"
 
+///@cond
 class LuaMinXmlHttpRequest : public cocos2d::Ref
 {
 public:
@@ -94,7 +95,7 @@ public:
     
     void getByteData(unsigned char* byteData);
     
-    inline std::string getDataStr() { return _data.str(); }
+    inline std::string getDataStr() { return _data; }
     
     inline size_t getDataSize() {   return _dataSize; }
     
@@ -111,7 +112,7 @@ private:
     std::string                          _url;
     std::string                          _meth;
     std::string                          _type;
-    std::stringstream                    _data;
+    std::string                          _data;
     size_t                               _dataSize;
     int                                  _readyState;
     int                                  _status;
@@ -129,5 +130,5 @@ private:
 };
 
 TOLUA_API int register_xml_http_request(lua_State* L);
-
+///@endcond
 #endif //#ifndef __COCOS_SCRIPTING_LUA_BINDINGS_LUA_XML_HTTP_REQUEST_H__

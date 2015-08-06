@@ -47,7 +47,10 @@ int ${signature_name}(lua_State* tolua_S)
         #end while
         #if $arg_idx >= 0
         if(!ok)
+        {
+            tolua_error(tolua_S,"invalid arguments in function '${signature_name}'", nullptr);
             return 0;
+        }
         #end if
             #set $arg_list = ", ".join($arg_array)
         #if $ret_type.name != "void"
@@ -67,13 +70,14 @@ int ${signature_name}(lua_State* tolua_S)
         return 1;
         #else
         ${namespaced_class_name}::${func_name}($arg_list);
-        return 0;
+        lua_settop(tolua_S, 1);
+        return 1;
         #end if
     }
         #set $arg_idx = $arg_idx + 1
     #end while
 #end if
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "${generator.scriptname_from_native($namespaced_class_name, $namespace_name)}:${func_name}",argc, ${min_args});
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "${generator.scriptname_from_native($namespaced_class_name, $namespace_name)}:${func_name}",argc, ${min_args});
     return 0;
 \#if COCOS2D_DEBUG >= 1
     tolua_lerror:

@@ -29,6 +29,7 @@
 #include <thread>
 #include <algorithm>
 #include "base/CCConsole.h"
+#include "platform/CCFileUtils.h"
 #include "mpg123.h"
 #include "vorbis/codec.h"
 #include "vorbis/vorbisfile.h"
@@ -51,7 +52,7 @@ AudioCache::AudioCache()
     
 }
 
-AudioCache::AudioCache(AudioCache& cache)
+AudioCache::AudioCache(const AudioCache& cache)
 {
     _pcmData = cache._pcmData;
     _pcmDataSize = cache._pcmDataSize;
@@ -96,8 +97,9 @@ void AudioCache::readDataTask()
      case FileFormat::OGG:
          {
              vf = new OggVorbis_File;
-             if (ov_fopen(_fileFullPath.c_str(), vf)){
-                 log("Input does not appear to be an Ogg bitstream.\n");
+             int openCode;
+             if (openCode = ov_fopen(FileUtils::getInstance()->getSuitableFOpen(_fileFullPath).c_str(), vf)){
+                 log("Input does not appear to be an Ogg bitstream: %s. Code: 0x%x\n", _fileFullPath.c_str(), openCode);
                  goto ExitThread;
              }
 
