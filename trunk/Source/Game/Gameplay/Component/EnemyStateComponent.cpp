@@ -19,22 +19,22 @@ namespace MelonGames
         {
         }
         
-        unsigned int EnemyStateComponent::getLivesCost() const
+        int EnemyStateComponent::getLivesCost() const
         {
             return livesCost;
         }
         
-        unsigned int EnemyStateComponent::getLives() const
+        int EnemyStateComponent::getLives() const
         {
             return lives;
         }
         
-        unsigned int EnemyStateComponent::getScore() const
+        int EnemyStateComponent::getScore() const
         {
             return score;
         }
         
-        void EnemyStateComponent::removeLives(unsigned int nLives)
+        void EnemyStateComponent::removeLives(int nLives)
         {
             if (nLives >= lives)
             {
@@ -44,6 +44,13 @@ namespace MelonGames
             {
                 lives = (lives - nLives);
             }
+            
+            livesChangedSignal.Emit(this);
+        }
+        
+        Gallant::Signal1<EnemyStateComponent*>& EnemyStateComponent::getLivesChangedSignal()
+        {
+            return livesChangedSignal;
         }
     }
 }

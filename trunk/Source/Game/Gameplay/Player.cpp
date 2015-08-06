@@ -32,7 +32,7 @@ namespace MelonGames
 			return gamepad;
 		}
         
-        unsigned int Player::getLives() const
+        int Player::getLives() const
         {
             return lives;
         }
@@ -42,7 +42,7 @@ namespace MelonGames
             return livesChangedSignal;
         }
         
-        unsigned int Player::getScore() const
+        int Player::getScore() const
         {
             return score;
         }
@@ -52,7 +52,7 @@ namespace MelonGames
             return scoreChangedSignal;
         }
         
-        void Player::addLives(unsigned int n)
+        void Player::addLives(int n)
         {
             if (n > 0)
             {
@@ -61,7 +61,7 @@ namespace MelonGames
             }
         }
         
-        void Player::removeLives(unsigned int n)
+        void Player::removeLives(int n)
         {
             if (n > 0)
             {
@@ -77,7 +77,7 @@ namespace MelonGames
             }
         }
         
-        void Player::addScore(unsigned int nPoints)
+        void Player::addScore(int nPoints)
         {
             score += nPoints;
             scoreChangedSignal.Emit(this);

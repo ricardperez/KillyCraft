@@ -10,6 +10,7 @@
 #define __KillyCraft__EnemyStateComponent__
 
 #include "Component.h"
+#include "Signal/Signal.h"
 
 namespace MelonGames
 {
@@ -29,16 +30,20 @@ namespace MelonGames
             
             EnemyStateComponent();
             
-            unsigned int getLivesCost() const;
-            unsigned int getLives() const;
-            unsigned int getScore() const;
+            int getLivesCost() const;
+            int getLives() const;
+            int getScore() const;
             
-            void removeLives(unsigned int nLives);
+            void removeLives(int nLives);
+            
+            Gallant::Signal1<EnemyStateComponent*>& getLivesChangedSignal();
             
         private:
-            unsigned int livesCost;
-            unsigned int lives;
-            unsigned int score;
+            int livesCost;
+            int lives;
+            int score;
+            
+            Gallant::Signal1<EnemyStateComponent*> livesChangedSignal;
         };
     }
 }

@@ -26,24 +26,24 @@ namespace MelonGames
 			
 			Gamepad* getGamepad() const;
             
-            unsigned int getLives() const;
+            int getLives() const;
             Gallant::Signal1<Player*>& getLivesChangedSignal();
             
-            unsigned int getScore() const;
+            int getScore() const;
             Gallant::Signal1<Player*>& getScoreChangedSignal();
             
-            void addLives(unsigned int n);
-            void removeLives(unsigned int n);
+            void addLives(int n);
+            void removeLives(int n);
             
-            void addScore(unsigned int nPoints);
+            void addScore(int nPoints);
             
             void setPlayerObject(MapObject* object);
             MapObject* getPlayerObject() const;
 			
 		private:
 			Gamepad* gamepad;
-            unsigned int lives;
-            unsigned int score;
+            int lives;
+            int score;
             Gallant::Signal1<Player*> livesChangedSignal;
             Gallant::Signal1<Player*> scoreChangedSignal;
             
