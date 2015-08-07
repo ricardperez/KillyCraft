@@ -61,6 +61,7 @@ namespace MelonGames
         void VFXController::showParticleSystem(const std::string& plistName, const cocos2d::Vec2& position, bool animateWithBackground)
         {
             auto particleSystem = cocos2d::ParticleSystemQuad::create(plistName);
+            particleSystem->setPositionType(cocos2d::ParticleSystem::PositionType::RELATIVE);
             particleSystem->setPosition(position);
             particleSystem->setAutoRemoveOnFinish(true);
             map->getView()->getNode()->addChild(particleSystem);
