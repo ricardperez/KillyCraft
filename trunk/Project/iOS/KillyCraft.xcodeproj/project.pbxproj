@@ -3581,8 +3581,9 @@
 					../../Source/libs/cocos2d/external/freetype2/include/ios,
 					../../Source/libs/cocos2d/external/curl/include/ios,
 					../../Source/libs/jsoncpp/include,
-					../../Source/libs/cocos2d/external/freetype2/include/ios/freetype2,
 					../../Source/libs/cocos2d/external/xxhash,
+					../../Source/libs/cocos2d/external/freetype2/include/linux,
+					../../Source/libs/cocos2d/external/freetype2/include/linux/freetype,
 				);
 				INFOPLIST_FILE = KillyCraft/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -3620,8 +3621,9 @@
 					../../Source/libs/cocos2d/external/freetype2/include/ios,
 					../../Source/libs/cocos2d/external/curl/include/ios,
 					../../Source/libs/jsoncpp/include,
-					../../Source/libs/cocos2d/external/freetype2/include/ios/freetype2,
 					../../Source/libs/cocos2d/external/xxhash,
+					../../Source/libs/cocos2d/external/freetype2/include/linux,
+					../../Source/libs/cocos2d/external/freetype2/include/linux/freetype,
 				);
 				INFOPLIST_FILE = KillyCraft/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
