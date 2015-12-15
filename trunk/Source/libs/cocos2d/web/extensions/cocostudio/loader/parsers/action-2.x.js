@@ -24,8 +24,6 @@
 
 (function(load, baseParser){
 
-    var cache = {};
-
     var Parser = baseParser.extend({
 
         getNodeJson: function(json){
@@ -35,8 +33,6 @@
         parseNode: function(json, resourcePath, file){
             if(!json)
                 return null;
-            if(cache[file])
-                return cache[file].clone();
 
             var self = this,
                 action = new ccs.ActionTimeline();
@@ -57,9 +53,7 @@
                     action.addTimeline(frame);
             });
 
-            cache[file] = action;
-            cache[file].retain();
-            return action.clone();
+            return action;
         },
 
         deferred: function(json, resourcePath, action, file){
@@ -113,7 +107,7 @@
             name: "Rotation",
             handle: function(options){
                 var frame = new ccs.RotationFrame();
-                var rotation = options["Rotation"];
+                var rotation = options["Rotation"] || options["Value"] || 0;
                 frame.setRotation(rotation);
                 return frame;
             }
@@ -258,6 +252,16 @@
                 if (currentAnimationFrame)
                      frame.setAnimationName(currentAnimationFrame);
 
+                return frame;
+            }
+        },
+        {
+            name: "BlendFunc",
+            handle: function(options){
+                var frame = new ccs.BlendFuncFrame();
+                var blendFunc = options["BlendFunc"];
+                if(blendFunc && blendFunc["Src"] !== undefined && blendFunc["Dst"] !== undefined)
+                    frame.setBlendFunc(new cc.BlendFunc(blendFunc["Src"], blendFunc["Dst"]));
                 return frame;
             }
         }

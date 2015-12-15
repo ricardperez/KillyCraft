@@ -2,6 +2,7 @@
 #if CC_USE_3D_PHYSICS && CC_ENABLE_BULLET_INTEGRATION
 #include "cocos2d_specifics.hpp"
 #include "CCPhysics3D.h"
+#include "physics3d/jsb_cocos2dx_physics3d_manual.h"
 
 template<class T>
 static bool dummy_constructor(JSContext *cx, uint32_t argc, jsval *vp) {
@@ -45,6 +46,38 @@ static bool js_is_native_obj(JSContext *cx, uint32_t argc, jsval *vp)
 JSClass  *jsb_cocos2d_Physics3DShape_class;
 JSObject *jsb_cocos2d_Physics3DShape_prototype;
 
+bool js_cocos2dx_physics3d_Physics3DShape_initConvexHull(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    bool ok = true;
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+    js_proxy_t *proxy = jsb_get_js_proxy(obj);
+    cocos2d::Physics3DShape* cobj = (cocos2d::Physics3DShape *)(proxy ? proxy->ptr : NULL);
+    JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DShape_initConvexHull : Invalid Native Object");
+    if (argc == 2) {
+        const cocos2d::Vec3* arg0 = nullptr;
+        int arg1 = 0;
+        do {
+            if (args.get(0).isNull()) { arg0 = nullptr; break; }
+            if (!args.get(0).isObject()) { ok = false; break; }
+            js_proxy_t *jsProxy;
+            JSObject *tmpObj = args.get(0).toObjectOrNull();
+            jsProxy = jsb_get_js_proxy(tmpObj);
+            arg0 = (const cocos2d::Vec3*)(jsProxy ? jsProxy->ptr : NULL);
+            JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
+        } while (0);
+        ok &= jsval_to_int32(cx, args.get(1), (int32_t *)&arg1);
+        JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DShape_initConvexHull : Error processing arguments");
+        bool ret = cobj->initConvexHull(arg0, arg1);
+        jsval jsret = JSVAL_NULL;
+        jsret = BOOLEAN_TO_JSVAL(ret);
+        args.rval().set(jsret);
+        return true;
+    }
+
+    JS_ReportError(cx, "js_cocos2dx_physics3d_Physics3DShape_initConvexHull : wrong number of arguments: %d, was expecting %d", argc, 2);
+    return false;
+}
 bool js_cocos2dx_physics3d_Physics3DShape_getbtShape(JSContext *cx, uint32_t argc, jsval *vp)
 {
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
@@ -68,6 +101,98 @@ bool js_cocos2dx_physics3d_Physics3DShape_getbtShape(JSContext *cx, uint32_t arg
     }
 
     JS_ReportError(cx, "js_cocos2dx_physics3d_Physics3DShape_getbtShape : wrong number of arguments: %d, was expecting %d", argc, 0);
+    return false;
+}
+bool js_cocos2dx_physics3d_Physics3DShape_initSphere(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    bool ok = true;
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+    js_proxy_t *proxy = jsb_get_js_proxy(obj);
+    cocos2d::Physics3DShape* cobj = (cocos2d::Physics3DShape *)(proxy ? proxy->ptr : NULL);
+    JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DShape_initSphere : Invalid Native Object");
+    if (argc == 1) {
+        double arg0 = 0;
+        ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
+        JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DShape_initSphere : Error processing arguments");
+        bool ret = cobj->initSphere(arg0);
+        jsval jsret = JSVAL_NULL;
+        jsret = BOOLEAN_TO_JSVAL(ret);
+        args.rval().set(jsret);
+        return true;
+    }
+
+    JS_ReportError(cx, "js_cocos2dx_physics3d_Physics3DShape_initSphere : wrong number of arguments: %d, was expecting %d", argc, 1);
+    return false;
+}
+bool js_cocos2dx_physics3d_Physics3DShape_initBox(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    bool ok = true;
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+    js_proxy_t *proxy = jsb_get_js_proxy(obj);
+    cocos2d::Physics3DShape* cobj = (cocos2d::Physics3DShape *)(proxy ? proxy->ptr : NULL);
+    JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DShape_initBox : Invalid Native Object");
+    if (argc == 1) {
+        cocos2d::Vec3 arg0;
+        ok &= jsval_to_vector3(cx, args.get(0), &arg0);
+        JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DShape_initBox : Error processing arguments");
+        bool ret = cobj->initBox(arg0);
+        jsval jsret = JSVAL_NULL;
+        jsret = BOOLEAN_TO_JSVAL(ret);
+        args.rval().set(jsret);
+        return true;
+    }
+
+    JS_ReportError(cx, "js_cocos2dx_physics3d_Physics3DShape_initBox : wrong number of arguments: %d, was expecting %d", argc, 1);
+    return false;
+}
+bool js_cocos2dx_physics3d_Physics3DShape_initCapsule(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    bool ok = true;
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+    js_proxy_t *proxy = jsb_get_js_proxy(obj);
+    cocos2d::Physics3DShape* cobj = (cocos2d::Physics3DShape *)(proxy ? proxy->ptr : NULL);
+    JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DShape_initCapsule : Invalid Native Object");
+    if (argc == 2) {
+        double arg0 = 0;
+        double arg1 = 0;
+        ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
+        ok &= JS::ToNumber( cx, args.get(1), &arg1) && !isnan(arg1);
+        JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DShape_initCapsule : Error processing arguments");
+        bool ret = cobj->initCapsule(arg0, arg1);
+        jsval jsret = JSVAL_NULL;
+        jsret = BOOLEAN_TO_JSVAL(ret);
+        args.rval().set(jsret);
+        return true;
+    }
+
+    JS_ReportError(cx, "js_cocos2dx_physics3d_Physics3DShape_initCapsule : wrong number of arguments: %d, was expecting %d", argc, 2);
+    return false;
+}
+bool js_cocos2dx_physics3d_Physics3DShape_initCylinder(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    bool ok = true;
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+    js_proxy_t *proxy = jsb_get_js_proxy(obj);
+    cocos2d::Physics3DShape* cobj = (cocos2d::Physics3DShape *)(proxy ? proxy->ptr : NULL);
+    JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DShape_initCylinder : Invalid Native Object");
+    if (argc == 2) {
+        double arg0 = 0;
+        double arg1 = 0;
+        ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
+        ok &= JS::ToNumber( cx, args.get(1), &arg1) && !isnan(arg1);
+        JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DShape_initCylinder : Error processing arguments");
+        bool ret = cobj->initCylinder(arg0, arg1);
+        jsval jsret = JSVAL_NULL;
+        jsret = BOOLEAN_TO_JSVAL(ret);
+        args.rval().set(jsret);
+        return true;
+    }
+
+    JS_ReportError(cx, "js_cocos2dx_physics3d_Physics3DShape_initCylinder : wrong number of arguments: %d, was expecting %d", argc, 2);
     return false;
 }
 bool js_cocos2dx_physics3d_Physics3DShape_getShapeType(JSContext *cx, uint32_t argc, jsval *vp)
@@ -118,8 +243,8 @@ bool js_cocos2dx_physics3d_Physics3DShape_createCylinder(JSContext *cx, uint32_t
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
     if (argc == 2) {
-        double arg0;
-        double arg1;
+        double arg0 = 0;
+        double arg1 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         ok &= JS::ToNumber( cx, args.get(1), &arg1) && !isnan(arg1);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DShape_createCylinder : Error processing arguments");
@@ -145,8 +270,8 @@ bool js_cocos2dx_physics3d_Physics3DShape_createConvexHull(JSContext *cx, uint32
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
     if (argc == 2) {
-        const cocos2d::Vec3* arg0;
-        int arg1;
+        const cocos2d::Vec3* arg0 = nullptr;
+        int arg1 = 0;
         do {
             if (args.get(0).isNull()) { arg0 = nullptr; break; }
             if (!args.get(0).isObject()) { ok = false; break; }
@@ -180,8 +305,8 @@ bool js_cocos2dx_physics3d_Physics3DShape_createCapsule(JSContext *cx, uint32_t 
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
     if (argc == 2) {
-        double arg0;
-        double arg1;
+        double arg0 = 0;
+        double arg1 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         ok &= JS::ToNumber( cx, args.get(1), &arg1) && !isnan(arg1);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DShape_createCapsule : Error processing arguments");
@@ -207,7 +332,7 @@ bool js_cocos2dx_physics3d_Physics3DShape_createSphere(JSContext *cx, uint32_t a
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DShape_createSphere : Error processing arguments");
         cocos2d::Physics3DShape* ret = cocos2d::Physics3DShape::createSphere(arg0);
@@ -227,12 +352,37 @@ bool js_cocos2dx_physics3d_Physics3DShape_createSphere(JSContext *cx, uint32_t a
     return false;
 }
 
-
+bool js_cocos2dx_physics3d_Physics3DShape_constructor(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    bool ok = true;
+    cocos2d::Physics3DShape* cobj = new (std::nothrow) cocos2d::Physics3DShape();
+    cocos2d::Ref *_ccobj = dynamic_cast<cocos2d::Ref *>(cobj);
+    if (_ccobj) {
+        _ccobj->autorelease();
+    }
+    TypeTest<cocos2d::Physics3DShape> t;
+    js_type_class_t *typeClass = nullptr;
+    std::string typeName = t.s_name();
+    auto typeMapIter = _js_global_type_map.find(typeName);
+    CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
+    typeClass = typeMapIter->second;
+    CCASSERT(typeClass, "The value is null.");
+    JS::RootedObject proto(cx, typeClass->proto.get());
+    JS::RootedObject parent(cx, typeClass->parentProto.get());
+    JS::RootedObject obj(cx, JS_NewObject(cx, typeClass->jsclass, proto, parent));
+    args.rval().set(OBJECT_TO_JSVAL(obj));
+    // link the native object with the javascript object
+    js_proxy_t* p = jsb_new_proxy(cobj, obj);
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::Physics3DShape");
+    if (JS_HasProperty(cx, obj, "_ctor", &ok) && ok)
+        ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", args);
+    return true;
+}
 
 void js_cocos2d_Physics3DShape_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (Physics3DShape)", obj);
 }
-
 void js_register_cocos2dx_physics3d_Physics3DShape(JSContext *cx, JS::HandleObject global) {
     jsb_cocos2d_Physics3DShape_class = (JSClass *)calloc(1, sizeof(JSClass));
     jsb_cocos2d_Physics3DShape_class->name = "Physics3DShape";
@@ -252,7 +402,12 @@ void js_register_cocos2dx_physics3d_Physics3DShape(JSContext *cx, JS::HandleObje
     };
 
     static JSFunctionSpec funcs[] = {
+        JS_FN("initConvexHull", js_cocos2dx_physics3d_Physics3DShape_initConvexHull, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("getbtShape", js_cocos2dx_physics3d_Physics3DShape_getbtShape, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("initSphere", js_cocos2dx_physics3d_Physics3DShape_initSphere, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("initBox", js_cocos2dx_physics3d_Physics3DShape_initBox, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("initCapsule", js_cocos2dx_physics3d_Physics3DShape_initCapsule, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("initCylinder", js_cocos2dx_physics3d_Physics3DShape_initCylinder, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("getShapeType", js_cocos2dx_physics3d_Physics3DShape_getShapeType, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END
     };
@@ -270,7 +425,7 @@ void js_register_cocos2dx_physics3d_Physics3DShape(JSContext *cx, JS::HandleObje
         cx, global,
         JS::NullPtr(), // parent proto
         jsb_cocos2d_Physics3DShape_class,
-        dummy_constructor<cocos2d::Physics3DShape>, 0, // no constructor
+        js_cocos2dx_physics3d_Physics3DShape_constructor, 0, // constructor
         properties,
         funcs,
         NULL, // no static properties
@@ -306,7 +461,7 @@ bool js_cocos2dx_physics3d_Physics3DObject_setUserData(JSContext *cx, uint32_t a
     cocos2d::Physics3DObject* cobj = (cocos2d::Physics3DObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DObject_setUserData : Invalid Native Object");
     if (argc == 1) {
-        void* arg0;
+        void* arg0 = nullptr;
         #pragma warning NO CONVERSION TO NATIVE FOR void*
 		ok = false;
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DObject_setUserData : Error processing arguments");
@@ -363,7 +518,7 @@ bool js_cocos2dx_physics3d_Physics3DObject_setPhysicsWorld(JSContext *cx, uint32
     cocos2d::Physics3DObject* cobj = (cocos2d::Physics3DObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DObject_setPhysicsWorld : Invalid Native Object");
     if (argc == 1) {
-        cocos2d::Physics3DWorld* arg0;
+        cocos2d::Physics3DWorld* arg0 = nullptr;
         do {
             if (args.get(0).isNull()) { arg0 = nullptr; break; }
             if (!args.get(0).isObject()) { ok = false; break; }
@@ -434,7 +589,7 @@ bool js_cocos2dx_physics3d_Physics3DObject_setMask(JSContext *cx, uint32_t argc,
     cocos2d::Physics3DObject* cobj = (cocos2d::Physics3DObject *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DObject_setMask : Invalid Native Object");
     if (argc == 1) {
-        unsigned int arg0;
+        unsigned int arg0 = 0;
         ok &= jsval_to_uint32(cx, args.get(0), &arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DObject_setMask : Error processing arguments");
         cobj->setMask(arg0);
@@ -500,11 +655,9 @@ bool js_cocos2dx_physics3d_Physics3DObject_needCollisionCallback(JSContext *cx, 
     return false;
 }
 
-
 void js_cocos2d_Physics3DObject_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (Physics3DObject)", obj);
 }
-
 void js_register_cocos2dx_physics3d_Physics3DObject(JSContext *cx, JS::HandleObject global) {
     jsb_cocos2d_Physics3DObject_class = (JSClass *)calloc(1, sizeof(JSClass));
     jsb_cocos2d_Physics3DObject_class->name = "Physics3DObject";
@@ -610,18 +763,18 @@ bool js_cocos2dx_physics3d_Physics3DRigidBody_getFriction(JSContext *cx, uint32_
 }
 bool js_cocos2dx_physics3d_Physics3DRigidBody_setAngularFactor(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
+    cocos2d::Physics3DRigidBody* cobj = nullptr;
 
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     JS::RootedObject obj(cx);
-    cocos2d::Physics3DRigidBody* cobj = NULL;
     obj = args.thisv().toObjectOrNull();
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    cobj = (cocos2d::Physics3DRigidBody *)(proxy ? proxy->ptr : NULL);
+    cobj = (cocos2d::Physics3DRigidBody *)(proxy ? proxy->ptr : nullptr);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DRigidBody_setAngularFactor : Invalid Native Object");
     do {
         if (argc == 1) {
-            double arg0;
+            double arg0 = 0;
             ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
             if (!ok) { ok = true; break; }
             cobj->setAngularFactor(arg0);
@@ -653,7 +806,7 @@ bool js_cocos2dx_physics3d_Physics3DRigidBody_addConstraint(JSContext *cx, uint3
     cocos2d::Physics3DRigidBody* cobj = (cocos2d::Physics3DRigidBody *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DRigidBody_addConstraint : Invalid Native Object");
     if (argc == 1) {
-        cocos2d::Physics3DConstraint* arg0;
+        cocos2d::Physics3DConstraint* arg0 = 0;
         do {
             if (args.get(0).isNull()) { arg0 = nullptr; break; }
             if (!args.get(0).isObject()) { ok = false; break; }
@@ -762,7 +915,7 @@ bool js_cocos2dx_physics3d_Physics3DRigidBody_setMassProps(JSContext *cx, uint32
     cocos2d::Physics3DRigidBody* cobj = (cocos2d::Physics3DRigidBody *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DRigidBody_setMassProps : Invalid Native Object");
     if (argc == 2) {
-        double arg0;
+        double arg0 = 0;
         cocos2d::Vec3 arg1;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         ok &= jsval_to_vector3(cx, args.get(1), &arg1);
@@ -784,7 +937,7 @@ bool js_cocos2dx_physics3d_Physics3DRigidBody_setFriction(JSContext *cx, uint32_
     cocos2d::Physics3DRigidBody* cobj = (cocos2d::Physics3DRigidBody *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DRigidBody_setFriction : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DRigidBody_setFriction : Error processing arguments");
         cobj->setFriction(arg0);
@@ -824,8 +977,8 @@ bool js_cocos2dx_physics3d_Physics3DRigidBody_setDamping(JSContext *cx, uint32_t
     cocos2d::Physics3DRigidBody* cobj = (cocos2d::Physics3DRigidBody *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DRigidBody_setDamping : Invalid Native Object");
     if (argc == 2) {
-        double arg0;
-        double arg1;
+        double arg0 = 0;
+        double arg1 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         ok &= JS::ToNumber( cx, args.get(1), &arg1) && !isnan(arg1);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DRigidBody_setDamping : Error processing arguments");
@@ -906,7 +1059,7 @@ bool js_cocos2dx_physics3d_Physics3DRigidBody_setCcdMotionThreshold(JSContext *c
     cocos2d::Physics3DRigidBody* cobj = (cocos2d::Physics3DRigidBody *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DRigidBody_setCcdMotionThreshold : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DRigidBody_setCcdMotionThreshold : Error processing arguments");
         cobj->setCcdMotionThreshold(arg0);
@@ -926,7 +1079,7 @@ bool js_cocos2dx_physics3d_Physics3DRigidBody_setRollingFriction(JSContext *cx, 
     cocos2d::Physics3DRigidBody* cobj = (cocos2d::Physics3DRigidBody *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DRigidBody_setRollingFriction : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DRigidBody_setRollingFriction : Error processing arguments");
         cobj->setRollingFriction(arg0);
@@ -982,7 +1135,7 @@ bool js_cocos2dx_physics3d_Physics3DRigidBody_applyDamping(JSContext *cx, uint32
     cocos2d::Physics3DRigidBody* cobj = (cocos2d::Physics3DRigidBody *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DRigidBody_applyDamping : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DRigidBody_applyDamping : Error processing arguments");
         cobj->applyDamping(arg0);
@@ -1020,9 +1173,8 @@ bool js_cocos2dx_physics3d_Physics3DRigidBody_init(JSContext *cx, uint32_t argc,
     cocos2d::Physics3DRigidBody* cobj = (cocos2d::Physics3DRigidBody *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DRigidBody_init : Invalid Native Object");
     if (argc == 1) {
-        cocos2d::Physics3DRigidBodyDes* arg0;
-        #pragma warning NO CONVERSION TO NATIVE FOR Physics3DRigidBodyDes*
-		ok = false;
+        cocos2d::Physics3DRigidBodyDes* arg0 = nullptr;
+        cocos2d::Physics3DRigidBodyDes tempObj;arg0=&tempObj;ok &= jsval_to_physics3DRigidBodyDes(cx, args.get(0), arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DRigidBody_init : Error processing arguments");
         bool ret = cobj->init(arg0);
         jsval jsret = JSVAL_NULL;
@@ -1141,7 +1293,7 @@ bool js_cocos2dx_physics3d_Physics3DRigidBody_setCcdSweptSphereRadius(JSContext 
     cocos2d::Physics3DRigidBody* cobj = (cocos2d::Physics3DRigidBody *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DRigidBody_setCcdSweptSphereRadius : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DRigidBody_setCcdSweptSphereRadius : Error processing arguments");
         cobj->setCcdSweptSphereRadius(arg0);
@@ -1292,18 +1444,18 @@ bool js_cocos2dx_physics3d_Physics3DRigidBody_setInvInertiaDiagLocal(JSContext *
 }
 bool js_cocos2dx_physics3d_Physics3DRigidBody_removeConstraint(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
+    cocos2d::Physics3DRigidBody* cobj = nullptr;
 
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     JS::RootedObject obj(cx);
-    cocos2d::Physics3DRigidBody* cobj = NULL;
     obj = args.thisv().toObjectOrNull();
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    cobj = (cocos2d::Physics3DRigidBody *)(proxy ? proxy->ptr : NULL);
+    cobj = (cocos2d::Physics3DRigidBody *)(proxy ? proxy->ptr : nullptr);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DRigidBody_removeConstraint : Invalid Native Object");
     do {
         if (argc == 1) {
-            unsigned int arg0;
+            unsigned int arg0 = 0;
             ok &= jsval_to_uint32(cx, args.get(0), &arg0);
             if (!ok) { ok = true; break; }
             cobj->removeConstraint(arg0);
@@ -1314,7 +1466,7 @@ bool js_cocos2dx_physics3d_Physics3DRigidBody_removeConstraint(JSContext *cx, ui
 
     do {
         if (argc == 1) {
-            cocos2d::Physics3DConstraint* arg0;
+            cocos2d::Physics3DConstraint* arg0 = 0;
             do {
                 if (args.get(0).isNull()) { arg0 = nullptr; break; }
                 if (!args.get(0).isObject()) { ok = false; break; }
@@ -1379,7 +1531,7 @@ bool js_cocos2dx_physics3d_Physics3DRigidBody_getConstraint(JSContext *cx, uint3
     cocos2d::Physics3DRigidBody* cobj = (cocos2d::Physics3DRigidBody *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DRigidBody_getConstraint : Invalid Native Object");
     if (argc == 1) {
-        unsigned int arg0;
+        unsigned int arg0 = 0;
         ok &= jsval_to_uint32(cx, args.get(0), &arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DRigidBody_getConstraint : Error processing arguments");
         cocos2d::Physics3DConstraint* ret = cobj->getConstraint(arg0);
@@ -1534,7 +1686,7 @@ bool js_cocos2dx_physics3d_Physics3DRigidBody_setRestitution(JSContext *cx, uint
     cocos2d::Physics3DRigidBody* cobj = (cocos2d::Physics3DRigidBody *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DRigidBody_setRestitution : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DRigidBody_setRestitution : Error processing arguments");
         cobj->setRestitution(arg0);
@@ -1554,7 +1706,7 @@ bool js_cocos2dx_physics3d_Physics3DRigidBody_setHitFraction(JSContext *cx, uint
     cocos2d::Physics3DRigidBody* cobj = (cocos2d::Physics3DRigidBody *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DRigidBody_setHitFraction : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DRigidBody_setHitFraction : Error processing arguments");
         cobj->setHitFraction(arg0);
@@ -1599,7 +1751,6 @@ bool js_cocos2dx_physics3d_Physics3DRigidBody_constructor(JSContext *cx, uint32_
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    // JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
     JS::RootedObject proto(cx, typeClass->proto.get());
     JS::RootedObject parent(cx, typeClass->parentProto.get());
     JS::RootedObject obj(cx, JS_NewObject(cx, typeClass->jsclass, proto, parent));
@@ -1612,13 +1763,11 @@ bool js_cocos2dx_physics3d_Physics3DRigidBody_constructor(JSContext *cx, uint32_
     return true;
 }
 
-
 extern JSObject *jsb_cocos2d_Physics3DObject_prototype;
 
 void js_cocos2d_Physics3DRigidBody_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (Physics3DRigidBody)", obj);
 }
-
 void js_register_cocos2dx_physics3d_Physics3DRigidBody(JSContext *cx, JS::HandleObject global) {
     jsb_cocos2d_Physics3DRigidBody_class = (JSClass *)calloc(1, sizeof(JSClass));
     jsb_cocos2d_Physics3DRigidBody_class->name = "Physics3DRigidBody";
@@ -1748,7 +1897,7 @@ bool js_cocos2dx_physics3d_Physics3DComponent_addToPhysicsWorld(JSContext *cx, u
     cocos2d::Physics3DComponent* cobj = (cocos2d::Physics3DComponent *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DComponent_addToPhysicsWorld : Invalid Native Object");
     if (argc == 1) {
-        cocos2d::Physics3DWorld* arg0;
+        cocos2d::Physics3DWorld* arg0 = nullptr;
         do {
             if (args.get(0).isNull()) { arg0 = nullptr; break; }
             if (!args.get(0).isObject()) { ok = false; break; }
@@ -1817,7 +1966,7 @@ bool js_cocos2dx_physics3d_Physics3DComponent_setPhysics3DObject(JSContext *cx, 
     cocos2d::Physics3DComponent* cobj = (cocos2d::Physics3DComponent *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DComponent_setPhysics3DObject : Invalid Native Object");
     if (argc == 1) {
-        cocos2d::Physics3DObject* arg0;
+        cocos2d::Physics3DObject* arg0 = nullptr;
         do {
             if (args.get(0).isNull()) { arg0 = nullptr; break; }
             if (!args.get(0).isObject()) { ok = false; break; }
@@ -1885,7 +2034,7 @@ bool js_cocos2dx_physics3d_Physics3DComponent_create(JSContext *cx, uint32_t arg
     
     do {
         if (argc == 1) {
-            cocos2d::Physics3DObject* arg0;
+            cocos2d::Physics3DObject* arg0 = nullptr;
             do {
                 if (args.get(0).isNull()) { arg0 = nullptr; break; }
                 if (!args.get(0).isObject()) { ok = false; break; }
@@ -1912,7 +2061,7 @@ bool js_cocos2dx_physics3d_Physics3DComponent_create(JSContext *cx, uint32_t arg
     } while (0);
     do {
         if (argc == 2) {
-            cocos2d::Physics3DObject* arg0;
+            cocos2d::Physics3DObject* arg0 = nullptr;
             do {
                 if (args.get(0).isNull()) { arg0 = nullptr; break; }
                 if (!args.get(0).isObject()) { ok = false; break; }
@@ -1942,7 +2091,7 @@ bool js_cocos2dx_physics3d_Physics3DComponent_create(JSContext *cx, uint32_t arg
     } while (0);
     do {
         if (argc == 3) {
-            cocos2d::Physics3DObject* arg0;
+            cocos2d::Physics3DObject* arg0 = nullptr;
             do {
                 if (args.get(0).isNull()) { arg0 = nullptr; break; }
                 if (!args.get(0).isObject()) { ok = false; break; }
@@ -2023,7 +2172,6 @@ bool js_cocos2dx_physics3d_Physics3DComponent_constructor(JSContext *cx, uint32_
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    // JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
     JS::RootedObject proto(cx, typeClass->proto.get());
     JS::RootedObject parent(cx, typeClass->parentProto.get());
     JS::RootedObject obj(cx, JS_NewObject(cx, typeClass->jsclass, proto, parent));
@@ -2036,13 +2184,11 @@ bool js_cocos2dx_physics3d_Physics3DComponent_constructor(JSContext *cx, uint32_
     return true;
 }
 
-
 extern JSObject *jsb_cocos2d_Component_prototype;
 
 void js_cocos2d_Physics3DComponent_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (Physics3DComponent)", obj);
 }
-
 void js_register_cocos2dx_physics3d_Physics3DComponent(JSContext *cx, JS::HandleObject global) {
     jsb_cocos2d_Physics3DComponent_class = (JSClass *)calloc(1, sizeof(JSClass));
     jsb_cocos2d_Physics3DComponent_class->name = "Physics3DComponent";
@@ -2202,7 +2348,6 @@ bool js_cocos2dx_physics3d_PhysicsSprite3D_constructor(JSContext *cx, uint32_t a
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    // JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
     JS::RootedObject proto(cx, typeClass->proto.get());
     JS::RootedObject parent(cx, typeClass->parentProto.get());
     JS::RootedObject obj(cx, JS_NewObject(cx, typeClass->jsclass, proto, parent));
@@ -2215,13 +2360,11 @@ bool js_cocos2dx_physics3d_PhysicsSprite3D_constructor(JSContext *cx, uint32_t a
     return true;
 }
 
-
 extern JSObject *jsb_cocos2d_Sprite3D_prototype;
 
 void js_cocos2d_PhysicsSprite3D_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (PhysicsSprite3D)", obj);
 }
-
 void js_register_cocos2dx_physics3d_PhysicsSprite3D(JSContext *cx, JS::HandleObject global) {
     jsb_cocos2d_PhysicsSprite3D_class = (JSClass *)calloc(1, sizeof(JSClass));
     jsb_cocos2d_PhysicsSprite3D_class->name = "PhysicsSprite3D";
@@ -2310,7 +2453,7 @@ bool js_cocos2dx_physics3d_Physics3DWorld_stepSimulate(JSContext *cx, uint32_t a
     cocos2d::Physics3DWorld* cobj = (cocos2d::Physics3DWorld *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DWorld_stepSimulate : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DWorld_stepSimulate : Error processing arguments");
         cobj->stepSimulate(arg0);
@@ -2355,6 +2498,22 @@ bool js_cocos2dx_physics3d_Physics3DWorld_collisionChecking(JSContext *cx, uint3
     JS_ReportError(cx, "js_cocos2dx_physics3d_Physics3DWorld_collisionChecking : wrong number of arguments: %d, was expecting %d", argc, 0);
     return false;
 }
+bool js_cocos2dx_physics3d_Physics3DWorld_setGhostPairCallback(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+    js_proxy_t *proxy = jsb_get_js_proxy(obj);
+    cocos2d::Physics3DWorld* cobj = (cocos2d::Physics3DWorld *)(proxy ? proxy->ptr : NULL);
+    JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DWorld_setGhostPairCallback : Invalid Native Object");
+    if (argc == 0) {
+        cobj->setGhostPairCallback();
+        args.rval().setUndefined();
+        return true;
+    }
+
+    JS_ReportError(cx, "js_cocos2dx_physics3d_Physics3DWorld_setGhostPairCallback : wrong number of arguments: %d, was expecting %d", argc, 0);
+    return false;
+}
 bool js_cocos2dx_physics3d_Physics3DWorld_init(JSContext *cx, uint32_t argc, jsval *vp)
 {
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
@@ -2364,7 +2523,7 @@ bool js_cocos2dx_physics3d_Physics3DWorld_init(JSContext *cx, uint32_t argc, jsv
     cocos2d::Physics3DWorld* cobj = (cocos2d::Physics3DWorld *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DWorld_init : Invalid Native Object");
     if (argc == 1) {
-        cocos2d::Physics3DWorldDes* arg0;
+        cocos2d::Physics3DWorldDes* arg0 = nullptr;
         #pragma warning NO CONVERSION TO NATIVE FOR Physics3DWorldDes*
 		ok = false;
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DWorld_init : Error processing arguments");
@@ -2455,7 +2614,7 @@ bool js_cocos2dx_physics3d_Physics3DWorld_removePhysics3DConstraint(JSContext *c
     cocos2d::Physics3DWorld* cobj = (cocos2d::Physics3DWorld *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DWorld_removePhysics3DConstraint : Invalid Native Object");
     if (argc == 1) {
-        cocos2d::Physics3DConstraint* arg0;
+        cocos2d::Physics3DConstraint* arg0 = 0;
         do {
             if (args.get(0).isNull()) { arg0 = nullptr; break; }
             if (!args.get(0).isObject()) { ok = false; break; }
@@ -2483,7 +2642,7 @@ bool js_cocos2dx_physics3d_Physics3DWorld_addPhysics3DObject(JSContext *cx, uint
     cocos2d::Physics3DWorld* cobj = (cocos2d::Physics3DWorld *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DWorld_addPhysics3DObject : Invalid Native Object");
     if (argc == 1) {
-        cocos2d::Physics3DObject* arg0;
+        cocos2d::Physics3DObject* arg0 = nullptr;
         do {
             if (args.get(0).isNull()) { arg0 = nullptr; break; }
             if (!args.get(0).isObject()) { ok = false; break; }
@@ -2531,7 +2690,7 @@ bool js_cocos2dx_physics3d_Physics3DWorld_removePhysics3DObject(JSContext *cx, u
     cocos2d::Physics3DWorld* cobj = (cocos2d::Physics3DWorld *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DWorld_removePhysics3DObject : Invalid Native Object");
     if (argc == 1) {
-        cocos2d::Physics3DObject* arg0;
+        cocos2d::Physics3DObject* arg0 = nullptr;
         do {
             if (args.get(0).isNull()) { arg0 = nullptr; break; }
             if (!args.get(0).isObject()) { ok = false; break; }
@@ -2559,7 +2718,7 @@ bool js_cocos2dx_physics3d_Physics3DWorld_getPhysicsObject(JSContext *cx, uint32
     cocos2d::Physics3DWorld* cobj = (cocos2d::Physics3DWorld *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DWorld_getPhysicsObject : Invalid Native Object");
     if (argc == 1) {
-        const btCollisionObject* arg0;
+        const btCollisionObject* arg0 = nullptr;
         do {
             if (args.get(0).isNull()) { arg0 = nullptr; break; }
             if (!args.get(0).isObject()) { ok = false; break; }
@@ -2596,7 +2755,7 @@ bool js_cocos2dx_physics3d_Physics3DWorld_addPhysics3DConstraint(JSContext *cx, 
     cocos2d::Physics3DWorld* cobj = (cocos2d::Physics3DWorld *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DWorld_addPhysics3DConstraint : Invalid Native Object");
     if (argc == 1) {
-        cocos2d::Physics3DConstraint* arg0;
+        cocos2d::Physics3DConstraint* arg0 = 0;
         do {
             if (args.get(0).isNull()) { arg0 = nullptr; break; }
             if (!args.get(0).isObject()) { ok = false; break; }
@@ -2612,7 +2771,7 @@ bool js_cocos2dx_physics3d_Physics3DWorld_addPhysics3DConstraint(JSContext *cx, 
         return true;
     }
     if (argc == 2) {
-        cocos2d::Physics3DConstraint* arg0;
+        cocos2d::Physics3DConstraint* arg0 = 0;
         bool arg1;
         do {
             if (args.get(0).isNull()) { arg0 = nullptr; break; }
@@ -2642,7 +2801,7 @@ bool js_cocos2dx_physics3d_Physics3DWorld_debugDraw(JSContext *cx, uint32_t argc
     cocos2d::Physics3DWorld* cobj = (cocos2d::Physics3DWorld *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DWorld_debugDraw : Invalid Native Object");
     if (argc == 1) {
-        cocos2d::Renderer* arg0;
+        cocos2d::Renderer* arg0 = nullptr;
         do {
             if (args.get(0).isNull()) { arg0 = nullptr; break; }
             if (!args.get(0).isObject()) { ok = false; break; }
@@ -2670,10 +2829,10 @@ bool js_cocos2dx_physics3d_Physics3DWorld_sweepShape(JSContext *cx, uint32_t arg
     cocos2d::Physics3DWorld* cobj = (cocos2d::Physics3DWorld *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DWorld_sweepShape : Invalid Native Object");
     if (argc == 4) {
-        cocos2d::Physics3DShape* arg0;
+        cocos2d::Physics3DShape* arg0 = nullptr;
         cocos2d::Mat4 arg1;
         cocos2d::Mat4 arg2;
-        cocos2d::Physics3DWorld::HitResult* arg3;
+        cocos2d::Physics3DWorld::HitResult* arg3 = nullptr;
         do {
             if (args.get(0).isNull()) { arg0 = nullptr; break; }
             if (!args.get(0).isObject()) { ok = false; break; }
@@ -2703,7 +2862,7 @@ bool js_cocos2dx_physics3d_Physics3DWorld_create(JSContext *cx, uint32_t argc, j
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
     if (argc == 1) {
-        cocos2d::Physics3DWorldDes* arg0;
+        cocos2d::Physics3DWorldDes* arg0 = nullptr;
         #pragma warning NO CONVERSION TO NATIVE FOR Physics3DWorldDes*
 		ok = false;
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DWorld_create : Error processing arguments");
@@ -2740,7 +2899,6 @@ bool js_cocos2dx_physics3d_Physics3DWorld_constructor(JSContext *cx, uint32_t ar
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    // JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
     JS::RootedObject proto(cx, typeClass->proto.get());
     JS::RootedObject parent(cx, typeClass->parentProto.get());
     JS::RootedObject obj(cx, JS_NewObject(cx, typeClass->jsclass, proto, parent));
@@ -2753,12 +2911,9 @@ bool js_cocos2dx_physics3d_Physics3DWorld_constructor(JSContext *cx, uint32_t ar
     return true;
 }
 
-
-
 void js_cocos2d_Physics3DWorld_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (Physics3DWorld)", obj);
 }
-
 void js_register_cocos2dx_physics3d_Physics3DWorld(JSContext *cx, JS::HandleObject global) {
     jsb_cocos2d_Physics3DWorld_class = (JSClass *)calloc(1, sizeof(JSClass));
     jsb_cocos2d_Physics3DWorld_class->name = "Physics3DWorld";
@@ -2782,6 +2937,7 @@ void js_register_cocos2dx_physics3d_Physics3DWorld(JSContext *cx, JS::HandleObje
         JS_FN("stepSimulate", js_cocos2dx_physics3d_Physics3DWorld_stepSimulate, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("needCollisionChecking", js_cocos2dx_physics3d_Physics3DWorld_needCollisionChecking, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("collisionChecking", js_cocos2dx_physics3d_Physics3DWorld_collisionChecking, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("setGhostPairCallback", js_cocos2dx_physics3d_Physics3DWorld_setGhostPairCallback, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("init", js_cocos2dx_physics3d_Physics3DWorld_init, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("removeAllPhysics3DObjects", js_cocos2dx_physics3d_Physics3DWorld_removeAllPhysics3DObjects, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("isDebugDrawEnabled", js_cocos2dx_physics3d_Physics3DWorld_isDebugDrawEnabled, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
@@ -2863,7 +3019,7 @@ bool js_cocos2dx_physics3d_Physics3DConstraint_setBreakingImpulse(JSContext *cx,
     cocos2d::Physics3DConstraint* cobj = (cocos2d::Physics3DConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DConstraint_setBreakingImpulse : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DConstraint_setBreakingImpulse : Error processing arguments");
         cobj->setBreakingImpulse(arg0);
@@ -3005,7 +3161,7 @@ bool js_cocos2dx_physics3d_Physics3DConstraint_setOverrideNumSolverIterations(JS
     cocos2d::Physics3DConstraint* cobj = (cocos2d::Physics3DConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DConstraint_setOverrideNumSolverIterations : Invalid Native Object");
     if (argc == 1) {
-        int arg0;
+        int arg0 = 0;
         ok &= jsval_to_int32(cx, args.get(0), (int32_t *)&arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DConstraint_setOverrideNumSolverIterations : Error processing arguments");
         cobj->setOverrideNumSolverIterations(arg0);
@@ -3043,7 +3199,7 @@ bool js_cocos2dx_physics3d_Physics3DConstraint_setUserData(JSContext *cx, uint32
     cocos2d::Physics3DConstraint* cobj = (cocos2d::Physics3DConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DConstraint_setUserData : Invalid Native Object");
     if (argc == 1) {
-        void* arg0;
+        void* arg0 = nullptr;
         #pragma warning NO CONVERSION TO NATIVE FOR void*
 		ok = false;
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DConstraint_setUserData : Error processing arguments");
@@ -3081,11 +3237,9 @@ bool js_cocos2dx_physics3d_Physics3DConstraint_getbtContraint(JSContext *cx, uin
     return false;
 }
 
-
 void js_cocos2d_Physics3DConstraint_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (Physics3DConstraint)", obj);
 }
-
 void js_register_cocos2dx_physics3d_Physics3DConstraint(JSContext *cx, JS::HandleObject global) {
     jsb_cocos2d_Physics3DConstraint_class = (JSClass *)calloc(1, sizeof(JSClass));
     jsb_cocos2d_Physics3DConstraint_class->name = "Physics3DConstraint";
@@ -3189,6 +3343,82 @@ bool js_cocos2dx_physics3d_Physics3DPointToPointConstraint_getPivotPointInB(JSCo
     JS_ReportError(cx, "js_cocos2dx_physics3d_Physics3DPointToPointConstraint_getPivotPointInB : wrong number of arguments: %d, was expecting %d", argc, 0);
     return false;
 }
+bool js_cocos2dx_physics3d_Physics3DPointToPointConstraint_init(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    bool ok = true;
+    cocos2d::Physics3DPointToPointConstraint* cobj = nullptr;
+
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    JS::RootedObject obj(cx);
+    obj = args.thisv().toObjectOrNull();
+    js_proxy_t *proxy = jsb_get_js_proxy(obj);
+    cobj = (cocos2d::Physics3DPointToPointConstraint *)(proxy ? proxy->ptr : nullptr);
+    JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DPointToPointConstraint_init : Invalid Native Object");
+    do {
+        if (argc == 4) {
+            cocos2d::Physics3DRigidBody* arg0 = nullptr;
+            do {
+                if (args.get(0).isNull()) { arg0 = nullptr; break; }
+                if (!args.get(0).isObject()) { ok = false; break; }
+                js_proxy_t *jsProxy;
+                JSObject *tmpObj = args.get(0).toObjectOrNull();
+                jsProxy = jsb_get_js_proxy(tmpObj);
+                arg0 = (cocos2d::Physics3DRigidBody*)(jsProxy ? jsProxy->ptr : NULL);
+                JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
+            } while (0);
+            if (!ok) { ok = true; break; }
+            cocos2d::Physics3DRigidBody* arg1 = nullptr;
+            do {
+                if (args.get(1).isNull()) { arg1 = nullptr; break; }
+                if (!args.get(1).isObject()) { ok = false; break; }
+                js_proxy_t *jsProxy;
+                JSObject *tmpObj = args.get(1).toObjectOrNull();
+                jsProxy = jsb_get_js_proxy(tmpObj);
+                arg1 = (cocos2d::Physics3DRigidBody*)(jsProxy ? jsProxy->ptr : NULL);
+                JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
+            } while (0);
+            if (!ok) { ok = true; break; }
+            cocos2d::Vec3 arg2;
+            ok &= jsval_to_vector3(cx, args.get(2), &arg2);
+            if (!ok) { ok = true; break; }
+            cocos2d::Vec3 arg3;
+            ok &= jsval_to_vector3(cx, args.get(3), &arg3);
+            if (!ok) { ok = true; break; }
+            bool ret = cobj->init(arg0, arg1, arg2, arg3);
+            jsval jsret = JSVAL_NULL;
+            jsret = BOOLEAN_TO_JSVAL(ret);
+            args.rval().set(jsret);
+            return true;
+        }
+    } while(0);
+
+    do {
+        if (argc == 2) {
+            cocos2d::Physics3DRigidBody* arg0 = nullptr;
+            do {
+                if (args.get(0).isNull()) { arg0 = nullptr; break; }
+                if (!args.get(0).isObject()) { ok = false; break; }
+                js_proxy_t *jsProxy;
+                JSObject *tmpObj = args.get(0).toObjectOrNull();
+                jsProxy = jsb_get_js_proxy(tmpObj);
+                arg0 = (cocos2d::Physics3DRigidBody*)(jsProxy ? jsProxy->ptr : NULL);
+                JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
+            } while (0);
+            if (!ok) { ok = true; break; }
+            cocos2d::Vec3 arg1;
+            ok &= jsval_to_vector3(cx, args.get(1), &arg1);
+            if (!ok) { ok = true; break; }
+            bool ret = cobj->init(arg0, arg1);
+            jsval jsret = JSVAL_NULL;
+            jsret = BOOLEAN_TO_JSVAL(ret);
+            args.rval().set(jsret);
+            return true;
+        }
+    } while(0);
+
+    JS_ReportError(cx, "js_cocos2dx_physics3d_Physics3DPointToPointConstraint_init : wrong number of arguments");
+    return false;
+}
 bool js_cocos2dx_physics3d_Physics3DPointToPointConstraint_setPivotPointInA(JSContext *cx, uint32_t argc, jsval *vp)
 {
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
@@ -3236,7 +3466,7 @@ bool js_cocos2dx_physics3d_Physics3DPointToPointConstraint_create(JSContext *cx,
     
     do {
         if (argc == 4) {
-            cocos2d::Physics3DRigidBody* arg0;
+            cocos2d::Physics3DRigidBody* arg0 = nullptr;
             do {
                 if (args.get(0).isNull()) { arg0 = nullptr; break; }
                 if (!args.get(0).isObject()) { ok = false; break; }
@@ -3247,7 +3477,7 @@ bool js_cocos2dx_physics3d_Physics3DPointToPointConstraint_create(JSContext *cx,
                 JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
             } while (0);
             if (!ok) { ok = true; break; }
-            cocos2d::Physics3DRigidBody* arg1;
+            cocos2d::Physics3DRigidBody* arg1 = nullptr;
             do {
                 if (args.get(1).isNull()) { arg1 = nullptr; break; }
                 if (!args.get(1).isObject()) { ok = false; break; }
@@ -3281,7 +3511,7 @@ bool js_cocos2dx_physics3d_Physics3DPointToPointConstraint_create(JSContext *cx,
     
     do {
         if (argc == 2) {
-            cocos2d::Physics3DRigidBody* arg0;
+            cocos2d::Physics3DRigidBody* arg0 = nullptr;
             do {
                 if (args.get(0).isNull()) { arg0 = nullptr; break; }
                 if (!args.get(0).isObject()) { ok = false; break; }
@@ -3328,7 +3558,6 @@ bool js_cocos2dx_physics3d_Physics3DPointToPointConstraint_constructor(JSContext
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    // JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
     JS::RootedObject proto(cx, typeClass->proto.get());
     JS::RootedObject parent(cx, typeClass->parentProto.get());
     JS::RootedObject obj(cx, JS_NewObject(cx, typeClass->jsclass, proto, parent));
@@ -3341,13 +3570,11 @@ bool js_cocos2dx_physics3d_Physics3DPointToPointConstraint_constructor(JSContext
     return true;
 }
 
-
 extern JSObject *jsb_cocos2d_Physics3DConstraint_prototype;
 
 void js_cocos2d_Physics3DPointToPointConstraint_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (Physics3DPointToPointConstraint)", obj);
 }
-
 void js_register_cocos2dx_physics3d_Physics3DPointToPointConstraint(JSContext *cx, JS::HandleObject global) {
     jsb_cocos2d_Physics3DPointToPointConstraint_class = (JSClass *)calloc(1, sizeof(JSClass));
     jsb_cocos2d_Physics3DPointToPointConstraint_class->name = "Physics3DPointToPointConstraint";
@@ -3369,6 +3596,7 @@ void js_register_cocos2dx_physics3d_Physics3DPointToPointConstraint(JSContext *c
     static JSFunctionSpec funcs[] = {
         JS_FN("getPivotPointInA", js_cocos2dx_physics3d_Physics3DPointToPointConstraint_getPivotPointInA, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("getPivotPointInB", js_cocos2dx_physics3d_Physics3DPointToPointConstraint_getPivotPointInB, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("init", js_cocos2dx_physics3d_Physics3DPointToPointConstraint_init, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("setPivotPointInA", js_cocos2dx_physics3d_Physics3DPointToPointConstraint_setPivotPointInA, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("setPivotPointInB", js_cocos2dx_physics3d_Physics3DPointToPointConstraint_setPivotPointInB, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END
@@ -3412,14 +3640,14 @@ JSObject *jsb_cocos2d_Physics3DHingeConstraint_prototype;
 
 bool js_cocos2dx_physics3d_Physics3DHingeConstraint_getHingeAngle(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
+    cocos2d::Physics3DHingeConstraint* cobj = nullptr;
 
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     JS::RootedObject obj(cx);
-    cocos2d::Physics3DHingeConstraint* cobj = NULL;
     obj = args.thisv().toObjectOrNull();
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    cobj = (cocos2d::Physics3DHingeConstraint *)(proxy ? proxy->ptr : NULL);
+    cobj = (cocos2d::Physics3DHingeConstraint *)(proxy ? proxy->ptr : nullptr);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DHingeConstraint_getHingeAngle : Invalid Native Object");
     do {
         if (argc == 2) {
@@ -3513,7 +3741,7 @@ bool js_cocos2dx_physics3d_Physics3DHingeConstraint_setMaxMotorImpulse(JSContext
     cocos2d::Physics3DHingeConstraint* cobj = (cocos2d::Physics3DHingeConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DHingeConstraint_setMaxMotorImpulse : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DHingeConstraint_setMaxMotorImpulse : Error processing arguments");
         cobj->setMaxMotorImpulse(arg0);
@@ -3534,8 +3762,8 @@ bool js_cocos2dx_physics3d_Physics3DHingeConstraint_enableAngularMotor(JSContext
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DHingeConstraint_enableAngularMotor : Invalid Native Object");
     if (argc == 3) {
         bool arg0;
-        double arg1;
-        double arg2;
+        double arg1 = 0;
+        double arg2 = 0;
         arg0 = JS::ToBoolean(args.get(0));
         ok &= JS::ToNumber( cx, args.get(1), &arg1) && !isnan(arg1);
         ok &= JS::ToNumber( cx, args.get(2), &arg2) && !isnan(arg2);
@@ -3747,8 +3975,8 @@ bool js_cocos2dx_physics3d_Physics3DHingeConstraint_setLimit(JSContext *cx, uint
     cocos2d::Physics3DHingeConstraint* cobj = (cocos2d::Physics3DHingeConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DHingeConstraint_setLimit : Invalid Native Object");
     if (argc == 2) {
-        double arg0;
-        double arg1;
+        double arg0 = 0;
+        double arg1 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         ok &= JS::ToNumber( cx, args.get(1), &arg1) && !isnan(arg1);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DHingeConstraint_setLimit : Error processing arguments");
@@ -3757,9 +3985,9 @@ bool js_cocos2dx_physics3d_Physics3DHingeConstraint_setLimit(JSContext *cx, uint
         return true;
     }
     if (argc == 3) {
-        double arg0;
-        double arg1;
-        double arg2;
+        double arg0 = 0;
+        double arg1 = 0;
+        double arg2 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         ok &= JS::ToNumber( cx, args.get(1), &arg1) && !isnan(arg1);
         ok &= JS::ToNumber( cx, args.get(2), &arg2) && !isnan(arg2);
@@ -3769,10 +3997,10 @@ bool js_cocos2dx_physics3d_Physics3DHingeConstraint_setLimit(JSContext *cx, uint
         return true;
     }
     if (argc == 4) {
-        double arg0;
-        double arg1;
-        double arg2;
-        double arg3;
+        double arg0 = 0;
+        double arg1 = 0;
+        double arg2 = 0;
+        double arg3 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         ok &= JS::ToNumber( cx, args.get(1), &arg1) && !isnan(arg1);
         ok &= JS::ToNumber( cx, args.get(2), &arg2) && !isnan(arg2);
@@ -3783,11 +4011,11 @@ bool js_cocos2dx_physics3d_Physics3DHingeConstraint_setLimit(JSContext *cx, uint
         return true;
     }
     if (argc == 5) {
-        double arg0;
-        double arg1;
-        double arg2;
-        double arg3;
-        double arg4;
+        double arg0 = 0;
+        double arg1 = 0;
+        double arg2 = 0;
+        double arg3 = 0;
+        double arg4 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         ok &= JS::ToNumber( cx, args.get(1), &arg1) && !isnan(arg1);
         ok &= JS::ToNumber( cx, args.get(2), &arg2) && !isnan(arg2);
@@ -3804,21 +4032,21 @@ bool js_cocos2dx_physics3d_Physics3DHingeConstraint_setLimit(JSContext *cx, uint
 }
 bool js_cocos2dx_physics3d_Physics3DHingeConstraint_setMotorTarget(JSContext *cx, uint32_t argc, jsval *vp)
 {
-    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
+    cocos2d::Physics3DHingeConstraint* cobj = nullptr;
 
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     JS::RootedObject obj(cx);
-    cocos2d::Physics3DHingeConstraint* cobj = NULL;
     obj = args.thisv().toObjectOrNull();
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
-    cobj = (cocos2d::Physics3DHingeConstraint *)(proxy ? proxy->ptr : NULL);
+    cobj = (cocos2d::Physics3DHingeConstraint *)(proxy ? proxy->ptr : nullptr);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DHingeConstraint_setMotorTarget : Invalid Native Object");
     do {
         if (argc == 2) {
-            double arg0;
+            double arg0 = 0;
             ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
             if (!ok) { ok = true; break; }
-            double arg1;
+            double arg1 = 0;
             ok &= JS::ToNumber( cx, args.get(1), &arg1) && !isnan(arg1);
             if (!ok) { ok = true; break; }
             cobj->setMotorTarget(arg0, arg1);
@@ -3832,7 +4060,7 @@ bool js_cocos2dx_physics3d_Physics3DHingeConstraint_setMotorTarget(JSContext *cx
             cocos2d::Quaternion arg0;
             ok &= jsval_to_quaternion(cx, args.get(0), &arg0);
             if (!ok) { ok = true; break; }
-            double arg1;
+            double arg1 = 0;
             ok &= JS::ToNumber( cx, args.get(1), &arg1) && !isnan(arg1);
             if (!ok) { ok = true; break; }
             cobj->setMotorTarget(arg0, arg1);
@@ -3907,7 +4135,7 @@ bool js_cocos2dx_physics3d_Physics3DHingeConstraint_create(JSContext *cx, uint32
     
     do {
         if (argc == 3) {
-            cocos2d::Physics3DRigidBody* arg0;
+            cocos2d::Physics3DRigidBody* arg0 = nullptr;
             do {
                 if (args.get(0).isNull()) { arg0 = nullptr; break; }
                 if (!args.get(0).isObject()) { ok = false; break; }
@@ -3940,7 +4168,7 @@ bool js_cocos2dx_physics3d_Physics3DHingeConstraint_create(JSContext *cx, uint32
     } while (0);
     do {
         if (argc == 4) {
-            cocos2d::Physics3DRigidBody* arg0;
+            cocos2d::Physics3DRigidBody* arg0 = nullptr;
             do {
                 if (args.get(0).isNull()) { arg0 = nullptr; break; }
                 if (!args.get(0).isObject()) { ok = false; break; }
@@ -3977,7 +4205,7 @@ bool js_cocos2dx_physics3d_Physics3DHingeConstraint_create(JSContext *cx, uint32
     
     do {
         if (argc == 2) {
-            cocos2d::Physics3DRigidBody* arg0;
+            cocos2d::Physics3DRigidBody* arg0 = nullptr;
             do {
                 if (args.get(0).isNull()) { arg0 = nullptr; break; }
                 if (!args.get(0).isObject()) { ok = false; break; }
@@ -4007,7 +4235,7 @@ bool js_cocos2dx_physics3d_Physics3DHingeConstraint_create(JSContext *cx, uint32
     } while (0);
     do {
         if (argc == 3) {
-            cocos2d::Physics3DRigidBody* arg0;
+            cocos2d::Physics3DRigidBody* arg0 = nullptr;
             do {
                 if (args.get(0).isNull()) { arg0 = nullptr; break; }
                 if (!args.get(0).isObject()) { ok = false; break; }
@@ -4041,7 +4269,7 @@ bool js_cocos2dx_physics3d_Physics3DHingeConstraint_create(JSContext *cx, uint32
     
     do {
         if (argc == 6) {
-            cocos2d::Physics3DRigidBody* arg0;
+            cocos2d::Physics3DRigidBody* arg0 = nullptr;
             do {
                 if (args.get(0).isNull()) { arg0 = nullptr; break; }
                 if (!args.get(0).isObject()) { ok = false; break; }
@@ -4052,7 +4280,7 @@ bool js_cocos2dx_physics3d_Physics3DHingeConstraint_create(JSContext *cx, uint32
                 JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
             } while (0);
             if (!ok) { ok = true; break; }
-            cocos2d::Physics3DRigidBody* arg1;
+            cocos2d::Physics3DRigidBody* arg1 = nullptr;
             do {
                 if (args.get(1).isNull()) { arg1 = nullptr; break; }
                 if (!args.get(1).isObject()) { ok = false; break; }
@@ -4091,7 +4319,7 @@ bool js_cocos2dx_physics3d_Physics3DHingeConstraint_create(JSContext *cx, uint32
     } while (0);
     do {
         if (argc == 7) {
-            cocos2d::Physics3DRigidBody* arg0;
+            cocos2d::Physics3DRigidBody* arg0 = nullptr;
             do {
                 if (args.get(0).isNull()) { arg0 = nullptr; break; }
                 if (!args.get(0).isObject()) { ok = false; break; }
@@ -4102,7 +4330,7 @@ bool js_cocos2dx_physics3d_Physics3DHingeConstraint_create(JSContext *cx, uint32
                 JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
             } while (0);
             if (!ok) { ok = true; break; }
-            cocos2d::Physics3DRigidBody* arg1;
+            cocos2d::Physics3DRigidBody* arg1 = nullptr;
             do {
                 if (args.get(1).isNull()) { arg1 = nullptr; break; }
                 if (!args.get(1).isObject()) { ok = false; break; }
@@ -4145,7 +4373,7 @@ bool js_cocos2dx_physics3d_Physics3DHingeConstraint_create(JSContext *cx, uint32
     
     do {
         if (argc == 4) {
-            cocos2d::Physics3DRigidBody* arg0;
+            cocos2d::Physics3DRigidBody* arg0 = nullptr;
             do {
                 if (args.get(0).isNull()) { arg0 = nullptr; break; }
                 if (!args.get(0).isObject()) { ok = false; break; }
@@ -4156,7 +4384,7 @@ bool js_cocos2dx_physics3d_Physics3DHingeConstraint_create(JSContext *cx, uint32
                 JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
             } while (0);
             if (!ok) { ok = true; break; }
-            cocos2d::Physics3DRigidBody* arg1;
+            cocos2d::Physics3DRigidBody* arg1 = nullptr;
             do {
                 if (args.get(1).isNull()) { arg1 = nullptr; break; }
                 if (!args.get(1).isObject()) { ok = false; break; }
@@ -4189,7 +4417,7 @@ bool js_cocos2dx_physics3d_Physics3DHingeConstraint_create(JSContext *cx, uint32
     } while (0);
     do {
         if (argc == 5) {
-            cocos2d::Physics3DRigidBody* arg0;
+            cocos2d::Physics3DRigidBody* arg0 = nullptr;
             do {
                 if (args.get(0).isNull()) { arg0 = nullptr; break; }
                 if (!args.get(0).isObject()) { ok = false; break; }
@@ -4200,7 +4428,7 @@ bool js_cocos2dx_physics3d_Physics3DHingeConstraint_create(JSContext *cx, uint32
                 JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
             } while (0);
             if (!ok) { ok = true; break; }
-            cocos2d::Physics3DRigidBody* arg1;
+            cocos2d::Physics3DRigidBody* arg1 = nullptr;
             do {
                 if (args.get(1).isNull()) { arg1 = nullptr; break; }
                 if (!args.get(1).isObject()) { ok = false; break; }
@@ -4253,7 +4481,6 @@ bool js_cocos2dx_physics3d_Physics3DHingeConstraint_constructor(JSContext *cx, u
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    // JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
     JS::RootedObject proto(cx, typeClass->proto.get());
     JS::RootedObject parent(cx, typeClass->parentProto.get());
     JS::RootedObject obj(cx, JS_NewObject(cx, typeClass->jsclass, proto, parent));
@@ -4266,13 +4493,11 @@ bool js_cocos2dx_physics3d_Physics3DHingeConstraint_constructor(JSContext *cx, u
     return true;
 }
 
-
 extern JSObject *jsb_cocos2d_Physics3DConstraint_prototype;
 
 void js_cocos2d_Physics3DHingeConstraint_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (Physics3DHingeConstraint)", obj);
 }
-
 void js_register_cocos2dx_physics3d_Physics3DHingeConstraint(JSContext *cx, JS::HandleObject global) {
     jsb_cocos2d_Physics3DHingeConstraint_class = (JSClass *)calloc(1, sizeof(JSClass));
     jsb_cocos2d_Physics3DHingeConstraint_class->name = "Physics3DHingeConstraint";
@@ -4399,7 +4624,7 @@ bool js_cocos2dx_physics3d_Physics3DSliderConstraint_setRestitutionOrthoLin(JSCo
     cocos2d::Physics3DSliderConstraint* cobj = (cocos2d::Physics3DSliderConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setRestitutionOrthoLin : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setRestitutionOrthoLin : Error processing arguments");
         cobj->setRestitutionOrthoLin(arg0);
@@ -4419,7 +4644,7 @@ bool js_cocos2dx_physics3d_Physics3DSliderConstraint_setRestitutionDirLin(JSCont
     cocos2d::Physics3DSliderConstraint* cobj = (cocos2d::Physics3DSliderConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setRestitutionDirLin : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setRestitutionDirLin : Error processing arguments");
         cobj->setRestitutionDirLin(arg0);
@@ -4567,7 +4792,7 @@ bool js_cocos2dx_physics3d_Physics3DSliderConstraint_setSoftnessOrthoLin(JSConte
     cocos2d::Physics3DSliderConstraint* cobj = (cocos2d::Physics3DSliderConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setSoftnessOrthoLin : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setSoftnessOrthoLin : Error processing arguments");
         cobj->setSoftnessOrthoLin(arg0);
@@ -4587,7 +4812,7 @@ bool js_cocos2dx_physics3d_Physics3DSliderConstraint_setSoftnessLimLin(JSContext
     cocos2d::Physics3DSliderConstraint* cobj = (cocos2d::Physics3DSliderConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setSoftnessLimLin : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setSoftnessLimLin : Error processing arguments");
         cobj->setSoftnessLimLin(arg0);
@@ -4625,7 +4850,7 @@ bool js_cocos2dx_physics3d_Physics3DSliderConstraint_setRestitutionLimAng(JSCont
     cocos2d::Physics3DSliderConstraint* cobj = (cocos2d::Physics3DSliderConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setRestitutionLimAng : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setRestitutionLimAng : Error processing arguments");
         cobj->setRestitutionLimAng(arg0);
@@ -4645,7 +4870,7 @@ bool js_cocos2dx_physics3d_Physics3DSliderConstraint_setUpperLinLimit(JSContext 
     cocos2d::Physics3DSliderConstraint* cobj = (cocos2d::Physics3DSliderConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setUpperLinLimit : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setUpperLinLimit : Error processing arguments");
         cobj->setUpperLinLimit(arg0);
@@ -4665,7 +4890,7 @@ bool js_cocos2dx_physics3d_Physics3DSliderConstraint_setDampingDirLin(JSContext 
     cocos2d::Physics3DSliderConstraint* cobj = (cocos2d::Physics3DSliderConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setDampingDirLin : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setDampingDirLin : Error processing arguments");
         cobj->setDampingDirLin(arg0);
@@ -4757,7 +4982,7 @@ bool js_cocos2dx_physics3d_Physics3DSliderConstraint_setLowerAngLimit(JSContext 
     cocos2d::Physics3DSliderConstraint* cobj = (cocos2d::Physics3DSliderConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setLowerAngLimit : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setLowerAngLimit : Error processing arguments");
         cobj->setLowerAngLimit(arg0);
@@ -4777,7 +5002,7 @@ bool js_cocos2dx_physics3d_Physics3DSliderConstraint_setUpperAngLimit(JSContext 
     cocos2d::Physics3DSliderConstraint* cobj = (cocos2d::Physics3DSliderConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setUpperAngLimit : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setUpperAngLimit : Error processing arguments");
         cobj->setUpperAngLimit(arg0);
@@ -4797,7 +5022,7 @@ bool js_cocos2dx_physics3d_Physics3DSliderConstraint_setTargetLinMotorVelocity(J
     cocos2d::Physics3DSliderConstraint* cobj = (cocos2d::Physics3DSliderConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setTargetLinMotorVelocity : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setTargetLinMotorVelocity : Error processing arguments");
         cobj->setTargetLinMotorVelocity(arg0);
@@ -4817,7 +5042,7 @@ bool js_cocos2dx_physics3d_Physics3DSliderConstraint_setDampingLimAng(JSContext 
     cocos2d::Physics3DSliderConstraint* cobj = (cocos2d::Physics3DSliderConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setDampingLimAng : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setDampingLimAng : Error processing arguments");
         cobj->setDampingLimAng(arg0);
@@ -4929,7 +5154,7 @@ bool js_cocos2dx_physics3d_Physics3DSliderConstraint_setLowerLinLimit(JSContext 
     cocos2d::Physics3DSliderConstraint* cobj = (cocos2d::Physics3DSliderConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setLowerLinLimit : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setLowerLinLimit : Error processing arguments");
         cobj->setLowerLinLimit(arg0);
@@ -5021,7 +5246,7 @@ bool js_cocos2dx_physics3d_Physics3DSliderConstraint_setDampingOrthoAng(JSContex
     cocos2d::Physics3DSliderConstraint* cobj = (cocos2d::Physics3DSliderConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setDampingOrthoAng : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setDampingOrthoAng : Error processing arguments");
         cobj->setDampingOrthoAng(arg0);
@@ -5041,7 +5266,7 @@ bool js_cocos2dx_physics3d_Physics3DSliderConstraint_setSoftnessDirAng(JSContext
     cocos2d::Physics3DSliderConstraint* cobj = (cocos2d::Physics3DSliderConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setSoftnessDirAng : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setSoftnessDirAng : Error processing arguments");
         cobj->setSoftnessDirAng(arg0);
@@ -5079,7 +5304,7 @@ bool js_cocos2dx_physics3d_Physics3DSliderConstraint_setRestitutionOrthoAng(JSCo
     cocos2d::Physics3DSliderConstraint* cobj = (cocos2d::Physics3DSliderConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setRestitutionOrthoAng : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setRestitutionOrthoAng : Error processing arguments");
         cobj->setRestitutionOrthoAng(arg0);
@@ -5099,7 +5324,7 @@ bool js_cocos2dx_physics3d_Physics3DSliderConstraint_setDampingDirAng(JSContext 
     cocos2d::Physics3DSliderConstraint* cobj = (cocos2d::Physics3DSliderConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setDampingDirAng : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setDampingDirAng : Error processing arguments");
         cobj->setDampingDirAng(arg0);
@@ -5213,7 +5438,7 @@ bool js_cocos2dx_physics3d_Physics3DSliderConstraint_setMaxLinMotorForce(JSConte
     cocos2d::Physics3DSliderConstraint* cobj = (cocos2d::Physics3DSliderConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setMaxLinMotorForce : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setMaxLinMotorForce : Error processing arguments");
         cobj->setMaxLinMotorForce(arg0);
@@ -5251,7 +5476,7 @@ bool js_cocos2dx_physics3d_Physics3DSliderConstraint_setTargetAngMotorVelocity(J
     cocos2d::Physics3DSliderConstraint* cobj = (cocos2d::Physics3DSliderConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setTargetAngMotorVelocity : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setTargetAngMotorVelocity : Error processing arguments");
         cobj->setTargetAngMotorVelocity(arg0);
@@ -5289,7 +5514,7 @@ bool js_cocos2dx_physics3d_Physics3DSliderConstraint_setRestitutionDirAng(JSCont
     cocos2d::Physics3DSliderConstraint* cobj = (cocos2d::Physics3DSliderConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setRestitutionDirAng : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setRestitutionDirAng : Error processing arguments");
         cobj->setRestitutionDirAng(arg0);
@@ -5381,7 +5606,7 @@ bool js_cocos2dx_physics3d_Physics3DSliderConstraint_setRestitutionLimLin(JSCont
     cocos2d::Physics3DSliderConstraint* cobj = (cocos2d::Physics3DSliderConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setRestitutionLimLin : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setRestitutionLimLin : Error processing arguments");
         cobj->setRestitutionLimLin(arg0);
@@ -5419,7 +5644,7 @@ bool js_cocos2dx_physics3d_Physics3DSliderConstraint_setDampingOrthoLin(JSContex
     cocos2d::Physics3DSliderConstraint* cobj = (cocos2d::Physics3DSliderConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setDampingOrthoLin : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setDampingOrthoLin : Error processing arguments");
         cobj->setDampingOrthoLin(arg0);
@@ -5439,7 +5664,7 @@ bool js_cocos2dx_physics3d_Physics3DSliderConstraint_setSoftnessOrthoAng(JSConte
     cocos2d::Physics3DSliderConstraint* cobj = (cocos2d::Physics3DSliderConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setSoftnessOrthoAng : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setSoftnessOrthoAng : Error processing arguments");
         cobj->setSoftnessOrthoAng(arg0);
@@ -5459,7 +5684,7 @@ bool js_cocos2dx_physics3d_Physics3DSliderConstraint_setDampingLimLin(JSContext 
     cocos2d::Physics3DSliderConstraint* cobj = (cocos2d::Physics3DSliderConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setDampingLimLin : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setDampingLimLin : Error processing arguments");
         cobj->setDampingLimLin(arg0);
@@ -5479,7 +5704,7 @@ bool js_cocos2dx_physics3d_Physics3DSliderConstraint_setSoftnessDirLin(JSContext
     cocos2d::Physics3DSliderConstraint* cobj = (cocos2d::Physics3DSliderConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setSoftnessDirLin : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setSoftnessDirLin : Error processing arguments");
         cobj->setSoftnessDirLin(arg0);
@@ -5499,7 +5724,7 @@ bool js_cocos2dx_physics3d_Physics3DSliderConstraint_setMaxAngMotorForce(JSConte
     cocos2d::Physics3DSliderConstraint* cobj = (cocos2d::Physics3DSliderConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setMaxAngMotorForce : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setMaxAngMotorForce : Error processing arguments");
         cobj->setMaxAngMotorForce(arg0);
@@ -5537,7 +5762,7 @@ bool js_cocos2dx_physics3d_Physics3DSliderConstraint_setSoftnessLimAng(JSContext
     cocos2d::Physics3DSliderConstraint* cobj = (cocos2d::Physics3DSliderConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setSoftnessLimAng : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DSliderConstraint_setSoftnessLimAng : Error processing arguments");
         cobj->setSoftnessLimAng(arg0);
@@ -5571,8 +5796,8 @@ bool js_cocos2dx_physics3d_Physics3DSliderConstraint_create(JSContext *cx, uint3
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
     if (argc == 5) {
-        cocos2d::Physics3DRigidBody* arg0;
-        cocos2d::Physics3DRigidBody* arg1;
+        cocos2d::Physics3DRigidBody* arg0 = nullptr;
+        cocos2d::Physics3DRigidBody* arg1 = nullptr;
         cocos2d::Mat4 arg2;
         cocos2d::Mat4 arg3;
         bool arg4;
@@ -5631,7 +5856,6 @@ bool js_cocos2dx_physics3d_Physics3DSliderConstraint_constructor(JSContext *cx, 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    // JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
     JS::RootedObject proto(cx, typeClass->proto.get());
     JS::RootedObject parent(cx, typeClass->parentProto.get());
     JS::RootedObject obj(cx, JS_NewObject(cx, typeClass->jsclass, proto, parent));
@@ -5644,13 +5868,11 @@ bool js_cocos2dx_physics3d_Physics3DSliderConstraint_constructor(JSContext *cx, 
     return true;
 }
 
-
 extern JSObject *jsb_cocos2d_Physics3DConstraint_prototype;
 
 void js_cocos2d_Physics3DSliderConstraint_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (Physics3DSliderConstraint)", obj);
 }
-
 void js_register_cocos2dx_physics3d_Physics3DSliderConstraint(JSContext *cx, JS::HandleObject global) {
     jsb_cocos2d_Physics3DSliderConstraint_class = (JSClass *)calloc(1, sizeof(JSClass));
     jsb_cocos2d_Physics3DSliderConstraint_class->name = "Physics3DSliderConstraint";
@@ -5800,7 +6022,7 @@ bool js_cocos2dx_physics3d_Physics3DConeTwistConstraint_setFixThresh(JSContext *
     cocos2d::Physics3DConeTwistConstraint* cobj = (cocos2d::Physics3DConeTwistConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DConeTwistConstraint_setFixThresh : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DConeTwistConstraint_setFixThresh : Error processing arguments");
         cobj->setFixThresh(arg0);
@@ -5910,7 +6132,7 @@ bool js_cocos2dx_physics3d_Physics3DConeTwistConstraint_setMaxMotorImpulse(JSCon
     cocos2d::Physics3DConeTwistConstraint* cobj = (cocos2d::Physics3DConeTwistConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DConeTwistConstraint_setMaxMotorImpulse : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DConeTwistConstraint_setMaxMotorImpulse : Error processing arguments");
         cobj->setMaxMotorImpulse(arg0);
@@ -5970,8 +6192,8 @@ bool js_cocos2dx_physics3d_Physics3DConeTwistConstraint_GetPointForAngle(JSConte
     cocos2d::Physics3DConeTwistConstraint* cobj = (cocos2d::Physics3DConeTwistConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DConeTwistConstraint_GetPointForAngle : Invalid Native Object");
     if (argc == 2) {
-        double arg0;
-        double arg1;
+        double arg0 = 0;
+        double arg1 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         ok &= JS::ToNumber( cx, args.get(1), &arg1) && !isnan(arg1);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DConeTwistConstraint_GetPointForAngle : Error processing arguments");
@@ -5994,7 +6216,7 @@ bool js_cocos2dx_physics3d_Physics3DConeTwistConstraint_setMaxMotorImpulseNormal
     cocos2d::Physics3DConeTwistConstraint* cobj = (cocos2d::Physics3DConeTwistConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DConeTwistConstraint_setMaxMotorImpulseNormalized : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DConeTwistConstraint_setMaxMotorImpulseNormalized : Error processing arguments");
         cobj->setMaxMotorImpulseNormalized(arg0);
@@ -6032,7 +6254,7 @@ bool js_cocos2dx_physics3d_Physics3DConeTwistConstraint_setDamping(JSContext *cx
     cocos2d::Physics3DConeTwistConstraint* cobj = (cocos2d::Physics3DConeTwistConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DConeTwistConstraint_setDamping : Invalid Native Object");
     if (argc == 1) {
-        double arg0;
+        double arg0 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3DConeTwistConstraint_setDamping : Error processing arguments");
         cobj->setDamping(arg0);
@@ -6052,9 +6274,9 @@ bool js_cocos2dx_physics3d_Physics3DConeTwistConstraint_setLimit(JSContext *cx, 
     cocos2d::Physics3DConeTwistConstraint* cobj = (cocos2d::Physics3DConeTwistConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3DConeTwistConstraint_setLimit : Invalid Native Object");
     if (argc == 3) {
-        double arg0;
-        double arg1;
-        double arg2;
+        double arg0 = 0;
+        double arg1 = 0;
+        double arg2 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         ok &= JS::ToNumber( cx, args.get(1), &arg1) && !isnan(arg1);
         ok &= JS::ToNumber( cx, args.get(2), &arg2) && !isnan(arg2);
@@ -6064,10 +6286,10 @@ bool js_cocos2dx_physics3d_Physics3DConeTwistConstraint_setLimit(JSContext *cx, 
         return true;
     }
     if (argc == 4) {
-        double arg0;
-        double arg1;
-        double arg2;
-        double arg3;
+        double arg0 = 0;
+        double arg1 = 0;
+        double arg2 = 0;
+        double arg3 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         ok &= JS::ToNumber( cx, args.get(1), &arg1) && !isnan(arg1);
         ok &= JS::ToNumber( cx, args.get(2), &arg2) && !isnan(arg2);
@@ -6078,11 +6300,11 @@ bool js_cocos2dx_physics3d_Physics3DConeTwistConstraint_setLimit(JSContext *cx, 
         return true;
     }
     if (argc == 5) {
-        double arg0;
-        double arg1;
-        double arg2;
-        double arg3;
-        double arg4;
+        double arg0 = 0;
+        double arg1 = 0;
+        double arg2 = 0;
+        double arg3 = 0;
+        double arg4 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         ok &= JS::ToNumber( cx, args.get(1), &arg1) && !isnan(arg1);
         ok &= JS::ToNumber( cx, args.get(2), &arg2) && !isnan(arg2);
@@ -6094,12 +6316,12 @@ bool js_cocos2dx_physics3d_Physics3DConeTwistConstraint_setLimit(JSContext *cx, 
         return true;
     }
     if (argc == 6) {
-        double arg0;
-        double arg1;
-        double arg2;
-        double arg3;
-        double arg4;
-        double arg5;
+        double arg0 = 0;
+        double arg1 = 0;
+        double arg2 = 0;
+        double arg3 = 0;
+        double arg4 = 0;
+        double arg5 = 0;
         ok &= JS::ToNumber( cx, args.get(0), &arg0) && !isnan(arg0);
         ok &= JS::ToNumber( cx, args.get(1), &arg1) && !isnan(arg1);
         ok &= JS::ToNumber( cx, args.get(2), &arg2) && !isnan(arg2);
@@ -6160,7 +6382,7 @@ bool js_cocos2dx_physics3d_Physics3DConeTwistConstraint_create(JSContext *cx, ui
     
     do {
         if (argc == 4) {
-            cocos2d::Physics3DRigidBody* arg0;
+            cocos2d::Physics3DRigidBody* arg0 = nullptr;
             do {
                 if (args.get(0).isNull()) { arg0 = nullptr; break; }
                 if (!args.get(0).isObject()) { ok = false; break; }
@@ -6171,7 +6393,7 @@ bool js_cocos2dx_physics3d_Physics3DConeTwistConstraint_create(JSContext *cx, ui
                 JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
             } while (0);
             if (!ok) { ok = true; break; }
-            cocos2d::Physics3DRigidBody* arg1;
+            cocos2d::Physics3DRigidBody* arg1 = nullptr;
             do {
                 if (args.get(1).isNull()) { arg1 = nullptr; break; }
                 if (!args.get(1).isObject()) { ok = false; break; }
@@ -6205,7 +6427,7 @@ bool js_cocos2dx_physics3d_Physics3DConeTwistConstraint_create(JSContext *cx, ui
     
     do {
         if (argc == 2) {
-            cocos2d::Physics3DRigidBody* arg0;
+            cocos2d::Physics3DRigidBody* arg0 = nullptr;
             do {
                 if (args.get(0).isNull()) { arg0 = nullptr; break; }
                 if (!args.get(0).isObject()) { ok = false; break; }
@@ -6252,7 +6474,6 @@ bool js_cocos2dx_physics3d_Physics3DConeTwistConstraint_constructor(JSContext *c
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    // JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
     JS::RootedObject proto(cx, typeClass->proto.get());
     JS::RootedObject parent(cx, typeClass->parentProto.get());
     JS::RootedObject obj(cx, JS_NewObject(cx, typeClass->jsclass, proto, parent));
@@ -6265,13 +6486,11 @@ bool js_cocos2dx_physics3d_Physics3DConeTwistConstraint_constructor(JSContext *c
     return true;
 }
 
-
 extern JSObject *jsb_cocos2d_Physics3DConstraint_prototype;
 
 void js_cocos2d_Physics3DConeTwistConstraint_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (Physics3DConeTwistConstraint)", obj);
 }
-
 void js_register_cocos2dx_physics3d_Physics3DConeTwistConstraint(JSContext *cx, JS::HandleObject global) {
     jsb_cocos2d_Physics3DConeTwistConstraint_class = (JSClass *)calloc(1, sizeof(JSClass));
     jsb_cocos2d_Physics3DConeTwistConstraint_class->name = "Physics3DConeTwistConstraint";
@@ -6468,7 +6687,7 @@ bool js_cocos2dx_physics3d_Physics3D6DofConstraint_isLimited(JSContext *cx, uint
     cocos2d::Physics3D6DofConstraint* cobj = (cocos2d::Physics3D6DofConstraint *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_physics3d_Physics3D6DofConstraint_isLimited : Invalid Native Object");
     if (argc == 1) {
-        int arg0;
+        int arg0 = 0;
         ok &= jsval_to_int32(cx, args.get(0), (int32_t *)&arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_physics3d_Physics3D6DofConstraint_isLimited : Error processing arguments");
         bool ret = cobj->isLimited(arg0);
@@ -6566,7 +6785,7 @@ bool js_cocos2dx_physics3d_Physics3D6DofConstraint_create(JSContext *cx, uint32_
     
     do {
         if (argc == 3) {
-            cocos2d::Physics3DRigidBody* arg0;
+            cocos2d::Physics3DRigidBody* arg0 = nullptr;
             do {
                 if (args.get(0).isNull()) { arg0 = nullptr; break; }
                 if (!args.get(0).isObject()) { ok = false; break; }
@@ -6600,7 +6819,7 @@ bool js_cocos2dx_physics3d_Physics3D6DofConstraint_create(JSContext *cx, uint32_
     
     do {
         if (argc == 5) {
-            cocos2d::Physics3DRigidBody* arg0;
+            cocos2d::Physics3DRigidBody* arg0 = nullptr;
             do {
                 if (args.get(0).isNull()) { arg0 = nullptr; break; }
                 if (!args.get(0).isObject()) { ok = false; break; }
@@ -6611,7 +6830,7 @@ bool js_cocos2dx_physics3d_Physics3D6DofConstraint_create(JSContext *cx, uint32_
                 JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
             } while (0);
             if (!ok) { ok = true; break; }
-            cocos2d::Physics3DRigidBody* arg1;
+            cocos2d::Physics3DRigidBody* arg1 = nullptr;
             do {
                 if (args.get(1).isNull()) { arg1 = nullptr; break; }
                 if (!args.get(1).isObject()) { ok = false; break; }
@@ -6664,7 +6883,6 @@ bool js_cocos2dx_physics3d_Physics3D6DofConstraint_constructor(JSContext *cx, ui
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    // JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
     JS::RootedObject proto(cx, typeClass->proto.get());
     JS::RootedObject parent(cx, typeClass->parentProto.get());
     JS::RootedObject obj(cx, JS_NewObject(cx, typeClass->jsclass, proto, parent));
@@ -6677,13 +6895,11 @@ bool js_cocos2dx_physics3d_Physics3D6DofConstraint_constructor(JSContext *cx, ui
     return true;
 }
 
-
 extern JSObject *jsb_cocos2d_Physics3DConstraint_prototype;
 
 void js_cocos2d_Physics3D6DofConstraint_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (Physics3D6DofConstraint)", obj);
 }
-
 void js_register_cocos2dx_physics3d_Physics3D6DofConstraint(JSContext *cx, JS::HandleObject global) {
     jsb_cocos2d_Physics3D6DofConstraint_class = (JSClass *)calloc(1, sizeof(JSClass));
     jsb_cocos2d_Physics3D6DofConstraint_class->name = "Physics3D6DofConstraint";

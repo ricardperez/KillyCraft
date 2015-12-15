@@ -47,6 +47,16 @@ class Size;
 class Texture2D;
 struct transformValues_;
 
+#ifdef SPRITE_RENDER_IN_SUBPIXEL
+#undef SPRITE_RENDER_IN_SUBPIXEL
+#endif
+
+#if CC_SPRITEBATCHNODE_RENDER_SUBPIXEL
+#define SPRITE_RENDER_IN_SUBPIXEL
+#else
+#define SPRITE_RENDER_IN_SUBPIXEL(__ARGS__) (ceil(__ARGS__))
+#endif
+
 /**
  * @addtogroup _2d
  * @{
@@ -488,7 +498,7 @@ CC_CONSTRUCTOR_ACCESS:
      *
      * After initialization, the offset will be (0,0).
      *
-     * @param   texture    A pointer to an exisiting Texture2D object.
+     * @param   texture    A pointer to an existing Texture2D object.
      *                      You can use a Texture2D object for many sprites.
      * @param   rect        Only the contents inside rect of this texture will be applied for this sprite.
      * @return  True if the sprite is initialized properly, false otherwise.
@@ -522,7 +532,7 @@ CC_CONSTRUCTOR_ACCESS:
      * A SpriteFrame will be fetched from the SpriteFrameCache by name.
      * If the SpriteFrame doesn't exist it will raise an exception.
      *
-     * @param   spriteFrameName  A key string that can fected a volid SpriteFrame from SpriteFrameCache.
+     * @param   spriteFrameName  A key string that can fected a valid SpriteFrame from SpriteFrameCache.
      * @return  True if the sprite is initialized properly, false otherwise.
      */
     virtual bool initWithSpriteFrameName(const std::string& spriteFrameName);
@@ -553,8 +563,6 @@ CC_CONSTRUCTOR_ACCESS:
      * @lua     init
      */
     virtual bool initWithFile(const std::string& filename, const Rect& rect);
-
-    void debugDraw(bool on);
     
     /**
      * returns a copy of the polygon information associated with this sprite
@@ -599,14 +607,15 @@ protected:
     Texture2D*       _texture;              /// Texture2D object that is used to render the sprite
     SpriteFrame*     _spriteFrame;
     TrianglesCommand _trianglesCommand;     ///
-
-
+#if CC_SPRITE_DEBUG_DRAW
+    DrawNode *_debugDrawNode;
+#endif //CC_SPRITE_DEBUG_DRAW
     //
     // Shared data
     //
 
     // texture
-    Rect _rect;                             /// Retangle of Texture2D
+    Rect _rect;                             /// Rectangle of Texture2D
     bool   _rectRotated;                    /// Whether the texture is rotated
 
     // Offset Position (used by Zwoptex)

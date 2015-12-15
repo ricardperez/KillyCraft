@@ -187,8 +187,12 @@ bool jsval_to_int( JSContext *cx, JS::HandleValue vp, int *ret )
     // Since this is called to cast uint64 to uint32,
     // it is needed to initialize the value to 0 first
 #ifdef __LP64__
-    long *tmp = (long*)ret;
-    *tmp = 0;
+    // When int size is 8 Bit (same as long), the following operation is needed
+    if (sizeof(int) == 8)
+    {
+        long *tmp = (long*)ret;
+        *tmp = 0;
+    }
 #endif
     return jsval_to_int32(cx, vp, (int32_t*)ret);
 }
@@ -243,8 +247,12 @@ bool jsval_to_uint( JSContext *cx, JS::HandleValue vp, unsigned int *ret )
     // Since this is called to cast uint64 to uint32,
     // it is needed to initialize the value to 0 first
 #ifdef __LP64__
-    long *tmp = (long*)ret;
-    *tmp = 0;
+    // When unsigned int size is 8 Bit (same as long), the following operation is needed
+    if (sizeof(unsigned int)==8)
+    {
+        long *tmp = (long*)ret;
+        *tmp = 0;
+    }
 #endif
     return jsval_to_int32(cx, vp, (int32_t*)ret);
 }
@@ -1692,6 +1700,61 @@ bool jsval_to_vector_v3fc4bt2f(JSContext* cx, JS::HandleValue v, std::vector<coc
     return ok;
 }
 
+bool jsval_to_std_map_string_string(JSContext* cx, JS::HandleValue v, std::map<std::string, std::string>* ret)
+{
+    if (v.isNullOrUndefined())
+    {
+        return true;
+    }
+    
+    JS::RootedObject tmp(cx, v.toObjectOrNull());
+    if (!tmp) 
+    {
+        CCLOG("%s", "jsval_to_std_map_string_string: the jsval is not an object.");
+        return false;
+    }
+    
+    JS::RootedObject it(cx, JS_NewPropertyIterator(cx, tmp));
+    
+    std::map<std::string, std::string>& dict = *ret;
+    
+    while (true)
+    {
+        JS::RootedId idp(cx);
+        JS::RootedValue key(cx);
+        if (! JS_NextProperty(cx, it, idp.address()) || ! JS_IdToValue(cx, idp, &key)) 
+        {
+            return false; // error
+        }
+        
+        if (key.isNullOrUndefined()) 
+        {
+            break; // end of iteration
+        }
+        
+        if (!key.isString()) 
+        {
+            continue; // only take account of string key
+        }
+        
+        JSStringWrapper keyWrapper(key.toString(), cx);
+        
+        JS::RootedValue value(cx);
+        JS_GetPropertyById(cx, tmp, idp, &value);
+        if (value.isString())
+        {
+            JSStringWrapper valueWapper(value.toString(), cx);
+            dict[keyWrapper.get()] = valueWapper.get();
+        }
+        else 
+        {
+            CCASSERT(false, "jsval_to_std_map_string_string: not supported map type");
+        }
+    }
+    
+    return true;
+}
+
 // native --> jsval
 
 jsval ccarray_to_jsval(JSContext* cx, __Array *arr)
@@ -2118,6 +2181,21 @@ jsval quaternion_to_jsval(JSContext* cx, const cocos2d::Quaternion& q)
 
     return JSVAL_NULL;
 }
+
+jsval uniform_to_jsval(JSContext* cx, const cocos2d::Uniform* uniform)
+{
+    JS::RootedObject tmp(cx, JS_NewObject(cx, nullptr, JS::NullPtr(), JS::NullPtr()));
+    if(!tmp) return JSVAL_NULL;
+    bool ok = JS_DefineProperty(cx, tmp, "location", uniform->location, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmp, "size", uniform->size, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmp, "type", uniform->type, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmp, "name", JS::RootedValue(cx, std_string_to_jsval(cx, uniform->name)), JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    if(ok)
+        return OBJECT_TO_JSVAL(tmp);
+    
+    return JSVAL_NULL;
+}
+
 
 jsval meshVertexAttrib_to_jsval(JSContext* cx, const cocos2d::MeshVertexAttrib& q)
 {
@@ -2763,4 +2841,27 @@ jsval vector_vec2_to_jsval(JSContext *cx, const std::vector<cocos2d::Vec2>& v)
         ++i;
     }
     return OBJECT_TO_JSVAL(jsretArr);
+}
+
+jsval std_map_string_string_to_jsval(JSContext* cx, const std::map<std::string, std::string>& v)
+{
+    JS::RootedObject proto(cx);
+    JS::RootedObject parent(cx);
+    JS::RootedObject jsRet(cx, JS_NewObject(cx, NULL, proto, parent));
+    
+    for (auto iter = v.begin(); iter != v.end(); ++iter)
+    {
+        JS::RootedValue element(cx);
+        
+        std::string key = iter->first;
+        std::string obj = iter->second;
+        
+        element = std_string_to_jsval(cx, obj);
+        
+        if (!key.empty())
+        {
+            JS_SetProperty(cx, jsRet, key.c_str(), element);
+        }
+    }
+    return OBJECT_TO_JSVAL(jsRet);
 }

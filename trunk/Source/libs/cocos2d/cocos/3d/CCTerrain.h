@@ -44,7 +44,7 @@ NS_CC_BEGIN
  */
 
  /**
- * the maximum amount of the chunkes
+ * the maximum amount of the chunks
  **/
 #define MAX_CHUNKES 256
 
@@ -70,12 +70,12 @@ NS_CC_BEGIN
     * via the chunkSize property in TerrainData.
     * 
     * Chunks are managed under the QuadTree.As DE FACTO terminal Node of the QuadTree;
-    * let us cull chunks efficientlly to reduce drawCall amount And reduce the VBOs'Size that pass to the GPU.
+    * let us cull chunks efficiently to reduce drawCall amount And reduce the VBOs'Size that pass to the GPU.
     * 
     * Level of detail (LOD) is supported using a technique that is similar to texture mipmapping -- called GeoMapping.
     * A distance-to-camera based test used to decide
     * the appropriate LOD for a terrain chunk. The number of LOD levels is 0 by default (which
-    * means only the base level is used),the maxium number of LOD levels is 4. Of course ,you can hack the value individually.
+    * means only the base level is used),the maximum number of LOD levels is 4. Of course ,you can hack the value individually.
     * 
     * Finally, when LOD is enabled, cracks can begin to appear between terrain Chunks of
     * different LOD levels. An acceptable solution might be to simply reduce the lower LOD(high detail,smooth) chunks border,
@@ -136,7 +136,7 @@ public:
         /**constructor, this constructor construct a terrain which have 3 detailmaps, 1 alpha map*/
         TerrainData(const char* heightMapsrc, const char * alphamap, const DetailMap& detail1,const DetailMap& detail2, const DetailMap& detail3, const Size & chunksize = Size(32,32), float mapHeight = 2, float mapScale = 0.1);
         /**
-        *deterimine the chunk size,chunk is the minimal subdivision of the Terrain
+        *determine the chunk size,chunk is the minimal subdivision of the Terrain
         */
         Size _chunkSize;
         /**height Map source path*/
@@ -285,7 +285,7 @@ private:
         QuadTree * _tr;
         QuadTree * _bl;
         QuadTree * _br;
-        /**A flag present current quadTree node whether a terminal node,the terminal node is de facto the chunck*/
+        /**A flag present current quadTree node whether a terminal node,the terminal node is de facto the chunk*/
         bool _isTerminal;
         Chunk * _chunk;
         int _posX;
@@ -304,6 +304,14 @@ private:
     friend QuadTree;
     friend Chunk;
 public:
+    /** set light map texture */
+    void setLightMap(const std::string& fileName);
+
+    /**
+     set directional light for the terrain
+     @param lightDir The direction of directional light, Note that lightDir is in the terrain's local space. Most of the time terrain is placed at (0,0,0) and without rotation, so lightDir is also in the world space.
+     */
+    void setLightDir(const Vec3& lightDir);
     /*init function*/
     /**initialize all Properties which terrain need */
     bool initProperties();
@@ -328,7 +336,7 @@ public:
      **/
     float getHeight(Vec2 pos, Vec3*Normal = nullptr) const;
 
-    /**get the normal of the specified pistion in terrain
+    /**get the normal of the specified position in terrain
      * @return the normal vector of the specified position of the terrain.
      * @note the fast normal calculation may not get precise normal vector.
      **/
@@ -340,7 +348,7 @@ public:
      **/
     void setDrawWire(bool boolValue);
     /**
-     * Set threshold distance of each LOD level,must equal or gereater than the chunk size
+     * Set threshold distance of each LOD level,must equal or greater than the chunk size
      * @Note when invoke initHeightMap, the LOD distance will be automatic calculated.
      */
     void setLODDistance(float lod1, float lod2, float lod3);
@@ -366,7 +374,7 @@ public:
    /**
     * Ray-Terrain intersection.
     * @param ray to hit the terrain
-    * @param intersectionPoint hit point if hitted
+    * @param intersectionPoint hit point if hit
     * @return true if hit, false otherwise
     */
     bool getIntersectionPoint(const Ray & ray, Vec3 & intersectionPoint) const;
@@ -387,12 +395,12 @@ public:
     void resetHeightMap(const char * heightMap);
 
     /**
-     * get the terrain's mininal height.
+     * get the terrain's minimal height.
      */
     float getMinHeight();
 
     /**
-     * get the terrain's maximum height.
+     * get the terrain's maximal height.
      */
     float getMaxHeight();
 
@@ -422,16 +430,17 @@ public:
      * get the terrain's height data
      */
     std::vector<float> getHeightData() const;
-    
-protected:
-    
+
+CC_CONSTRUCTOR_ACCESS:
     Terrain();
     virtual ~Terrain();
+    bool initWithTerrainData(TerrainData &parameter, CrackFixedType fixedType);
+protected:
     void onDraw(const Mat4 &transform, uint32_t flags);
 
     /**
      * recursively set each chunk's LOD
-     * @param cameraPos the camera postion in world space
+     * @param cameraPos the camera position in world space
      **/
     void setChunksLOD(Vec3 cameraPos);
 
@@ -449,7 +458,7 @@ protected:
     virtual void onEnter() override;
 
     /**
-     * cache all unifrom loactions in GLSL.
+     * cache all uniform locations in GLSL.
      **/
     void cacheUniformAttribLocation();
 
@@ -475,11 +484,13 @@ protected:
     float _lodDistance[3];
     Texture2D * _detailMapTextures[4];
     Texture2D * _alphaMap;
+    Texture2D * _lightMap;
+    Vec3 _lightDir;
     CustomCommand _customCommand;
     QuadTree * _quadRoot;
     Chunk * _chunkesArray[MAX_CHUNKES][MAX_CHUNKES];
     std::vector<TerrainVertexData> _vertices;
-    std::vector<GLushort> _indices;
+    std::vector<unsigned int> _indices;
     int _imageWidth;
     int _imageHeight;
     Size _chunkSize;
@@ -499,8 +510,10 @@ protected:
     GLint _detailMapLocation[4];
     GLint _alphaMapLocation;
     GLint _alphaIsHasAlphaMapLocation;
+    GLint _lightMapCheckLocation;
+    GLint _lightMapLocation;
     GLint _detailMapSizeLocation[4];
-
+    GLint _lightDirLocation;
     RenderState::StateBlock* _stateBlock;
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)

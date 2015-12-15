@@ -58,6 +58,8 @@ static const char* Property_Alpha           = "Alpha";
 static const char* Property_AnchorPoint     = "AnchorPoint";
 static const char* Property_ZOrder          = "ZOrder";
 static const char* Property_ActionValue     = "ActionValue";
+static const char* Property_BlendValue      = "BlendFunc";
+
 
 static const char* ACTION           = "action";
 static const char* DURATION         = "duration";
@@ -427,12 +429,38 @@ ActionTimeline* ActionTimelineCache::loadAnimationActionWithFlatBuffersFile(cons
     CC_ASSERT(FileUtils::getInstance()->isFileExist(fullPath));
     
     Data buf = FileUtils::getInstance()->getDataFromFile(fullPath);
-    
-    auto csparsebinary = GetCSParseBinary(buf.getBytes());
-    
-    auto nodeAction = csparsebinary->action();    
-    action = ActionTimeline::create();
-    
+    action = createActionWithDataBuffer(buf);
+    _animationActions.insert(fileName, action);
+
+    return action;
+}
+
+ActionTimeline* ActionTimelineCache::loadAnimationWithDataBuffer(const cocos2d::Data data, const std::string fileName)
+{
+    // if already exists an action with filename, then return this action
+    ActionTimeline* action = _animationActions.at(fileName);
+    if (action)
+        return action;
+
+    std::string path = fileName;
+
+    std::string fullPath = FileUtils::getInstance()->fullPathForFilename(fileName.c_str());
+
+    CC_ASSERT(FileUtils::getInstance()->isFileExist(fullPath));
+
+    action = createActionWithDataBuffer(data);
+    _animationActions.insert(fileName, action);
+
+    return action;
+}
+
+inline ActionTimeline* ActionTimelineCache::createActionWithDataBuffer(const cocos2d::Data data)
+{
+    auto csparsebinary = GetCSParseBinary(data.getBytes());
+
+    auto nodeAction = csparsebinary->action();
+    auto action = ActionTimeline::create();
+
     int duration = nodeAction->duration();
     action->setDuration(duration);
     float speed = nodeAction->speed();
@@ -450,19 +478,23 @@ ActionTimeline* ActionTimelineCache::loadAnimationActionWithFlatBuffersFile(cons
         action->addAnimationInfo(info);
     }
 
-    auto timelines = nodeAction->timeLines();
-    int timelineLength = timelines->size();
+    auto timeLines = nodeAction->timeLines();
+    int timelineLength = timeLines->size();
+    std::multimap<std::string, cocostudio::timeline::Timeline*> properTimelineMap;// order the timelines depends property name
     for (int i = 0; i < timelineLength; i++)
     {
-        auto timelineFlatBuf = timelines->Get(i);
+        auto timelineFlatBuf = timeLines->Get(i);
         Timeline* timeline = loadTimelineWithFlatBuffers(timelineFlatBuf);
-        
         if (timeline)
-            action->addTimeline(timeline);
+        {
+            properTimelineMap.insert(std::make_pair(timelineFlatBuf->property()->c_str(), timeline));
+        }
     }
-    
-    _animationActions.insert(fileName, action);
-    
+
+    for (const auto& properTimelinePair : properTimelineMap)
+    {
+        action->addTimeline(properTimelinePair.second);
+    }
     return action;
 }
 
@@ -547,7 +579,12 @@ Timeline* ActionTimelineCache::loadTimelineWithFlatBuffers(const flatbuffers::Ti
                 auto innerActionFrame = frameFlatbuf->innerActionFrame();
                 frame = loadInnerActionFrameWithFlatBuffers(innerActionFrame);
             }
-            
+            else if (property == Property_BlendValue)
+            {
+                auto blendFrame = frameFlatbuf->blendFrame();
+                frame = loadBlendFrameWithFlatBuffers(blendFrame);
+            }
+
             if (!frame)
             {
                 CCLOG("frame is invalid.");
@@ -858,6 +895,35 @@ Frame* ActionTimelineCache::loadInnerActionFrameWithFlatBuffers(const flatbuffer
     return frame;
 }
     
+Frame* ActionTimelineCache::loadBlendFrameWithFlatBuffers(const flatbuffers::BlendFrame* flatbuffers)
+{
+    BlendFuncFrame* frame = BlendFuncFrame::create();
+    cocos2d::BlendFunc blend;
+    blend.src = GL_ONE;
+    blend.dst = GL_ONE_MINUS_SRC_ALPHA;
+    if (nullptr != flatbuffers->blendFunc())
+    {
+        blend.src = flatbuffers->blendFunc()->src();
+        blend.dst = flatbuffers->blendFunc()->dst();
+    }
+    frame->setBlendFunc(blend);
+
+    int frameIndex = flatbuffers->frameIndex();
+    frame->setFrameIndex(frameIndex);
+
+    bool tween = flatbuffers->tween() != 0;
+    frame->setTween(tween);
+
+    // easing data won't use in blend frame
+    //auto easingData = flatbuffers->easingData();
+    //if (easingData)
+    //{
+    //    loadEasingDataWithFlatBuffers(frame, easingData);
+    //}
+
+    return frame;
+}
+
 void ActionTimelineCache::loadEasingDataWithFlatBuffers(cocostudio::timeline::Frame *frame,
                                                         const flatbuffers::EasingData *flatbuffers)
 {
@@ -909,17 +975,22 @@ ActionTimeline* ActionTimelineCache::createActionWithFlatBuffersForSimulator(con
 
     auto timeLines = nodeAction->timeLines();
     int timelineLength = timeLines->size();
+    std::multimap<std::string, cocostudio::timeline::Timeline*> properTimelineMap;// order the timelines depends property name
     for (int i = 0; i < timelineLength; i++)
     {
         auto timelineFlatBuf = timeLines->Get(i);
         Timeline* timeline = loadTimelineWithFlatBuffers(timelineFlatBuf);
-        
         if (timeline)
-            action->addTimeline(timeline);
+        {
+            properTimelineMap.insert(std::make_pair(timelineFlatBuf->property()->c_str(), timeline));
+        }
     }
-    
+
+    for (const auto& properTimelinePair : properTimelineMap)
+    {
+        action->addTimeline(properTimelinePair.second);
+    }
     fbs->deleteFlatBufferBuilder();
-    
     return action;
 }
 

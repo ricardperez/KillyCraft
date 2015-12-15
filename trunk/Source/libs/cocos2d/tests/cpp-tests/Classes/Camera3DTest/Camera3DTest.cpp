@@ -87,7 +87,7 @@ CameraRotationTest::CameraRotationTest()
     l1->setScale(3);
     bill1->addChild(l1);
 
-    auto p1 = CCParticleSystemQuad::create("Particles/SmallSun.plist");
+    auto p1 = ParticleSystemQuad::create("Particles/SmallSun.plist");
     p1->setPosition(30,80);
     bill1->addChild(p1);
     
@@ -103,7 +103,7 @@ CameraRotationTest::CameraRotationTest()
     l2->setScale(3);
     bill2->addChild(l2);
     
-    auto p2 = CCParticleSystemQuad::create("Particles/SmallSun.plist");
+    auto p2 = ParticleSystemQuad::create("Particles/SmallSun.plist");
     p2->setPosition(30,80);
     bill2->addChild(p2);
 
@@ -444,8 +444,6 @@ void Camera3DTestDemo::move3D(float elapsedTime)
         Vec3 offset = newFaceDir * 25.0f * elapsedTime;
         curPos+=offset;
         _sprite3D->setPosition3D(curPos);
-        offset.x=offset.x;
-        offset.z=offset.z;
         if(_cameraType==CameraType::ThirdPerson)
         {
             Vec3 cameraPos= _camera->getPosition3D();

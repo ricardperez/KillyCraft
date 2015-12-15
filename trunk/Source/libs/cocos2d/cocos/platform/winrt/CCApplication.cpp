@@ -35,6 +35,7 @@ using namespace Windows::Foundation;
 #include <algorithm>
 #include "platform/CCFileUtils.h"
 #include "CCWinRTUtils.h"
+#include "platform/CCApplication.h"
 
 /**
 @brief    This function change the PVRFrame show/hide setting in register.
@@ -83,7 +84,7 @@ int Application::run()
 	return 0;
 }
 
-void Application::setAnimationInterval(double interval)
+void Application::setAnimationInterval(float interval)
 {
     LARGE_INTEGER nFreq;
     QueryPerformanceFrequency(&nFreq);
@@ -116,12 +117,12 @@ const char * Application::getCurrentLanguageCode()
         result = GetUserPreferredUILanguages(MUI_LANGUAGE_NAME, &numLanguages, pwszLanguagesBuffer, &cchLanguagesBuffer);
         if (result) {
 
-            code = CCUnicodeToUtf8(pwszLanguagesBuffer);
+            code = StringWideCharToUtf8(pwszLanguagesBuffer);
         }
 
         if (pwszLanguagesBuffer)
         {
-            delete pwszLanguagesBuffer;
+            delete [] pwszLanguagesBuffer;
         }
     }
 
@@ -214,11 +215,14 @@ LanguageType Application::getCurrentLanguage()
 
 Application::Platform  Application::getTargetPlatform()
 {
-#if (WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP)
-    return Platform::OS_WP8;
-#else
-    return Platform::OS_WINRT;
-#endif
+    if (isWindowsPhone())
+    {
+        return Platform::OS_WP8;
+    }
+    else
+    {
+        return Platform::OS_WINRT;
+    }
 }
 
 bool Application::openURL(const std::string &url)

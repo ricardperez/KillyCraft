@@ -151,7 +151,7 @@
 -- @return int#int ret (return value: int)
         
 --------------------------------
--- brief Get the the renderer size in auto mode.<br>
+-- brief Get the renderer size in auto mode.<br>
 -- return A delimitation zone.
 -- @function [parent=#TextField] getAutoRenderSize 
 -- @param self
@@ -350,6 +350,8 @@
 -- @function [parent=#TextField] hitTest 
 -- @param self
 -- @param #vec2_table pt
+-- @param #cc.Camera camera
+-- @param #vec3_table p
 -- @return bool#bool ret (return value: bool)
         
 --------------------------------

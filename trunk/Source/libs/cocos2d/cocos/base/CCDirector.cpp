@@ -61,7 +61,6 @@ THE SOFTWARE.
 #include "base/CCConfiguration.h"
 #include "base/CCAsyncTaskPool.h"
 #include "platform/CCApplication.h"
-//#include "platform/CCGLViewImpl.h"
 
 #if CC_ENABLE_SCRIPT_BINDING
 #include "CCScriptSupport.h"
@@ -90,6 +89,7 @@ extern const char* cocos2dVersion(void);
 const char *Director::EVENT_PROJECTION_CHANGED = "director_projection_changed";
 const char *Director::EVENT_AFTER_DRAW = "director_after_draw";
 const char *Director::EVENT_AFTER_VISIT = "director_after_visit";
+const char *Director::EVENT_BEFORE_UPDATE = "director_before_update";
 const char *Director::EVENT_AFTER_UPDATE = "director_after_update";
 
 Director* Director::getInstance()
@@ -158,6 +158,8 @@ bool Director::init(void)
     _eventAfterDraw->setUserData(this);
     _eventAfterVisit = new (std::nothrow) EventCustom(EVENT_AFTER_VISIT);
     _eventAfterVisit->setUserData(this);
+    _eventBeforeUpdate = new (std::nothrow) EventCustom(EVENT_BEFORE_UPDATE);
+    _eventBeforeUpdate->setUserData(this);
     _eventAfterUpdate = new (std::nothrow) EventCustom(EVENT_AFTER_UPDATE);
     _eventAfterUpdate->setUserData(this);
     _eventProjectionChanged = new (std::nothrow) EventCustom(EVENT_PROJECTION_CHANGED);
@@ -186,6 +188,7 @@ Director::~Director(void)
     CC_SAFE_RELEASE(_actionManager);
     CC_SAFE_DELETE(_defaultFBO);
     
+    delete _eventBeforeUpdate;
     delete _eventAfterUpdate;
     delete _eventAfterDraw;
     delete _eventAfterVisit;
@@ -266,6 +269,7 @@ void Director::drawScene()
     //tick before glClear: issue #533
     if (! _paused)
     {
+        _eventDispatcher->dispatchEvent(_eventBeforeUpdate);
         _scheduler->update(_deltaTime);
         _eventDispatcher->dispatchEvent(_eventAfterUpdate);
     }
@@ -410,11 +414,7 @@ TextureCache* Director::getTextureCache() const
 
 void Director::initTextureCache()
 {
-#ifdef EMSCRIPTEN
-    _textureCache = new (std::nothrow) TextureCacheEmscripten();
-#else
     _textureCache = new (std::nothrow) TextureCache();
-#endif // EMSCRIPTEN
 }
 
 void Director::destroyTextureCache()
@@ -701,7 +701,7 @@ static void GLToClipTransform(Mat4 *transformOut)
     if(nullptr == transformOut) return;
     
     Director* director = Director::getInstance();
-    CCASSERT(nullptr != director, "Director is null when seting matrix stack");
+    CCASSERT(nullptr != director, "Director is null when setting matrix stack");
 
     auto projection = director->getMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION);
     auto modelview = director->getMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
@@ -1256,8 +1256,18 @@ void Director::setContentScaleFactor(float scaleFactor)
 
 void Director::setNotificationNode(Node *node)
 {
-    CC_SAFE_RELEASE(_notificationNode);
-    _notificationNode = node;
+	if (_notificationNode != nullptr){
+		_notificationNode->onExitTransitionDidStart();
+		_notificationNode->onExit();
+		_notificationNode->cleanup();
+	}
+	CC_SAFE_RELEASE(_notificationNode);
+
+	_notificationNode = node;
+	if (node == nullptr)
+		return;
+	_notificationNode->onEnter();
+	_notificationNode->onEnterTransitionDidFinish();
     CC_SAFE_RETAIN(_notificationNode);
 }
 
@@ -1307,9 +1317,9 @@ void DisplayLinkDirector::startAnimation()
 
     _invalid = false;
 
-#ifndef WP8_SHADER_COMPILER
+    _cocos2d_thread_id = std::this_thread::get_id();
+
     Application::getInstance()->setAnimationInterval(_animationInterval);
-#endif
 
     // fix issue #3509, skip one fps to avoid incorrect time calculation.
     setNextDeltaTimeZero(true);
@@ -1341,7 +1351,7 @@ void DisplayLinkDirector::stopAnimation()
     _invalid = true;
 }
 
-void DisplayLinkDirector::setAnimationInterval(double interval)
+void DisplayLinkDirector::setAnimationInterval(float interval)
 {
     _animationInterval = interval;
     if (! _invalid)

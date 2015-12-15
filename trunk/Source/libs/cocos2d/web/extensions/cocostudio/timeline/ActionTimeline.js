@@ -60,12 +60,20 @@ ccs.ActionTimelineData = ccs.Class.extend({
 
 });
 
-ccs.ObjectExtensionData = ccs.Class.extend({
+ccs.AnimationInfo = function(name, start, end){
+    this.name = name;
+    this.startIndex = start;
+    this.endIndex = end;
+};
+
+ccs.ComExtensionData = ccs.Component.extend({
 
     _customProperty: null,
     _timelineData: null,
+    _name: "ComExtensionData",
 
     ctor: function(){
+        this._customProperty = "";
         this._timelineData = new ccs.ActionTimelineData(0);
         return true;
     },
@@ -88,8 +96,8 @@ ccs.ObjectExtensionData = ccs.Class.extend({
 
 });
 
-ccs.ObjectExtensionData.create = function(){
-    return new ccs.ObjectExtensionData();
+ccs.ComExtensionData.create = function(){
+    return new ccs.ComExtensionData();
 };
 
 /**
@@ -187,7 +195,7 @@ ccs.ActionTimeline = cc.Action.extend({
             }
         }
         startIndex = num[0];
-        endIndex = num[1] || this._duration;
+        endIndex = num[1] !== undefined ? num[1] : this._duration;
         currentFrameIndex = num[2] || startIndex;
         loop = bool!=null ? bool : true;
 
@@ -315,10 +323,7 @@ ccs.ActionTimeline = cc.Action.extend({
             this._timelineMap[tag] = [];
         }
 
-        if (!this._timelineMap[tag].some(function(item){
-            if(item === timeline)
-                return true;
-        })) {
+        if (this._timelineMap[tag].indexOf(timeline) === -1) {
             this._timelineList.push(timeline);
             this._timelineMap[tag].push(timeline);
             timeline.setActionTimeline(this);
@@ -452,7 +457,7 @@ ccs.ActionTimeline = cc.Action.extend({
 
         var self = this;
         var callback = function(child){
-            var data = child.getUserObject();
+            var data = child.getComponent("ComExtensionData");
 
             if(data) {
                 var actionTag = data.getActionTag();

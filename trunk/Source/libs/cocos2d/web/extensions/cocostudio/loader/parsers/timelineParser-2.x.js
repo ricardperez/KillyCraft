@@ -41,7 +41,11 @@
         },
 
         getNodeJson: function(json){
-            return json["Content"]["Content"]["ObjectData"];
+            var content = json["Content"];
+            if(content["ObjectData"])
+                return content["ObjectData"];
+
+            return content["Content"]["ObjectData"];
         },
 
         getClass: function(json){
@@ -104,7 +108,9 @@
         var visible = getParam(json["VisibleForFrame"], true);
         node.setVisible(visible);
 
-        setContentSize(node, json["Size"]);
+        var size = json["Size"];
+        if(size)
+            setContentSize(node, size);
 
         if (json["Alpha"] != null)
             node.setOpacity(json["Alpha"]);
@@ -112,12 +118,14 @@
         node.setTag(json["Tag"] || 0);
 
         var actionTag = json["ActionTag"] || 0;
-        var extensionData = new ccs.ObjectExtensionData();
+        var extensionData = new ccs.ComExtensionData();
         var customProperty = json["UserData"];
         if(customProperty !== undefined)
             extensionData.setCustomProperty(customProperty);
         extensionData.setActionTag(actionTag);
-        node.setUserObject(extensionData);
+        if (node.getComponent("ComExtensionData"))
+            node.removeComponent("ComExtensionData");
+        node.addComponent(extensionData);
 
         node.setCascadeColorEnabled(true);
         node.setCascadeOpacityEnabled(true);
@@ -260,12 +268,14 @@
 
         var actionTag = json["ActionTag"] || 0;
         widget.setActionTag(actionTag);
-        var extensionData = new ccs.ObjectExtensionData();
+        var extensionData = new ccs.ComExtensionData();
         var customProperty = json["UserData"];
         if(customProperty !== undefined)
             extensionData.setCustomProperty(customProperty);
         extensionData.setActionTag(actionTag);
-        widget.setUserObject(extensionData);
+        if (widget.getComponent("ComExtensionData"))
+            widget.removeComponent("ComExtensionData");
+        widget.addComponent(extensionData);
 
         var rotationSkewX = json["RotationSkewX"];
         if (rotationSkewX)
@@ -334,6 +344,23 @@
             widget.setColor(getColor(color));
 
         setLayoutComponent(widget, json);
+        bindCallback(widget, json);
+    };
+
+    var bindCallback = function(widget, json){
+        var callBackType = json["CallBackType"];
+        var callBackName = json["CallBackName"];
+        var callBack = function(e){
+            if(typeof widget[callBackName] === "function")
+                widget[callBackName](e);
+        };
+        if(callBackType === "Click"){
+            widget.addClickEventListener(callBack);
+        }else if(callBackType === "Touch"){
+            widget.addTouchEventListener(callBack);
+        }else if(callBackType === "Event"){
+            widget.addCCSEventListener(callBack);
+        }
     };
 
     var setLayoutComponent = function(widget, json){
@@ -442,7 +469,7 @@
 
         this.widgetAttributes(widget, json);
 
-        var clipEnabled = json["ClipAble"];
+        var clipEnabled = json["ClipAble"] || false;
         if(clipEnabled != null)
             widget.setClippingEnabled(clipEnabled);
 
@@ -723,7 +750,7 @@
             widget.setBackGroundImage(path, type);
         });
 
-        var clipEnabled = json["ClipAble"];
+        var clipEnabled = json["ClipAble"] || false;
         widget.setClippingEnabled(clipEnabled);
 
         var colorType = getParam(json["ComboBoxIndex"], 0);
@@ -1142,15 +1169,13 @@
      */
     parser.initSimpleAudio = function(json, resourcePath){
 
+        var node = new ccs.ComAudio();
         var loop = json["Loop"] || false;
-        var volume = json["Volume"] || 0;
-        cc.audioEngine.setMusicVolume(volume);
-        //var name = json["Name"];
-
+        //var volume = json["Volume"] || 0;
+        //cc.audioEngine.setMusicVolume(volume);
+        node.setLoop(loop);
         loadTexture(json["FileData"], resourcePath, function(path, type){
-            cc.loader.load(path, function(){
-                cc.audioEngine.playMusic(path, loop);
-            });
+            node.setFile(path);
         });
 
     };
@@ -1250,9 +1275,39 @@
 
         });
 
+        delete json["AnchorPoint"];
+        delete json["Size"];
         parser.generalAttributes(node, json);
 
         node.setColor(getColor(json["CColor"]));
+        return node;
+    };
+
+    parser.initBoneNode = function(json, resourcePath){
+
+        var node = new ccs.BoneNode();
+
+        var length = json["Length"];
+        if(length !== undefined)
+            node.setDebugDrawLength(length);
+
+        var blendFunc = json["BlendFunc"];
+        if(blendFunc && blendFunc["Src"] !== undefined && blendFunc["Dst"] !== undefined)
+            node.setBlendFunc(new cc.BlendFunc(blendFunc["Src"], blendFunc["Dst"]));
+
+        parser.generalAttributes(node, json);
+        var color = json["CColor"];
+        if(color && (color["R"] !== undefined || color["G"] !== undefined || color["B"] !== undefined))
+            node.setColor(getColor(color));
+        return node;
+    };
+
+    parser.initSkeletonNode = function(json){
+        var node = new ccs.SkeletonNode();
+        parser.generalAttributes(node, json);
+        var color = json["CColor"];
+        if(color && (color["R"] !== undefined || color["G"] !== undefined || color["B"] !== undefined))
+            node.setColor(getColor(color));
         return node;
     };
 
@@ -1305,6 +1360,8 @@
         {name: "SingleNodeObjectData", handle: parser.initSingleNode},
         {name: "NodeObjectData", handle: parser.initSingleNode},
         {name: "LayerObjectData", handle: parser.initSingleNode},
+        {name: "GameNodeObjectData", handle: parser.initSingleNode},
+        {name: "GameLayerObjectData", handle: parser.initSingleNode},
         {name: "SpriteObjectData", handle: parser.initSprite},
         {name: "ParticleObjectData", handle: parser.initParticle},
         {name: "PanelObjectData", handle: parser.initPanel},
@@ -1323,7 +1380,9 @@
         {name: "SimpleAudioObjectData", handle: parser.initSimpleAudio},
         {name: "GameMapObjectData", handle: parser.initGameMap},
         {name: "ProjectNodeObjectData", handle: parser.initProjectNode},
-        {name: "ArmatureNodeObjectData", handle: parser.initArmature}
+        {name: "ArmatureNodeObjectData", handle: parser.initArmature},
+        {name: "BoneNodeObjectData", handle: parser.initBoneNode},
+        {name: "SkeletonNodeObjectData", handle: parser.initSkeletonNode}
     ];
 
     register.forEach(function(item){

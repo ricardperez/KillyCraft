@@ -239,7 +239,7 @@ void UniformValue::setVec4v(ssize_t size, const Vec4* pointer)
 
 void UniformValue::setMat4(const Mat4& value)
 {
-    CCASSERT(_uniform->type == GL_FLOAT_MAT4, "");
+    CCASSERT(_uniform->type == GL_FLOAT_MAT4, "_uniform's type should be equal GL_FLOAT_MAT4.");
 	memcpy(_value.matrixValue, &value, sizeof(_value.matrixValue));
     _type = Type::VALUE;
 }
@@ -408,7 +408,7 @@ GLProgramState* GLProgramState::clone() const
     glprogramstate->_boundTextureUnits = this->_boundTextureUnits;
 
     // _nodeBinding is null since a node can only have one state.
-    // making the null explict to avoid possible bugs in the future
+    // making the null explicit to avoid possible bugs in the future
     glprogramstate->_nodeBinding = nullptr;
 
     // copy autobindings... rebound them once a target is set again

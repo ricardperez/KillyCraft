@@ -56,6 +56,7 @@ static MelonGames::KillyCraft::AppDelegate s_sharedApplication;
                                           sharegroup: nil
                                        multiSampling: NO
                                      numberOfSamples: 0 ];
+    [eaglView setMultipleTouchEnabled:YES];
     
     // Use RootViewController manage CCEAGLView
     _viewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];

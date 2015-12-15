@@ -174,7 +174,7 @@ jsval spslotdata_to_jsval(JSContext* cx, spSlotData& v)
         JS_DefineProperty(cx, tmp, "g", v.g, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
         JS_DefineProperty(cx, tmp, "b", v.b, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
         JS_DefineProperty(cx, tmp, "a", v.a, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-        JS_DefineProperty(cx, tmp, "additiveBlending", v.additiveBlending, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+        JS_DefineProperty(cx, tmp, "blendMode", v.blendMode, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
         JS_DefineProperty(cx, tmp, "boneData", JS::RootedValue(cx, spbonedata_to_jsval(cx, v.boneData)), JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
     if (ok)
@@ -564,10 +564,11 @@ public:
     
     void animationCallbackFunc(spine::SkeletonAnimation* node, int trackIndex, spEventType type, spEvent* event, int loopCount) const {
         JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
-        JS::RootedObject thisObj(cx, _jsThisObj.toObjectOrNull());
+        JS::RootedObject thisObj(cx, getJSCallbackThis().toObjectOrNull());
+        JS::RootedValue callback(cx, getJSCallbackFunc());
         js_proxy_t *proxy = js_get_or_create_proxy(cx, node);
         JS::RootedValue retval(cx);
-        if (_jsCallback != JSVAL_VOID)
+        if (!callback.isNullOrUndefined())
         {
             jsval nodeVal = OBJECT_TO_JSVAL(proxy->obj);
             jsval trackIndexVal = INT_TO_JSVAL(trackIndex);
@@ -585,10 +586,8 @@ public:
             valArr[3] = eventVal;
             valArr[4] = loopCountVal;
             
-            //JS_AddValueRoot(cx, valArr);
             JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
-            JS_CallFunctionValue(cx, thisObj, JS::RootedValue(cx, _jsCallback), JS::HandleValueArray::fromMarkedLocation(5, valArr), &retval);
-            //JS_RemoveValueRoot(cx, valArr);
+            JS_CallFunctionValue(cx, thisObj, callback, JS::HandleValueArray::fromMarkedLocation(5, valArr), &retval);
         }
     }
 };

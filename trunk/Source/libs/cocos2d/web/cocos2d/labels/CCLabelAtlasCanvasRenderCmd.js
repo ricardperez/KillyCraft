@@ -41,7 +41,7 @@
         var node = this._node;
         var locString = node._string || "";
         var n = locString.length;
-        var texture = this._texture;
+        var texture = this._textureToRender;
         var locItemWidth = node._itemWidth , locItemHeight = node._itemHeight;     //needn't multiply cc.contentScaleFactor(), because sprite's draw will do this
 
         for (var i = 0, cr = -1; i < n; i++) {
@@ -50,9 +50,12 @@
             var col = parseInt(a / node._itemsPerRow, 10);
             if(row < 0 || col < 0)
                 continue;
+            var rect = cc.rect(row * locItemWidth, col * locItemHeight, locItemWidth, locItemHeight);
+            var textureContent = texture._contentSize;
+            if(rect.x < 0 || rect.y < 0 || rect.x + rect.width > textureContent.width || rect.y + rect.height > textureContent.height)
+                continue;
 
             cr++;
-            var rect = cc.rect(row * locItemWidth, col * locItemHeight, locItemWidth, locItemHeight);
             var c = locString.charCodeAt(i);
             var fontChar = node.getChildByTag(i);
             if (!fontChar) {
@@ -76,6 +79,15 @@
                 }
             }
             fontChar.setPosition(cr * locItemWidth + locItemWidth / 2, locItemHeight / 2);
+        }
+        this.updateContentSize(i, cr+1);
+    };
+
+    proto.updateContentSize = function(i, cr){
+        var node = this._node,
+            contentSize = node._contentSize;
+        if(i !== cr && i*node._itemWidth === contentSize.width && node._itemHeight === contentSize.height){
+            node.setContentSize(cr * node._itemWidth, node._itemHeight);
         }
     };
 

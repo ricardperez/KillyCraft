@@ -531,7 +531,7 @@ cc.TMXMapInfo = cc.SAXParser.extend(/** @lends cc.TMXMapInfo# */{
     parseXMLFile:function (tmxFile, isXmlString) {
         isXmlString = isXmlString || false;
 	    var xmlStr = isXmlString ? tmxFile : cc.loader.getRes(tmxFile);
-        if(!xmlStr) throw "Please load the resource first : " + tmxFile;
+        if(!xmlStr) throw new Error("Please load the resource first : " + tmxFile);
 
         var mapXML = this._parseXML(xmlStr);
         var i, j;
@@ -783,7 +783,7 @@ cc.TMXMapInfo = cc.SAXParser.extend(/** @lends cc.TMXMapInfo# */{
                         if(polygonProps && polygonProps.length > 0) {
                             var selPgPointStr = polygonProps[0].getAttribute('points');
                             if(selPgPointStr)
-                                objectProp["polygonPoints"] = this._parsePointsString(selPgPointStr);
+                                objectProp["points"] = this._parsePointsString(selPgPointStr);
                         }
 
                         //polyline

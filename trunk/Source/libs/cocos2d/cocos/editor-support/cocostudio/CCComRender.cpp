@@ -30,12 +30,14 @@ using namespace cocos2d;
 namespace cocostudio {
 
 IMPLEMENT_CLASS_COMPONENT_INFO(ComRender)
-ComRender::ComRender(void)
+
+const std::string ComRender::COMPONENT_NAME = "CCComRender";
+
+ComRender::ComRender()
 : _render(nullptr)
 {
-    _name = "CCComRender";
+    _name = COMPONENT_NAME;
 }
-
 
 ComRender::ComRender(cocos2d::Node *node, const char *comName)
 {
@@ -47,7 +49,7 @@ ComRender::ComRender(cocos2d::Node *node, const char *comName)
     _name.assign(comName);
 }
 
-ComRender::~ComRender(void)
+ComRender::~ComRender()
 {
     CC_SAFE_RELEASE_NULL(_render);
 }
@@ -189,14 +191,8 @@ bool ComRender::serialize(void* r)
             }
             else if(strcmp(className, "CCArmature") == 0)
             {
-                std::string file_extension = filePath;
-                size_t pos = filePath.find_last_of('.');
-                if (pos != std::string::npos)
-                {
-                    file_extension = filePath.substr(pos, filePath.length());
-                    std::transform(file_extension.begin(),file_extension.end(), file_extension.begin(), (int(*)(int))toupper);
-                }
-                if (file_extension == ".JSON" || file_extension == ".EXPORTJSON")
+                std::string fileExtension = FileUtils::getInstance()->getFileExtension(filePath);
+                if (fileExtension == ".json" || fileExtension == ".exportjson")
                 {
                     rapidjson::Document doc;
                     if(!readJson(filePath.c_str(), doc))
@@ -225,7 +221,7 @@ bool ComRender::serialize(void* r)
                     }
                     ret = true;
                 }
-                else if (file_extension == ".CSB")
+                else if (fileExtension == ".csb")
                 {
                     std::string binaryFilePath = FileUtils::getInstance()->fullPathForFilename(filePath.c_str());
                     auto fileData = FileUtils::getInstance()->getDataFromFile(binaryFilePath);
@@ -299,14 +295,8 @@ bool ComRender::serialize(void* r)
             }
             else if(strcmp(className, "GUIComponent") == 0)
             {
-                std::string file_extension = filePath;
-                size_t pos = filePath.find_last_of('.');
-                if (pos != std::string::npos)
-                {
-                    file_extension = filePath.substr(pos, filePath.length());
-                    std::transform(file_extension.begin(),file_extension.end(), file_extension.begin(), (int(*)(int))toupper);
-                }
-                if (file_extension == ".JSON" || file_extension == ".EXPORTJSON")
+                std::string fileExtension = FileUtils::getInstance()->getFileExtension(filePath);
+                if (fileExtension == ".json" || fileExtension == ".exportjson")
                 {
                     cocos2d::ui::Widget* widget = GUIReader::getInstance()->widgetFromJsonFile(filePath.c_str());
                     _render = widget;
@@ -314,7 +304,7 @@ bool ComRender::serialize(void* r)
                     
                     ret = true;
                 }
-                else if (file_extension == ".CSB")
+                else if (fileExtension == ".csb")
                 {
                     cocos2d::ui::Widget* widget = GUIReader::getInstance()->widgetFromBinaryFile(filePath.c_str());
                     _render = widget;
@@ -359,7 +349,7 @@ bool ComRender::serialize(void* r)
     return ret;
 }
 
-ComRender* ComRender::create(void)
+ComRender* ComRender::create()
 {
     ComRender * ret = new (std::nothrow) ComRender();
     if (ret != nullptr && ret->init())

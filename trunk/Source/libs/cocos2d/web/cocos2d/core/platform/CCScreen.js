@@ -101,7 +101,11 @@ cc.screen = /** @lends cc.screen# */{
      * @returns {Boolean}
      */
     fullScreen: function () {
-        return this._supportsFullScreen && document[this._fn.fullscreenElement];
+        if(!this._supportsFullScreen)   return false;
+        else if( document[this._fn.fullscreenElement] === undefined || document[this._fn.fullscreenElement] === null )
+            return false;
+        else
+            return true;
     },
     
     /**
@@ -122,7 +126,7 @@ cc.screen = /** @lends cc.screen# */{
                 document.removeEventListener(eventName, this._preOnFullScreenChange);
             }
             this._preOnFullScreenChange = onFullScreenChange;
-            cc._addEventListener(document, eventName, onFullScreenChange, false);
+            document.addEventListener(eventName, onFullScreenChange, false);
         }
 
         return element[this._fn.requestFullscreen]();
@@ -151,7 +155,7 @@ cc.screen = /** @lends cc.screen# */{
             touchTarget.removeEventListener(theScreen._touchEvent, callback);
         }
         this.requestFullScreen(element, onFullScreenChange);
-        cc._addEventListener(touchTarget, this._touchEvent, callback);
+        touchTarget.addEventListener(this._touchEvent, callback);
     }
 };
 cc.screen.init();

@@ -25,7 +25,7 @@
                 ]
             },
             {
-                "from": "plugins/project_compile/build_web",
+                "from": "plugins/plugin_compile/build_web",
                 "to": "",
                 "exclude": [
                     "*.py$",
@@ -33,8 +33,16 @@
                 ]
             },
             {
-                "from": "plugins/package/helper/template",
+                "from": "plugins/plugin_package/helper/template",
                 "to": "helper/template"
+            },
+            {
+                "from": "plugins/plugin_generate",
+                "to": "",
+                "include": [
+                    "bin-templates",
+                    "configs"
+                ]
             }
         ],
         "darwin": [
@@ -53,7 +61,7 @@
                 ]
             },
             {
-                "from": "plugins/project_run/bin",
+                "from": "plugins/plugin_run/bin",
                 "to": "bin"
             }
         ],
@@ -73,6 +81,10 @@
                     "luajit.exe",
                     "*.dll"
                 ]
+            },
+            {
+                "from": "plugins/plugin_generate/proj_modifier/plutil-win32",
+                "to": "plutil-win32"
             }
         ],
         "linux": [

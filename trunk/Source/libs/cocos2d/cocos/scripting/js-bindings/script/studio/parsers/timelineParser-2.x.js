@@ -41,7 +41,11 @@
         },
 
         getNodeJson: function(json){
-            return json["Content"]["Content"]["ObjectData"];
+            var content = json["Content"];
+            if(content["ObjectData"])
+                return content["ObjectData"];
+
+            return content["Content"]["ObjectData"];
         },
 
         getClass: function(json){
@@ -104,7 +108,9 @@
         var visible = getParam(json["VisibleForFrame"], true);
         node.setVisible(visible);
 
-        setContentSize(node, json["Size"]);
+        var size = json["Size"];
+        if(size)
+            setContentSize(node, size);
 
         if (json["Alpha"] != null)
             node.setOpacity(json["Alpha"]);
@@ -112,12 +118,14 @@
         node.setTag(json["Tag"] || 0);
 
         var actionTag = json["ActionTag"] || 0;
-        var extensionData = new ccs.ObjectExtensionData();
+        var extensionData = new ccs.ComExtensionData();
         var customProperty = json["UserData"];
         if(customProperty !== undefined)
             extensionData.setCustomProperty(customProperty);
         extensionData.setActionTag(actionTag);
-        node.setUserObject(extensionData);
+        if (node.getComponent("ComExtensionData"))
+            node.removeComponent("ComExtensionData");
+        node.addComponent(extensionData);
 
         node.setCascadeColorEnabled(true);
         node.setCascadeOpacityEnabled(true);
@@ -152,18 +160,47 @@
         }
     };
 
+    var skyBoxBrushInstance = null;
+    var getSkyboxRes = function(json, key) {
+        if(json.hasOwnProperty(key) && json[key].hasOwnProperty("Path")) {
+            return json[key]["Path"];
+        }
+        return "";
+    }
+
     /**
      * SingleNode
      * @param json
      * @returns {cc.Node}
      */
-    parser.initSingleNode = function(json){
+    parser.initSingleNode = function(json, resourcePath){
         var node = new cc.Node();
 
         this.generalAttributes(node, json);
         var color = json["CColor"];
         if(color != null)
             node.setColor(getColor(color));
+
+        if(json.hasOwnProperty("SkyBoxEnabled") && true == json["SkyBoxEnabled"]&&
+	json.hasOwnProperty("SkyBoxValid") && true == json["SkyBoxValid"])
+        {
+            var leftFileData = resourcePath + getSkyboxRes(json, "LeftImage");
+            var rightFileData = resourcePath + getSkyboxRes(json, "RightImage");
+            var upFileData = resourcePath + getSkyboxRes(json, "UpImage");
+            var downFileData = resourcePath + getSkyboxRes(json, "DownImage");
+            var forwardFileData = resourcePath + getSkyboxRes(json, "ForwardImage");
+            var backFileData = resourcePath + getSkyboxRes(json, "BackImage");
+            var fileUtil = jsb.fileUtils;
+	    if(fileUtil.isFileExist(leftFileData)&&
+                fileUtil.isFileExist(rightFileData)&&
+                fileUtil.isFileExist(upFileData)&&
+                fileUtil.isFileExist(downFileData)&&
+                fileUtil.isFileExist(forwardFileData)&&
+                fileUtil.isFileExist(backFileData))
+            {
+                skyBoxBrushInstance = cc.CameraBackgroundSkyBoxBrush.create(leftFileData,rightFileData,upFileData,downFileData,forwardFileData,backFileData);
+            }
+        }
 
         return node;
     };
@@ -258,12 +295,14 @@
 
         var actionTag = json["ActionTag"] || 0;
         widget.setActionTag(actionTag);
-        var extensionData = new ccs.ObjectExtensionData();
+        var extensionData = new ccs.ComExtensionData();
         var customProperty = json["UserData"];
         if(customProperty !== undefined)
             extensionData.setCustomProperty(customProperty);
         extensionData.setActionTag(actionTag);
-        widget.setUserObject(extensionData);
+        if (widget.getComponent("ComExtensionData"))
+            widget.removeComponent("ComExtensionData");
+        widget.addComponent(extensionData);
 
         var rotationSkewX = json["RotationSkewX"];
         if (rotationSkewX)
@@ -332,6 +371,23 @@
             widget.setColor(getColor(color));
 
         setLayoutComponent(widget, json);
+        bindCallback(widget, json);
+    };
+
+    var bindCallback = function(widget, json){
+        var callBackType = json["CallBackType"];
+        var callBackName = json["CallBackName"];
+        var callBack = function(e){
+            if(typeof widget[callBackName] === "function")
+                widget[callBackName](e);
+        };
+        if(callBackType === "Click"){
+            widget.addClickEventListener(callBack);
+        }else if(callBackType === "Touch"){
+            widget.addTouchEventListener(callBack);
+        }else if(callBackType === "Event"){
+            widget.addCCSEventListener(callBack);
+        }
     };
 
     var setLayoutComponent = function(widget, json){
@@ -375,6 +431,7 @@
         layoutComponent.setPercentHeightEnabled(sizeYPercentEnable);
         layoutComponent.setPercentWidth(sizeXPercent);
         layoutComponent.setPercentHeight(sizeYPercent);
+        layoutComponent.setPercentWidthEnabled(sizeXPercentEnable || sizeYPercentEnable);
         layoutComponent.setStretchWidthEnabled(stretchHorizontalEnabled);
         layoutComponent.setStretchHeightEnabled(stretchVerticalEnabled);
 
@@ -439,7 +496,7 @@
 
         this.widgetAttributes(widget, json);
 
-        var clipEnabled = json["ClipAble"];
+        var clipEnabled = json["ClipAble"] || false;
         if(clipEnabled != null)
             widget.setClippingEnabled(clipEnabled);
 
@@ -720,7 +777,7 @@
             widget.setBackGroundImage(path, type);
         });
 
-        var clipEnabled = json["ClipAble"];
+        var clipEnabled = json["ClipAble"] || false;
         widget.setClippingEnabled(clipEnabled);
 
         var colorType = getParam(json["ComboBoxIndex"], 0);
@@ -1133,15 +1190,13 @@
      */
     parser.initSimpleAudio = function(json, resourcePath){
 
+        var node = new ccs.ComAudio();
         var loop = json["Loop"] || false;
-        var volume = json["Volume"] || 0;
-        cc.audioEngine.setMusicVolume(volume);
-        //var name = json["Name"];
-
+        //var volume = json["Volume"] || 0;
+        //cc.audioEngine.setMusicVolume(volume);
+        node.setLoop(loop);
         loadTexture(json["FileData"], resourcePath, function(path, type){
-            cc.loader.load(path, function(){
-                cc.audioEngine.playMusic(path, loop);
-            });
+            node.setFile(path);
         });
 
     };
@@ -1244,6 +1299,34 @@
         parser.generalAttributes(node, json);
 
         node.setColor(getColor(json["CColor"]));
+        return node;
+    };
+
+    parser.initBoneNode = function(json, resourcePath){
+
+        var node = new ccs.BoneNode();
+
+        var length = json["Length"];
+        if(length !== undefined)
+            node.setDebugDrawLength(length);
+
+        var blendFunc = json["BlendFunc"];
+        if(blendFunc && blendFunc["Src"] !== undefined && blendFunc["Dst"] !== undefined)
+            node.setBlendFunc(new cc.BlendFunc(blendFunc["Src"] || 0, blendFunc["Dst"] || 0));
+
+        parser.generalAttributes(node, json);
+        var color = json["CColor"];
+        if(color && (color["R"] !== undefined || color["G"] !== undefined || color["B"] !== undefined))
+            node.setColor(getColor(color));
+        return node;
+    };
+
+    parser.initSkeletonNode = function(json){
+        var node = new ccs.SkeletonNode();
+        parser.generalAttributes(node, json);
+        var color = json["CColor"];
+        if(color && (color["R"] !== undefined || color["G"] !== undefined || color["B"] !== undefined))
+            node.setColor(getColor(color));
         return node;
     };
 
@@ -1359,7 +1442,7 @@
      * @param json
      * @returns {*}
      */
-    parser.initCamera = function(json){
+    parser.initCamera = function(json,resourcePath){
         var s = cc.winSize;
         var fov = json["Fov"] ? json["Fov"] : 60;
 
@@ -1390,30 +1473,64 @@
             this.general3DAttributes(node, json);
 
             var camMode = json["UserCameraFlagMode"];
-            switch(camMode){
-                case "USER1":
-                    node.setCameraFlag(cc.CameraFlag.USER1); break;
-                case "USER2":
-                    node.setCameraFlag(cc.CameraFlag.USER2); break;
-                case "USER3":
-                    node.setCameraFlag(cc.CameraFlag.USER3); break;
-                case "USER4":
-                    node.setCameraFlag(cc.CameraFlag.USER4); break;
-                case "USER5":
-                    node.setCameraFlag(cc.CameraFlag.USER5); break;
-                case "USER6":
-                    node.setCameraFlag(cc.CameraFlag.USER6); break;
-                case "USER7":
-                    node.setCameraFlag(cc.CameraFlag.USER7); break;
-                case "USER8":
-                    node.setCameraFlag(cc.CameraFlag.USER8); break;
-                case "DEFAULT":
-                    node.setCameraFlag(cc.CameraFlag.DEFAULT); break;
-                default:
-                    node.setCameraFlag(cc.CameraFlag.USER1);
+            var cameraFlagData = json["CameraFlagData"];
+            var cameraFlag = cc.CameraFlag.USER1;
+            if(undefined === cameraFlagData || isNaN(cameraFlagData) || 0 === cameraFlagData)
+            {
+                switch(camMode){
+                    case "USER1":
+                        cameraFlag = cc.CameraFlag.USER1; break;
+                    case "USER2":
+                        cameraFlag = cc.CameraFlag.USER2; break;
+                    case "USER3":
+                        cameraFlag = cc.CameraFlag.USER3; break;
+                    case "USER4":
+                        cameraFlag = cc.CameraFlag.USER4; break;
+                    case "USER5":
+                        cameraFlag = cc.CameraFlag.USER5; break;
+                    case "USER6":
+                        cameraFlag = cc.CameraFlag.USER6; break;
+                    case "USER7":
+                        cameraFlag = cc.CameraFlag.USER7; break;
+                    case "USER8":
+                        cameraFlag = cc.CameraFlag.USER8; break;
+                    case "DEFAULT":
+                        cameraFlag = cc.CameraFlag.DEFAULT; break;
+                }
+            } else {
+                cameraFlag = cameraFlagData;
             }
+            node.setCameraFlag(cameraFlag);
         }
 
+	if(json.hasOwnProperty("SkyBoxEnabled") && true == json["SkyBoxEnabled"] &&
+            json.hasOwnProperty("SkyBoxValid") && true == json["SkyBoxValid"])
+        {
+            var leftFileData = resourcePath + getSkyboxRes(json, "LeftImage");
+            var rightFileData = resourcePath + getSkyboxRes(json, "RightImage");
+            var upFileData = resourcePath + getSkyboxRes(json, "UpImage");
+            var downFileData = resourcePath + getSkyboxRes(json, "DownImage");
+            var forwardFileData = resourcePath + getSkyboxRes(json, "ForwardImage");
+            var backFileData = resourcePath + getSkyboxRes(json, "BackImage");
+
+            var fileUtil = jsb.fileUtils;
+            if(fileUtil.isFileExist(leftFileData)&&
+                fileUtil.isFileExist(rightFileData)&&
+                fileUtil.isFileExist(upFileData)&&
+                fileUtil.isFileExist(downFileData)&&
+                fileUtil.isFileExist(forwardFileData)&&
+                fileUtil.isFileExist(backFileData))
+            {
+                var innerBrush = cc.CameraBackgroundSkyBoxBrush.create(leftFileData,rightFileData,upFileData,downFileData,forwardFileData,backFileData);
+                node.setBackgroundBrush(innerBrush);
+            }
+            else
+                node.setBackgroundBrush(skyBoxBrushInstance);
+        }
+	else if(skyBoxBrushInstance != null)
+	{
+		node.setBackgroundBrush(skyBoxBrushInstance);
+	}
         return node;
     };
 
@@ -1428,10 +1545,12 @@
         if(json["FileData"] && json["FileData"]["Path"])
             resFile = resourcePath + json["FileData"]["Path"];
 
-        var node;
-        if(resFile)
-            node = jsb.Sprite3D.create(resFile);
-        else
+        var node = null;
+        if(resFile) {
+            if(jsb.fileUtils.isFileExist(resFile))
+                node = jsb.Sprite3D.create(resFile);
+        }
+        if(null === node)
             node = jsb.Sprite3D.create();
 
         if(node) {
@@ -1443,6 +1562,44 @@
                     node.setColor(col);
             }
 
+            if(json.hasOwnProperty("IsFlipped") && true == json["IsFlipped"]) {
+                node.setCullFaceEnabled(true);
+                node.setCullFace(gl.FRONT);
+            }
+
+            if(json.hasOwnProperty("LightFlag")){
+                var lightFlagStr = json["LightFlag"];
+                var lightFlag = 0;
+                switch(lightFlagStr){
+                    case "LIGHT0":
+                        lightFlag = cc.LightFlag.LIGHT0; break;
+                    case "LIGHT1":
+                        lightFlag = cc.LightFlag.LIGHT1; break;
+                    case "LIGHT2":
+                        lightFlag = cc.LightFlag.LIGHT2; break;
+                    case "LIGHT3":
+                        lightFlag = cc.LightFlag.LIGHT3; break;
+                    case "LIGHT4":
+                        lightFlag = cc.LightFlag.LIGHT4; break;
+                    case "LIGHT5":
+                        lightFlag = cc.LightFlag.LIGHT5; break;
+                    case "LIGHT6":
+                        lightFlag = cc.LightFlag.LIGHT6; break;
+                    case "LIGHT7":
+                        lightFlag = cc.LightFlag.LIGHT7; break;
+                    case "LIGHT8":
+                        lightFlag = cc.LightFlag.LIGHT8; break;
+                    case "LIGHT9":
+                        lightFlag = cc.LightFlag.LIGHT9; break;
+                    case "LIGHT10":
+                        lightFlag = cc.LightFlag.LIGHT10; break;
+                    case "LIGHT11":
+                        lightFlag = cc.LightFlag.LIGHT11; break;
+                    case "LIGHT12":
+                        lightFlag = cc.LightFlag.LIGHT12; break;
+                }
+                node.setLightMask(lightFlag);
+            }
             var autoAction = getParam(json["RunAction3D"], false);
             if(autoAction && resFile){
                 var  animation = jsb.Animation3D.create(resFile, "");
@@ -1470,9 +1627,12 @@
         if(json["FileData"] && json["FileData"]["Path"])
             resFile = resourcePath+json["FileData"]["Path"];
 
-        if(resFile)
-            node = jsb.PUParticleSystem3D.create(resFile);
-        else
+        if(resFile){
+            if(jsb.fileUtils.isFileExist(resFile))
+                node = jsb.PUParticleSystem3D.create(resFile);
+        }
+
+        if(null === node)
             node = jsb.PUParticleSystem3D.create();
 
         if(node){
@@ -1482,11 +1642,102 @@
 
         return node;
     };
+	
+	    /**
+     * Light3D
+     * @param json
+     * @param resourcePath
+     * @returns {*}
+     */
+    parser.initLight3D = function(json, resourcePath){
+        var node = new cc.Node();
+
+        var light = jsb.DirectionLight.create(cc.math.vec3(0, 0, 1), cc.color(255,255,255,255));
+        var flag = 0;
+        var intensity = 1;
+        var range = 5.0;
+        var outerAngle = 30.0;
+        var enabled = true;
+
+        if(json.hasOwnProperty("Intensity")){
+            intensity = json["Intensity"];
+        }
+        if(json.hasOwnProperty("Enable")){
+            enabled = json["Enable"];
+        }
+        if(json.hasOwnProperty("Range")){
+            range = json["Range"];
+        }
+        if(json.hasOwnProperty("OuterAngle")){
+            outerAngle = json["OuterAngle"] * 0.5;
+        }
+        if(json.hasOwnProperty("Flag")){
+            var lightFlagStr = json["Flag"];
+            switch(lightFlagStr){
+                case "LIGHT0":
+                    flag = cc.LightFlag.LIGHT0; break;
+                case "LIGHT1":
+                    flag = cc.LightFlag.LIGHT1; break;
+                case "LIGHT2":
+                    flag = cc.LightFlag.LIGHT2; break;
+                case "LIGHT3":
+                    flag = cc.LightFlag.LIGHT3; break;
+                case "LIGHT4":
+                    flag = cc.LightFlag.LIGHT4; break;
+                case "LIGHT5":
+                    flag = cc.LightFlag.LIGHT5; break;
+                case "LIGHT6":
+                    flag = cc.LightFlag.LIGHT6; break;
+                case "LIGHT7":
+                    flag = cc.LightFlag.LIGHT7; break;
+                case "LIGHT8":
+                    flag = cc.LightFlag.LIGHT8; break;
+                case "LIGHT9":
+                    flag = cc.LightFlag.LIGHT9; break;
+                case "LIGHT10":
+                    flag = cc.LightFlag.LIGHT10; break;
+                case "LIGHT11":
+                    flag = cc.LightFlag.LIGHT11; break;
+                case "LIGHT12":
+                    flag = cc.LightFlag.LIGHT12; break;
+            }
+        }
+        if(json.hasOwnProperty("Type")){
+            var type = json["Type"];
+            switch(type){
+                case "DIRECTIONAL":
+                    light = jsb.DirectionLight.create(cc.math.vec3(0, 0, 1), cc.color(255, 255, 255, 255)); break;
+                case "POINT":
+                    light = jsb.PointLight.create(cc.math.vec3(0, 0, 0), cc.color(255, 255, 255, 255), range); break;
+                case "SPOT":
+                    light = jsb.SpotLight.create(cc.math.vec3(0, 0, 1), cc.math.vec3(0, 0, 0), cc.color(255, 255, 255, 255), 0, cc.degreesToRadians(outerAngle), range); break;
+                case "AMBIENT":
+                    light = jsb.AmbientLight.create(cc.color(255,255,255,255)); break;
+            }
+        }
+
+        light.setIntensity(intensity);
+        light.setEnabled(enabled);
+        light.setLightFlag(flag);
+
+        node.addChild(light);
+        if(node)
+            this.general3DAttributes(node, json);
+
+        if(json["CColor"]) {
+            var col = getColor(json["CColor"]);
+            if(col && col.r !== 255 || col.g !== 255 || col.b !== 255)
+                node.setColor(col);
+        }
+        return node;
+    };
 
     var register = [
         {name: "SingleNodeObjectData", handle: parser.initSingleNode},
         {name: "NodeObjectData", handle: parser.initSingleNode},
         {name: "LayerObjectData", handle: parser.initSingleNode},
+        {name: "GameNodeObjectData", handle: parser.initSingleNode},
+        {name: "GameLayerObjectData", handle: parser.initSingleNode},
         {name: "SpriteObjectData", handle: parser.initSprite},
         {name: "ParticleObjectData", handle: parser.initParticle},
         {name: "PanelObjectData", handle: parser.initPanel},
@@ -1506,11 +1757,14 @@
         {name: "GameMapObjectData", handle: parser.initGameMap},
         {name: "ProjectNodeObjectData", handle: parser.initProjectNode},
         {name: "ArmatureNodeObjectData", handle: parser.initArmature},
+        {name: "BoneNodeObjectData", handle: parser.initBoneNode},
+        {name: "SkeletonNodeObjectData", handle: parser.initSkeletonNode},
 
         {name: "Sprite3DObjectData", handle: parser.initSprite3D},
         {name: "Particle3DObjectData", handle: parser.initParticle3D},
         {name: "UserCameraObjectData", handle: parser.initCamera},
-        {name: "Node3DObjectData", handle: parser.initNode3D}
+        {name: "Node3DObjectData", handle: parser.initNode3D},
+        {name: "Light3DObjectData", handle: parser.initLight3D}
     ];
 
     register.forEach(function(item){

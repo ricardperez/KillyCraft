@@ -384,7 +384,6 @@ bool js_cocos2dx_experimental_webView_WebView_constructor(JSContext *cx, uint32_
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    // JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
     JS::RootedObject proto(cx, typeClass->proto.get());
     JS::RootedObject parent(cx, typeClass->parentProto.get());
     JS::RootedObject obj(cx, JS_NewObject(cx, typeClass->jsclass, proto, parent));
@@ -397,13 +396,11 @@ bool js_cocos2dx_experimental_webView_WebView_constructor(JSContext *cx, uint32_
     return true;
 }
 
-
 extern JSObject *jsb_cocos2d_ui_Widget_prototype;
 
 void js_cocos2d_experimental_ui_WebView_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (WebView)", obj);
 }
-
 void js_register_cocos2dx_experimental_webView_WebView(JSContext *cx, JS::HandleObject global) {
     jsb_cocos2d_experimental_ui_WebView_class = (JSClass *)calloc(1, sizeof(JSClass));
     jsb_cocos2d_experimental_ui_WebView_class->name = "WebView";

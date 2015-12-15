@@ -17,6 +17,8 @@ namespace MelonGames
 		public:
 			AppDelegate();
 			virtual ~AppDelegate();
+            
+            virtual void initGLContextAttrs() override;
 			
 			/**
 			 @brief    Implement Director and Scene init code here.

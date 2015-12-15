@@ -395,8 +395,10 @@ cc.ScrollView = cc.Layer.extend(/** @lends cc.ScrollView# */{
     /** override functions */
     // optional
     onTouchBegan:function (touch, event) {
-        if (!this.isVisible())
-            return false;
+        for (var c = this; c != null; c = c.parent) {
+            if (!c.isVisible())
+                return false;
+        }
         //var frameOriginal = this.getParent().convertToWorldSpace(this.getPosition());
         //var frame = cc.rect(frameOriginal.x, frameOriginal.y, this._viewSize.width, this._viewSize.height);
         var frame = this._getViewRect();
@@ -774,7 +776,7 @@ cc.ScrollView = cc.Layer.extend(/** @lends cc.ScrollView# */{
     },
 
     _createRenderCmd: function(){
-        if (cc._renderType === cc._RENDER_TYPE_CANVAS) {
+        if (cc._renderType === cc.game.RENDER_TYPE_CANVAS) {
             return new cc.ScrollView.CanvasRenderCmd(this);
         } else {
             return new cc.ScrollView.WebGLRenderCmd(this);

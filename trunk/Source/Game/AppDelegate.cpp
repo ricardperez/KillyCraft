@@ -17,6 +17,13 @@ namespace MelonGames
 		AppDelegate::~AppDelegate()
 		{
 		}
+        
+        void AppDelegate::initGLContextAttrs()
+        {
+            cocos2d::Application::initGLContextAttrs();
+            GLContextAttrs glContextAttrs = {5, 6, 5, 0, 0, 0};
+            GLView::setGLContextAttrs(glContextAttrs);
+        }
 		
 		bool AppDelegate::applicationDidFinishLaunching()
 		{
@@ -32,7 +39,7 @@ namespace MelonGames
 //			director->setDisplayStats(true);
 			
 			// set FPS. the default value is 1.0/60 if you don't call this
-			director->setAnimationInterval(1.0 / 60);
+			director->setAnimationInterval(1.0f / 60.0f);
 			
             cocos2d::Size winSize = Director::getInstance()->getWinSizeInPixels();
             float width = std::max(winSize.width, winSize.height);

@@ -19,7 +19,7 @@
 -- return The font size.
 -- @function [parent=#Text] getFontSize 
 -- @param self
--- @return int#int ret (return value: int)
+-- @return float#float ret (return value: float)
         
 --------------------------------
 -- 
@@ -90,7 +90,7 @@
 -- @param self
 -- @param #string textContent
 -- @param #string fontName
--- @param #int fontSize
+-- @param #float fontSize
 -- @return bool#bool ret (return value: bool)
         
 --------------------------------
@@ -110,7 +110,7 @@
 --------------------------------
 -- Sets the rendering size of the text, you should call this method<br>
 -- along with calling `ignoreContentAdaptWithSize(false)`, otherwise the text area<br>
--- size is caculated by the real size of the text content.<br>
+-- size is calculated by the real size of the text content.<br>
 -- param size The text rendering area size.
 -- @function [parent=#Text] setTextAreaSize 
 -- @param self
@@ -164,7 +164,7 @@
 -- param size The font size.
 -- @function [parent=#Text] setFontSize 
 -- @param self
--- @param #int size
+-- @param #float size
 -- @return Text#Text self (return value: ccui.Text)
         
 --------------------------------
@@ -206,13 +206,13 @@
 -- @return Text#Text self (return value: ccui.Text)
         
 --------------------------------
--- @overload self, string, string, int         
+-- @overload self, string, string, float         
 -- @overload self         
 -- @function [parent=#Text] create
 -- @param self
 -- @param #string textContent
 -- @param #string fontName
--- @param #int fontSize
+-- @param #float fontSize
 -- @return Text#Text ret (return value: ccui.Text)
 
 --------------------------------

@@ -95,7 +95,7 @@ public:
      */
     static Text* create(const std::string& textContent,
                         const std::string& fontName,
-                        int fontSize);
+                        float fontSize);
 
     /**
      * Changes the string value of label.
@@ -134,14 +134,14 @@ public:
      *
      * @param size The font size.
      */
-    void setFontSize(int size);
+    void setFontSize(float size);
 
     /**
      * Gets the font size of label.
      *
      * @return The font size.
      */
-    int getFontSize()const;
+    float getFontSize()const;
 
     /**
      * Sets the font name of label.
@@ -205,7 +205,7 @@ public:
     /**
      * Sets the rendering size of the text, you should call this method
      * along with calling `ignoreContentAdaptWithSize(false)`, otherwise the text area
-     * size is caculated by the real size of the text content.
+     * size is calculated by the real size of the text content.
      *
      * @param size The text rendering area size.
      *
@@ -298,7 +298,7 @@ CC_CONSTRUCTOR_ACCESS:
     virtual bool init() override;
     virtual bool init(const std::string& textContent,
                       const std::string& fontName,
-                      int fontSize);
+                      float fontSize);
 
 protected:
     virtual void initRenderer() override;
@@ -316,7 +316,7 @@ protected:
     float _normalScaleValueX;
     float _normalScaleValueY;
     std::string _fontName;
-    int _fontSize;
+    float _fontSize;
     float _onSelectedScaleOffset;
     Label* _labelRenderer;
     bool _labelRendererAdaptDirty;
